@@ -1,0 +1,64 @@
+import { http } from "@/lib/http";
+import type { Facture, FactureCreateInput, FactureUpdateInput } from "./types";
+import { PDF_MIME_TYPE } from "./types";
+
+const RESOURCE = "/factures";
+const PDF_TIMEOUT = 60_000;
+
+function pathId(id: string): string {
+  return encodeURIComponent(id.trim());
+}
+
+function stripDataUrl(base64: string): string {
+  const comma = base64.indexOf(",");
+  return base64.startsWith("data:") && comma >= 0
+    ? base64.slice(comma + 1)
+    : base64;
+}
+
+function updateBody(input: FactureUpdateInput) {
+  const body: Record<string, unknown> = {};
+  if (input.dateFacture !== undefined) body.dateFacture = input.dateFacture;
+  if (input.montantTTC !== undefined) body.montantTTC = input.montantTTC;
+  if (input.isPaid !== undefined) body.isPaid = input.isPaid;
+  if (input.pdfBase64 !== undefined) {
+    body.pdfBase64 = stripDataUrl(input.pdfBase64);
+  }
+  return body;
+}
+
+export const facturesApi = {
+  list: () => http.get<Facture[]>(RESOURCE, { handleUnauthorized: false }),
+
+  pdf: (id: string) =>
+    http.blob(`${RESOURCE}/pdf/${pathId(id)}`, {
+      headers: { Accept: PDF_MIME_TYPE },
+      timeoutMs: PDF_TIMEOUT,
+      handleUnauthorized: false,
+    }),
+};
+
+export const hyperFacturesApi = {
+  listByAccount: (accountId: string) =>
+    http.get<Facture[]>(`${RESOURCE}/account/${pathId(accountId)}`),
+
+  create: (input: FactureCreateInput) =>
+    http.post<Facture>(
+      RESOURCE,
+      {
+        dateFacture: input.dateFacture,
+        montantTTC: input.montantTTC,
+        accountId: input.accountId,
+        pdfBase64: stripDataUrl(input.pdfBase64),
+        isPaid: input.isPaid ?? false,
+      },
+      { timeoutMs: PDF_TIMEOUT }
+    ),
+
+  update: (id: string, input: FactureUpdateInput) =>
+    http.put<Facture>(`${RESOURCE}/${pathId(id)}`, updateBody(input), {
+      timeoutMs: PDF_TIMEOUT,
+    }),
+
+  remove: (id: string) => http.delete<string>(`${RESOURCE}/${pathId(id)}`),
+};

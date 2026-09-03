@@ -1,0 +1,2739 @@
+{
+  "common": {
+    "appName": "Movix",
+    "loading": "Loading",
+    "continue": "Continue",
+    "save": "Save",
+    "saving": "Saving",
+    "cancel": "Cancel",
+    "create": "Create",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "search": "Search",
+    "back": "Back",
+    "retry": "Retry",
+    "copyFailed": "Copy failed. Select and copy the value manually.",
+    "refresh": "Refresh",
+    "none": "None",
+    "notProvided": "Not provided",
+    "all": "All",
+    "yes": "Yes",
+    "no": "No",
+    "actions": "Actions",
+    "close": "Close",
+    "filters": "Filters",
+    "clear": "Clear",
+    "clearFilters": "Clear filters",
+    "previous": "Previous",
+    "next": "Next",
+    "results": "results",
+    "page": "Page {{page}}",
+    "noResults": "No results",
+    "required": "Required",
+    "download": "Download",
+    "pdfPreviewFailed": "Failed to load the PDF.",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "comment": "Comment",
+    "date": "Date",
+    "pickDate": "Pick a date",
+    "status": "Status",
+    "color": "Color",
+    "customColor": "Custom color",
+    "views": {
+      "list": "List",
+      "map": "Map",
+      "orders": "Orders",
+      "details": "Details",
+      "tours": "Tours"
+    },
+    "name": "Name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "city": "City",
+    "postalCode": "Postal code",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "success": "Success",
+    "error": "Something went wrong",
+    "unsaved": "unsaved changes",
+    "unsavedDialog": {
+      "title": "Unsaved changes",
+      "message": "Leave without saving? Your changes will be lost.",
+      "stay": "Keep editing",
+      "leave": "Leave without saving"
+    }
+  },
+  "deliveryWindow": {
+    "label": "Delivery window",
+    "range": "{{start}} → {{end}}",
+    "from": "≥ {{start}}",
+    "until": "≤ {{end}}",
+    "none": "No constraint",
+    "notBefore": "Not before",
+    "atLatest": "At the latest",
+    "between": "Delivery between",
+    "and": "and",
+    "summaryRange": "Delivery between {{start}} and {{end}}",
+    "summaryFrom": "Not before {{start}}",
+    "summaryUntil": "At the latest {{end}}",
+    "summaryEmpty": "Enter at least one time, the other bound stays free.",
+    "clear": "Clear",
+    "hint": "Leave a field empty for no bound. A window may span midnight (23:00 to 01:00)."
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "fr": "French"
+  },
+  "workingDate": {
+    "label": "Working date",
+    "previous": "Previous day",
+    "next": "Next day",
+    "today": "Back to today"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Access your Movix dashboard",
+      "email": "Email",
+      "emailPlaceholder": "Your email address",
+      "password": "Password",
+      "passwordPlaceholder": "Your password",
+      "submit": "Sign in",
+      "submitting": "Signing in",
+      "forgotPassword": "Forgot password?",
+      "invalidCredentials": "Incorrect email or password.",
+      "webOnly": "You do not have access to the web interface.",
+      "or": "or",
+      "noAccount": "No account yet?",
+      "createAccount": "Create an account",
+      "googleNoProfile": "This Google account cannot be used to sign in (disabled account or Google link conflict).",
+      "googleFailed": "Google sign-in failed. Please try again.",
+      "googleEmailUsed": "An account already exists with this email address but it is not linked to Google. Sign in with your password, then link Google from your account settings.",
+      "documentTitle": "Sign in - Movix",
+      "metaDescription": "Sign in to Movix to manage your pharmaceutical deliveries: shipments, tours, drivers and invoices."
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": "Then join your company with an invitation code.",
+      "passwordHint": "At least {{count}} characters.",
+      "passwordTooShort": "The password must be at least {{count}} characters.",
+      "submit": "Create my account",
+      "submitting": "Creating",
+      "emailUsed": "This email address is already in use.",
+      "googleEmailUsed": "An account already exists with this email address. Sign in with your password, then link Google from your account settings.",
+      "rateLimited": "Too many attempts. Please try again in a moment.",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "documentTitle": "Create an account - Movix",
+      "metaDescription": "Create your Movix account and join your company with an invitation code.",
+      "pending": {
+        "title": "Check your inbox",
+        "sentTo": "One last step: confirm your email address to activate your account.",
+        "hint": "Open the confirmation link we sent to this address. Check your spam folder if you do not see it.",
+        "expiresAt": "The link is valid until {{date}}.",
+        "alreadySent": "An email has already been sent, try again in {{count}} s.",
+        "alreadySentReady": "An email has already been sent. You can request a new one.",
+        "resend": "Resend the email",
+        "resending": "Sending",
+        "retryIn": "Resend in {{count}} s",
+        "resent": "Email sent again.",
+        "noPending": "No pending request for this address: the link has expired or the account is already confirmed.",
+        "restart": "Sign up again",
+        "changeEmail": "Use another address"
+      }
+    },
+    "forgot": {
+      "title": "Reset password",
+      "subtitle": "Enter your email and we will send you a reset link",
+      "submit": "Send reset link",
+      "submitting": "Sending",
+      "done": "If an account exists for this email, a reset link has been sent.",
+      "backToLogin": "Back to sign in"
+    },
+    "reset": {
+      "title": "New password",
+      "subtitle": "Choose a new password for your account",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "submit": "Update password",
+      "submitting": "Updating",
+      "mismatch": "Passwords do not match.",
+      "done": "Your password has been updated.",
+      "invalidToken": "This reset link is invalid or has expired."
+    },
+    "verify": {
+      "title": "Email verification",
+      "verifying": "Verifying your email",
+      "done": "Your email has been verified.",
+      "failed": "We could not verify your email.",
+      "notVerified": "Please verify your email address to continue.",
+      "resend": "Resend verification email",
+      "resent": "Verification email sent."
+    },
+    "confirm": {
+      "title": "Account confirmation",
+      "confirming": "Confirming your registration",
+      "done": "Your account is activated. Redirecting",
+      "invalid": "This confirmation link is invalid or has expired (links are valid for 48 hours). Sign up again to receive a new one.",
+      "conflict": "This address is already linked to an account, please sign in.",
+      "failed": "We could not confirm your registration. Please try again later.",
+      "documentTitle": "Account confirmation - Movix",
+      "metaDescription": "Confirm your email address to activate your Movix account."
+    },
+    "logout": "Sign out",
+    "panel": {
+      "title": "Every delivery, from the warehouse to the counter",
+      "subtitle": "Prepare shipments, build tours and follow your drivers from a single interface.",
+      "points": {
+        "map": "Orders and tours on a map, selectable in one click.",
+        "route": "Optimised stop order, with delivery windows and arrival times.",
+        "driver": "A mobile app for drivers: scanned loading, proof of delivery, anomalies."
+      },
+      "backToSite": "Back to site"
+    }
+  },
+  "nav": {
+    "groups": {
+      "operations": "Operations",
+      "tracking": "Tracking",
+      "directory": "Directory",
+      "administration": "Administration",
+      "beta": "Beta"
+    },
+    "dashboard": "Dashboard",
+    "expeditions": "Shipments",
+    "tours": "Tours",
+    "tourConfigs": "Auto tours",
+    "zones": "Zones",
+    "pharmacies": "Pharmacies",
+    "pharmacyReports": "Pharmacy reports",
+    "commands": "Orders",
+    "anomalies": "Anomalies",
+    "todos": "To do",
+    "profiles": "Profiles",
+    "notifications": "Notifications",
+    "account": "Account",
+    "settings": "Settings",
+    "exports": "Extracts",
+    "profile": "Profile",
+    "menu": "Menu",
+    "souffrance": "Pending",
+    "apiTokens": "API tokens",
+    "factures": "Invoices",
+    "mobileApp": "Mobile app",
+    "hyperadmin": "Hyperadmin",
+    "admin": "Admin",
+    "companyLabel": "Company",
+    "companySwitch": "Switch company (current: {{company}})",
+    "joinCompany": "Join a company"
+  },
+  "noCompany": {
+    "title": "You do not belong to any company",
+    "hint": "Ask a company administrator for an invitation code, then enter it here.",
+    "verifyTitle": "Verify your email",
+    "verifyHint": "A verification email was sent to {{email}}. Your address must be verified before you can join a company.",
+    "verifyFirst": "Verify your email address first to join a company.",
+    "accountTitle": "My account"
+  },
+  "joinPage": {
+    "invalid": "This invitation link is no longer valid.",
+    "inviteTitle": "{{societe}} invites you to join their workspace",
+    "inviteProfile": "This invitation is for the profile {{name}}.",
+    "inviteHint": "Sign in or create an account to join the company.",
+    "haveAccount": "I already have an account",
+    "joining": "Joining {{societe}}...",
+    "verifiedContinue": "I have verified my email",
+    "openApp": "Open the app",
+    "goToLogin": "Go to sign in"
+  },
+  "joinCompany": {
+    "title": "Join a company",
+    "subtitle": "Enter the invitation code an administrator shared with you.",
+    "codeLabel": "Invitation code",
+    "codePlaceholder": "K7KWH49MRC",
+    "submit": "Join",
+    "errors": {
+      "length": "The code has {{count}} characters.",
+      "invalid": "Invalid or expired invitation code.",
+      "alreadyMember": "You are already a member of this company.",
+      "rateLimited": "Too many attempts. Please try again in a moment."
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back, {{name}}",
+    "dayOf": "Day of {{date}}",
+    "updatedAt": "updated at {{time}}",
+    "depotAlert": {
+      "title": "Depot coordinates missing",
+      "description": "Without a starting point, no tour route can be calculated.",
+      "action": "Set the depot"
+    },
+    "kpi": {
+      "commands": "Orders today",
+      "commandsHint": "{{parcels}} parcels · {{weight}} kg",
+      "unassigned": "Unassigned",
+      "unassignedHint": "{{assigned}} already on a tour",
+      "tours": "Tours",
+      "toursHint": "{{closed}} closed · {{km}} km planned",
+      "deliveryRate": "Delivery rate",
+      "deliveryRateHint": "{{delivered}} delivered · {{notDelivered}} failed"
+    },
+    "attention": {
+      "title": "Needs attention",
+      "empty": "Nothing to handle",
+      "emptyHint": "No blocker on this day.",
+      "unassigned_one": "{{count}} order without a tour",
+      "unassigned_other": "{{count}} orders without a tour",
+      "withoutCoordinates_one": "{{count}} order without GPS coordinates",
+      "withoutCoordinates_other": "{{count}} orders without GPS coordinates",
+      "unsortedTours_one": "{{count}} unsorted tour",
+      "unsortedTours_other": "{{count}} unsorted tours",
+      "routeStaleTours_one": "{{count}} route to recalculate",
+      "routeStaleTours_other": "{{count}} routes to recalculate",
+      "toursWithoutDriver_one": "{{count}} tour without a driver",
+      "toursWithoutDriver_other": "{{count}} tours without a driver",
+      "anomalies_one": "{{count}} anomaly today",
+      "anomalies_other": "{{count}} anomalies today",
+      "souffrance_one": "{{count}} parcel set aside",
+      "souffrance_other": "{{count}} parcels set aside",
+      "invalidGeocoding_one": "{{count}} pharmacy address to fix",
+      "invalidGeocoding_other": "{{count}} pharmacy addresses to fix",
+      "pharmacyReports_one": "{{count}} pharmacy report",
+      "pharmacyReports_other": "{{count}} pharmacy reports",
+      "newPharmacies_one": "{{count}} new pharmacy to check",
+      "newPharmacies_other": "{{count}} new pharmacies to check",
+      "unpaidInvoices_one": "{{count}} outstanding invoice",
+      "unpaidInvoices_other": "{{count}} outstanding invoices"
+    },
+    "tours": {
+      "title": "Tours today",
+      "seeAll": "See all",
+      "empty": "No tour on this day.",
+      "noDriver": "No driver",
+      "stops_one": "{{count}} stop",
+      "stops_other": "{{count}} stops",
+      "parcels_one": "{{count}} parcel",
+      "parcels_other": "{{count}} parcels",
+      "startsAt": "departs {{time}}",
+      "startsAtEstimated": "estimated departure {{time}}",
+      "endsAt": "ends {{time}}",
+      "km": "{{km}} km",
+      "unsorted": "Unsorted",
+      "routeStale": "Route outdated",
+      "withoutDriver": "No driver"
+    },
+    "trend": {
+      "title": "Last {{days}} days",
+      "summary": "{{total}} orders · {{rate}}% delivered",
+      "dayLabel": "{{date}}: {{delivered}} delivered out of {{total}}",
+      "seeStats": "Statistics"
+    },
+    "actions": {
+      "newCommand": "New order",
+      "searchCommand": "Search",
+      "souffrance": "Set aside",
+      "exports": "Extracts"
+    }
+  },
+  "profiles": {
+    "title": "Profiles",
+    "subtitle": "Manage the users of your account",
+    "create": "New profile",
+    "searchPlaceholder": "Search by username, name or email",
+    "empty": "No profile to display.",
+    "accessLabel": "Access",
+    "inactiveTitle": "Inactive profiles",
+    "access": {
+      "web": "Web",
+      "mobile": "Mobile",
+      "admin": "Admin",
+      "stock": "Stock",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "kind": {
+      "user": "User account",
+      "mobile": "Mobile profile"
+    },
+    "linkedBadge": "Linked account",
+    "form": {
+      "createTitle": "New profile",
+      "editTitle": "Edit profile",
+      "subtitleMobile": "A mobile profile signs in with a username and password. Web access is granted by invitation.",
+      "identifiant": "Username",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "emailRequiredWeb": "Email is required for web access.",
+      "passwordEdit": "New password",
+      "passwordHint": "Leave empty to keep the current password.",
+      "passwordCreate": "Mobile password",
+      "passwordCreateHint": "Used for mobile sign-in within this company.",
+      "passwordMobileEdit": "New mobile password",
+      "linkedBadge": "Linked user account",
+      "linkedHint": "This profile is attached to a Movix user account. The email belongs to that account; first and last name are managed by the user and may be overwritten.",
+      "emailLinkedHint": "The email belongs to the user's Movix account and cannot be changed here.",
+      "attachedExisting": "Existing Movix user attached to your company.",
+      "conflict": "This username is already used in this account, or this email is already in use."
+    },
+    "invitations": {
+      "open": "Invite",
+      "title": "Invitation codes",
+      "subtitle": "Share a code so a Movix user can join your company. Whoever joins is never an administrator.",
+      "maxUses": "Uses",
+      "expiresInDays": "Validity (days)",
+      "generate": "Generate a code",
+      "createdLabel": "Code to share",
+      "shareHint": "Share this code by message: it is entered from \"Join a company\".",
+      "copy": "Copy",
+      "copied": "Code copied.",
+      "copyLink": "Copy the link",
+      "linkCopied": "Link copied.",
+      "targeted": "Targeted: {{name}}",
+      "generic": "Generic",
+      "listTitle": "Active codes",
+      "empty": "No invitation code.",
+      "uses": "{{used}}/{{max}} uses",
+      "expiresOn": "expires {{date}}",
+      "createdBy": "by {{name}}",
+      "revoke": "Revoke",
+      "revoked": "Invitation code revoked.",
+      "exhausted": "Used up",
+      "expired": "Expired",
+      "errors": {
+        "range": "Enter a whole number between 1 and {{max}}.",
+        "notFound": "This code no longer exists."
+      }
+    },
+    "grantWeb": {
+      "action": "Grant web access",
+      "formHint": "Web access is granted by invitation: generate a code to share, and the account created with it will be linked to this profile.",
+      "title": "Grant web access",
+      "subtitle": "Invitation for {{name}}",
+      "readyHint": "Share this code or link: when the account is created it will be linked to this profile. {{name}} keeps their mobile username and permissions.",
+      "alreadyLinked": "This profile is already linked to a user account.",
+      "notFound": "Profile not found in this company."
+    },
+    "deletedBadge": "Deleted profile",
+    "delete": {
+      "title": "Delete profile",
+      "confirm": "Delete the profile \"{{name}}\"? It will be deactivated and hidden, but its name will remain visible in history. Its username and email will become available again. This action cannot be undone.",
+      "self": "You cannot delete your own profile."
+    },
+    "remove": {
+      "title": "Remove from company",
+      "confirm": "Remove \"{{name}}\" from your company? Their Movix user account and their access to other companies are not affected.",
+      "action": "Remove"
+    }
+  },
+  "expeditions": {
+    "title": "Shipments",
+    "subtitle": "The day's orders, on the list and on the map",
+    "date": "Day",
+    "toProcess": "{{count}} to dispatch",
+    "showAssigned": "Show assigned",
+    "showRoutes": "Show routes",
+    "empty": "No shipment for this day.",
+    "selected": "{{count}} selected",
+    "clearSelection": "Clear",
+    "changeStatus": "Change status",
+    "changeExpDate": "Change shipping date",
+    "assign": "Assign to a tour",
+    "noTours": "No tour available for this day",
+    "unassign": "Remove from tour",
+    "souffrance": "Flag as pending",
+    "actionsShort": {
+      "status": "Status",
+      "assign": "Tour",
+      "expDate": "Date",
+      "souffrance": "Pending"
+    },
+    "open": "Open",
+    "unassigned": "Unassigned",
+    "packages": "parcels",
+    "tourLabel": "Tour",
+    "depot": "Depot",
+    "statusDialog": {
+      "title": "Change status",
+      "subtitle": "Applied to {{count}} order(s)"
+    },
+    "assignDialog": {
+      "title": "Assign to a tour",
+      "subtitle": "{{count}} order(s) selected"
+    },
+    "expDateDialog": {
+      "title": "Change shipping date",
+      "date": "New shipping date",
+      "warning": "Changing the shipping date removes the orders from their tours and recomputes the impacted routes.",
+      "current": "Current date: {{date}}"
+    }
+  },
+  "commands": {
+    "title": "Orders",
+    "subtitle": "Search, review and edit the orders of your account",
+    "searchPlaceholder": "Search by pharmacy, city, postal code, CIP or order id",
+    "searchTooManyWords": "Only the first {{count}} words are used by the search.",
+    "empty": "No order to display.",
+    "noSearchResults": "No order matches this search.",
+    "selectAllOnPage": "Select the orders on this page",
+    "pharmacy": "Pharmacy",
+    "closeDate": "Close date",
+    "expDate": "Shipping date",
+    "packages": "Parcels",
+    "tarif": "Rate",
+    "forced": "Force the CIP scan",
+    "newPharmacy": "New",
+    "newPharmacyTitle": "New pharmacy",
+    "noPharmacy": "Unknown pharmacy",
+    "openPharmacy": "View the pharmacy",
+    "locate": "Locate on the map",
+    "editKey": "Edit the key",
+    "keyDialog": {
+      "title": "Edit the key",
+      "subtitle": "Key number and color of {{name}}, saved on the pharmacy record.",
+      "saved": "Key saved"
+    },
+    "pharmacyOrders": "Orders of the pharmacy",
+    "create": {
+      "action": "New order",
+      "forPharmacy": "New order",
+      "title": "New order",
+      "subtitle": "Create an order and its parcels for a pharmacy of your account",
+      "sectionOrder": "Order",
+      "sectionPackages": "Parcels",
+      "pharmacyHint": "Pick the pharmacy in the list. An unknown CIP is rejected by the server.",
+      "expTime": "Shipping time",
+      "expTimeHint": "Sent with your time zone. Only the day groups the orders.",
+      "numTransport": "Transport number",
+      "numTransportHint": "Stored on each parcel of the order.",
+      "totals": "Totals",
+      "totalsHint": "Totals computed from the parcels. The server does not store any total on the order itself.",
+      "totalWeight": "Weight (kg)",
+      "totalVolume": "Volume (m3)",
+      "addPackage": "Add a parcel",
+      "removePackage": "Remove this parcel",
+      "packageIndex": "Parcel {{index}}",
+      "packageType": "Type",
+      "packageTypeHint": "For example BAC or CARTON.",
+      "packageNum": "Parcel number",
+      "packageQuantity": "Quantity",
+      "packageWeight": "Weight (kg)",
+      "packageVolume": "Volume (m3)",
+      "packageLength": "Length (cm)",
+      "packageWidth": "Width (cm)",
+      "packageHeight": "Height (cm)",
+      "packageFresh": "Cold chain parcel",
+      "packageId": "Forced barcode",
+      "packageIdHint": "Optional. Reused only if it is free, otherwise the server generates a barcode.",
+      "noPackagesTitle": "Order without any parcel",
+      "noPackagesDescription": "The transport number is stored on the parcels only. Without a parcel it is lost and no label can be printed.",
+      "allowNoPackages": "Create the order anyway, without any parcel",
+      "submit": "Create the order",
+      "success": {
+        "title": "Order created",
+        "subtitle": "The order has been created for {{name}}.",
+        "orderId": "Order id",
+        "label": "Label",
+        "open": "Open the order",
+        "again": "Create another order",
+        "noParcels": "Order created without any parcel",
+        "noParcelsHint": "The transport number has not been stored and no label can be printed."
+      },
+      "errors": {
+        "pharmacyRequired": "Select a pharmacy.",
+        "required": "This field is required.",
+        "invalidDate": "Enter a valid date.",
+        "invalidTime": "Enter a valid time.",
+        "number": "Enter a valid number.",
+        "positive": "Enter a number greater than 0.",
+        "integer": "Enter a whole number.",
+        "noPackages": "Add a parcel or confirm the creation without any parcel.",
+        "formInvalid": "Check the highlighted fields.",
+        "validation": "Some fields were rejected by the server. Check the highlighted fields.",
+        "invalid": "The order was rejected. Check the fields and try again.",
+        "unknownCip": "No pharmacy matches this CIP on your account.",
+        "emailNotVerified": "Verify your email address before creating an order.",
+        "timeout": "The server did not answer in time. Check the order list before retrying.",
+        "server": "The server could not create the order. Please try again."
+      }
+    },
+    "filters": {
+      "modeSimple": "Simple",
+      "modeDetailed": "Detailed",
+      "detailedHint": "Detailed search combines every field. Pharmacy name, city and address also match their st and saint variants, the simple search does not.",
+      "pharmacyName": "Pharmacy name",
+      "commandId": "Order id",
+      "from": "From",
+      "to": "To",
+      "endWithoutStart": "An end date alone is ignored by the server. Add a start date to filter on a period.",
+      "pageSize": "Results per page",
+      "pageSizeValue": "{{count}} per page"
+    },
+    "sections": {
+      "shipping": "Shipping",
+      "shippingDesc": "Date, tour and options of the order",
+      "comment": "Comment",
+      "commentDesc": "Free note attached to this order"
+    },
+    "commentDialog": {
+      "editTitle": "Edit the comment",
+      "addTitle": "Add a comment",
+      "subtitle": "Free note attached to the order.",
+      "hint": "Empty the field to clear the comment.",
+      "saved": "Comment saved"
+    },
+    "tarifDialog": {
+      "title": "Change the rate",
+      "subtitle": "Applied to {{count}} order(s)",
+      "clearHint": "Leave empty to clear the rate. Administrators only.",
+      "invalid": "Enter a valid number."
+    },
+    "souffrance": {
+      "title": "Pending order",
+      "description": "Flagged as pending on {{date}} by {{name}}. It stays out of the tours and of the day views until it is restored.",
+      "unknownAuthor": "an unknown user"
+    },
+    "detail": {
+      "parcels": "Parcels",
+      "noParcels": "No parcel on this order.",
+      "designation": "Designation",
+      "quantity": "Qty",
+      "barcode": "Barcode",
+      "weight": "Weight",
+      "zone": "Zone",
+      "label": "View the parcel label (PDF)",
+      "labelShort": "PDF",
+      "labelTitle": "Parcel label",
+      "labelFailed": "The parcel label could not be generated.",
+      "history": "Status history",
+      "historyShort": "History",
+      "historySubtitle": "Status changes of the order.",
+      "noHistory": "No status history.",
+      "pictures": "Photos",
+      "noPictures": "No photo on this order.",
+      "openPicture": "Open the photo",
+      "recent": "Recent orders of the pharmacy",
+      "noRecent": "No other located order for this pharmacy.",
+      "subtitle": "Order of {{date}}",
+      "tourStop": "{{name}} - stop {{order}}",
+      "noTour": "Not assigned to a tour",
+      "openTour": "View the tour",
+      "forcedOn": "Enabled for this order",
+      "forcedOff": "Disabled",
+      "noTarif": "No rate set",
+      "noComment": "No comment on this order.",
+      "editComment": "Edit the comment",
+      "addComment": "Add a comment",
+      "expDateSaved": "Shipping date changed"
+    },
+    "errors": {
+      "invalid": "The request was rejected. Check your selection.",
+      "forbidden": "You are not allowed to perform this action.",
+      "notFound": "Some selected orders no longer exist, or are pending. Refresh the list.",
+      "notFoundDetail": "This order does not exist, or it belongs to another account.",
+      "tourClosed": "One of the orders belongs to a closed tour. Nothing has been changed.",
+      "actionFailed": "The action failed. Please try again."
+    }
+  },
+  "packages": {
+    "history": {
+      "title": "Parcel status history",
+      "empty": "No status history for this parcel."
+    },
+    "status": {
+      "title": "Change parcel status",
+      "subtitle": "Applied to {{count}} parcel(s)",
+      "failed": "The parcel status could not be changed."
+    }
+  },
+  "anomalies": {
+    "title": "Anomalies",
+    "subtitle": "Incidents reported on deliveries",
+    "declare": "Report an anomaly",
+    "open": "Open the anomaly",
+    "empty": "No anomaly reported yet.",
+    "noResults": "No anomaly matches these filters.",
+    "types": {
+      "c_dev": "Misrouted parcel",
+      "c_end": "Damaged parcel",
+      "c_per": "Lost parcel",
+      "excu_temp": "Temperature excursion",
+      "other": "Other"
+    },
+    "columns": {
+      "createdAt": "Reported on",
+      "type": "Type",
+      "pharmacy": "Pharmacy",
+      "declaredBy": "Reported by",
+      "description": "Description"
+    },
+    "filters": {
+      "searchPlaceholder": "Search a pharmacy (name, CIP, city, postcode, address)",
+      "searchScope": "The search only covers pharmacy fields, not the description, the actions or the reporter.",
+      "tooManyWords": "Only the first {{count}} words are used by the server.",
+      "allTypes": "All types",
+      "allProfiles": "Everyone",
+      "cipIgnored": "The CIP filter is ignored while a global search is active.",
+      "dateHint": "Day bounds are computed in UTC: results close to midnight may shift by up to 2 hours."
+    },
+    "form": {
+      "title": "Report an anomaly",
+      "subtitle": "The anomaly is attached to a pharmacy and, if needed, to an order.",
+      "subtitleCommand": "Anomaly on the order of {{name}}.",
+      "type": "Anomaly type",
+      "typePlaceholder": "Select a type",
+      "pharmacy": "Pharmacy",
+      "pharmacyHint": "Type at least 2 characters to search.",
+      "pharmacyFromCommand": "Taken from the order.",
+      "packages": "Parcels concerned",
+      "packagesHint": "Leave empty to attach every parcel of the order.",
+      "description": "Description",
+      "actions": "Actions taken",
+      "counter": "{{count}} / {{max}} characters",
+      "tooLong": "{{count}} characters maximum.",
+      "pictures": "Photos",
+      "addPictures": "Add photos",
+      "removePicture": "Remove the photo",
+      "pictureCount": "{{count}} / {{max}} photos",
+      "tooManyPictures": "{{count}} photos maximum.",
+      "invalidEmails": "Invalid address: {{list}}",
+      "email": "Email notification",
+      "emailAccount": "Account setting",
+      "emailSend": "Send",
+      "emailSkip": "Do not send",
+      "recipients": "Recipients",
+      "recipientsHint": "Separate the addresses with a comma. They replace the account recipients.",
+      "asyncEmailNotice": "The email is sent in the background with automatic retries: the anomaly is created even if sending fails. Follow the sending in the email notification history.",
+      "submit": "Report"
+    },
+    "comment": {
+      "action": "Edit description",
+      "title": "Edit the description",
+      "subtitle": "The description is the only editable field of an anomaly.",
+      "replaceWarning": "The text below replaces the current description, and cannot be left empty.",
+      "required": "The description cannot be empty."
+    },
+    "email": {
+      "action": "Send by email",
+      "title": "Send the anomaly by email",
+      "subtitle": "The PDF report is attached to the message.",
+      "recipients": "Recipients",
+      "recipientsHint": "Separate the addresses with a comma. Leave empty to use the recipients configured on the account.",
+      "asyncNotice": "Sending is asynchronous with automatic retries: follow it in the email notification history.",
+      "configureRecipients": "Configure the recipients",
+      "submit": "Send",
+      "queued": "The email has been queued for sending."
+    },
+    "pdf": {
+      "action": "PDF",
+      "download": "View the PDF",
+      "title": "Anomaly PDF"
+    },
+    "detail": {
+      "command": "Order",
+      "commandLinked": "Linked order",
+      "noCommand": "No order",
+      "openCommand": "View the order",
+      "noParcels": "No parcel attached to this anomaly.",
+      "noPictures": "No photo attached to this anomaly.",
+      "purgeNotice": "Anomaly photos are deleted automatically after 3 months."
+    },
+    "errors": {
+      "invalid": "The request was rejected. Check the fields.",
+      "forbidden": "You are not allowed to perform this action.",
+      "notFound": "This anomaly no longer exists, or it belongs to another account.",
+      "notFoundDetail": "This anomaly does not exist, or it belongs to another account.",
+      "createNotFound": "Unknown order or pharmacy for this account.",
+      "sendNotFound": "Sending failed: anomaly not found, or no recipient configured on the account.",
+      "timeout": "The server took too long to answer. The action may still have gone through.",
+      "actionFailed": "The action failed. Please try again."
+    }
+  },
+  "tours": {
+    "title": "Tours",
+    "subtitle": "The day's delivery tours and their orders",
+    "create": "New tour",
+    "empty": "No tour for this day.",
+    "listLabel": "{{count}} tour(s)",
+    "ordersCount": "{{count}} order(s)",
+    "packagesCount": "{{count}} package(s)",
+    "closedTours": {
+      "show": "Show closed",
+      "hide": "Hide closed"
+    },
+    "stops": "stops",
+    "eta": {
+      "value": "Est. arrival at {{time}}",
+      "label": "Estimated arrival at {{time}}, based on the previous stop",
+      "actual": "Recorded at {{datetime}}"
+    },
+    "changeStatus": "Change tour status",
+    "driver": "Driver",
+    "assignDriver": "Assign a driver",
+    "noDrivers": "No driver available",
+    "unassign": "Unassign driver",
+    "pdf": "PDF",
+    "pdfTarif": "PDF with rates",
+    "pdfTitle": "Tour PDF",
+    "pdfTarifTitle": "Tour PDF with rates",
+    "pdfErrors": {
+      "unauthorized": "Your session has expired. Please sign in again.",
+      "forbidden": "You do not have the rights to download this PDF.",
+      "emailNotVerified": "Verify your email address to download this PDF.",
+      "notFound": "This tour no longer exists.",
+      "failed": "The PDF could not be generated. Please try again."
+    },
+    "unassigned": "Unassigned",
+    "distance": "Distance",
+    "km": "Km start / end",
+    "zone": "Zone",
+    "immat": "Plate",
+    "startKm": "Start km",
+    "endKm": "End km",
+    "unsorted": "Not sorted",
+    "period": "Period",
+    "estimate": "Estimate",
+    "estimateStart": "Departure time used for the estimate",
+    "estimatedStart": "Estimated start",
+    "estimatedEnd": "Estimated end",
+    "estimatedDuration": "Estimated duration",
+    "estimatedDistance": "Estimated distance",
+    "deltaVsEstimate": "{{value}} compared with the estimate",
+    "start": "Start",
+    "end": "End",
+    "startDate": "Start date",
+    "startTime": "Start time",
+    "endDate": "End date",
+    "endTime": "End time",
+    "duration": "Duration",
+    "loading": "Loading",
+    "informations": "Information",
+    "edit": "Edit",
+    "assign": "Assign",
+    "lockedClosed": "Closed tour, locked",
+    "debrief": {
+      "notice": "This tour is in debrief, it is waiting to be closed.",
+      "close": "Close the tour"
+    },
+    "hideClosed": "Hide closed tours",
+    "allClosedHidden": "{{count}} closed tour(s) hidden",
+    "noneSelected": "No tour selected",
+    "history": {
+      "title": "Status history",
+      "empty": "No status history for this tour."
+    },
+    "editDialog": {
+      "title": "Edit tour"
+    },
+    "statusDialog": {
+      "title": "Change status"
+    },
+    "assignDialog": {
+      "title": "Assign a driver"
+    },
+    "detail": {
+      "orders": "Orders",
+      "noOrders": "No order in this tour.",
+      "selectAll": "Select all orders",
+      "vehicle": "Vehicle"
+    },
+    "createDialog": {
+      "title": "New tour",
+      "subtitle": "Create a tour for the selected day.",
+      "date": "Date",
+      "color": "Color"
+    },
+    "deleteDialog": {
+      "title": "Delete tour",
+      "confirm": "Delete the tour \"{{name}}\"? This action cannot be undone."
+    },
+    "order": {
+      "action": "Sort tour",
+      "untitled": "Untitled tour",
+      "listTitle": "Stop order",
+      "empty": "No order in this tour.",
+      "stops": "{{count}} stop(s)",
+      "distance": "{{value}} km",
+      "sorted": "Sorted",
+      "toSort": "To sort",
+      "autoSort": "Auto sort",
+      "sorting": "Sorting",
+      "reverse": "Reverse",
+      "departureTime": "Departure time",
+      "estimatedReturn": "Estimated return",
+      "undo": "Undo",
+      "redo": "Redo",
+      "saving": "Saving",
+      "reset": "Reset",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "stopWithoutCoords": "Pharmacy without coordinates",
+      "missingCoords": "{{count}} stop(s) without coordinates, kept at the end of the order and excluded from the route.",
+      "skippedTitle": "{{count}} stop(s) left out by the optimizer, placed at the end of the order.",
+      "ignoredTitle": "{{count}} command(s) of this tour missing from the server response, kept at the end of the order. Report this case, the server should sort them or explain their exclusion.",
+      "skippedReason": {
+        "UNROUTABLE": "coordinates cannot be located on a road",
+        "TOO_FAR": "too far from the nearest road",
+        "TOO_FAR_DISTANCE": "about {{value}} m from the nearest road"
+      },
+      "errors": {
+        "closed": "This tour is closed, its order can no longer be changed.",
+        "forbidden": "You are not allowed to reorder this tour.",
+        "depotMissing": "The depot coordinates are missing from the account settings, auto sort and arrival times are unavailable.",
+        "noRoutableStop": "No stop could be matched to a road. Check the pharmacy coordinates.",
+        "optimizeFailed": "Auto sort failed. The routing engine may be unavailable, try again in 30 seconds.",
+        "saveFailed": "The order could not be saved.",
+        "refreshFailed": "The route could not be recomputed.",
+        "notInTour": "One of the stops no longer belongs to this tour, reload the page.",
+        "ORS_UNREACHABLE": "Routing engine unreachable, the previous route is kept.",
+        "ORS_CIRCUIT_OPEN": "Routing engine paused after repeated failures, try again in 30 seconds.",
+        "ENGINE_REJECTED": "The routing engine refused this sequence of stops. Check the pharmacy coordinates.",
+        "NO_ROUTE_RETURNED": "No route could be computed for this sequence of stops.",
+        "NO_ROUTABLE_STOP": "No stop could be matched to a road.",
+        "UNEXPECTED_ERROR": "The route could not be computed."
+      },
+      "selectAll": "Select all stops",
+      "recalculate": "Recompute",
+      "recalculating": "Recomputing the route",
+      "correlationId": "(reference {{value}})",
+      "save": "Save order",
+      "unsaved": "unsaved order",
+      "leaveDialog": {
+        "title": "Unsaved order",
+        "message": "The stop order has been changed but not saved. If you leave the page, your changes will be lost.",
+        "stay": "Stay",
+        "leave": "Leave without saving"
+      },
+      "windows": {
+        "range": "Window {{start}} → {{end}}",
+        "from": "Not before {{start}}",
+        "until": "Before {{end}}",
+        "held": "Window met",
+        "late": "Late {{count}} min",
+        "lateMarker": "Delivery window not feasible",
+        "waiting": "Waiting {{count}} min before opening",
+        "waitingShort": "Wait {{count}} min",
+        "arrivalThenDelivery": "arrival {{arrival}}, delivery {{delivery}}",
+        "summaryCount": "{{count}} with window",
+        "summaryLate": "{{count}} not feasible",
+        "summaryWaiting": "{{count}} min waiting",
+        "infeasibleTitle": "{{count}} delivery window(s) cannot be met with a departure at {{time}}:",
+        "openPharmacy": "Open the record of {{name}}",
+        "confirmDialog": {
+          "title": "Delivery windows not met",
+          "message": "{{count}} stop(s) have a delivery window that cannot be met with this order. Save anyway?",
+          "confirm": "Save anyway"
+        }
+      },
+      "previewFailed": "The route for the current order could not be computed, the map shows the last valid route."
+    }
+  },
+  "zones": {
+    "title": "Zones",
+    "subtitle": "Group pharmacies into delivery zones",
+    "untitled": "Unnamed zone",
+    "empty": "No zone yet. Create one to start grouping pharmacies.",
+    "create": "New zone",
+    "backToZones": "Back to zones",
+    "showOnMap": "Show only this one on the map",
+    "locate": "Locate on the map",
+    "unassigned": "Unassigned",
+    "unassignedDesc": "Pharmacies with no zone",
+    "pharmacyCount": "{{count}} pharmacies",
+    "selected": "{{count}} selected",
+    "clearSelection": "Clear selection",
+    "selectAllOnPage": "Select the pharmacies on this page",
+    "selectAllInZone": "Select all {{count}}",
+    "searchPlaceholder": "Search by name or CIP",
+    "noPharmacies": "No pharmacy in this zone.",
+    "noSearchResults": "No pharmacy matches this search.",
+    "columns": {
+      "cip": "CIP"
+    },
+    "views": {
+      "zones": "Zones"
+    },
+    "legend": {
+      "showAll": "Show all zones",
+      "isolate": "Show only this zone",
+      "withoutCoordinates": "{{count}} pharmacies without coordinates"
+    },
+    "form": {
+      "createTitle": "New zone",
+      "renameTitle": "Rename zone",
+      "subtitle": "Zones group pharmacies so incoming orders reach the right tour.",
+      "name": "Zone name",
+      "namePlaceholder": "North district",
+      "nameRequired": "Enter a zone name.",
+      "nameTooLong": "Maximum {{max}} characters.",
+      "duplicate": "A zone with this name already exists.",
+      "failed": "The zone could not be saved."
+    },
+    "assign": {
+      "action": "Assign to a zone",
+      "actionShort": "Assign",
+      "menuLabel": "Assign {{count}} pharmacies to",
+      "detach": "Remove from zone",
+      "success": "{{count}} pharmacies assigned to {{zone}}.",
+      "partial": "{{applied}} of {{requested}} pharmacies assigned. The server rejected the others.",
+      "detachSuccess": "{{count}} pharmacies removed from their zone.",
+      "detachPartial": "{{detached}} of {{requested}} pharmacies removed. Try again for the others.",
+      "failed": "The operation failed."
+    },
+    "delete": {
+      "title": "Delete zone",
+      "confirm": "Delete the zone \"{{name}}\"?",
+      "detach": "{{count}} pharmacies will be removed from this zone.",
+      "cascade": "Tours and tour templates linked to this zone will lose it, including past and closed tours. Automatic dispatch will stop for them. This cannot be undone.",
+      "failed": "The zone could not be deleted."
+    },
+    "errors": {
+      "zoneGone": "This zone no longer exists. It may have been deleted elsewhere."
+    }
+  },
+  "pharmacies": {
+    "title": "Pharmacies",
+    "subtitle": "Search, qualify and document the pharmacies of your account",
+    "untitled": "Unnamed pharmacy",
+    "create": "New pharmacy",
+    "searchPlaceholder": "Search by name, city, postal code, CIP or address",
+    "searchTooManyWords": "Only the first {{count}} words are used by the search.",
+    "empty": "No pharmacy to display.",
+    "noSearchResults": "No pharmacy matches this search.",
+    "referenceBanner": "National reference data. This pharmacy has not been customised for your account yet.",
+    "openDetail": "Open the record",
+    "picker": {
+      "placeholder": "Search a pharmacy",
+      "none": "No pharmacy found.",
+      "clear": "Change pharmacy"
+    },
+    "orders": {
+      "section": "Orders",
+      "all": "Orders",
+      "create": "New order",
+      "showOnMap": "Show {{count}} order(s) on the map",
+      "hideOnMap": "Hide the orders on the map",
+      "empty": "No located order for this pharmacy."
+    },
+    "columns": {
+      "cip": "CIP",
+      "zone": "Zone",
+      "location": "Postal code / city"
+    },
+    "badges": {
+      "noLocation": "No coordinates",
+      "neverOrdered": "Never ordered"
+    },
+    "filters": {
+      "modeSimple": "Simple",
+      "modeDetailed": "Detailed",
+      "detailedHint": "Detailed search combines every field. Name and address are matched loosely by the server, prefer the simple search for free text.",
+      "zone": "Zone",
+      "anyZone": "All zones",
+      "noZone": "No zone",
+      "hasPhotos": "With photos",
+      "hasOrderedShort": "Excludes never-ordered",
+      "hasOrderedHint": "Also includes the pharmacies your account has never qualified.",
+      "locationInvalid": "Invalid geolocation",
+      "pageSize": "Results per page",
+      "pageSizeValue": "{{count}} per page"
+    },
+    "sections": {
+      "photos": "Photos",
+      "identity": "Pharmacy",
+      "address": "Address",
+      "position": "Position",
+      "positionDesc": "Used for routes and tour sorting.",
+      "delivery": "Delivery",
+      "deliveryDesc": "What the driver needs on site.",
+      "contact": "Contact",
+      "notes": "Internal note",
+      "notesDesc": "Never shown to drivers."
+    },
+    "info": {
+      "address": "Address",
+      "contact": "Contact",
+      "informations": "Delivery instructions",
+      "commentaire": "Comment",
+      "numero": "Key number",
+      "color": "Key color",
+      "noColor": "No color",
+      "clearColor": "Clear the color",
+      "doubleKeyCarrier": "Carrier double key",
+      "doubleKeySender": "Sender double key",
+      "noCoordinates": "This pharmacy has no position yet.",
+      "dragHint": "Drag the marker to correct the coordinates.",
+      "dragHintEmpty": "Drag the marker to set the coordinates.",
+      "quality": "Salutation",
+      "country": "Country",
+      "fax": "Fax",
+      "zone": "Zone",
+      "noZone": "No zone",
+      "searchAddress": "Search an address",
+      "searchHint": "You can also search an address to place it.",
+      "findAddress": "Find the address",
+      "findAddressHint": "Fills in the address and places the marker on the map.",
+      "address2": "Address line 2",
+      "address3": "Address line 3",
+      "cipReadonlyHint": "The CIP cannot be changed.",
+      "coordinates": "Coordinates",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "editCoordinates": "Enter the coordinates",
+      "coordinatesHint": "Decimal degrees, for example 48.8566 and 2.3522.",
+      "positionSet": "Position set",
+      "positionFromAddress": "Placed from the address",
+      "positionManual": "Placed by hand",
+      "positionFromDeliveries": "Placed from the last deliveries",
+      "positionStale": "The address changed since the marker was placed",
+      "positionStaleHint": "Locate from the address again, or keep the marker where it is.",
+      "positionNone": "No position",
+      "positionNoneHint": "Search the address or tap the map to place the marker.",
+      "positionNoneHintView": "Without a position, routes and tour sorting ignore this pharmacy.",
+      "positionHint": "Drag the marker to adjust the position.",
+      "setPosition": "Set the position",
+      "locateFromAddress": "Locate from the address",
+      "locateFromAddressDone": "Marker placed at {{label}}.",
+      "locateFromAddressNone": "No result for this address.",
+      "centerOnMarker": "Center on the marker",
+      "resetPosition": "Restore the saved position",
+      "clearPosition": "Clear the position",
+      "positionActions": "More position actions",
+      "accountScope": "Details and position are saved for your account only.",
+      "key": "Key",
+      "keySummary": "Key {{numero}}",
+      "keyColorOnly": "Color only, no number",
+      "keyNone": "No key",
+      "doubleKeyCarrierHint": "The carrier holds a duplicate key.",
+      "doubleKeyCarrierOff": "No duplicate held by the carrier.",
+      "doubleKeySenderHint": "The sender holds a duplicate key.",
+      "doubleKeySenderOff": "No duplicate held by the sender.",
+      "informationsHint": "Shown to the driver in the mobile app.",
+      "informationsPlaceholder": "Entrance code, drop-off point, opening hours...",
+      "commentaireHint": "Internal, never shown to drivers.",
+      "commentairePlaceholder": "Anything useful for the office.",
+      "noContact": "No contact details.",
+      "noNote": "No internal note."
+    },
+    "form": {
+      "createTitle": "New pharmacy",
+      "attachTitle": "Attach an existing pharmacy",
+      "attachAction": "Load this pharmacy",
+      "cip": "CIP",
+      "cipHint": "Business identifier, checked when you leave the field.",
+      "charCount": "{{count}} / {{max}} characters",
+      "failed": "The pharmacy could not be saved.",
+      "errors": {
+        "cipRequired": "Enter a CIP.",
+        "email": "Enter a valid email address.",
+        "tooLong": "Maximum {{max}} characters.",
+        "latitude": "Latitude must be between -90 and 90.",
+        "longitude": "Longitude must be between -180 and 180.",
+        "number": "Enter a valid number.",
+        "time": "Enter a time as HH:mm.",
+        "nameRequired": "Enter a name."
+      },
+      "createDescription": "Enter the CIP, then the address and delivery details.",
+      "cipChecking": "Checking the CIP",
+      "cipAvailable": "New CIP, the sheet will be created.",
+      "cipExists": "This CIP already exists in the national reference. Load it to attach it to your account.",
+      "attachSubmit": "Attach to my account",
+      "attachLoaded": "Reference data loaded. Complete the sheet for your account.",
+      "saved": "Pharmacy saved.",
+      "created": "Pharmacy created.",
+      "formInvalid": "Check the highlighted fields.",
+      "dirtyStatus": "Unsaved changes",
+      "referenceEditBanner": "Saving creates the sheet for your account. The national reference is never modified.",
+      "cipAlreadyAttached": "This pharmacy is already in your account."
+    },
+    "photos": {
+      "title": "Photos",
+      "count": "{{count}} photos",
+      "empty": "No photo yet. Add one to document this pharmacy.",
+      "add": "Add photos",
+      "dropHint": "Drop your images here or browse. 10 MB maximum per file.",
+      "uploading": "Sending {{current}} of {{total}}",
+      "tooLarge": "{{name}} exceeds 10 MB and was not sent.",
+      "notAnImage": "{{name}} is not an image and was not sent.",
+      "replace": "Replace the image",
+      "fullscreen": "Fullscreen",
+      "annotate": "Annotate",
+      "delete": "Delete the photo",
+      "deleteTitle": "Delete photo",
+      "deleteConfirm": "Delete this photo? This cannot be undone.",
+      "moveUp": "Move before",
+      "moveDown": "Move after",
+      "saveOrder": "Save the order",
+      "cancelOrder": "Reset the order",
+      "orderChanged": "The order has changed. Save it to apply it.",
+      "savingOrder": "Saving the order",
+      "broken": "Unavailable image",
+      "brokenHint": "The file is missing on the server. Contact support to have it cleaned up.",
+      "openLightbox": "Open the photo",
+      "previous": "Previous photo",
+      "next": "Next photo",
+      "errors": {
+        "upload": "{{count}} photos could not be sent.",
+        "delete": "This photo could not be deleted. It may already be corrupted on the server, contact support.",
+        "order": "The new order could not be saved.",
+        "replace": "The image could not be replaced."
+      },
+      "editor": {
+        "title": "Annotate the photo",
+        "subtitle": "Draw or write on the photo, then save to replace it.",
+        "pen": "Pen",
+        "text": "Text",
+        "color": "Color",
+        "width": "Thickness",
+        "widthSmall": "Thin",
+        "widthMedium": "Medium",
+        "widthLarge": "Thick",
+        "textPlaceholder": "Text to place",
+        "textHint": "Type your text then tap the photo to place it.",
+        "undo": "Undo",
+        "clear": "Clear annotations",
+        "save": "Save the photo",
+        "loading": "Loading the photo",
+        "errors": {
+          "load": "The photo could not be loaded for editing.",
+          "save": "The annotated photo could not be saved.",
+          "tooLarge": "The annotated photo exceeds 10 MB."
+        }
+      }
+    },
+    "reports": {
+      "title": "Pharmacy reports",
+      "subtitle": "Reports sent by the drivers from the mobile app",
+      "empty": "No report to process.",
+      "count": "{{count}} reports",
+      "invalidGeocodage": "Wrong coordinates",
+      "author": "Reported by",
+      "unknownAuthor": "Unknown driver",
+      "noPharmacy": "Unknown pharmacy",
+      "transfer": "Add to the pharmacy",
+      "transferFailed": "The photo could not be added.",
+      "markHandled": "Delete",
+      "markHandledTitle": "Delete",
+      "markHandledConfirm": "Delete this report? Its photos are removed too, but the ones already transferred to a gallery are kept.",
+      "deleteFailed": "The report could not be deleted.",
+      "openPharmacy": "View the pharmacy",
+      "filterPlaceholder": "Search by pharmacy, author or comment",
+      "views": {
+        "list": "Reports",
+        "detail": "Processing"
+      },
+      "selectPrompt": "Select a report to process it here.",
+      "photoCount_one": "{{count}} photo",
+      "photoCount_other": "{{count}} photos",
+      "photosSection": "Report photos",
+      "noReportPhotos": "No photo in this report.",
+      "gallerySection": "Pharmacy gallery ({{count}})",
+      "photoAdded": "Photo added",
+      "infoSection": "Pharmacy details",
+      "infoSaved": "Details saved.",
+      "positionSection": "Position",
+      "positionSaved": "Position saved.",
+      "savePosition": "Save the position",
+      "useDeliveryAverage_one": "Use the last delivery point",
+      "useDeliveryAverage_other": "Use the average of the last {{count}} deliveries",
+      "noDeliveryPoints": "No delivery point available.",
+      "loadingDeliveries": "Loading the last deliveries",
+      "discardTitle": "Unsaved changes",
+      "discardConfirm": "Switch report and discard the changes?",
+      "pharmacyGone": "This pharmacy no longer exists. You can still delete the report.",
+      "reportGone": "This report no longer exists."
+    },
+    "label": {
+      "download": "Label",
+      "downloadLong": "View the label",
+      "title": "Pharmacy label",
+      "pending": "Generating",
+      "errors": {
+        "notFound": "This pharmacy no longer exists.",
+        "forbidden": "You are not allowed to generate this label.",
+        "emailNotVerified": "Verify your email address to generate the label.",
+        "failed": "The label could not be generated."
+      }
+    },
+    "errors": {
+      "notFound": "This pharmacy does not exist.",
+      "notFoundDesc": "It may have been deleted, or the CIP is wrong."
+    }
+  },
+  "todos": {
+    "title": "To do",
+    "subtitle": "Track your tasks and sort them by category",
+    "create": "New task",
+    "searchPlaceholder": "Search a task",
+    "empty": "No task yet. Create your first one.",
+    "columnEmpty": "No task here",
+    "uncategorized": "No category",
+    "untitled": "Untitled task",
+    "addHere": "Add a task",
+    "moveTo": "Move to",
+    "dragHint": "Drag a card to move it to another category.",
+    "filter": {
+      "all": "All",
+      "open": "In progress",
+      "done": "Done"
+    },
+    "form": {
+      "createTitle": "New task",
+      "editTitle": "Edit task",
+      "subtitle": "A task can be attached to a category.",
+      "titleLabel": "Title",
+      "titlePlaceholder": "What needs to be done?",
+      "description": "Description",
+      "descriptionPlaceholder": "Details, context, links",
+      "completed": "Mark as done",
+      "category": "Category",
+      "noCategory": "No category yet. Create one from the Categories button.",
+      "titleRequired": "A title is required.",
+      "titleTooLong": "The title must be {{max}} characters or less."
+    },
+    "delete": {
+      "title": "Delete task",
+      "confirm": "Delete \"{{name}}\"? This action cannot be undone."
+    },
+    "categories": {
+      "manage": "Categories",
+      "title": "Categories",
+      "subtitle": "Create, rename and color the categories of your board.",
+      "edit": "Edit category",
+      "name": "Name",
+      "namePlaceholder": "Category name",
+      "color": "Color",
+      "add": "New category",
+      "empty": "No category yet.",
+      "untitled": "Untitled category",
+      "todoCount": "{{count}} task(s)",
+      "nameRequired": "A name is required.",
+      "nameTooLong": "The name must be {{max}} characters or less.",
+      "duplicate": "A category with this name already exists.",
+      "delete": {
+        "confirm": "Delete the category \"{{name}}\"? This action cannot be undone.",
+        "detach": "{{count}} task(s) will be moved to \"No category\"."
+      }
+    },
+    "errors": {
+      "action": "The action failed. The list has been refreshed.",
+      "save": "The task could not be saved. Please try again.",
+      "deleteCategory": "The category could not be deleted. Please try again."
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Your latest alerts and updates",
+    "scope": "Unread plus the 10 most recent read ones",
+    "markAllRead": "Mark all as read",
+    "markAllReadShort": "Mark all",
+    "markRead": "Mark as read",
+    "unread": "{{count}} unread",
+    "empty": "You have no notifications.",
+    "viewAll": "View all notifications",
+    "offline": "Notifications offline, reconnecting...",
+    "bellUnread": "Notifications, {{count}} unread",
+    "types": {
+      "ANOMALIE": "Anomaly",
+      "INFORMATION": "Pharmacy information",
+      "FACTURE": "Invoice",
+      "OTHER": "Notification"
+    },
+    "errors": {
+      "markRead": "This notification could not be marked as read.",
+      "markAll": "These notifications could not be marked as read."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Configure your company and how it operates"
+  },
+  "account": {
+    "title": "My account",
+    "subtitle": "Your personal information and your password",
+    "company": "Company",
+    "profile": "Profile",
+    "fullName": "Full name",
+    "role": "Role",
+    "admin": "Administrator",
+    "member": "Member",
+    "password": {
+      "title": "Change password",
+      "current": "Current password",
+      "new": "New password",
+      "confirm": "Confirm password",
+      "submit": "Update password",
+      "done": "Your password has been updated.",
+      "wrongCurrent": "Your current password is incorrect.",
+      "webOnlyHint": "This password is used for web sign-in, for all your companies. Mobile passwords are managed per company on the Profiles page."
+    },
+    "google": {
+      "title": "Google sign-in",
+      "hint": "Link your Google account to sign in to Movix in one click.",
+      "linkedBadge": "Linked",
+      "linkedHint": "You can sign in with this Google account or with your email and password.",
+      "unlink": "Unlink",
+      "linked": "Your Google account has been linked.",
+      "unlinked": "Your Google account has been unlinked.",
+      "conflict": "This Google account is already linked to another profile.",
+      "invalidToken": "The Google sign-in could not be verified. Please try again.",
+      "unavailable": "Google sign-in could not be loaded.",
+      "identityHint": "The Google link applies to your user account, for all your companies."
+    },
+    "me": {
+      "birthday": "Birth date",
+      "identifiantHint": "Your username cannot be changed.",
+      "emailVerified": "Email verified",
+      "emailNotVerified": "Email not verified",
+      "emailChangeHint": "Changing your email will require verifying the new address.",
+      "verificationSent": "A verification email has been sent to your new address.",
+      "sharedIdentityHint": "Your name, birth date and email are shared across all your companies.",
+      "photo": {
+        "title": "Profile photo",
+        "change": "Change my photo",
+        "hint": "JPEG or PNG, resized automatically. 10 MB maximum.",
+        "perCompanyHint": "This photo is specific to {{company}}.",
+        "updated": "Your photo has been updated.",
+        "notImage": "This file is not a readable image.",
+        "tooLarge": "This image is too large."
+      },
+      "errors": {
+        "cannotClear": "This field cannot be emptied.",
+        "emailInvalid": "Enter a valid email address.",
+        "emailUsed": "This email address is already used by another profile."
+      }
+    },
+    "tabs": {
+      "company": "Company",
+      "depot": "Depot",
+      "labels": "Sender",
+      "labelLayout": "Labels",
+      "emails": "Emails",
+      "smtp": "SMTP",
+      "options": "Options",
+      "tarifs": "Pricing",
+      "colors": "Colors"
+    },
+    "form": {
+      "saved": "Changes saved.",
+      "noChanges": "Nothing to save on this tab.",
+      "unsavedElsewhere": "You have unsaved changes on: {{tabs}}",
+      "goToTab": "Go to that tab",
+      "reset": "Discard",
+      "errors": {
+        "societeRequired": "The company name is required.",
+        "tooLong": "Maximum {{max}} characters.",
+        "postalCode": "Only letters, digits, spaces and hyphens.",
+        "coordinatePair": "Latitude and longitude must both be filled in.",
+        "latitude": "Latitude must be between -90 and 90.",
+        "longitude": "Longitude must be between -180 and 180.",
+        "nullIsland": "Coordinates 0, 0 are not a valid depot position.",
+        "number": "Enter a valid number.",
+        "smtpPortRange": "The port must be between {{min}} and {{max}}.",
+        "smtpPortRequired": "The port is required when custom SMTP is enabled.",
+        "smtpHostRequired": "The host is required when custom SMTP is enabled.",
+        "tlsSslExclusive": "TLS and SSL cannot both be enabled.",
+        "senderIncomplete": "Required once the sender block is used.",
+        "logoTooLarge": "This image is too large.",
+        "logoNotImage": "This file is not a readable image.",
+        "departureTimeInvalid": "Enter a valid departure time."
+      }
+    },
+    "errors": {
+      "forbidden": "Only an administrator can access these settings.",
+      "loadFailed": "Failed to load the settings.",
+      "saveFailed": "Failed to save the settings."
+    },
+    "companyTab": {
+      "title": "Company details",
+      "subtitle": "Shown on emails, documents and in the app.",
+      "address2": "Address line 2",
+      "country": "Country"
+    },
+    "logo": {
+      "label": "Logo",
+      "hint": "PNG or JPEG, resized to 512px automatically.",
+      "change": "Choose a logo",
+      "remove": "Remove the logo",
+      "preview": "Company logo"
+    },
+    "mobileCode": {
+      "title": "Mobile sign-in code",
+      "subtitle": "Give this code to your drivers: the mobile app asks for it along with their username and password.",
+      "copy": "Copy",
+      "copied": "Code copied."
+    },
+    "depot": {
+      "title": "Depot position",
+      "subtitle": "Starting and ending point of every tour.",
+      "searchAddress": "Search the depot address",
+      "dragHint": "Drag the marker to adjust the position.",
+      "dragHintEmpty": "Search an address or drag the marker to place the depot.",
+      "recenter": "Center on the depot",
+      "coordinates": "Depot coordinates",
+      "missing": "No depot position set yet.",
+      "missingWarning": "Without a depot position, tours cannot be computed and estimated prices stay at 0.",
+      "usedForTours": "This position drives tour routing and the distance used to pick a price tier. Changing it affects future tours."
+    },
+    "labels": {
+      "title": "Parcel label sender",
+      "subtitle": "Printed on parcel labels, separate from the company address.",
+      "senderName": "Sender name",
+      "senderAddress": "Sender address"
+    },
+    "emails": {
+      "title": "Automatic sending",
+      "subtitle": "General switch of the account's email notifications.",
+      "autoSend": "Send an email automatically for every anomaly",
+      "autoSendHint": "When disabled, no automatic email is sent when an anomaly is created. Manual sending from an anomaly remains available."
+    },
+    "smtp": {
+      "title": "SMTP server",
+      "subtitle": "Server used to send this account's emails.",
+      "host": "Host",
+      "port": "Port",
+      "username": "Username",
+      "password": "Password",
+      "showPassword": "Show the password",
+      "hidePassword": "Hide the password",
+      "enable": "Use a custom SMTP server",
+      "enableHint": "Host, port, username and password are required once enabled.",
+      "disabledNotice": "Emails are sent through the default Movix server.",
+      "useTls": "STARTTLS",
+      "useSsl": "SSL",
+      "portHint465": "Port 465 usually requires SSL.",
+      "portHint587": "Port 587 usually requires STARTTLS.",
+      "test": "Send a test email",
+      "testing": "Sending",
+      "testHint": "The test email is sent to your own address. Save your changes first.",
+      "testError": "The test email could not be sent."
+    },
+    "options": {
+      "title": "Application options",
+      "subtitle": "Flags used by the web and mobile apps.",
+      "scanCip": "Enable CIP scanning",
+      "scanCipHint": "Read by the mobile and web apps only, no server-side effect.",
+      "defaultTourDeparture": "Default tour departure time",
+      "defaultTourDepartureHint": "Shown as the estimated departure when a tour has no departure time yet.",
+      "profiles": "User quota",
+      "profilesUsed": "{{used}} of {{max}} users",
+      "profilesUnlimited": "{{used}} users, unlimited",
+      "maxProfilesHint": "The quota is set by Movix. Contact support to change it."
+    }
+  },
+  "accountColors": {
+    "title": "Account colors",
+    "subtitle": "Predefined palette offered as a quick choice in every color picker.",
+    "empty": "No predefined color yet. Add one to build the account palette.",
+    "unnamed": "Unnamed color",
+    "add": "Add",
+    "newColor": "New color",
+    "name": "Color name",
+    "namePlaceholder": "Name (optional)",
+    "order": "Order",
+    "moveUp": "Move up",
+    "moveDown": "Move down",
+    "manage": "Manage account colors",
+    "usage": {
+      "title": "How the palette is used",
+      "pickers": "These colors are offered first in every color picker of the app: tours, tour templates, pharmacy key colors and so on.",
+      "fallback": "The palette is only a shortcut: users can still pick any custom color, and existing colors outside the palette stay untouched.",
+      "order": "The order below is the order the swatches appear in. Use the arrows or edit the order number of a color."
+    },
+    "delete": {
+      "title": "Delete this color",
+      "confirm": "Delete \"{{name}}\" from the account palette?",
+      "keepUsage": "Items already using this color keep it. It will simply no longer be offered in color pickers.",
+      "failed": "This color could not be deleted."
+    },
+    "errors": {
+      "loadFailed": "The account colors could not be loaded.",
+      "saveFailed": "The color could not be saved.",
+      "duplicate": "This color already exists in the account palette.",
+      "invalidFormat": "Invalid color: use the #RRGGBB hex format.",
+      "invalidOrder": "The order must be a whole number of 1 or more.",
+      "forbidden": "You are not allowed to manage the account colors."
+    }
+  },
+  "emailNotifications": {
+    "recipients": {
+      "title": "Recipients",
+      "subtitle": "People who receive the account's automatic emails.",
+      "add": "Add a recipient",
+      "empty": "No recipient: automatic emails are not sent.",
+      "inactive": "Inactive",
+      "allTypes": "All types",
+      "noSubscriptions": "Subscribed to no event: this recipient will not receive any email.",
+      "deleted": "The recipient has been deleted.",
+      "editAria": "Edit {{email}}",
+      "deleteAria": "Delete {{email}}",
+      "deleteTitle": "Delete the recipient?",
+      "deleteDescription": "{{email}} will no longer receive any automatic email. Its sending history is kept.",
+      "dialog": {
+        "createTitle": "Add a recipient",
+        "editTitle": "Edit the recipient",
+        "subtitle": "Choose the events and anomaly types that trigger an email.",
+        "email": "Email address",
+        "invalidEmail": "Invalid email address.",
+        "label": "Label",
+        "labelHint": "A name or a role to identify this recipient.",
+        "active": "Active",
+        "inactiveHint": "When inactive, the recipient is kept but receives no email.",
+        "events": "Events",
+        "noSubscriptions": "Without a subscription, this recipient will not receive any email, even when active.",
+        "anomalyTypes": "Anomaly types",
+        "typesHint": "Without a selection, all anomalies are sent."
+      },
+      "errors": {
+        "duplicate": "This address is already in the list.",
+        "saveFailed": "Saving the recipient failed.",
+        "deleteFailed": "Deleting the recipient failed.",
+        "loadFailed": "Loading the recipients failed."
+      }
+    },
+    "logs": {
+      "title": "Sending history",
+      "subtitle": "Sent, pending and failed emails, most recent first.",
+      "columns": {
+        "date": "Date",
+        "recipient": "Recipient",
+        "subject": "Subject",
+        "event": "Event",
+        "status": "Status"
+      },
+      "status": {
+        "PENDING": "Pending",
+        "SENDING": "Sending",
+        "SENT": "Sent",
+        "FAILED": "Failed"
+      },
+      "allStatuses": "All statuses",
+      "allEvents": "All events",
+      "nextRetry": "Next attempt scheduled for {{date}}",
+      "attempts": "{{count}} attempts",
+      "openAnomaly": "View the anomaly",
+      "retry": "Resend",
+      "retryQueued": "The email has been queued again.",
+      "retryConflict": "Sending already in progress.",
+      "retryFailed": "The resend failed.",
+      "empty": "No email in the history. Entries are kept for 30 days.",
+      "noResults": "No email matches these filters.",
+      "errors": {
+        "loadFailed": "Loading the history failed."
+      }
+    }
+  },
+  "labelSettings": {
+    "readOnly": "Only an administrator can change the label layout.",
+    "template": {
+      "title": "Label template",
+      "subtitle": "The whole rendering changes, the fields below stay the same.",
+      "modern": "Modern",
+      "classic": "Classic",
+      "modernHint": "Type hierarchy, rounded corners, black RECIPIENT tab and rounded zone box.",
+      "classicHint": "Historical rendering with rectangular frames.",
+      "alt": "Preview of the {{template}} template"
+    },
+    "orientation": {
+      "title": "Label orientation",
+      "portrait": "Portrait",
+      "landscape": "Landscape"
+    },
+    "zoneStyle": {
+      "title": "Zone box style",
+      "whiteOnBlack": "White on black",
+      "blackOnWhite": "Black on white"
+    },
+    "fields": {
+      "bold": "Bold",
+      "autoSize": "Automatic size",
+      "sizeRange": "Size in points, from {{min}} to {{max}}.",
+      "capRange": "Cap for the automatic fit, from {{min}} to {{max}} points.",
+      "fontSizeFor": "{{field}} size",
+      "decrease": "Decrease {{field}} size",
+      "increase": "Increase {{field}} size"
+    },
+    "fieldHints": {
+      "FRESH_BADGE": "Black FRESH badge, printed on cold chain parcels only.",
+      "QR_CODE": "QR holding the barcode value, scannable with a phone, shown to the right of the barcode."
+    },
+    "hints": {
+      "autoGrow": "Hiding a whole block pulls the content up and automatically enlarges the barcode. The preview shows the exact result.",
+      "barcodeTextLocked": "Hidden automatically while the barcode itself is hidden."
+    },
+    "preview": {
+      "title": "Preview",
+      "subtitle": "Image produced by the print engine, identical to the printed label.",
+      "alt": "Parcel label preview",
+      "refreshing": "Refreshing the preview",
+      "testPdf": "Test as PDF",
+      "pdfTitle": "Label PDF"
+    },
+    "reset": {
+      "action": "Restore default values",
+      "title": "Restore default values?",
+      "description": "The custom layout of this account will be removed and labels will fall back to the default settings.",
+      "confirm": "Restore"
+    },
+    "errors": {
+      "forbidden": "Only an administrator can change these settings.",
+      "loadFailed": "Loading the label settings failed.",
+      "saveFailed": "Saving the label settings failed.",
+      "resetFailed": "Restoring the default values failed.",
+      "previewFailed": "Generating the preview failed.",
+      "fontSizeRange": "Size must be between {{min}} and {{max}}.",
+      "fontSizeNumber": "Enter a whole number.",
+      "fixFields": "Fix the out-of-range sizes before saving."
+    }
+  },
+  "tarifs": {
+    "title": "Pricing grid",
+    "subtitle": "Price tiers by distance from the depot.",
+    "create": "Add a tier",
+    "empty": "No price tier yet.",
+    "kmMax": "Maximum distance (km)",
+    "price": "Price (EUR)",
+    "priceValue": "{{price}} EUR",
+    "upTo": "Up to {{km}} km",
+    "priceInversion": "A longer tier is cheaper than a shorter one, check the order.",
+    "rule": {
+      "title": "How the price is picked",
+      "body": "An order is priced with the first tier whose maximum distance covers the depot to pharmacy distance.",
+      "noMatch": "When no tier matches, the estimated price is 0 EUR.",
+      "depotNotice": "Moving the depot changes every distance, and therefore every estimate."
+    },
+    "simulator": {
+      "title": "Simulator",
+      "distance": "Distance (km)",
+      "result": "{{price}} EUR, tier up to {{km}} km",
+      "noTier": "No matching tier, the estimated price would be 0 EUR.",
+      "hint": "Enter a distance to see which tier applies."
+    },
+    "form": {
+      "createTitle": "New price tier",
+      "editTitle": "Edit the price tier",
+      "subtitle": "The tier applies to every distance below its maximum.",
+      "noUpdateNotice": "Editing recreates the tier, since the API has no update route.",
+      "kmMaxHint": "Distance in kilometres from the depot.",
+      "priceHint": "Two decimals maximum.",
+      "errors": {
+        "kmMaxRequired": "The maximum distance is required.",
+        "kmMaxRange": "The distance must be between 0 and {{max}}.",
+        "priceRequired": "The price is required.",
+        "priceRange": "The price must be between 0 and {{max}}.",
+        "number": "Enter a valid number.",
+        "duplicate": "A tier already uses this maximum distance.",
+        "decimals": "Two decimals maximum."
+      }
+    },
+    "delete": {
+      "title": "Delete this tier",
+      "confirm": "Delete the tier up to {{km}} km at {{price}} EUR?"
+    },
+    "errors": {
+      "forbidden": "Only an administrator can manage the pricing grid.",
+      "loadFailed": "Failed to load the pricing grid.",
+      "createFailed": "Failed to save the tier.",
+      "deleteFailed": "Failed to delete the tier."
+    }
+  },
+  "tourConfigs": {
+    "title": "Automatic tours",
+    "subtitle": "Recurring tours created automatically.",
+    "create": "Add a configuration",
+    "empty": "No automatic tour configured.",
+    "noZone": "No zone",
+    "noDriver": "No driver",
+    "everyDay": "Every day",
+    "weekdaysOnly": "Weekdays",
+    "neverRuns": "Never runs",
+    "at": "At {{hour}}",
+    "deferredNotice": "Tours are created on the hour, Paris time. A new configuration produces its first tour at the next matching hour.",
+    "weekdays": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "weekdaysShort": {
+      "monday": "Mo",
+      "tuesday": "Tu",
+      "wednesday": "We",
+      "thursday": "Th",
+      "friday": "Fr",
+      "saturday": "Sa",
+      "sunday": "Su"
+    },
+    "form": {
+      "createTitle": "New automatic tour",
+      "editTitle": "Edit the automatic tour",
+      "duplicateTitle": "Duplicate the automatic tour",
+      "duplicateAction": "Duplicate",
+      "copySuffix": "{{name}} (2)",
+      "name": "Tour name",
+      "nameHint": "Used as the name of every created tour, unique for the account.",
+      "color": "Color",
+      "zone": "Zone",
+      "zoneLocked": "The zone cannot be removed. Duplicate the configuration without a zone, then delete this one.",
+      "driver": "Driver",
+      "driverLocked": "The driver cannot be removed. Duplicate the configuration without a driver, then delete this one.",
+      "recurrence": "Days",
+      "weekdays": "Weekdays",
+      "everyDay": "Every day",
+      "clear": "Clear",
+      "hour": "Creation time",
+      "hourHint": "Whole hours only, Paris time.",
+      "noRecurrenceWarning": "No day is selected, so this configuration will never create a tour.",
+      "errors": {
+        "nameRequired": "The tour name is required.",
+        "nameTooLong": "Maximum {{max}} characters.",
+        "duplicate": "A configuration already uses this name.",
+        "color": "Use a color in the #RRGGBB format.",
+        "hour": "Pick a whole hour."
+      }
+    },
+    "delete": {
+      "title": "Delete this configuration",
+      "confirm": "Delete the configuration \"{{name}}\"? Tours already created are kept."
+    },
+    "errors": {
+      "forbidden": "You are not allowed to manage automatic tours.",
+      "loadFailed": "Failed to load the configurations.",
+      "saveFailed": "Failed to save the configuration.",
+      "deleteFailed": "Failed to delete the configuration."
+    }
+  },
+  "exports": {
+    "title": "Extracts",
+    "subtitle": "Excel export of tours and per pharmacy statistics",
+    "tabs": {
+      "tours": "Tours",
+      "pharmacies": "Pharmacies"
+    },
+    "filters": {
+      "title": "Extracted period",
+      "startDate": "Start date",
+      "endDate": "End date",
+      "presets": "Presets",
+      "reset": "Reset",
+      "clear": "Clear filters",
+      "closedOnly": "Closed tours only",
+      "pharmacyCip": "Pharmacy (CIP)",
+      "driverId": "Driver (identifier)",
+      "allPharmacies": "All pharmacies",
+      "allDrivers": "All drivers",
+      "rangeSummary": "{{count}} day(s) covered, both bounds included. Dates are kept when you switch tabs.",
+      "preset": {
+        "thisMonth": "This month",
+        "lastMonth": "Last month",
+        "last7Days": "Last 7 days"
+      },
+      "errors": {
+        "missing": "Enter a start date and an end date.",
+        "invalid": "Invalid date format (expected YYYY-MM-DD).",
+        "reversed": "The start date must be on or before the end date."
+      },
+      "warnings": {
+        "warning": "Range of {{count}} days, loading may take a while.",
+        "danger": "Range of {{count}} days, loading may take several minutes."
+      }
+    },
+    "actions": {
+      "load": "Load data",
+      "loading": "Loading",
+      "loadingWithTime": "Loading... {{seconds}}s",
+      "selectAll": "Select all",
+      "deselectAll": "Deselect all",
+      "preview": "Workbook preview",
+      "download": "Download .xlsx"
+    },
+    "progress": {
+      "title": "Building the workbook...",
+      "preparing": "Preparing data..."
+    },
+    "duration": {
+      "milliseconds": "in {{value}} ms",
+      "seconds": "in {{value}} s"
+    },
+    "confirm": {
+      "title": "Range of {{count}} days",
+      "body": "Beyond {{days}} days the extract computes the distance of every command live and may take several dozen seconds. Run it anyway?",
+      "confirm": "Run the extract"
+    },
+    "preview": {
+      "toursTitle": "Workbook preview - Tours",
+      "pharmaciesTitle": "Workbook preview - Pharmacy statistics",
+      "emptySheet": "No data on this sheet",
+      "truncated": "Preview limited to the first {{shown}} rows. The file will contain {{total}}."
+    },
+    "kpi": {
+      "tours": "Tours",
+      "commands": "Commands",
+      "deliveryRate": "Delivery rate",
+      "packages": "Packages",
+      "packageRate": "Package delivery rate",
+      "weight": "Total weight",
+      "billed": "Total billed",
+      "calculatedKm": "Computed km",
+      "realKm": "Actual km",
+      "packagesPerCommand": "Packages per command",
+      "deliveredHint": "{{count}} delivered",
+      "commandsPerTour": "{{value}} commands per tour",
+      "notDelivered": "Not delivered"
+    },
+    "results": {
+      "none": "No data loaded"
+    },
+    "tours": {
+      "scopeHint": "Filtered on the planned tour date (initialDate), both bounds included. Distances are computed live: over a wide range the response may take several dozen seconds.",
+      "loadingTitle": "Computing distances and prices...",
+      "loadingDetail": "{{seconds}}s elapsed, range of {{days}} day(s)",
+      "idle": "Pick a period then load the data.",
+      "empty": "No data over this period",
+      "found": "{{count}} tour(s) found",
+      "selectionTitle": "Tours to export ({{count}})",
+      "tableTitle": "Tour details",
+      "commandsTitle": "Commands ({{count}})",
+      "noCommands": "No command in the current selection.",
+      "hideRemoved": "Hide removed commands",
+      "localTotals": "Totals recomputed locally: they no longer match the summary computed by the server.",
+      "withoutTarif": "{{commands}} command(s) without a pricing tier across {{tours}} tour(s). A price of 0 does not mean free: no tier covers the distance.",
+      "removedNotice": "{{count}} command(s) removed during debrief: they are counted in the total and billed.",
+      "removedBadge": "{{count}} removed during debrief",
+      "withoutTarifBadge": "{{count}} without price",
+      "otherStatuses": "({{count}} other statuses)",
+      "countsInline": "{{commands}} cmd / {{packages}} packages",
+      "newPharmacy": "New",
+      "removed": "Removed"
+    },
+    "pharmacies": {
+      "loadingTitle": "Loading pharmacy statistics...",
+      "scopeHint": "Filtered on the command shipping date (expDate), bounds in UTC. Filters left empty are sent as null.",
+      "idle": "Pick a period then load the data.",
+      "empty": "No data over this period",
+      "found": "{{count}} pharmacy(ies) found",
+      "tableTitle": "Pharmacies ({{shown}} of {{total}})",
+      "selectedCount": "{{count}} selected",
+      "searchPlaceholder": "Search by name, CIP or city",
+      "noMatch": "No pharmacy matches the search.",
+      "localTotals": "Partial selection: totals are recomputed locally and the server delivery rate no longer applies.",
+      "lowRate": "{{count}} pharmacy(ies) below {{threshold}}% delivery rate, highlighted in the table.",
+      "tableNote": "Global rate comes from the server summary, never averaged from the rows. Pharmacies without any command over the period do not appear.",
+      "coherence": "Consistency gap: the summary reports {{overview}} command(s) while the per pharmacy detail totals {{rows}}. Report this to the backend team."
+    },
+    "sheets": {
+      "summary": "Summary",
+      "tours": "Tours",
+      "commands": "Commands",
+      "tarifs": "Prices",
+      "drivers": "By driver",
+      "pharmacies": "Pharmacies"
+    },
+    "summary": {
+      "metric": "Metric",
+      "value": "Value",
+      "generatedAt": "Generated at",
+      "startDate": "Start date (included)",
+      "endDate": "End date (included)",
+      "closedOnly": "Closed tours only",
+      "dateField": "Filtered date field",
+      "dateFieldTours": "Planned tour date (initialDate)",
+      "dateFieldPharmacies": "Command shipping date (expDate), bounds in UTC",
+      "scope": "Scope",
+      "scopeTours": "Commands of the tours in the range, including commands removed during debrief. Pending commands excluded server side.",
+      "scopePharmacies": "Every command of the account over the range, with or without a tour. Pending commands and packages excluded, commands without a CIP excluded.",
+      "removedPolicy": "Commands removed during debrief",
+      "removedIncluded": "Included (counted and billed)",
+      "removedHidden": "Hidden from this export",
+      "totalsSource": "Totals source",
+      "totalsServer": "Summary computed by the server",
+      "totalsOverview": "Server summary (/stats/overview)",
+      "totalsLocal": "Local recomputation",
+      "totalsLocalPartial": "Local recomputation (partial tour selection)",
+      "totalsLocalHidden": "Local recomputation (commands removed during debrief hidden)",
+      "totalsLocalBoth": "Local recomputation (partial selection and removed commands hidden)",
+      "exportedTours": "Exported tours",
+      "loadedTours": "Loaded tours",
+      "exportedPharmacies": "Exported pharmacies",
+      "loadedPharmacies": "Loaded pharmacies",
+      "appliedFilters": "Applied filters",
+      "noFilter": "None",
+      "tarifNoteLabel": "Pricing note",
+      "tarifNote": "Commands with their own price are included in the total but absent from the Prices sheet."
+    },
+    "columns": {
+      "id": "ID",
+      "name": "Name",
+      "date": "Date",
+      "zone": "Zone",
+      "driver": "Driver",
+      "immat": "Plate",
+      "status": "Status",
+      "start": "Start",
+      "end": "End",
+      "durationMinutes": "Duration (min)",
+      "startKm": "Start km",
+      "endKm": "End km",
+      "realKm": "Actual km",
+      "estimateKm": "Estimated km",
+      "calculatedDistance": "Computed distance",
+      "avgDistance": "Avg distance per command",
+      "loadingMinutes": "Loading time (min)",
+      "sorted": "Sorted",
+      "totalCommands": "Total commands",
+      "commands": "Cmd",
+      "delivered": "Delivered",
+      "notDelivered": "Not delivered",
+      "otherStatuses": "Other statuses",
+      "totalPackages": "Total packages",
+      "packages": "Packages",
+      "deliveredPackages": "Delivered packages",
+      "notDeliveredPackages": "Undelivered packages",
+      "totalWeight": "Total weight",
+      "weight": "Weight",
+      "totalPrice": "Total price",
+      "price": "Billed",
+      "withoutTarif": "Commands without price",
+      "removedDebrief": "Removed during debrief",
+      "tour": "Tour",
+      "tourDate": "Tour date",
+      "commandId": "Command ID",
+      "pharmacy": "Pharmacy",
+      "cip": "CIP",
+      "city": "City",
+      "order": "Order",
+      "tarif": "Price",
+      "distance": "Distance",
+      "newPharmacy": "New pharmacy",
+      "expDate": "Shipping date",
+      "closeDate": "Closing date",
+      "tarifId": "Price ID",
+      "kmMax": "Max km",
+      "unitPrice": "Unit price",
+      "commandCount": "Commands",
+      "categoryTotal": "Category total",
+      "tourCount": "Tours",
+      "totalDuration": "Total duration (min)",
+      "deliveryRate": "Delivery rate",
+      "notDeliveryRate": "Non delivery rate",
+      "packageDeliveryRate": "Package delivery rate",
+      "loadedCommands": "Loaded commands",
+      "pendingCommands": "Pending commands",
+      "missingCommands": "Missing commands",
+      "avgPackages": "Packages per command",
+      "avgCommands": "Commands per tour"
+    },
+    "values": {
+      "unassigned": "Unassigned",
+      "unnamedTour": "Unnamed tour",
+      "unknownDate": "Unknown date",
+      "noPlate": "No plate",
+      "toursCount": "{{count}} tour(s)",
+      "commandsCount": "{{count}} command(s)",
+      "tarifsCount": "{{count}} tier(s)",
+      "driversCount": "{{count}} driver(s)",
+      "pharmaciesCount": "{{count}} pharmacy(ies)"
+    },
+    "errors": {
+      "adminOnly": "Restricted to administrators.",
+      "timeout": "The request exceeded the time limit. Narrow the date range and try again."
+    }
+  },
+  "errors": {
+    "notFound": "Page not found",
+    "notFoundDesc": "The page you are looking for does not exist.",
+    "loadFailed": "Failed to load data.",
+    "backHome": "Back to dashboard",
+    "adminOnly": "This screen is reserved for administrators.",
+    "hyperadminOnly": "This screen is reserved for hyperadmins."
+  },
+  "address": {
+    "search": "Search an address",
+    "placeholder": "Number, street, city",
+    "minChars": "Type at least {{count}} characters",
+    "searching": "Searching",
+    "noResults": "No address found",
+    "unavailable": "Address search is unavailable, try again later.",
+    "failed": "Address search failed"
+  },
+  "souffrance": {
+    "title": "Pending items",
+    "subtitle": "Orders and parcels set aside, kept out of the tours and of the day views",
+    "tabs": {
+      "commands": "Orders",
+      "packages": "Parcels"
+    },
+    "searchPlaceholderCommands": "Search by pharmacy, city, postal code, CIP or order id",
+    "searchPlaceholderPackages": "Search by barcode, pharmacy, city, postal code, CIP or order id",
+    "detailedHintPackages": "Detailed search combines every field. Pharmacy name and city also match their st and saint variants, the simple search does not.",
+    "expDateHint": "The period filters the shipping date of the order, not the date it was set aside.",
+    "emptyCommands": "No pending order.",
+    "emptyPackages": "No pending parcel.",
+    "noResults": "No pending item matches this search.",
+    "selectAll": "Select every row on this page",
+    "openCommand": "Open the order",
+    "copyId": "Copy the order id",
+    "idCopied": "Order id copied",
+    "columns": {
+      "flagged": "Flagged as pending",
+      "order": "Order",
+      "action": "Set aside"
+    },
+    "flag": {
+      "title": "Set the orders aside",
+      "subtitle": "Applied to {{count}} order(s)",
+      "warnTour": "Each order is removed from its tour, and the impacted routes are recomputed.",
+      "warnPackages": "Every parcel of the order is set aside as well.",
+      "warnClosedTour": "An order on a closed tour blocks the whole batch: nothing is changed.",
+      "pending": "Recomputing the impacted tours, this can take a while.",
+      "confirm": "Set aside"
+    },
+    "flagPackages": {
+      "title": "Set the parcel aside",
+      "subtitle": "Applied to {{count}} parcel(s)",
+      "action": "Set the parcel aside",
+      "warnCommand": "The parent order stays visible. If all of its parcels are set aside, it shows up empty.",
+      "warnTrace": "No author and no date are kept for a parcel set aside on its own.",
+      "confirm": "Set aside"
+    },
+    "restore": {
+      "action": "Restore the selection",
+      "actionShort": "Restore",
+      "title": "Restore",
+      "subtitleCommands": "Applied to {{count}} order(s)",
+      "subtitlePackages": "Applied to {{count}} parcel(s)",
+      "warnTour": "The orders are not put back on their tour: they come back unassigned and have to be replanned.",
+      "warnPackages": "Every parcel of the order is restored, including those set aside on their own.",
+      "checkingParents": "Checking the parent orders",
+      "blockedParents": "{{count}} parcel(s) cannot be restored: their order is pending itself. Restore the order from the Orders tab.",
+      "packagesHint": "{{count}} parcel(s) will be restored.",
+      "confirm": "Restore"
+    },
+    "hiddenParcels": {
+      "title": "Parcels set aside",
+      "description": "{{count}} parcel(s) of this order are pending and are not listed below. The parcel count and the totals no longer match the original slip."
+    },
+    "errors": {
+      "invalid": "The request was rejected. Check your selection.",
+      "forbidden": "You are not allowed to perform this action.",
+      "notFoundPackages": "No eligible parcel: they may already be pending, or already restored.",
+      "actionFailed": "The action failed. Please try again."
+    },
+    "selectHint": "Select rows to restore them."
+  },
+  "landing": {
+    "documentTitle": "Movix - Delivery route software for pharmacies",
+    "metaDescription": "Optimize your delivery rounds to pharmacies: parcel scanning, driver app, real-time tracking. For pharmaceutical wholesalers and carriers.",
+    "nav": {
+      "workflow": "How it works",
+      "features": "Features",
+      "field": "In the field",
+      "login": "Sign in",
+      "openApp": "Open the app",
+      "audiences": "Who it is for",
+      "faq": "FAQ",
+      "register": "Create an account"
+    },
+    "hero": {
+      "eyebrow": "Pharmaceutical delivery platform",
+      "title": "Every delivery, from the warehouse to the counter",
+      "subtitle": "Movix brings shipment preparation, tour building, stop order optimisation and field tracking together in a single interface.",
+      "ctaPrimary": "Create an account",
+      "ctaSecondary": "See how it works",
+      "note": "Web app for dispatch, mobile app for drivers, in English and French.",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in"
+    },
+    "highlights": {
+      "map": {
+        "title": "Everything on the map",
+        "desc": "The day's orders, the tours and the zones on one interactive map, in the colours of your tours."
+      },
+      "optimize": {
+        "title": "Optimised stop order",
+        "desc": "Route optimisation runs on the server, with a preview to check before you apply it."
+      },
+      "realtime": {
+        "title": "Instant notifications",
+        "desc": "A live stream keeps every screen up to date without reloading the page."
+      }
+    },
+    "workflow": {
+      "eyebrow": "A day of operations",
+      "title": "From the incoming order to the closed tour",
+      "subtitle": "Movix follows the real sequence of a dispatch day, with no spreadsheet in between.",
+      "steps": {
+        "intake": {
+          "title": "Orders come in",
+          "desc": "Orders, parcels and pharmacies enter Movix with their status, their closing date and their tariff."
+        },
+        "build": {
+          "title": "Tours are built",
+          "desc": "Select orders from the list or straight from the map, then assign them to a tour in one action."
+        },
+        "optimize": {
+          "title": "Stop order is optimised",
+          "desc": "Ask for an optimised order, check the proposed route and the arrival times, then save when it suits you."
+        },
+        "close": {
+          "title": "Tracking and closing",
+          "desc": "Anomalies, parcels put aside, driver reports and Excel extracts close the day."
+        }
+      }
+    },
+    "features": {
+      "eyebrow": "Modules",
+      "title": "One tool for the whole delivery chain",
+      "subtitle": "Each module is a full screen of the app, not an option bolted on the side.",
+      "items": {
+        "expeditions": {
+          "title": "Shipments",
+          "desc": "The day's orders on the map, assigned to tours in two gestures."
+        },
+        "tours": {
+          "title": "Tours",
+          "desc": "Build them, colour them, assign a driver, track distance and duration, print the PDF."
+        },
+        "commands": {
+          "title": "Orders",
+          "desc": "Search, edit and follow the parcel history of every order."
+        },
+        "souffrance": {
+          "title": "Pending",
+          "desc": "Set an order or a single parcel aside, out of the tours and the daily views, then bring it back."
+        },
+        "anomalies": {
+          "title": "Anomalies",
+          "desc": "Incidents declared from the field, with pictures, sent out as a report."
+        },
+        "pharmacies": {
+          "title": "Pharmacies",
+          "desc": "The directory keyed on CIP, with addresses, contacts and delivery reports."
+        },
+        "zones": {
+          "title": "Zones",
+          "desc": "Group pharmacies into geographic zones and draw them on the map."
+        },
+        "exports": {
+          "title": "Extracts",
+          "desc": "Excel extracts of tours, pharmacies and volumes over the period you choose."
+        },
+        "profiles": {
+          "title": "Profiles",
+          "desc": "Web and mobile accounts, roles and permissions for your team."
+        },
+        "notifications": {
+          "title": "Notifications",
+          "desc": "A live feed of what changed, readable from any screen of the app."
+        }
+      }
+    },
+    "map": {
+      "eyebrow": "Map and routes",
+      "title": "Read your day on the map",
+      "subtitle": "Zones, tours, stops and depot share the same colour code across every screen.",
+      "legend": {
+        "north": "North tour",
+        "east": "East tour",
+        "south": "South tour"
+      },
+      "points": {
+        "zones": {
+          "title": "Coloured zones.",
+          "desc": "Group your pharmacies geographically and spot at once what falls outside a tour."
+        },
+        "routes": {
+          "title": "Real road tracks.",
+          "desc": "Routes come from the routing engine, never from straight segments between stops."
+        },
+        "eta": {
+          "title": "One arrival time per stop.",
+          "desc": "Change the departure time and every arrival time follows, with no round trip to the server."
+        }
+      }
+    },
+    "field": {
+      "eyebrow": "In the field",
+      "title": "The driver app",
+      "subtitle": "Drivers load, deliver and report from their phone. Everything they confirm lands in the web app straight away.",
+      "screens": {
+        "tours": {
+          "title": "Their tour for the day",
+          "desc": "The driver opens the tour and sees at once how many orders are done, how many parcels, the distance and the estimated duration.",
+          "alt": "My tours screen of the mobile app, with the order counter, the parcel count, the distance and the duration."
+        },
+        "loading": {
+          "title": "Scanned loading",
+          "desc": "Every parcel is scanned on its barcode before departure. Whatever was not scanned stays marked as not loaded, pharmacy by pharmacy.",
+          "alt": "Loading screen, with the parcel barcodes of a pharmacy and the Not loaded and Scan buttons."
+        },
+        "delivery": {
+          "title": "Delivery stop by stop",
+          "desc": "Route to the pharmacy, delivery confirmed or refused on the spot, and the tour counter moves forward.",
+          "alt": "Delivery screen, with the map, navigation and refusal actions and the Deliver button."
+        },
+        "anomaly": {
+          "title": "Anomaly with pictures",
+          "desc": "Reason, actions taken, parcels involved and mandatory pictures. The anomaly reaches the back office complete.",
+          "alt": "Anomaly declaration screen, with the pictures, the reason, the actions taken and the parcels involved."
+        }
+      },
+      "download": "Download the driver app"
+    },
+    "cta": {
+      "title": "Ready to open your day in Movix?",
+      "subtitle": "Contact us to request access and we will set up your account.",
+      "phone": "06 98 29 11 12",
+      "email": "clement.veillet@stack.bzh",
+      "note": "English and French",
+      "register": "Create an account"
+    },
+    "footer": {
+      "tagline": "Pharmaceutical delivery management, from the warehouse to the counter.",
+      "product": "Product",
+      "access": "Access",
+      "rights": "{{year}} {{name}}. All rights reserved.",
+      "legal": "Legal"
+    },
+    "mock": {
+      "company": "Ouest Distribution",
+      "user": "Camille Morel",
+      "urlShipments": "movix.fr/app/expeditions",
+      "urlTourOrder": "movix.fr/app/tours/order",
+      "shipmentsCaption": "Shipments screen: the day's orders as a list, next to the map of the tours.",
+      "tourOrderCaption": "Stop order screen: the ordered stops of a tour, with their arrival times and the calculated route.",
+      "phoneCaption": "Mobile view of the Shipments screen, with the selection bar within thumb reach.",
+      "tourName": "North tour",
+      "depot": "Depot",
+      "status": {
+        "delivered": "Delivered",
+        "loaded": "Loaded",
+        "toDeliver": "To deliver",
+        "preparing": "Preparing"
+      }
+    },
+    "audiences": {
+      "eyebrow": "Who it is for",
+      "title": "Built for pharmaceutical distribution",
+      "subtitle": "Movix fits the teams that move medicines to pharmacies every day, whatever their size.",
+      "items": {
+        "wholesalers": {
+          "title": "Pharmaceutical wholesalers",
+          "desc": "Prepare the daily shipments of your agencies, build the tours and follow every delivery to the counter."
+        },
+        "carriers": {
+          "title": "Specialised carriers",
+          "desc": "Run the tours entrusted by your clients with the same tools: stop order, driver app, proof of delivery and anomaly reporting."
+        },
+        "depots": {
+          "title": "Depots and regional platforms",
+          "desc": "Manage several sites from one account, each with its own drivers, zones and departure times."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Frequently asked questions",
+      "subtitle": "Everything you need to know before opening your first day in Movix.",
+      "items": {
+        "who": {
+          "q": "Who is Movix for?",
+          "a": "Pharmaceutical wholesalers, specialised carriers and delivery depots that deliver medicines to pharmacies. The web app is for dispatch, the mobile app for drivers."
+        },
+        "access": {
+          "q": "How do I get access?",
+          "a": "Create your account, then join your company with the invitation code an administrator gives you. If your company is not on Movix yet, contact us and we will set it up."
+        },
+        "mobile": {
+          "q": "Do drivers need special equipment?",
+          "a": "No. The driver app runs on an Android phone. Loading and delivery scans use the phone camera."
+        },
+        "routing": {
+          "q": "How is the stop order computed?",
+          "a": "Movix computes the route and the estimated arrival times on its own servers, taking each pharmacy's delivery window into account. The order is only saved when you confirm it."
+        },
+        "exports": {
+          "q": "Can I export my data?",
+          "a": "Yes. Tours, orders and invoices can be exported to spreadsheet files at any time."
+        },
+        "languages": {
+          "q": "Which languages are available?",
+          "a": "The web app and the driver app are available in French and English. Each user picks their own language."
+        }
+      }
+    }
+  },
+  "apiTokens": {
+    "title": "API tokens",
+    "subtitle": "Tokens used by third party systems to import orders.",
+    "create": "New token",
+    "empty": "No API token yet.",
+    "noMatch": "No token matches these filters.",
+    "searchPlaceholder": "Search by name or description",
+    "managed": "Managed by Movix",
+    "managedHint": "Token managed by Movix, it cannot be deleted here. Contact support to remove it.",
+    "neverUsed": "Never used",
+    "proxyOn": "Beta proxy",
+    "status": {
+      "active": "Active",
+      "inactive": "Disabled"
+    },
+    "columns": {
+      "token": "Token",
+      "description": "Description",
+      "lastUsed": "Last used",
+      "createdAt": "Created",
+      "betaProxy": "Beta proxy"
+    },
+    "token": {
+      "reveal": "Show the token",
+      "hide": "Hide the token",
+      "copy": "Copy the token",
+      "copied": "Token copied"
+    },
+    "actions": {
+      "activate": "Enable the token",
+      "deactivate": "Disable the token",
+      "protected": "Protected token, deletion is disabled"
+    },
+    "form": {
+      "createTitle": "New API token",
+      "createSubtitle": "The token is generated by the server and attached to your account.",
+      "editTitle": "Edit the token",
+      "editSubtitle": "The token value never changes. Leave a field untouched to keep it as is.",
+      "nameHint": "Name shown in the list, for example the partner name.",
+      "nameTooLong": "Maximum {{max}} characters.",
+      "descriptionHint": "Optional, what this token is used for.",
+      "descriptionTooLong": "Maximum {{max}} characters.",
+      "active": "Token enabled",
+      "activeHint": "A disabled token is rejected by the import API but stays in the list.",
+      "createNotice": "The token is created enabled and is visible in the list right after.",
+      "account": "Account",
+      "accountHint": "Leave empty to create the token on your current account.",
+      "betaProxy": "Beta proxy",
+      "betaProxyHint": "Imports through this token are forwarded to the beta environment."
+    },
+    "delete": {
+      "title": "Delete this token",
+      "confirm": "The token {{name}} will be deleted for good and any system using it stops working immediately.",
+      "warning": "This action cannot be undone and there is no way to restore the token.",
+      "typeName": "Type {{name}} to confirm"
+    },
+    "errors": {
+      "forbidden": "Only an administrator can manage API tokens.",
+      "loadFailed": "Failed to load API tokens.",
+      "createFailed": "Failed to create the token.",
+      "saveFailed": "Failed to save the token.",
+      "deleteFailed": "Failed to delete the token.",
+      "notFound": "This token no longer exists.",
+      "actionFailed": "The action failed."
+    }
+  },
+  "factures": {
+    "title": "Invoices",
+    "subtitle": "Invoices issued for your account.",
+    "empty": "No invoice yet.",
+    "noMatch": "No invoice matches these filters.",
+    "noPdf": "No PDF",
+    "status": {
+      "paid": "Paid",
+      "unpaid": "Outstanding"
+    },
+    "columns": {
+      "date": "Invoice date",
+      "amount": "Amount incl. VAT",
+      "createdAt": "Added"
+    },
+    "filters": {
+      "from": "From",
+      "to": "To"
+    },
+    "kpi": {
+      "total": "Total shown",
+      "paid": "Paid",
+      "unpaid": "Outstanding",
+      "count_one": "{{count}} invoice",
+      "count_other": "{{count}} invoices"
+    },
+    "actions": {
+      "preview": "Preview the PDF"
+    },
+    "preview": {
+      "title": "Invoice PDF",
+      "subtitle": "Invoice dated {{date}}, {{amount}} incl. VAT."
+    },
+    "errors": {
+      "forbidden": "Only an administrator can access invoices.",
+      "loadFailed": "Failed to load invoices.",
+      "pdfFailed": "Failed to load the PDF.",
+      "noAccount": "Your profile is not linked to an account, invoices are unavailable.",
+      "actionFailed": "The action failed."
+    }
+  },
+  "mobileApp": {
+    "title": "Movix mobile app",
+    "subtitle": "Install Movix on your phone to run tours in the field.",
+    "eyebrow": "Mobile app",
+    "documentTitle": "Download the Movix mobile app",
+    "metaDescription": "Download the Movix mobile app for Android and iOS: scan the QR code with your phone or open the store directly.",
+    "footerLink": "Download the app",
+    "recommended": "Recommended for your device",
+    "scanHint": "Scan this code with your phone camera",
+    "qrFailed": "QR code unavailable",
+    "android": {
+      "title": "Android",
+      "description": "Download the APK published by Movix.",
+      "action": "Download the APK",
+      "version": "Version {{version}}",
+      "published": "Published on {{date}}",
+      "unknownDate": "Publication date unknown",
+      "qrLabel": "QR code to download the Movix Android APK",
+      "warning": "To install the APK you may need to allow installs from unknown sources in your device security settings.",
+      "changelogTitle": "What's new",
+      "empty": "No Android version published yet."
+    },
+    "ios": {
+      "title": "iOS - App Store",
+      "description": "Install the public version of Movix from the App Store.",
+      "action": "Open the App Store",
+      "qrLabel": "QR code to open Movix on the App Store"
+    },
+    "testflight": {
+      "title": "iOS - TestFlight beta",
+      "description": "Try the next iOS version before it reaches the App Store.",
+      "action": "Join the TestFlight beta",
+      "qrLabel": "QR code to join the Movix TestFlight beta",
+      "requirement": "Install the TestFlight app from the App Store first. A public invite link can expire or reach its tester limit."
+    },
+    "history": {
+      "title": "Android version history",
+      "subtitle": "Every APK still available on the server, most recent first.",
+      "current": "Current",
+      "mandatory": "Mandatory",
+      "showQr": "Show the QR code for version {{version}}",
+      "downloadVersion": "Download version {{version}}",
+      "dialogTitle": "Version {{version}}",
+      "empty": "No version published yet."
+    },
+    "publicCta": {
+      "title": "Already working with Movix?",
+      "subtitle": "The mobile app needs a Movix account. Sign in to the web app to manage shipments and tours.",
+      "action": "Sign in",
+      "discover": "Discover Movix"
+    }
+  },
+  "hyperadmin": {
+    "title": "Hyperadmin",
+    "subtitle": "Cross-account tools reserved for the Movix team.",
+    "tabs": {
+      "account": "Companies",
+      "factures": "Invoices",
+      "updates": "Mobile app"
+    },
+    "accounts": {
+      "placeholder": "Search an account",
+      "search": "Search an account",
+      "loading": "Loading accounts",
+      "loadFailed": "Failed to load accounts.",
+      "noResults": "No account matches this search.",
+      "inactive": "Inactive"
+    },
+    "members": {
+      "accountLabel": "Company",
+      "selectAccount": "Select a company to manage its members.",
+      "joinTitle": "Join this company",
+      "joinHint": "Adds your user account as a web member of this company. The profile quota is ignored.",
+      "joinAsAdmin": "Join as administrator (recommended for support)",
+      "joinAction": "Join this company",
+      "joined": "You are now a member of {{account}}.",
+      "alreadyMember": "You are already a member of this company.",
+      "memberHint": "You are a member of this company.",
+      "current": "This company is currently selected.",
+      "switchAction": "Switch to {{account}}",
+      "title": "Members and profiles",
+      "addTitle": "Add a user",
+      "addAction": "Add",
+      "added": "{{email}} has been added to the company.",
+      "emailRequired": "Enter the user's email address.",
+      "noUser": "No user with this email.",
+      "userAlreadyMember": "This user is already a member of this company.",
+      "empty": "No profile in this company.",
+      "editTitle": "Edit permissions",
+      "updated": "Permissions updated.",
+      "removeTitle": "Remove from the company",
+      "removeConfirmLinked": "Remove \"{{name}}\" from {{account}}? Their user account and their other companies are not affected.",
+      "removeConfirm": "Remove the profile \"{{name}}\" from {{account}}?",
+      "removeAction": "Remove",
+      "removed": "Profile removed from the company."
+    },
+    "factures": {
+      "accountLabel": "Account",
+      "create": "New invoice",
+      "selectAccount": "Select an account to see its invoices.",
+      "empty": "No invoice for this account yet.",
+      "form": {
+        "createTitle": "New invoice",
+        "createSubtitle": "The PDF is uploaded with the invoice details.",
+        "editTitle": "Edit the invoice",
+        "editSubtitle": "Leave the PDF empty to keep the current one.",
+        "date": "Invoice date",
+        "amount": "Amount incl. VAT",
+        "invalidAmount": "Enter a valid amount.",
+        "pdf": "PDF file",
+        "pdfHint": "PDF only.",
+        "pdfKeepHint": "PDF only. Leave empty to keep the current PDF.",
+        "pdfOnly": "The file must be a PDF.",
+        "pdfTooLarge": "Maximum {{max}} MB.",
+        "readFailed": "Failed to read the file.",
+        "paid": "Invoice paid",
+        "paidHint": "A paid invoice shows as settled on the customer side."
+      },
+      "delete": {
+        "title": "Delete this invoice",
+        "confirm": "The invoice dated {{date}} ({{amount}}) and its PDF will be deleted for good."
+      },
+      "errors": {
+        "loadFailed": "Failed to load the invoices.",
+        "createFailed": "Failed to create the invoice.",
+        "saveFailed": "Failed to save the invoice.",
+        "deleteFailed": "Failed to delete the invoice."
+      }
+    },
+    "updates": {
+      "form": {
+        "version": "Version",
+        "versionHint": "Semver format, for example 1.4.2.",
+        "invalidVersion": "Version must match the x.y.z format.",
+        "apk": "APK file",
+        "apkHint": "Signed Android APK, {{max}} MB maximum.",
+        "apkTooLarge": "Maximum {{max}} MB.",
+        "changelog": "Changelog",
+        "changelogHint": "Optional notes shown to drivers before they update.",
+        "mandatory": "Mandatory update",
+        "mandatoryHint": "Older app versions are blocked until they update.",
+        "submit": "Publish the APK"
+      },
+      "uploading": "Upload in progress, this can take a while for a large APK.",
+      "uploaded": "Version {{version}} published.",
+      "versionCode": "code {{code}}",
+      "copySha256": "Copy the SHA-256 checksum of version {{version}}",
+      "sha256Copied": "Checksum copied.",
+      "editVersion": "Edit version {{version}}",
+      "edited": "Version {{version}} updated.",
+      "edit": {
+        "title": "Edit version {{version}}",
+        "description": "The changelog and the mandatory flag can be changed after publication."
+      },
+      "deleteVersion": "Delete version {{version}}",
+      "delete": {
+        "title": "Delete this version",
+        "confirm": "Version {{version}} will no longer be available for download."
+      },
+      "errors": {
+        "uploadFailed": "Failed to publish the APK.",
+        "deleteFailed": "Failed to delete the version.",
+        "editFailed": "Failed to update the version."
+      }
+    },
+    "errors": {
+      "forbidden": "Your profile is not a hyperadmin.",
+      "notFound": "This resource no longer exists.",
+      "actionFailed": "The action failed."
+    }
+  },
+  "appUpdate": {
+    "title": "New version available",
+    "description": "Version {{version}} has been deployed. Update to get the latest changes.",
+    "action": "Update",
+    "dismiss": "Dismiss",
+    "currentVersion": "Version {{version}}"
+  },
+  "map": {
+    "cooperative": {
+      "ctrl": "Use Ctrl + scroll to zoom the map",
+      "cmd": "Use Cmd + scroll to zoom the map",
+      "touch": "Use two fingers to move the map"
+    }
+  },
+  "consent": {
+    "banner": {
+      "title": "Cookies and data",
+      "description": "Movix only uses cookies required to run the service. Google sign-in sets third-party cookies, loaded only with your consent."
+    },
+    "policyLink": "Cookie policy",
+    "manage": "Manage cookies",
+    "actions": {
+      "refuse": "Refuse third-party cookies",
+      "acceptAll": "Accept all",
+      "customize": "Customise",
+      "saveChoices": "Save my choices",
+      "keepCurrent": "Keep my current choices"
+    },
+    "preferences": {
+      "title": "Cookie preferences",
+      "description": "Choose the categories you accept. Items required to run the service cannot be disabled."
+    },
+    "categories": {
+      "necessary": {
+        "label": "Necessary",
+        "description": "Session, language, selected company and display preferences. Always on."
+      },
+      "google": {
+        "label": "Google sign-in (third party)",
+        "description": "Loads the Google Identity Services script, which sets Google cookies. Only needed for the Continue with Google button."
+      },
+      "analytics": {
+        "label": "Audience measurement",
+        "description": "No audience measurement tool is currently in use."
+      }
+    },
+    "google": {
+      "buttonLabel": "Continue with Google",
+      "disabled": "Google sign-in is disabled by your cookie choices.",
+      "undecided": "Choose your cookie preferences to use Google sign-in.",
+      "modify": "Change",
+      "choose": "Choose"
+    }
+  },
+  "terms": {
+    "acceptLabel": "I have read and accept the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>",
+    "required": "You must accept the terms of service to continue.",
+    "googleBlocked": "Accept the terms of service to continue with Google",
+    "gate": {
+      "title": "Terms of Service",
+      "titleUpdate": "Updated Terms of Service",
+      "description": "To use Movix you need to accept the terms of service and read the privacy policy. It only takes a moment.",
+      "descriptionUpdate": "Our terms of service have been updated. Please review and accept them to keep using Movix.",
+      "accept": "Accept and continue"
+    }
+  },
+  "legal": {
+    "navLabel": "Legal information",
+    "nav": {
+      "terms": "Terms of Service",
+      "privacy": "Privacy",
+      "cookies": "Cookies"
+    },
+    "updatedAt": "Last updated: {{date}}",
+    "tocLabel": "Contents",
+    "terms": {
+      "documentTitle": "Terms of Service - Movix",
+      "metaDescription": "Terms of service of the Movix pharmaceutical delivery management platform."
+    },
+    "privacy": {
+      "documentTitle": "Privacy Policy - Movix",
+      "metaDescription": "Personal data processed by Movix, purposes, recipients, retention periods and user rights."
+    },
+    "cookies": {
+      "documentTitle": "Cookie Policy - Movix",
+      "metaDescription": "List of cookies and browser storage used by Movix, with their purpose, duration and category."
+    }
+  }
+}

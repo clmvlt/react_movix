@@ -1,0 +1,2739 @@
+{
+  "common": {
+    "appName": "Movix",
+    "loading": "Chargement",
+    "continue": "Continuer",
+    "save": "Enregistrer",
+    "saving": "Enregistrement",
+    "cancel": "Annuler",
+    "create": "Créer",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "confirm": "Confirmer",
+    "search": "Rechercher",
+    "back": "Retour",
+    "retry": "Réessayer",
+    "copyFailed": "La copie a échoué. Sélectionnez et copiez la valeur manuellement.",
+    "refresh": "Actualiser",
+    "none": "Aucun",
+    "notProvided": "Non renseigné",
+    "all": "Tous",
+    "yes": "Oui",
+    "no": "Non",
+    "actions": "Actions",
+    "close": "Fermer",
+    "filters": "Filtres",
+    "clear": "Effacer",
+    "clearFilters": "Effacer les filtres",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "results": "résultats",
+    "page": "Page {{page}}",
+    "noResults": "Aucun résultat",
+    "required": "Requis",
+    "download": "Télécharger",
+    "pdfPreviewFailed": "Échec du chargement du PDF.",
+    "fullscreen": "Plein écran",
+    "exitFullscreen": "Quitter le plein écran",
+    "comment": "Commentaire",
+    "date": "Date",
+    "pickDate": "Choisir une date",
+    "status": "Statut",
+    "color": "Couleur",
+    "customColor": "Couleur personnalisée",
+    "views": {
+      "list": "Liste",
+      "map": "Carte",
+      "orders": "Commandes",
+      "details": "Détails",
+      "tours": "Tournées"
+    },
+    "name": "Nom",
+    "firstName": "Prénom",
+    "lastName": "Nom de famille",
+    "city": "Ville",
+    "postalCode": "Code postal",
+    "address": "Adresse",
+    "phone": "Téléphone",
+    "email": "Email",
+    "success": "Succès",
+    "error": "Une erreur est survenue",
+    "unsaved": "modifications non enregistrées",
+    "unsavedDialog": {
+      "title": "Modifications non enregistrées",
+      "message": "Quitter sans enregistrer ? Vos modifications seront perdues.",
+      "stay": "Continuer la modification",
+      "leave": "Quitter sans enregistrer"
+    }
+  },
+  "deliveryWindow": {
+    "label": "Créneau de livraison",
+    "range": "{{start}} → {{end}}",
+    "from": "≥ {{start}}",
+    "until": "≤ {{end}}",
+    "none": "Pas d'importance",
+    "notBefore": "Pas avant",
+    "atLatest": "Au plus tard",
+    "between": "Livraison entre",
+    "and": "et",
+    "summaryRange": "Livraison entre {{start}} et {{end}}",
+    "summaryFrom": "Pas avant {{start}}",
+    "summaryUntil": "Au plus tard {{end}}",
+    "summaryEmpty": "Renseignez au moins une heure, l'autre borne reste libre.",
+    "clear": "Effacer",
+    "hint": "Laissez un champ vide pour ne pas fixer de borne. Un créneau peut passer minuit (23:00 à 01:00)."
+  },
+  "language": {
+    "label": "Langue",
+    "en": "Anglais",
+    "fr": "Français"
+  },
+  "workingDate": {
+    "label": "Date de travail",
+    "previous": "Jour précédent",
+    "next": "Jour suivant",
+    "today": "Revenir à aujourd'hui"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Accédez à votre tableau de bord Movix",
+      "email": "Email",
+      "emailPlaceholder": "Votre adresse email",
+      "password": "Mot de passe",
+      "passwordPlaceholder": "Votre mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion",
+      "forgotPassword": "Mot de passe oublié ?",
+      "invalidCredentials": "Email ou mot de passe incorrect.",
+      "webOnly": "Vous n'avez pas accès à l'interface web.",
+      "or": "ou",
+      "noAccount": "Pas encore de compte ?",
+      "createAccount": "Créer un compte",
+      "googleNoProfile": "Ce compte Google ne peut pas être utilisé pour se connecter (compte désactivé ou conflit de lien Google).",
+      "googleFailed": "La connexion Google a échoué. Veuillez réessayer.",
+      "googleEmailUsed": "Un compte existe déjà avec cette adresse email mais il n'est pas relié à Google. Connectez-vous avec votre mot de passe, puis reliez Google depuis les paramètres de votre compte.",
+      "documentTitle": "Connexion - Movix",
+      "metaDescription": "Connectez-vous à Movix pour gérer vos livraisons pharmaceutiques : expéditions, tournées, chauffeurs et factures."
+    },
+    "register": {
+      "title": "Créer un compte",
+      "subtitle": "Rejoignez ensuite votre entreprise avec un code d'invitation.",
+      "passwordHint": "{{count}} caractères minimum.",
+      "passwordTooShort": "Le mot de passe doit contenir au moins {{count}} caractères.",
+      "submit": "Créer mon compte",
+      "submitting": "Création",
+      "emailUsed": "Cette adresse email est déjà utilisée.",
+      "googleEmailUsed": "Un compte existe déjà avec cette adresse email. Connectez-vous avec votre mot de passe, puis reliez Google depuis les paramètres de votre compte.",
+      "rateLimited": "Trop de tentatives. Réessayez dans un instant.",
+      "haveAccount": "Déjà un compte ?",
+      "signIn": "Se connecter",
+      "documentTitle": "Créer un compte - Movix",
+      "metaDescription": "Créez votre compte Movix et rejoignez votre entreprise avec un code d'invitation.",
+      "pending": {
+        "title": "Vérifiez votre boîte mail",
+        "sentTo": "Dernière étape : confirmez votre adresse email pour activer votre compte.",
+        "hint": "Ouvrez le lien de confirmation envoyé à cette adresse. Pensez à vérifier vos spams si vous ne le voyez pas.",
+        "expiresAt": "Le lien est valable jusqu'au {{date}}.",
+        "alreadySent": "Un email a déjà été envoyé, réessayez dans {{count}} s.",
+        "alreadySentReady": "Un email a déjà été envoyé. Vous pouvez en demander un nouveau.",
+        "resend": "Renvoyer l'email",
+        "resending": "Envoi",
+        "retryIn": "Renvoyer dans {{count}} s",
+        "resent": "Email renvoyé.",
+        "noPending": "Aucune demande en attente pour cette adresse : le lien a expiré ou le compte est déjà confirmé.",
+        "restart": "Refaire une inscription",
+        "changeEmail": "Utiliser une autre adresse"
+      }
+    },
+    "forgot": {
+      "title": "Réinitialiser le mot de passe",
+      "subtitle": "Saisissez votre email pour recevoir un lien de réinitialisation",
+      "submit": "Envoyer le lien",
+      "submitting": "Envoi",
+      "done": "Si un compte existe pour cet email, un lien de réinitialisation a été envoyé.",
+      "backToLogin": "Retour à la connexion"
+    },
+    "reset": {
+      "title": "Nouveau mot de passe",
+      "subtitle": "Choisissez un nouveau mot de passe pour votre compte",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "submit": "Mettre à jour",
+      "submitting": "Mise à jour",
+      "mismatch": "Les mots de passe ne correspondent pas.",
+      "done": "Votre mot de passe a été mis à jour.",
+      "invalidToken": "Ce lien de réinitialisation est invalide ou expiré."
+    },
+    "verify": {
+      "title": "Vérification de l'email",
+      "verifying": "Vérification de votre email",
+      "done": "Votre email a été vérifié.",
+      "failed": "Impossible de vérifier votre email.",
+      "notVerified": "Veuillez vérifier votre adresse email pour continuer.",
+      "resend": "Renvoyer l'email de vérification",
+      "resent": "Email de vérification envoyé."
+    },
+    "confirm": {
+      "title": "Confirmation du compte",
+      "confirming": "Confirmation de votre inscription",
+      "done": "Votre compte est activé. Redirection",
+      "invalid": "Ce lien de confirmation est invalide ou a expiré (les liens sont valables 48 heures). Refaites une inscription pour en recevoir un nouveau.",
+      "conflict": "Cette adresse est déjà associée à un compte, connectez-vous.",
+      "failed": "Impossible de confirmer votre inscription. Réessayez plus tard.",
+      "documentTitle": "Confirmation du compte - Movix",
+      "metaDescription": "Confirmez votre adresse email pour activer votre compte Movix."
+    },
+    "logout": "Se déconnecter",
+    "panel": {
+      "title": "Toutes vos livraisons, du dépôt au comptoir",
+      "subtitle": "Préparez les expéditions, construisez les tournées et suivez vos chauffeurs depuis une seule interface.",
+      "points": {
+        "map": "Commandes et tournées sur une carte, sélectionnables en un clic.",
+        "route": "Ordre de passage optimisé, avec créneaux de livraison et heures d'arrivée.",
+        "driver": "Une application mobile pour les chauffeurs : chargement scanné, preuve de livraison, anomalies."
+      },
+      "backToSite": "Retour au site"
+    }
+  },
+  "nav": {
+    "groups": {
+      "operations": "Exploitation",
+      "tracking": "Suivi",
+      "directory": "Référentiel",
+      "administration": "Administration",
+      "beta": "Beta"
+    },
+    "dashboard": "Tableau de bord",
+    "expeditions": "Expéditions",
+    "tours": "Tournées",
+    "tourConfigs": "Tournées auto",
+    "zones": "Zones",
+    "pharmacies": "Pharmacies",
+    "pharmacyReports": "Rapports pharmacies",
+    "commands": "Commandes",
+    "anomalies": "Anomalies",
+    "todos": "À faire",
+    "profiles": "Profils",
+    "notifications": "Notifications",
+    "account": "Compte",
+    "settings": "Paramètres",
+    "exports": "Extractions",
+    "profile": "Profil",
+    "menu": "Menu",
+    "souffrance": "Souffrance",
+    "apiTokens": "Tokens API",
+    "factures": "Factures",
+    "mobileApp": "Application mobile",
+    "hyperadmin": "Hyperadmin",
+    "admin": "Admin",
+    "companyLabel": "Entreprise",
+    "companySwitch": "Changer d'entreprise (actuelle : {{company}})",
+    "joinCompany": "Rejoindre une entreprise"
+  },
+  "noCompany": {
+    "title": "Vous n'appartenez à aucune entreprise",
+    "hint": "Demandez un code d'invitation à un administrateur de votre entreprise, puis saisissez-le ici.",
+    "verifyTitle": "Vérifiez votre email",
+    "verifyHint": "Un email de vérification a été envoyé à {{email}}. Votre adresse doit être vérifiée pour pouvoir rejoindre une entreprise.",
+    "verifyFirst": "Vérifiez d'abord votre adresse email pour rejoindre une entreprise.",
+    "accountTitle": "Mon compte"
+  },
+  "joinPage": {
+    "invalid": "Ce lien d'invitation n'est plus valide.",
+    "inviteTitle": "{{societe}} vous invite à rejoindre son espace",
+    "inviteProfile": "Cette invitation est destinée au profil {{name}}.",
+    "inviteHint": "Connectez-vous ou créez un compte pour rejoindre l'entreprise.",
+    "haveAccount": "J'ai déjà un compte",
+    "joining": "Connexion à {{societe}}...",
+    "verifiedContinue": "J'ai vérifié mon email",
+    "openApp": "Ouvrir l'application",
+    "goToLogin": "Aller à la connexion"
+  },
+  "joinCompany": {
+    "title": "Rejoindre une entreprise",
+    "subtitle": "Saisissez le code d'invitation transmis par un administrateur.",
+    "codeLabel": "Code d'invitation",
+    "codePlaceholder": "K7KWH49MRC",
+    "submit": "Rejoindre",
+    "errors": {
+      "length": "Le code comporte {{count}} caractères.",
+      "invalid": "Code d'invitation invalide ou expiré.",
+      "alreadyMember": "Vous êtes déjà membre de cette entreprise.",
+      "rateLimited": "Trop de tentatives. Réessayez dans un instant."
+    }
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue, {{name}}",
+    "dayOf": "Journée du {{date}}",
+    "updatedAt": "mis à jour à {{time}}",
+    "depotAlert": {
+      "title": "Coordonnées du dépôt manquantes",
+      "description": "Sans point de départ, aucun itinéraire de tournée ne peut être calculé.",
+      "action": "Renseigner le dépôt"
+    },
+    "kpi": {
+      "commands": "Commandes du jour",
+      "commandsHint": "{{parcels}} colis · {{weight}} kg",
+      "unassigned": "Sans tournée",
+      "unassignedHint": "{{assigned}} déjà affectées",
+      "tours": "Tournées",
+      "toursHint": "{{closed}} clôturées · {{km}} km prévus",
+      "deliveryRate": "Taux de livraison",
+      "deliveryRateHint": "{{delivered}} livrées · {{notDelivered}} non livrées"
+    },
+    "attention": {
+      "title": "À traiter",
+      "empty": "Rien à traiter",
+      "emptyHint": "Aucun blocage sur cette journée.",
+      "unassigned_one": "{{count}} commande sans tournée",
+      "unassigned_other": "{{count}} commandes sans tournée",
+      "withoutCoordinates_one": "{{count}} commande sans coordonnées GPS",
+      "withoutCoordinates_other": "{{count}} commandes sans coordonnées GPS",
+      "unsortedTours_one": "{{count}} tournée non triée",
+      "unsortedTours_other": "{{count}} tournées non triées",
+      "routeStaleTours_one": "{{count}} itinéraire à recalculer",
+      "routeStaleTours_other": "{{count}} itinéraires à recalculer",
+      "toursWithoutDriver_one": "{{count}} tournée sans chauffeur",
+      "toursWithoutDriver_other": "{{count}} tournées sans chauffeur",
+      "anomalies_one": "{{count}} anomalie aujourd'hui",
+      "anomalies_other": "{{count}} anomalies aujourd'hui",
+      "souffrance_one": "{{count}} colis en souffrance",
+      "souffrance_other": "{{count}} colis en souffrance",
+      "invalidGeocoding_one": "{{count}} adresse de pharmacie à corriger",
+      "invalidGeocoding_other": "{{count}} adresses de pharmacie à corriger",
+      "pharmacyReports_one": "{{count}} signalement pharmacie",
+      "pharmacyReports_other": "{{count}} signalements pharmacie",
+      "newPharmacies_one": "{{count}} nouvelle pharmacie à vérifier",
+      "newPharmacies_other": "{{count}} nouvelles pharmacies à vérifier",
+      "unpaidInvoices_one": "{{count}} facture impayée",
+      "unpaidInvoices_other": "{{count}} factures impayées"
+    },
+    "tours": {
+      "title": "Tournées du jour",
+      "seeAll": "Voir tout",
+      "empty": "Aucune tournée sur cette journée.",
+      "noDriver": "Sans chauffeur",
+      "stops_one": "{{count}} arrêt",
+      "stops_other": "{{count}} arrêts",
+      "parcels_one": "{{count}} colis",
+      "parcels_other": "{{count}} colis",
+      "startsAt": "départ {{time}}",
+      "startsAtEstimated": "départ estimé {{time}}",
+      "endsAt": "fin {{time}}",
+      "km": "{{km}} km",
+      "unsorted": "Non triée",
+      "routeStale": "Itinéraire obsolète",
+      "withoutDriver": "Sans chauffeur"
+    },
+    "trend": {
+      "title": "{{days}} derniers jours",
+      "summary": "{{total}} commandes · {{rate}}% livrées",
+      "dayLabel": "{{date}} : {{delivered}} livrées sur {{total}}",
+      "seeStats": "Statistiques"
+    },
+    "actions": {
+      "newCommand": "Nouvelle commande",
+      "searchCommand": "Rechercher",
+      "souffrance": "Souffrance",
+      "exports": "Extractions"
+    }
+  },
+  "profiles": {
+    "title": "Profils",
+    "subtitle": "Gérez les utilisateurs de votre compte",
+    "create": "Nouveau profil",
+    "searchPlaceholder": "Rechercher par identifiant, nom ou email",
+    "empty": "Aucun profil à afficher.",
+    "accessLabel": "Accès",
+    "inactiveTitle": "Profils inactifs",
+    "access": {
+      "web": "Web",
+      "mobile": "Mobile",
+      "admin": "Admin",
+      "stock": "Stock",
+      "active": "Actif",
+      "inactive": "Inactif"
+    },
+    "kind": {
+      "user": "Compte utilisateur",
+      "mobile": "Profil mobile"
+    },
+    "linkedBadge": "Compte lié",
+    "form": {
+      "createTitle": "Nouveau profil",
+      "editTitle": "Modifier le profil",
+      "subtitleMobile": "Un profil mobile se connecte avec un identifiant et un mot de passe. L'accès web s'accorde par invitation.",
+      "identifiant": "Identifiant",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "emailRequiredWeb": "L'email est obligatoire pour l'accès web.",
+      "passwordEdit": "Nouveau mot de passe",
+      "passwordHint": "Laisser vide pour conserver le mot de passe actuel.",
+      "passwordCreate": "Mot de passe mobile",
+      "passwordCreateHint": "Sert à la connexion mobile dans cette entreprise.",
+      "passwordMobileEdit": "Nouveau mot de passe mobile",
+      "linkedBadge": "Compte utilisateur lié",
+      "linkedHint": "Ce profil est rattaché à un compte utilisateur Movix. L'email appartient à ce compte ; le prénom et le nom sont gérés par l'utilisateur et peuvent être écrasés.",
+      "emailLinkedHint": "L'email appartient au compte utilisateur Movix et ne peut pas être modifié ici.",
+      "attachedExisting": "Utilisateur Movix existant rattaché à votre entreprise.",
+      "conflict": "Cet identifiant est déjà utilisé dans ce compte, ou cet email est déjà utilisé."
+    },
+    "invitations": {
+      "open": "Inviter",
+      "title": "Codes d'invitation",
+      "subtitle": "Partagez un code pour qu'un utilisateur Movix rejoigne votre entreprise. Celui qui rejoint n'est jamais administrateur.",
+      "maxUses": "Nombre d'usages",
+      "expiresInDays": "Validité (jours)",
+      "generate": "Générer un code",
+      "createdLabel": "Code à partager",
+      "shareHint": "Partagez ce code par message : il se saisit depuis \"Rejoindre une entreprise\".",
+      "copy": "Copier",
+      "copied": "Code copié.",
+      "copyLink": "Copier le lien",
+      "linkCopied": "Lien copié.",
+      "targeted": "Ciblée : {{name}}",
+      "generic": "Générique",
+      "listTitle": "Codes en cours",
+      "empty": "Aucun code d'invitation.",
+      "uses": "{{used}}/{{max}} usages",
+      "expiresOn": "expire le {{date}}",
+      "createdBy": "par {{name}}",
+      "revoke": "Révoquer",
+      "revoked": "Code d'invitation révoqué.",
+      "exhausted": "Épuisé",
+      "expired": "Expiré",
+      "errors": {
+        "range": "Saisissez un nombre entier entre 1 et {{max}}.",
+        "notFound": "Ce code n'existe plus."
+      }
+    },
+    "grantWeb": {
+      "action": "Donner l'accès web",
+      "formHint": "L'accès web s'accorde par invitation : générez un code à partager, et le compte créé avec ce code sera relié à ce profil.",
+      "title": "Donner l'accès web",
+      "subtitle": "Invitation pour {{name}}",
+      "readyHint": "Partagez ce code ou ce lien : à la création du compte, il sera relié à ce profil. {{name}} conserve son identifiant mobile et ses permissions.",
+      "alreadyLinked": "Ce profil est déjà relié à un compte utilisateur.",
+      "notFound": "Profil introuvable dans cette entreprise."
+    },
+    "deletedBadge": "Profil supprimé",
+    "delete": {
+      "title": "Supprimer le profil",
+      "confirm": "Supprimer le profil \"{{name}}\" ? Il sera désactivé et masqué, mais son nom restera visible dans les historiques. Son identifiant et son email redeviendront disponibles. Cette action est irréversible.",
+      "self": "Vous ne pouvez pas supprimer votre propre profil."
+    },
+    "remove": {
+      "title": "Retirer de l'entreprise",
+      "confirm": "Retirer \"{{name}}\" de votre entreprise ? Son compte utilisateur Movix et ses accès aux autres entreprises ne sont pas affectés.",
+      "action": "Retirer"
+    }
+  },
+  "expeditions": {
+    "title": "Expéditions",
+    "subtitle": "Les commandes du jour, en liste et sur la carte",
+    "date": "Jour",
+    "toProcess": "{{count}} à affecter",
+    "showAssigned": "Afficher les affectées",
+    "showRoutes": "Afficher les itinéraires",
+    "empty": "Aucune expédition pour ce jour.",
+    "selected": "{{count}} sélectionnée(s)",
+    "clearSelection": "Effacer",
+    "changeStatus": "Changer le statut",
+    "changeExpDate": "Changer la date d'expédition",
+    "assign": "Affecter à une tournée",
+    "noTours": "Aucune tournée disponible pour ce jour",
+    "unassign": "Retirer de la tournée",
+    "souffrance": "Mettre en souffrance",
+    "actionsShort": {
+      "status": "Statut",
+      "assign": "Tournée",
+      "expDate": "Date",
+      "souffrance": "Souffrance"
+    },
+    "open": "Ouvrir",
+    "unassigned": "Non affectée",
+    "packages": "colis",
+    "tourLabel": "Tournée",
+    "depot": "Dépôt",
+    "statusDialog": {
+      "title": "Changer le statut",
+      "subtitle": "Appliqué à {{count}} commande(s)"
+    },
+    "assignDialog": {
+      "title": "Affecter à une tournée",
+      "subtitle": "{{count}} commande(s) sélectionnée(s)"
+    },
+    "expDateDialog": {
+      "title": "Changer la date d'expédition",
+      "date": "Nouvelle date d'expédition",
+      "warning": "Changer la date d'expédition retire les commandes de leurs tournées et recalcule les itinéraires impactés.",
+      "current": "Date actuelle : {{date}}"
+    }
+  },
+  "commands": {
+    "title": "Commandes",
+    "subtitle": "Rechercher, consulter et modifier les commandes de votre compte",
+    "searchPlaceholder": "Rechercher par pharmacie, ville, code postal, CIP ou identifiant",
+    "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés par la recherche.",
+    "empty": "Aucune commande à afficher.",
+    "noSearchResults": "Aucune commande ne correspond à cette recherche.",
+    "selectAllOnPage": "Sélectionner les commandes de cette page",
+    "pharmacy": "Pharmacie",
+    "closeDate": "Date de clôture",
+    "expDate": "Date d'expédition",
+    "packages": "Colis",
+    "tarif": "Tarif",
+    "forced": "Forcer le SCAN CIP",
+    "newPharmacy": "Nouvelle",
+    "newPharmacyTitle": "Nouvelle pharmacie",
+    "noPharmacy": "Pharmacie inconnue",
+    "openPharmacy": "Voir la pharmacie",
+    "locate": "Localiser sur la carte",
+    "editKey": "Modifier la clé",
+    "keyDialog": {
+      "title": "Modifier la clé",
+      "subtitle": "Numéro et couleur de clé de {{name}}, enregistrés sur la fiche pharmacie.",
+      "saved": "Clé enregistrée"
+    },
+    "pharmacyOrders": "Commandes de la pharmacie",
+    "create": {
+      "action": "Nouvelle commande",
+      "forPharmacy": "Nouvelle commande",
+      "title": "Nouvelle commande",
+      "subtitle": "Créer une commande et ses colis pour une pharmacie de votre compte",
+      "sectionOrder": "Commande",
+      "sectionPackages": "Colis",
+      "pharmacyHint": "Choisissez la pharmacie dans la liste. Un CIP inconnu est refusé par le serveur.",
+      "expTime": "Heure d'expédition",
+      "expTimeHint": "Envoyée avec votre fuseau horaire. Seul le jour regroupe les commandes.",
+      "numTransport": "Numéro de transport",
+      "numTransportHint": "Enregistré sur chaque colis de la commande.",
+      "totals": "Totaux",
+      "totalsHint": "Totaux calculés à partir des colis. Le serveur n'enregistre aucun total sur la commande elle-même.",
+      "totalWeight": "Poids (kg)",
+      "totalVolume": "Volume (m3)",
+      "addPackage": "Ajouter un colis",
+      "removePackage": "Supprimer ce colis",
+      "packageIndex": "Colis {{index}}",
+      "packageType": "Type",
+      "packageTypeHint": "Par exemple BAC ou CARTON.",
+      "packageNum": "Numéro de colis",
+      "packageQuantity": "Quantité",
+      "packageWeight": "Poids (kg)",
+      "packageVolume": "Volume (m3)",
+      "packageLength": "Longueur (cm)",
+      "packageWidth": "Largeur (cm)",
+      "packageHeight": "Hauteur (cm)",
+      "packageFresh": "Colis sous chaîne du froid",
+      "packageId": "Code-barres forcé",
+      "packageIdHint": "Facultatif. Repris uniquement s'il est libre, sinon le serveur génère un code-barres.",
+      "noPackagesTitle": "Commande sans colis",
+      "noPackagesDescription": "Le numéro de transport n'est enregistré que sur les colis. Sans colis il est perdu et aucune étiquette ne peut être imprimée.",
+      "allowNoPackages": "Créer quand même la commande, sans colis",
+      "submit": "Créer la commande",
+      "success": {
+        "title": "Commande créée",
+        "subtitle": "La commande a été créée pour {{name}}.",
+        "orderId": "Identifiant de commande",
+        "label": "Étiquette",
+        "open": "Ouvrir la commande",
+        "again": "Créer une autre commande",
+        "noParcels": "Commande créée sans colis",
+        "noParcelsHint": "Le numéro de transport n'a pas été enregistré et aucune étiquette ne peut être imprimée."
+      },
+      "errors": {
+        "pharmacyRequired": "Sélectionnez une pharmacie.",
+        "required": "Ce champ est obligatoire.",
+        "invalidDate": "Saisissez une date valide.",
+        "invalidTime": "Saisissez une heure valide.",
+        "number": "Saisissez un nombre valide.",
+        "positive": "Saisissez un nombre supérieur à 0.",
+        "integer": "Saisissez un nombre entier.",
+        "noPackages": "Ajoutez un colis ou confirmez la création sans colis.",
+        "formInvalid": "Vérifiez les champs signalés.",
+        "validation": "Certains champs ont été refusés par le serveur. Vérifiez les champs signalés.",
+        "invalid": "La commande a été refusée. Vérifiez les champs et réessayez.",
+        "unknownCip": "Aucune pharmacie ne correspond à ce CIP sur votre compte.",
+        "emailNotVerified": "Vérifiez votre adresse email avant de créer une commande.",
+        "timeout": "Le serveur n'a pas répondu à temps. Vérifiez la liste des commandes avant de réessayer.",
+        "server": "Le serveur n'a pas pu créer la commande. Veuillez réessayer."
+      }
+    },
+    "filters": {
+      "modeSimple": "Simple",
+      "modeDetailed": "Détaillée",
+      "detailedHint": "La recherche détaillée combine tous les champs. Le nom, la ville et l'adresse acceptent aussi les variantes st et saint, contrairement à la recherche simple.",
+      "pharmacyName": "Nom de la pharmacie",
+      "commandId": "Identifiant de commande",
+      "from": "Du",
+      "to": "Au",
+      "endWithoutStart": "Une date de fin seule est ignorée par le serveur. Ajoutez une date de début pour filtrer sur une période.",
+      "pageSize": "Résultats par page",
+      "pageSizeValue": "{{count}} par page"
+    },
+    "sections": {
+      "shipping": "Expédition",
+      "shippingDesc": "Date, tournée et options de la commande",
+      "comment": "Commentaire",
+      "commentDesc": "Note libre attachée à cette commande"
+    },
+    "commentDialog": {
+      "editTitle": "Modifier le commentaire",
+      "addTitle": "Ajouter un commentaire",
+      "subtitle": "Note libre attachée à la commande.",
+      "hint": "Videz le champ pour effacer le commentaire.",
+      "saved": "Commentaire enregistré"
+    },
+    "tarifDialog": {
+      "title": "Modifier le tarif",
+      "subtitle": "Appliqué à {{count}} commande(s)",
+      "clearHint": "Laissez vide pour effacer le tarif. Réservé aux administrateurs.",
+      "invalid": "Saisissez un nombre valide."
+    },
+    "souffrance": {
+      "title": "Commande en souffrance",
+      "description": "Mise en souffrance le {{date}} par {{name}}. Elle reste hors des tournées et des vues du jour tant qu'elle n'est pas restaurée.",
+      "unknownAuthor": "un utilisateur inconnu"
+    },
+    "detail": {
+      "parcels": "Colis",
+      "noParcels": "Aucun colis sur cette commande.",
+      "designation": "Désignation",
+      "quantity": "Qté",
+      "barcode": "Code-barres",
+      "weight": "Poids",
+      "zone": "Zone",
+      "label": "Voir l'étiquette du colis (PDF)",
+      "labelShort": "PDF",
+      "labelTitle": "Étiquette du colis",
+      "labelFailed": "L'étiquette du colis n'a pas pu être générée.",
+      "history": "Historique des statuts",
+      "historyShort": "Historique",
+      "historySubtitle": "Changements de statut de la commande.",
+      "noHistory": "Aucun historique de statut.",
+      "pictures": "Photos",
+      "noPictures": "Aucune photo sur cette commande.",
+      "openPicture": "Ouvrir la photo",
+      "recent": "Dernières commandes de la pharmacie",
+      "noRecent": "Aucune autre commande géolocalisée pour cette pharmacie.",
+      "subtitle": "Commande du {{date}}",
+      "tourStop": "{{name}} - arrêt {{order}}",
+      "noTour": "Non affectée à une tournée",
+      "openTour": "Voir la tournée",
+      "forcedOn": "Activé pour cette commande",
+      "forcedOff": "Désactivé",
+      "noTarif": "Aucun tarif défini",
+      "noComment": "Aucun commentaire sur cette commande.",
+      "editComment": "Modifier le commentaire",
+      "addComment": "Ajouter un commentaire",
+      "expDateSaved": "Date d'expédition modifiée"
+    },
+    "errors": {
+      "invalid": "La requête a été refusée. Vérifiez votre sélection.",
+      "forbidden": "Vous n'avez pas les droits pour cette action.",
+      "notFound": "Certaines commandes sélectionnées n'existent plus ou sont en souffrance. Actualisez la liste.",
+      "notFoundDetail": "Cette commande n'existe pas ou appartient à un autre compte.",
+      "tourClosed": "Une des commandes appartient à une tournée clôturée. Rien n'a été modifié.",
+      "actionFailed": "L'action a échoué. Veuillez réessayer."
+    }
+  },
+  "packages": {
+    "history": {
+      "title": "Historique des statuts du colis",
+      "empty": "Aucun historique de statut pour ce colis."
+    },
+    "status": {
+      "title": "Changer le statut du colis",
+      "subtitle": "Appliqué à {{count}} colis",
+      "failed": "Le statut du colis n'a pas pu être modifié."
+    }
+  },
+  "anomalies": {
+    "title": "Anomalies",
+    "subtitle": "Les incidents déclarés sur les livraisons",
+    "declare": "Déclarer une anomalie",
+    "open": "Ouvrir l'anomalie",
+    "empty": "Aucune anomalie déclarée pour le moment.",
+    "noResults": "Aucune anomalie ne correspond à ces filtres.",
+    "types": {
+      "c_dev": "Colis dévoyé",
+      "c_end": "Colis endommagé",
+      "c_per": "Colis perdu",
+      "excu_temp": "Excursion de température",
+      "other": "Autre"
+    },
+    "columns": {
+      "createdAt": "Déclarée le",
+      "type": "Type",
+      "pharmacy": "Pharmacie",
+      "declaredBy": "Déclarée par",
+      "description": "Description"
+    },
+    "filters": {
+      "searchPlaceholder": "Rechercher une pharmacie (nom, CIP, ville, code postal, adresse)",
+      "searchScope": "La recherche ne porte que sur les champs pharmacie, ni sur la description, ni sur les actions, ni sur le déclarant.",
+      "tooManyWords": "Seuls les {{count}} premiers mots sont utilisés par le serveur.",
+      "allTypes": "Tous les types",
+      "allProfiles": "Tout le monde",
+      "cipIgnored": "Le filtre CIP est ignoré tant qu'une recherche globale est active.",
+      "dateHint": "Les bornes de journée sont calculées en UTC : les résultats proches de minuit peuvent se décaler de 2 heures."
+    },
+    "form": {
+      "title": "Déclarer une anomalie",
+      "subtitle": "L'anomalie est rattachée à une pharmacie et, si besoin, à une commande.",
+      "subtitleCommand": "Anomalie sur la commande de {{name}}.",
+      "type": "Type d'anomalie",
+      "typePlaceholder": "Choisir un type",
+      "pharmacy": "Pharmacie",
+      "pharmacyHint": "Saisissez au moins 2 caractères pour lancer la recherche.",
+      "pharmacyFromCommand": "Reprise de la commande.",
+      "packages": "Colis concernés",
+      "packagesHint": "Laissez vide pour rattacher tous les colis de la commande.",
+      "description": "Description",
+      "actions": "Actions effectuées",
+      "counter": "{{count}} / {{max}} caractères",
+      "tooLong": "{{count}} caractères maximum.",
+      "pictures": "Photos",
+      "addPictures": "Ajouter des photos",
+      "removePicture": "Retirer la photo",
+      "pictureCount": "{{count}} / {{max}} photos",
+      "tooManyPictures": "{{count}} photos maximum.",
+      "invalidEmails": "Adresse invalide : {{list}}",
+      "email": "Notification par email",
+      "emailAccount": "Réglage du compte",
+      "emailSend": "Envoyer",
+      "emailSkip": "Ne pas envoyer",
+      "recipients": "Destinataires",
+      "recipientsHint": "Séparez les adresses par une virgule. Elles remplacent celles du compte.",
+      "asyncEmailNotice": "L'email part en arrière-plan avec re-tentatives automatiques : l'anomalie est créée même si l'envoi échoue. Suivez l'envoi dans l'historique des notifications email.",
+      "submit": "Déclarer"
+    },
+    "comment": {
+      "action": "Modifier la description",
+      "title": "Modifier la description",
+      "subtitle": "La description est le seul champ modifiable d'une anomalie.",
+      "replaceWarning": "Le texte ci-dessous remplace la description actuelle, et ne peut pas rester vide.",
+      "required": "La description ne peut pas être vide."
+    },
+    "email": {
+      "action": "Envoyer par email",
+      "title": "Envoyer l'anomalie par email",
+      "subtitle": "Le rapport PDF est joint au message.",
+      "recipients": "Destinataires",
+      "recipientsHint": "Séparez les adresses par une virgule. Laissez vide pour utiliser les destinataires configurés sur le compte.",
+      "asyncNotice": "L'envoi est asynchrone avec re-tentatives automatiques : suivez-le dans l'historique des notifications email.",
+      "configureRecipients": "Configurer les destinataires",
+      "submit": "Envoyer",
+      "queued": "L'email a été mis en file d'envoi."
+    },
+    "pdf": {
+      "action": "PDF",
+      "download": "Voir le PDF",
+      "title": "PDF de l'anomalie"
+    },
+    "detail": {
+      "command": "Commande",
+      "commandLinked": "Commande rattachée",
+      "noCommand": "Aucune commande",
+      "openCommand": "Voir la commande",
+      "noParcels": "Aucun colis rattaché à cette anomalie.",
+      "noPictures": "Aucune photo rattachée à cette anomalie.",
+      "purgeNotice": "Les photos d'anomalie sont supprimées automatiquement au bout de 3 mois."
+    },
+    "errors": {
+      "invalid": "La requête a été refusée. Vérifiez les champs.",
+      "forbidden": "Vous n'avez pas les droits pour cette action.",
+      "notFound": "Cette anomalie n'existe plus ou appartient à un autre compte.",
+      "notFoundDetail": "Cette anomalie n'existe pas ou appartient à un autre compte.",
+      "createNotFound": "Commande ou pharmacie inconnue pour ce compte.",
+      "sendNotFound": "Envoi impossible : anomalie introuvable ou aucun destinataire configuré sur le compte.",
+      "timeout": "Le serveur a mis trop de temps à répondre. L'action a peut-être abouti.",
+      "actionFailed": "L'action a échoué. Veuillez réessayer."
+    }
+  },
+  "tours": {
+    "title": "Tournées",
+    "subtitle": "Les tournées de livraison du jour et leurs commandes",
+    "create": "Nouvelle tournée",
+    "empty": "Aucune tournée pour ce jour.",
+    "listLabel": "{{count}} tournée(s)",
+    "ordersCount": "{{count}} commande(s)",
+    "packagesCount": "{{count}} colis",
+    "closedTours": {
+      "show": "Afficher clôturées",
+      "hide": "Cacher clôturées"
+    },
+    "stops": "arrêts",
+    "eta": {
+      "value": "Arrivée est. à {{time}}",
+      "label": "Arrivée estimée à {{time}}, d'après le passage au point précédent",
+      "actual": "Passage constaté le {{datetime}}"
+    },
+    "changeStatus": "Changer le statut de la tournée",
+    "driver": "Chauffeur",
+    "assignDriver": "Affecter un chauffeur",
+    "noDrivers": "Aucun chauffeur disponible",
+    "unassign": "Retirer le chauffeur",
+    "pdf": "PDF",
+    "pdfTarif": "PDF tarifé",
+    "pdfTitle": "PDF de la tournée",
+    "pdfTarifTitle": "PDF tarifé de la tournée",
+    "pdfErrors": {
+      "unauthorized": "Votre session a expiré. Veuillez vous reconnecter.",
+      "forbidden": "Vous n'avez pas les droits pour télécharger ce PDF.",
+      "emailNotVerified": "Vérifiez votre adresse email pour télécharger ce PDF.",
+      "notFound": "Cette tournée n'existe plus.",
+      "failed": "Erreur lors de la génération du PDF. Veuillez réessayer."
+    },
+    "unassigned": "Non affecté",
+    "distance": "Distance",
+    "km": "Km départ / fin",
+    "zone": "Zone",
+    "immat": "Immat.",
+    "startKm": "Km départ",
+    "endKm": "Km fin",
+    "unsorted": "Non trié",
+    "period": "Période",
+    "estimate": "Estimation",
+    "estimateStart": "Heure de départ pour l'estimation",
+    "estimatedStart": "Début estimé",
+    "estimatedEnd": "Fin estimée",
+    "estimatedDuration": "Durée estimée",
+    "estimatedDistance": "Distance estimée",
+    "deltaVsEstimate": "{{value}} par rapport à l'estimation",
+    "start": "Début",
+    "end": "Fin",
+    "startDate": "Date de début",
+    "startTime": "Heure de début",
+    "endDate": "Date de fin",
+    "endTime": "Heure de fin",
+    "duration": "Durée",
+    "loading": "Chargement",
+    "informations": "Informations",
+    "edit": "Modifier",
+    "assign": "Assigner",
+    "lockedClosed": "Tournée clôturée, verrouillée",
+    "debrief": {
+      "notice": "Cette tournée est en debrief, elle attend d'être clôturée.",
+      "close": "Clôturer la tournée"
+    },
+    "hideClosed": "Cacher les tournées clôturées",
+    "allClosedHidden": "{{count}} tournée(s) clôturée(s) masquée(s)",
+    "noneSelected": "Aucune tournée sélectionnée",
+    "history": {
+      "title": "Historique des statuts",
+      "empty": "Aucun historique de statut pour cette tournée."
+    },
+    "editDialog": {
+      "title": "Modifier la tournée"
+    },
+    "statusDialog": {
+      "title": "Changer le statut"
+    },
+    "assignDialog": {
+      "title": "Affecter un chauffeur"
+    },
+    "detail": {
+      "orders": "Commandes",
+      "noOrders": "Aucune commande dans cette tournée.",
+      "selectAll": "Sélectionner toutes les commandes",
+      "vehicle": "Véhicule"
+    },
+    "createDialog": {
+      "title": "Nouvelle tournée",
+      "subtitle": "Créez une tournée pour le jour sélectionné.",
+      "date": "Date",
+      "color": "Couleur"
+    },
+    "deleteDialog": {
+      "title": "Supprimer la tournée",
+      "confirm": "Supprimer la tournée \"{{name}}\" ? Cette action est irréversible."
+    },
+    "order": {
+      "action": "Trier la tournée",
+      "untitled": "Tournée sans nom",
+      "listTitle": "Ordre de passage",
+      "empty": "Aucune commande dans cette tournée.",
+      "stops": "{{count}} arrêt(s)",
+      "distance": "{{value}} km",
+      "sorted": "Triée",
+      "toSort": "À trier",
+      "autoSort": "Trier automatiquement",
+      "sorting": "Tri en cours",
+      "reverse": "Inverser",
+      "departureTime": "Heure de départ",
+      "estimatedReturn": "Retour estimé",
+      "undo": "Annuler",
+      "redo": "Rétablir",
+      "saving": "Enregistrement",
+      "reset": "Réinitialiser",
+      "moveUp": "Monter",
+      "moveDown": "Descendre",
+      "stopWithoutCoords": "Pharmacie sans coordonnées",
+      "missingCoords": "{{count}} arrêt(s) sans coordonnées, laissés en fin d'ordre et exclus du trajet.",
+      "skippedTitle": "{{count}} arrêt(s) écarté(s) par l'optimisation, placés en fin d'ordre.",
+      "ignoredTitle": "{{count}} commande(s) de la tournée absente(s) de la réponse du serveur, laissée(s) en fin d'ordre. Signalez ce cas, le serveur devrait les trier ou expliquer leur exclusion.",
+      "skippedReason": {
+        "UNROUTABLE": "coordonnées non localisables sur une route",
+        "TOO_FAR": "trop éloigné de la route la plus proche",
+        "TOO_FAR_DISTANCE": "à environ {{value}} m de la route la plus proche"
+      },
+      "errors": {
+        "closed": "Cette tournée est clôturée, son ordre ne peut plus être modifié.",
+        "forbidden": "Vous n'avez pas le droit de réordonner cette tournée.",
+        "depotMissing": "Les coordonnées du dépôt ne sont pas renseignées dans les paramètres du compte, le tri automatique et les heures d'arrivée sont indisponibles.",
+        "noRoutableStop": "Aucun arrêt n'a pu être rattaché à une route. Vérifiez les coordonnées des pharmacies.",
+        "optimizeFailed": "Le tri automatique a échoué. Le moteur de routage est peut-être indisponible, réessayez dans 30 secondes.",
+        "saveFailed": "L'ordre n'a pas pu être enregistré.",
+        "refreshFailed": "Le trajet n'a pas pu être recalculé.",
+        "notInTour": "Un des arrêts n'appartient plus à cette tournée, rechargez la page.",
+        "ORS_UNREACHABLE": "Moteur de routage injoignable, le trajet précédent est conservé.",
+        "ORS_CIRCUIT_OPEN": "Moteur de routage en pause après plusieurs échecs, réessayez dans 30 secondes.",
+        "ENGINE_REJECTED": "Le calculateur d'itinéraire a refusé cette séquence d'arrêts. Vérifiez les coordonnées des pharmacies.",
+        "NO_ROUTE_RETURNED": "Aucun itinéraire n'a pu être calculé pour cette séquence d'arrêts.",
+        "NO_ROUTABLE_STOP": "Aucun arrêt n'a pu être rattaché à une route.",
+        "UNEXPECTED_ERROR": "Le trajet n'a pas pu être calculé."
+      },
+      "selectAll": "Tout sélectionner",
+      "recalculate": "Recalculer",
+      "recalculating": "Recalcul du trajet",
+      "correlationId": "(référence {{value}})",
+      "save": "Enregistrer l'ordre",
+      "unsaved": "ordre non enregistré",
+      "leaveDialog": {
+        "title": "Ordre non enregistré",
+        "message": "L'ordre de passage a été modifié mais pas enregistré. Si vous quittez la page, les modifications seront perdues.",
+        "stay": "Rester",
+        "leave": "Quitter sans enregistrer"
+      },
+      "windows": {
+        "range": "Créneau {{start}} → {{end}}",
+        "from": "Pas avant {{start}}",
+        "until": "Avant {{end}}",
+        "held": "Créneau tenu",
+        "late": "Retard {{count}} min",
+        "lateMarker": "Créneau de livraison non tenable",
+        "waiting": "Attente {{count}} min avant ouverture",
+        "waitingShort": "Attente {{count}} min",
+        "arrivalThenDelivery": "arrivée {{arrival}}, livraison {{delivery}}",
+        "summaryCount": "{{count}} avec créneau",
+        "summaryLate": "{{count}} non tenable(s)",
+        "summaryWaiting": "{{count}} min d'attente",
+        "infeasibleTitle": "{{count}} créneau(x) non tenable(s) avec un départ à {{time}} :",
+        "openPharmacy": "Ouvrir la fiche de {{name}}",
+        "confirmDialog": {
+          "title": "Créneaux de livraison non tenus",
+          "message": "{{count}} arrêt(s) ont un créneau de livraison non tenable avec cet ordre. Enregistrer quand même ?",
+          "confirm": "Enregistrer quand même"
+        }
+      },
+      "previewFailed": "Le trajet de l'ordre en cours n'a pas pu être calculé, la carte affiche le dernier trajet valide."
+    }
+  },
+  "zones": {
+    "title": "Zones",
+    "subtitle": "Regroupez les pharmacies en zones de livraison",
+    "untitled": "Zone sans nom",
+    "empty": "Aucune zone pour l'instant. Créez-en une pour commencer à regrouper vos pharmacies.",
+    "create": "Nouvelle zone",
+    "backToZones": "Retour aux zones",
+    "showOnMap": "Afficher seulement celle-ci sur la carte",
+    "locate": "Localiser sur la carte",
+    "unassigned": "Sans zone",
+    "unassignedDesc": "Pharmacies non affectées",
+    "pharmacyCount": "{{count}} pharmacies",
+    "selected": "{{count}} sélectionnées",
+    "clearSelection": "Effacer la sélection",
+    "selectAllOnPage": "Sélectionner les pharmacies de cette page",
+    "selectAllInZone": "Tout sélectionner ({{count}})",
+    "searchPlaceholder": "Rechercher par nom ou CIP",
+    "noPharmacies": "Aucune pharmacie dans cette zone.",
+    "noSearchResults": "Aucune pharmacie ne correspond à cette recherche.",
+    "columns": {
+      "cip": "CIP"
+    },
+    "views": {
+      "zones": "Zones"
+    },
+    "legend": {
+      "showAll": "Afficher toutes les zones",
+      "isolate": "Afficher uniquement cette zone",
+      "withoutCoordinates": "{{count}} pharmacies sans coordonnées"
+    },
+    "form": {
+      "createTitle": "Nouvelle zone",
+      "renameTitle": "Renommer la zone",
+      "subtitle": "Les zones regroupent les pharmacies pour que les commandes rejoignent la bonne tournée.",
+      "name": "Nom de la zone",
+      "namePlaceholder": "Secteur Nord",
+      "nameRequired": "Saisissez un nom de zone.",
+      "nameTooLong": "Maximum {{max}} caractères.",
+      "duplicate": "Une zone porte déjà ce nom.",
+      "failed": "La zone n'a pas pu être enregistrée."
+    },
+    "assign": {
+      "action": "Affecter à une zone",
+      "actionShort": "Affecter",
+      "menuLabel": "Affecter {{count}} pharmacies à",
+      "detach": "Retirer de la zone",
+      "success": "{{count}} pharmacies affectées à {{zone}}.",
+      "partial": "{{applied}} pharmacies affectées sur {{requested}}. Le serveur a rejeté les autres.",
+      "detachSuccess": "{{count}} pharmacies retirées de leur zone.",
+      "detachPartial": "{{detached}} pharmacies retirées sur {{requested}}. Réessayez pour les autres.",
+      "failed": "L'opération a échoué."
+    },
+    "delete": {
+      "title": "Supprimer la zone",
+      "confirm": "Supprimer la zone \"{{name}}\" ?",
+      "detach": "{{count}} pharmacies seront retirées de cette zone.",
+      "cascade": "Les tournées et les configurations de tournée liées à cette zone la perdront, y compris les tournées passées et clôturées. L'affectation automatique cessera pour elles. Cette action est irréversible.",
+      "failed": "La zone n'a pas pu être supprimée."
+    },
+    "errors": {
+      "zoneGone": "Cette zone n'existe plus. Elle a peut-être été supprimée ailleurs."
+    }
+  },
+  "pharmacies": {
+    "title": "Pharmacies",
+    "subtitle": "Recherchez, qualifiez et documentez les pharmacies de votre compte",
+    "untitled": "Pharmacie sans nom",
+    "create": "Nouvelle pharmacie",
+    "searchPlaceholder": "Rechercher par nom, ville, code postal, CIP ou adresse",
+    "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés par la recherche.",
+    "empty": "Aucune pharmacie à afficher.",
+    "noSearchResults": "Aucune pharmacie ne correspond à cette recherche.",
+    "referenceBanner": "Données du référentiel national. Cette pharmacie n'a pas encore été personnalisée pour votre compte.",
+    "openDetail": "Ouvrir la fiche",
+    "picker": {
+      "placeholder": "Rechercher une pharmacie",
+      "none": "Aucune pharmacie trouvée.",
+      "clear": "Changer de pharmacie"
+    },
+    "orders": {
+      "section": "Commandes",
+      "all": "Commandes",
+      "create": "Nouvelle commande",
+      "showOnMap": "Afficher {{count}} commande(s) sur la carte",
+      "hideOnMap": "Masquer les commandes sur la carte",
+      "empty": "Aucune commande géolocalisée pour cette pharmacie."
+    },
+    "columns": {
+      "cip": "CIP",
+      "zone": "Zone",
+      "location": "Code postal / ville"
+    },
+    "badges": {
+      "noLocation": "Sans coordonnées",
+      "neverOrdered": "Jamais commandé"
+    },
+    "filters": {
+      "modeSimple": "Simple",
+      "modeDetailed": "Détaillée",
+      "detailedHint": "La recherche détaillée combine tous les champs. Le nom et l'adresse sont comparés de façon approximative par le serveur, préférez la recherche simple pour du texte libre.",
+      "zone": "Zone",
+      "anyZone": "Toutes les zones",
+      "noZone": "Sans zone",
+      "hasPhotos": "Avec photos",
+      "hasOrderedShort": "Hors jamais commandé",
+      "hasOrderedHint": "Inclut aussi les pharmacies que votre compte n'a jamais qualifiées.",
+      "locationInvalid": "Géolocalisation invalide",
+      "pageSize": "Résultats par page",
+      "pageSizeValue": "{{count}} par page"
+    },
+    "sections": {
+      "photos": "Photos",
+      "identity": "Pharmacie",
+      "address": "Adresse",
+      "position": "Position",
+      "positionDesc": "Utilisée pour les trajets et le tri des tournées.",
+      "delivery": "Livraison",
+      "deliveryDesc": "Ce dont le livreur a besoin sur place.",
+      "contact": "Contact",
+      "notes": "Note interne",
+      "notesDesc": "Jamais visible par les livreurs."
+    },
+    "info": {
+      "address": "Adresse",
+      "contact": "Contact",
+      "informations": "Instructions à la livraison",
+      "commentaire": "Commentaire",
+      "numero": "Numéro de clé",
+      "color": "Couleur de clé",
+      "noColor": "Aucune couleur",
+      "clearColor": "Effacer la couleur",
+      "doubleKeyCarrier": "Double clé transporteur",
+      "doubleKeySender": "Double clé expéditeur",
+      "noCoordinates": "Cette pharmacie n'a pas encore de position.",
+      "dragHint": "Déplacez le point pour corriger les coordonnées.",
+      "dragHintEmpty": "Déplacez le point pour définir les coordonnées.",
+      "quality": "Civilité",
+      "country": "Pays",
+      "fax": "Fax",
+      "zone": "Zone",
+      "noZone": "Sans zone",
+      "searchAddress": "Rechercher une adresse",
+      "searchHint": "Vous pouvez aussi rechercher une adresse pour la positionner.",
+      "findAddress": "Rechercher l'adresse",
+      "findAddressHint": "Remplit l'adresse et place le marqueur sur la carte.",
+      "address2": "Complément d'adresse",
+      "address3": "Complément d'adresse 2",
+      "cipReadonlyHint": "Le CIP ne peut pas être modifié.",
+      "coordinates": "Coordonnées",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "editCoordinates": "Saisir les coordonnées",
+      "coordinatesHint": "Degrés décimaux, par exemple 48.8566 et 2.3522.",
+      "positionSet": "Position définie",
+      "positionFromAddress": "Placée depuis l'adresse",
+      "positionManual": "Placée à la main",
+      "positionFromDeliveries": "Placée depuis les dernières livraisons",
+      "positionStale": "L'adresse a changé depuis le placement du marqueur",
+      "positionStaleHint": "Relancez la localisation depuis l'adresse, ou gardez le marqueur tel quel.",
+      "positionNone": "Aucune position",
+      "positionNoneHint": "Recherchez l'adresse ou touchez la carte pour placer le marqueur.",
+      "positionNoneHintView": "Sans position, les trajets et le tri des tournées ignorent cette pharmacie.",
+      "positionHint": "Déplacez le marqueur pour ajuster la position.",
+      "setPosition": "Définir la position",
+      "locateFromAddress": "Localiser depuis l'adresse",
+      "locateFromAddressDone": "Marqueur placé à {{label}}.",
+      "locateFromAddressNone": "Aucun résultat pour cette adresse.",
+      "centerOnMarker": "Centrer sur le marqueur",
+      "resetPosition": "Rétablir la position enregistrée",
+      "clearPosition": "Effacer la position",
+      "positionActions": "Autres actions de position",
+      "accountScope": "Les informations et la position sont enregistrées pour votre compte uniquement.",
+      "key": "Clé",
+      "keySummary": "Clé {{numero}}",
+      "keyColorOnly": "Couleur seule, sans numéro",
+      "keyNone": "Pas de clé",
+      "doubleKeyCarrierHint": "Le transporteur possède un double de la clé.",
+      "doubleKeyCarrierOff": "Pas de double chez le transporteur.",
+      "doubleKeySenderHint": "L'expéditeur possède un double de la clé.",
+      "doubleKeySenderOff": "Pas de double chez l'expéditeur.",
+      "informationsHint": "Affiché au livreur dans l'application mobile.",
+      "informationsPlaceholder": "Code d'entrée, point de dépôt, horaires...",
+      "commentaireHint": "Interne, jamais visible par les livreurs.",
+      "commentairePlaceholder": "Tout ce qui est utile au bureau.",
+      "noContact": "Aucune coordonnée de contact.",
+      "noNote": "Aucune note interne."
+    },
+    "form": {
+      "createTitle": "Nouvelle pharmacie",
+      "attachTitle": "Rattacher une pharmacie existante",
+      "attachAction": "Charger cette pharmacie",
+      "cip": "CIP",
+      "cipHint": "Identifiant métier, vérifié à la sortie du champ.",
+      "charCount": "{{count}} / {{max}} caractères",
+      "failed": "La pharmacie n'a pas pu être enregistrée.",
+      "errors": {
+        "cipRequired": "Saisissez un CIP.",
+        "email": "Saisissez une adresse email valide.",
+        "tooLong": "Maximum {{max}} caractères.",
+        "latitude": "La latitude doit être comprise entre -90 et 90.",
+        "longitude": "La longitude doit être comprise entre -180 et 180.",
+        "number": "Saisissez un nombre valide.",
+        "time": "Saisissez une heure au format HH:mm.",
+        "nameRequired": "Saisissez un nom."
+      },
+      "createDescription": "Saisissez le CIP, puis l'adresse et les informations de livraison.",
+      "cipChecking": "Vérification du CIP",
+      "cipAvailable": "Nouveau CIP, la fiche sera créée.",
+      "cipExists": "Ce CIP existe déjà dans le référentiel national. Chargez-le pour le rattacher à votre compte.",
+      "attachSubmit": "Rattacher à mon compte",
+      "attachLoaded": "Données du référentiel chargées. Complétez la fiche pour votre compte.",
+      "saved": "Pharmacie enregistrée.",
+      "created": "Pharmacie créée.",
+      "formInvalid": "Vérifiez les champs en surbrillance.",
+      "dirtyStatus": "Modifications non enregistrées",
+      "referenceEditBanner": "L'enregistrement crée la fiche de votre compte. Le référentiel national n'est jamais modifié.",
+      "cipAlreadyAttached": "Cette pharmacie est déjà dans votre compte."
+    },
+    "photos": {
+      "title": "Photos",
+      "count": "{{count}} photos",
+      "empty": "Aucune photo pour l'instant. Ajoutez-en une pour documenter cette pharmacie.",
+      "add": "Ajouter des photos",
+      "dropHint": "Déposez vos images ici ou parcourez. 10 Mo maximum par fichier.",
+      "uploading": "Envoi {{current}} sur {{total}}",
+      "tooLarge": "{{name}} dépasse 10 Mo et n'a pas été envoyée.",
+      "notAnImage": "{{name}} n'est pas une image et n'a pas été envoyée.",
+      "replace": "Remplacer l'image",
+      "fullscreen": "Plein écran",
+      "annotate": "Annoter",
+      "delete": "Supprimer la photo",
+      "deleteTitle": "Supprimer la photo",
+      "deleteConfirm": "Supprimer cette photo ? Cette action est irréversible.",
+      "moveUp": "Déplacer avant",
+      "moveDown": "Déplacer après",
+      "saveOrder": "Enregistrer l'ordre",
+      "cancelOrder": "Rétablir l'ordre",
+      "orderChanged": "L'ordre a changé. Enregistrez-le pour l'appliquer.",
+      "savingOrder": "Enregistrement de l'ordre",
+      "broken": "Image indisponible",
+      "brokenHint": "Le fichier est absent du serveur. Contactez le support pour le nettoyer.",
+      "openLightbox": "Ouvrir la photo",
+      "previous": "Photo précédente",
+      "next": "Photo suivante",
+      "errors": {
+        "upload": "{{count}} photos n'ont pas pu être envoyées.",
+        "delete": "Cette photo n'a pas pu être supprimée. Elle est peut-être déjà corrompue sur le serveur, contactez le support.",
+        "order": "Le nouvel ordre n'a pas pu être enregistré.",
+        "replace": "L'image n'a pas pu être remplacée."
+      },
+      "editor": {
+        "title": "Annoter la photo",
+        "subtitle": "Dessinez ou écrivez sur la photo, puis enregistrez pour la remplacer.",
+        "pen": "Stylo",
+        "text": "Texte",
+        "color": "Couleur",
+        "width": "Épaisseur",
+        "widthSmall": "Fin",
+        "widthMedium": "Moyen",
+        "widthLarge": "Épais",
+        "textPlaceholder": "Texte à placer",
+        "textHint": "Saisissez votre texte puis touchez la photo pour le placer.",
+        "undo": "Annuler",
+        "clear": "Effacer les annotations",
+        "save": "Enregistrer la photo",
+        "loading": "Chargement de la photo",
+        "errors": {
+          "load": "La photo n'a pas pu être chargée pour l'édition.",
+          "save": "La photo annotée n'a pas pu être enregistrée.",
+          "tooLarge": "La photo annotée dépasse 10 Mo."
+        }
+      }
+    },
+    "reports": {
+      "title": "Rapports pharmacies",
+      "subtitle": "Rapports envoyés par les livreurs depuis l'application mobile",
+      "empty": "Aucun rapport à traiter.",
+      "count": "{{count}} rapports",
+      "invalidGeocodage": "Coordonnées erronées",
+      "author": "Signalé par",
+      "unknownAuthor": "Livreur inconnu",
+      "noPharmacy": "Pharmacie inconnue",
+      "transfer": "Ajouter à la pharmacie",
+      "transferFailed": "La photo n'a pas pu être ajoutée.",
+      "markHandled": "Supprimer",
+      "markHandledTitle": "Supprimer",
+      "markHandledConfirm": "Supprimer ce rapport ? Ses photos sont supprimées aussi, mais celles déjà transférées dans une galerie sont conservées.",
+      "deleteFailed": "Le rapport n'a pas pu être supprimé.",
+      "openPharmacy": "Voir la pharmacie",
+      "filterPlaceholder": "Rechercher par pharmacie, auteur ou commentaire",
+      "views": {
+        "list": "Rapports",
+        "detail": "Traitement"
+      },
+      "selectPrompt": "Sélectionnez un rapport pour le traiter ici.",
+      "photoCount_one": "{{count}} photo",
+      "photoCount_other": "{{count}} photos",
+      "photosSection": "Photos du rapport",
+      "noReportPhotos": "Aucune photo dans ce rapport.",
+      "gallerySection": "Galerie de la pharmacie ({{count}})",
+      "photoAdded": "Photo ajoutée",
+      "infoSection": "Fiche de la pharmacie",
+      "infoSaved": "Fiche enregistrée.",
+      "positionSection": "Position",
+      "positionSaved": "Position enregistrée.",
+      "savePosition": "Enregistrer la position",
+      "useDeliveryAverage_one": "Utiliser le point de la dernière livraison",
+      "useDeliveryAverage_other": "Utiliser la moyenne des {{count}} dernières livraisons",
+      "noDeliveryPoints": "Aucun point de livraison disponible.",
+      "loadingDeliveries": "Chargement des dernières livraisons",
+      "discardTitle": "Modifications non enregistrées",
+      "discardConfirm": "Changer de rapport et abandonner les modifications ?",
+      "pharmacyGone": "Cette pharmacie n'existe plus. Vous pouvez tout de même supprimer le rapport.",
+      "reportGone": "Ce rapport n'existe plus."
+    },
+    "label": {
+      "download": "Étiquette",
+      "downloadLong": "Voir l'étiquette",
+      "title": "Étiquette de la pharmacie",
+      "pending": "Génération",
+      "errors": {
+        "notFound": "Cette pharmacie n'existe plus.",
+        "forbidden": "Vous n'êtes pas autorisé à générer cette étiquette.",
+        "emailNotVerified": "Vérifiez votre adresse email pour générer l'étiquette.",
+        "failed": "L'étiquette n'a pas pu être générée."
+      }
+    },
+    "errors": {
+      "notFound": "Cette pharmacie n'existe pas.",
+      "notFoundDesc": "Elle a peut-être été supprimée, ou le CIP est erroné."
+    }
+  },
+  "todos": {
+    "title": "À faire",
+    "subtitle": "Suivez vos tâches et classez-les par catégorie",
+    "create": "Nouvelle tâche",
+    "searchPlaceholder": "Rechercher une tâche",
+    "empty": "Aucune tâche pour le moment. Créez la première.",
+    "columnEmpty": "Aucune tâche ici",
+    "uncategorized": "Sans catégorie",
+    "untitled": "Tâche sans titre",
+    "addHere": "Ajouter une tâche",
+    "moveTo": "Déplacer vers",
+    "dragHint": "Faites glisser une carte pour la déplacer vers une autre catégorie.",
+    "filter": {
+      "all": "Toutes",
+      "open": "En cours",
+      "done": "Terminées"
+    },
+    "form": {
+      "createTitle": "Nouvelle tâche",
+      "editTitle": "Modifier la tâche",
+      "subtitle": "Une tâche peut être rattachée à une catégorie.",
+      "titleLabel": "Titre",
+      "titlePlaceholder": "Que faut-il faire ?",
+      "description": "Description",
+      "descriptionPlaceholder": "Détails, contexte, liens",
+      "completed": "Marquer comme terminée",
+      "category": "Catégorie",
+      "noCategory": "Aucune catégorie pour le moment. Créez-en une depuis le bouton Catégories.",
+      "titleRequired": "Un titre est obligatoire.",
+      "titleTooLong": "Le titre ne doit pas dépasser {{max}} caractères."
+    },
+    "delete": {
+      "title": "Supprimer la tâche",
+      "confirm": "Supprimer \"{{name}}\" ? Cette action est irréversible."
+    },
+    "categories": {
+      "manage": "Catégories",
+      "title": "Catégories",
+      "subtitle": "Créez, renommez et colorez les catégories de votre tableau.",
+      "edit": "Modifier la catégorie",
+      "name": "Nom",
+      "namePlaceholder": "Nom de la catégorie",
+      "color": "Couleur",
+      "add": "Nouvelle catégorie",
+      "empty": "Aucune catégorie pour le moment.",
+      "untitled": "Catégorie sans nom",
+      "todoCount": "{{count}} tâche(s)",
+      "nameRequired": "Un nom est obligatoire.",
+      "nameTooLong": "Le nom ne doit pas dépasser {{max}} caractères.",
+      "duplicate": "Une catégorie porte déjà ce nom.",
+      "delete": {
+        "confirm": "Supprimer la catégorie \"{{name}}\" ? Cette action est irréversible.",
+        "detach": "{{count}} tâche(s) seront déplacées vers \"Sans catégorie\"."
+      }
+    },
+    "errors": {
+      "action": "L'action a échoué. La liste a été rafraîchie.",
+      "save": "La tâche n'a pas pu être enregistrée. Veuillez réessayer.",
+      "deleteCategory": "La catégorie n'a pas pu être supprimée. Veuillez réessayer."
+    }
+  },
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Vos dernières alertes et mises à jour",
+    "scope": "Non lues et 10 dernières lues",
+    "markAllRead": "Tout marquer comme lu",
+    "markAllReadShort": "Tout lire",
+    "markRead": "Marquer comme lu",
+    "unread": "{{count}} non lues",
+    "empty": "Vous n'avez aucune notification.",
+    "viewAll": "Voir toutes les notifications",
+    "offline": "Notifications hors ligne, reconnexion...",
+    "bellUnread": "Notifications, {{count}} non lues",
+    "types": {
+      "ANOMALIE": "Anomalie",
+      "INFORMATION": "Information pharmacie",
+      "FACTURE": "Facture",
+      "OTHER": "Notification"
+    },
+    "errors": {
+      "markRead": "Impossible de marquer cette notification comme lue.",
+      "markAll": "Impossible de marquer ces notifications comme lues."
+    }
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "Configuration de votre société et de son fonctionnement"
+  },
+  "account": {
+    "title": "Mon compte",
+    "subtitle": "Vos informations personnelles et votre mot de passe",
+    "company": "Société",
+    "profile": "Profil",
+    "fullName": "Nom complet",
+    "role": "Rôle",
+    "admin": "Administrateur",
+    "member": "Membre",
+    "password": {
+      "title": "Changer le mot de passe",
+      "current": "Mot de passe actuel",
+      "new": "Nouveau mot de passe",
+      "confirm": "Confirmer le mot de passe",
+      "submit": "Mettre à jour",
+      "done": "Votre mot de passe a été mis à jour.",
+      "wrongCurrent": "Votre mot de passe actuel est incorrect.",
+      "webOnlyHint": "Ce mot de passe sert à la connexion web, pour toutes vos entreprises. Les mots de passe mobiles se gèrent entreprise par entreprise dans la page Profils."
+    },
+    "google": {
+      "title": "Connexion Google",
+      "hint": "Liez votre compte Google pour vous connecter à Movix en un clic.",
+      "linkedBadge": "Lié",
+      "linkedHint": "Vous pouvez vous connecter avec ce compte Google ou avec votre email et votre mot de passe.",
+      "unlink": "Délier",
+      "linked": "Votre compte Google a été lié.",
+      "unlinked": "Votre compte Google a été délié.",
+      "conflict": "Ce compte Google est déjà lié à un autre profil.",
+      "invalidToken": "La connexion Google n'a pas pu être vérifiée. Veuillez réessayer.",
+      "unavailable": "Impossible de charger la connexion Google.",
+      "identityHint": "Le lien Google s'applique à votre compte utilisateur, pour toutes vos entreprises."
+    },
+    "me": {
+      "birthday": "Date de naissance",
+      "identifiantHint": "Votre identifiant ne peut pas être modifié.",
+      "emailVerified": "Email vérifié",
+      "emailNotVerified": "Email non vérifié",
+      "emailChangeHint": "Changer votre email nécessitera de vérifier la nouvelle adresse.",
+      "verificationSent": "Un email de vérification a été envoyé à votre nouvelle adresse.",
+      "sharedIdentityHint": "Votre nom, votre date de naissance et votre email sont partagés entre toutes vos entreprises.",
+      "photo": {
+        "title": "Photo de profil",
+        "change": "Changer ma photo",
+        "hint": "JPEG ou PNG, redimensionnée automatiquement. 10 Mo maximum.",
+        "perCompanyHint": "Cette photo est propre à {{company}}.",
+        "updated": "Votre photo a été mise à jour.",
+        "notImage": "Ce fichier n'est pas une image lisible.",
+        "tooLarge": "Cette image est trop lourde."
+      },
+      "errors": {
+        "cannotClear": "Ce champ ne peut pas être vidé.",
+        "emailInvalid": "Saisissez une adresse email valide.",
+        "emailUsed": "Cette adresse email est déjà utilisée par un autre profil."
+      }
+    },
+    "tabs": {
+      "company": "Société",
+      "depot": "Dépôt",
+      "labels": "Expéditeur",
+      "labelLayout": "Étiquettes",
+      "emails": "Emails",
+      "smtp": "SMTP",
+      "options": "Options",
+      "tarifs": "Tarifs",
+      "colors": "Couleurs"
+    },
+    "form": {
+      "saved": "Modifications enregistrées.",
+      "noChanges": "Rien à enregistrer sur cet onglet.",
+      "unsavedElsewhere": "Modifications non enregistrées sur : {{tabs}}",
+      "goToTab": "Aller à cet onglet",
+      "reset": "Annuler",
+      "errors": {
+        "societeRequired": "Le nom de la société est obligatoire.",
+        "tooLong": "{{max}} caractères maximum.",
+        "postalCode": "Uniquement lettres, chiffres, espaces et traits d'union.",
+        "coordinatePair": "La latitude et la longitude doivent être renseignées toutes les deux.",
+        "latitude": "La latitude doit être comprise entre -90 et 90.",
+        "longitude": "La longitude doit être comprise entre -180 et 180.",
+        "nullIsland": "Les coordonnées 0, 0 ne sont pas une position de dépôt valide.",
+        "number": "Saisissez un nombre valide.",
+        "smtpPortRange": "Le port doit être compris entre {{min}} et {{max}}.",
+        "smtpPortRequired": "Le port est obligatoire quand le SMTP personnalisé est activé.",
+        "smtpHostRequired": "Le serveur est obligatoire quand le SMTP personnalisé est activé.",
+        "tlsSslExclusive": "TLS et SSL ne peuvent pas être activés en même temps.",
+        "senderIncomplete": "Obligatoire dès que le bloc expéditeur est utilisé.",
+        "logoTooLarge": "Cette image est trop lourde.",
+        "logoNotImage": "Ce fichier n'est pas une image lisible.",
+        "departureTimeInvalid": "Saisissez une heure de départ valide."
+      }
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut accéder à ces paramètres.",
+      "loadFailed": "Le chargement des paramètres a échoué.",
+      "saveFailed": "L'enregistrement des paramètres a échoué."
+    },
+    "companyTab": {
+      "title": "Informations de la société",
+      "subtitle": "Reprises dans les emails, les documents et l'application.",
+      "address2": "Complément d'adresse",
+      "country": "Pays"
+    },
+    "logo": {
+      "label": "Logo",
+      "hint": "PNG ou JPEG, redimensionné automatiquement à 512px.",
+      "change": "Choisir un logo",
+      "remove": "Supprimer le logo",
+      "preview": "Logo de la société"
+    },
+    "mobileCode": {
+      "title": "Code de connexion mobile",
+      "subtitle": "Communiquez ce code à vos chauffeurs : l'application mobile le demande avec leur identifiant et leur mot de passe.",
+      "copy": "Copier",
+      "copied": "Code copié."
+    },
+    "depot": {
+      "title": "Position du dépôt",
+      "subtitle": "Point de départ et d'arrivée de chaque tournée.",
+      "searchAddress": "Rechercher l'adresse du dépôt",
+      "dragHint": "Déplacez le marqueur pour ajuster la position.",
+      "dragHintEmpty": "Recherchez une adresse ou déplacez le marqueur pour placer le dépôt.",
+      "recenter": "Centrer sur le dépôt",
+      "coordinates": "Coordonnées du dépôt",
+      "missing": "Aucune position de dépôt définie.",
+      "missingWarning": "Sans position de dépôt, les tournées ne peuvent pas être calculées et les tarifs estimés restent à 0.",
+      "usedForTours": "Cette position pilote le tracé des tournées et la distance qui détermine le palier tarifaire. La modifier affecte les tournées futures."
+    },
+    "labels": {
+      "title": "Expéditeur des étiquettes",
+      "subtitle": "Imprimé sur les étiquettes colis, distinct de l'adresse société.",
+      "senderName": "Nom de l'expéditeur",
+      "senderAddress": "Adresse de l'expéditeur"
+    },
+    "emails": {
+      "title": "Envoi automatique",
+      "subtitle": "Interrupteur général des notifications email du compte.",
+      "autoSend": "Envoyer un email automatiquement à chaque anomalie",
+      "autoSendHint": "Désactivé, aucun email automatique ne part à la création d'une anomalie. Les envois manuels depuis une anomalie restent possibles."
+    },
+    "smtp": {
+      "title": "Serveur SMTP",
+      "subtitle": "Serveur utilisé pour envoyer les emails de ce compte.",
+      "host": "Serveur",
+      "port": "Port",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "showPassword": "Afficher le mot de passe",
+      "hidePassword": "Masquer le mot de passe",
+      "enable": "Utiliser un serveur SMTP personnalisé",
+      "enableHint": "Serveur, port, nom d'utilisateur et mot de passe deviennent obligatoires.",
+      "disabledNotice": "Les emails partent du serveur Movix par défaut.",
+      "useTls": "STARTTLS",
+      "useSsl": "SSL",
+      "portHint465": "Le port 465 requiert généralement SSL.",
+      "portHint587": "Le port 587 requiert généralement STARTTLS.",
+      "test": "Envoyer un email de test",
+      "testing": "Envoi en cours",
+      "testHint": "L'email de test part vers votre propre adresse. Enregistrez vos modifications d'abord.",
+      "testError": "L'email de test n'a pas pu être envoyé."
+    },
+    "options": {
+      "title": "Options de l'application",
+      "subtitle": "Réglages utilisés par les applications web et mobile.",
+      "scanCip": "Activer le scan CIP",
+      "scanCipHint": "Lu uniquement par les applications mobile et web, sans effet serveur.",
+      "defaultTourDeparture": "Heure de départ par défaut des tournées",
+      "defaultTourDepartureHint": "Affichée comme heure de départ estimée quand une tournée n'a pas encore d'heure de départ.",
+      "profiles": "Quota d'utilisateurs",
+      "profilesUsed": "{{used}} sur {{max}} utilisateurs",
+      "profilesUnlimited": "{{used}} utilisateurs, sans limite",
+      "maxProfilesHint": "Le quota est fixé par Movix. Contactez le support pour le modifier."
+    }
+  },
+  "accountColors": {
+    "title": "Couleurs du compte",
+    "subtitle": "Palette prédéfinie proposée en choix rapide dans tous les sélecteurs de couleur.",
+    "empty": "Aucune couleur prédéfinie pour l'instant. Ajoutez-en une pour constituer la palette du compte.",
+    "unnamed": "Couleur sans nom",
+    "add": "Ajouter",
+    "newColor": "Nouvelle couleur",
+    "name": "Nom de la couleur",
+    "namePlaceholder": "Nom (optionnel)",
+    "order": "Ordre",
+    "moveUp": "Monter",
+    "moveDown": "Descendre",
+    "manage": "Gérer les couleurs du compte",
+    "usage": {
+      "title": "Utilisation de la palette",
+      "pickers": "Ces couleurs sont proposées en premier dans tous les sélecteurs de couleur de l'application : tournées, tournées types, couleur de clé des pharmacies, etc.",
+      "fallback": "La palette est une aide à la saisie : chacun peut toujours choisir une couleur personnalisée, et les couleurs existantes hors palette restent inchangées.",
+      "order": "L'ordre ci-dessous est l'ordre d'affichage des pastilles. Utilisez les flèches ou modifiez le numéro d'ordre d'une couleur."
+    },
+    "delete": {
+      "title": "Supprimer cette couleur",
+      "confirm": "Supprimer \"{{name}}\" de la palette du compte ?",
+      "keepUsage": "Les éléments qui utilisent déjà cette couleur la conservent. Elle ne sera simplement plus proposée dans les sélecteurs.",
+      "failed": "Cette couleur n'a pas pu être supprimée."
+    },
+    "errors": {
+      "loadFailed": "Les couleurs du compte n'ont pas pu être chargées.",
+      "saveFailed": "La couleur n'a pas pu être enregistrée.",
+      "duplicate": "Cette couleur existe déjà dans la palette du compte.",
+      "invalidFormat": "Couleur invalide : utilisez le format hexadécimal #RRGGBB.",
+      "invalidOrder": "L'ordre doit être un nombre entier supérieur ou égal à 1.",
+      "forbidden": "Vous n'avez pas les droits pour gérer les couleurs du compte."
+    }
+  },
+  "emailNotifications": {
+    "recipients": {
+      "title": "Destinataires",
+      "subtitle": "Personnes qui reçoivent les emails automatiques du compte.",
+      "add": "Ajouter un destinataire",
+      "empty": "Aucun destinataire : les emails automatiques ne sont pas envoyés.",
+      "inactive": "Inactif",
+      "allTypes": "Tous les types",
+      "noSubscriptions": "Abonné à aucun événement : ce destinataire ne recevra aucun email.",
+      "deleted": "Le destinataire a été supprimé.",
+      "editAria": "Modifier {{email}}",
+      "deleteAria": "Supprimer {{email}}",
+      "deleteTitle": "Supprimer le destinataire ?",
+      "deleteDescription": "{{email}} ne recevra plus aucun email automatique. L'historique de ses envois est conservé.",
+      "dialog": {
+        "createTitle": "Ajouter un destinataire",
+        "editTitle": "Modifier le destinataire",
+        "subtitle": "Choisissez les événements et les types d'anomalies qui déclenchent un email.",
+        "email": "Adresse email",
+        "invalidEmail": "Adresse email invalide.",
+        "label": "Libellé",
+        "labelHint": "Un nom ou un rôle pour identifier ce destinataire.",
+        "active": "Actif",
+        "inactiveHint": "Inactif, le destinataire est conservé mais ne reçoit aucun email.",
+        "events": "Événements",
+        "noSubscriptions": "Sans abonnement, ce destinataire ne recevra aucun email, même actif.",
+        "anomalyTypes": "Types d'anomalies",
+        "typesHint": "Sans sélection, toutes les anomalies sont envoyées."
+      },
+      "errors": {
+        "duplicate": "Cette adresse est déjà dans la liste.",
+        "saveFailed": "L'enregistrement du destinataire a échoué.",
+        "deleteFailed": "La suppression du destinataire a échoué.",
+        "loadFailed": "Le chargement des destinataires a échoué."
+      }
+    },
+    "logs": {
+      "title": "Historique des envois",
+      "subtitle": "Emails envoyés, en attente ou en échec, du plus récent au plus ancien.",
+      "columns": {
+        "date": "Date",
+        "recipient": "Destinataire",
+        "subject": "Sujet",
+        "event": "Événement",
+        "status": "Statut"
+      },
+      "status": {
+        "PENDING": "En attente",
+        "SENDING": "Envoi en cours",
+        "SENT": "Envoyé",
+        "FAILED": "Échec"
+      },
+      "allStatuses": "Tous les statuts",
+      "allEvents": "Tous les événements",
+      "nextRetry": "Nouvel essai prévu le {{date}}",
+      "attempts": "{{count}} tentatives",
+      "openAnomaly": "Voir l'anomalie",
+      "retry": "Renvoyer",
+      "retryQueued": "L'email a été remis en file d'envoi.",
+      "retryConflict": "Envoi déjà en cours.",
+      "retryFailed": "Le renvoi a échoué.",
+      "empty": "Aucun email dans l'historique. Les envois sont conservés 30 jours.",
+      "noResults": "Aucun email ne correspond à ces filtres.",
+      "errors": {
+        "loadFailed": "Le chargement de l'historique a échoué."
+      }
+    }
+  },
+  "labelSettings": {
+    "readOnly": "Seul un administrateur peut modifier la mise en page des étiquettes.",
+    "template": {
+      "title": "Modèle d'étiquette",
+      "subtitle": "Le rendu complet change, les champs ci-dessous restent les mêmes.",
+      "modern": "Moderne",
+      "classic": "Classique",
+      "modernHint": "Hiérarchie typographique, coins arrondis, onglet noir DESTINATAIRE et encart de zone arrondi.",
+      "classicHint": "Rendu historique à cadres rectangulaires.",
+      "alt": "Aperçu du modèle {{template}}"
+    },
+    "orientation": {
+      "title": "Orientation de l'étiquette",
+      "portrait": "Portrait",
+      "landscape": "Paysage"
+    },
+    "zoneStyle": {
+      "title": "Style de l'encart zone",
+      "whiteOnBlack": "Blanc sur noir",
+      "blackOnWhite": "Noir sur blanc"
+    },
+    "fields": {
+      "bold": "Gras",
+      "autoSize": "Taille automatique",
+      "sizeRange": "Taille en points, de {{min}} à {{max}}.",
+      "capRange": "Plafond de l'ajustement automatique, de {{min}} à {{max}} points.",
+      "fontSizeFor": "Taille de {{field}}",
+      "decrease": "Réduire la taille de {{field}}",
+      "increase": "Augmenter la taille de {{field}}"
+    },
+    "fieldHints": {
+      "FRESH_BADGE": "Badge noir FRAIS, imprimé uniquement sur les colis frais.",
+      "QR_CODE": "QR contenant le code-barres, scannable au smartphone, affiché à droite du code-barres."
+    },
+    "hints": {
+      "autoGrow": "Masquer un bloc entier fait remonter le contenu et agrandit automatiquement le code-barres. L'aperçu montre le résultat exact.",
+      "barcodeTextLocked": "Masqué automatiquement tant que le code-barres est masqué."
+    },
+    "preview": {
+      "title": "Aperçu",
+      "subtitle": "Image produite par le moteur d'impression, identique à l'étiquette imprimée.",
+      "alt": "Aperçu de l'étiquette colis",
+      "refreshing": "Mise à jour de l'aperçu",
+      "testPdf": "Tester en PDF",
+      "pdfTitle": "PDF de l'étiquette"
+    },
+    "reset": {
+      "action": "Restaurer les valeurs par défaut",
+      "title": "Restaurer les valeurs par défaut ?",
+      "description": "La mise en page personnalisée de ce compte sera supprimée et les étiquettes reviendront aux réglages par défaut.",
+      "confirm": "Restaurer"
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut modifier ces paramètres.",
+      "loadFailed": "Le chargement des paramètres d'étiquette a échoué.",
+      "saveFailed": "L'enregistrement des paramètres d'étiquette a échoué.",
+      "resetFailed": "La restauration des valeurs par défaut a échoué.",
+      "previewFailed": "La génération de l'aperçu a échoué.",
+      "fontSizeRange": "Taille comprise entre {{min}} et {{max}}.",
+      "fontSizeNumber": "Saisissez un nombre entier.",
+      "fixFields": "Corrigez les tailles hors bornes avant d'enregistrer."
+    }
+  },
+  "tarifs": {
+    "title": "Grille tarifaire",
+    "subtitle": "Paliers de prix selon la distance depuis le dépôt.",
+    "create": "Ajouter un palier",
+    "empty": "Aucun palier tarifaire.",
+    "kmMax": "Distance maximale (km)",
+    "price": "Prix (EUR)",
+    "priceValue": "{{price}} EUR",
+    "upTo": "Jusqu'à {{km}} km",
+    "priceInversion": "Un palier plus long est moins cher qu'un palier plus court, vérifiez l'ordre.",
+    "rule": {
+      "title": "Comment le prix est choisi",
+      "body": "Une commande est facturée au premier palier dont la distance maximale couvre la distance entre le dépôt et la pharmacie.",
+      "noMatch": "Quand aucun palier ne correspond, le tarif estimé est de 0 EUR.",
+      "depotNotice": "Déplacer le dépôt change toutes les distances, et donc toutes les estimations."
+    },
+    "simulator": {
+      "title": "Simulateur",
+      "distance": "Distance (km)",
+      "result": "{{price}} EUR, palier jusqu'à {{km}} km",
+      "noTier": "Aucun palier correspondant, le tarif estimé serait de 0 EUR.",
+      "hint": "Saisissez une distance pour voir le palier appliqué."
+    },
+    "form": {
+      "createTitle": "Nouveau palier",
+      "editTitle": "Modifier le palier",
+      "subtitle": "Le palier s'applique à toutes les distances inférieures à son maximum.",
+      "noUpdateNotice": "La modification recrée le palier, l'API n'ayant pas de route de mise à jour.",
+      "kmMaxHint": "Distance en kilomètres depuis le dépôt.",
+      "priceHint": "Deux décimales maximum.",
+      "errors": {
+        "kmMaxRequired": "La distance maximale est obligatoire.",
+        "kmMaxRange": "La distance doit être comprise entre 0 et {{max}}.",
+        "priceRequired": "Le prix est obligatoire.",
+        "priceRange": "Le prix doit être compris entre 0 et {{max}}.",
+        "number": "Saisissez un nombre valide.",
+        "duplicate": "Un palier utilise déjà cette distance maximale.",
+        "decimals": "Deux décimales maximum."
+      }
+    },
+    "delete": {
+      "title": "Supprimer ce palier",
+      "confirm": "Supprimer le palier jusqu'à {{km}} km à {{price}} EUR ?"
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut gérer la grille tarifaire.",
+      "loadFailed": "Le chargement de la grille tarifaire a échoué.",
+      "createFailed": "L'enregistrement du palier a échoué.",
+      "deleteFailed": "La suppression du palier a échoué."
+    }
+  },
+  "tourConfigs": {
+    "title": "Tournées automatiques",
+    "subtitle": "Tournées récurrentes créées automatiquement.",
+    "create": "Ajouter une configuration",
+    "empty": "Aucune tournée automatique configurée.",
+    "noZone": "Aucune zone",
+    "noDriver": "Aucun livreur",
+    "everyDay": "Tous les jours",
+    "weekdaysOnly": "Jours ouvrés",
+    "neverRuns": "Ne se déclenche jamais",
+    "at": "À {{hour}}",
+    "deferredNotice": "Les tournées sont créées à l'heure pile, heure de Paris. Une nouvelle configuration produit sa première tournée au prochain passage à l'heure correspondante.",
+    "weekdays": {
+      "monday": "Lundi",
+      "tuesday": "Mardi",
+      "wednesday": "Mercredi",
+      "thursday": "Jeudi",
+      "friday": "Vendredi",
+      "saturday": "Samedi",
+      "sunday": "Dimanche"
+    },
+    "weekdaysShort": {
+      "monday": "Lu",
+      "tuesday": "Ma",
+      "wednesday": "Me",
+      "thursday": "Je",
+      "friday": "Ve",
+      "saturday": "Sa",
+      "sunday": "Di"
+    },
+    "form": {
+      "createTitle": "Nouvelle tournée automatique",
+      "editTitle": "Modifier la tournée automatique",
+      "duplicateTitle": "Dupliquer la tournée automatique",
+      "duplicateAction": "Dupliquer",
+      "copySuffix": "{{name}} (2)",
+      "name": "Nom de la tournée",
+      "nameHint": "Utilisé comme nom de chaque tournée créée, unique pour le compte.",
+      "color": "Couleur",
+      "zone": "Zone",
+      "zoneLocked": "La zone ne peut pas être retirée. Dupliquez la configuration sans zone, puis supprimez celle-ci.",
+      "driver": "Livreur",
+      "driverLocked": "Le livreur ne peut pas être retiré. Dupliquez la configuration sans livreur, puis supprimez celle-ci.",
+      "recurrence": "Jours",
+      "weekdays": "Jours ouvrés",
+      "everyDay": "Tous les jours",
+      "clear": "Effacer",
+      "hour": "Heure de création",
+      "hourHint": "Heures pleines uniquement, heure de Paris.",
+      "noRecurrenceWarning": "Aucun jour n'est sélectionné, cette configuration ne créera jamais de tournée.",
+      "errors": {
+        "nameRequired": "Le nom de la tournée est obligatoire.",
+        "nameTooLong": "{{max}} caractères maximum.",
+        "duplicate": "Une configuration utilise déjà ce nom.",
+        "color": "Utilisez une couleur au format #RRGGBB.",
+        "hour": "Choisissez une heure pleine."
+      }
+    },
+    "delete": {
+      "title": "Supprimer cette configuration",
+      "confirm": "Supprimer la configuration \"{{name}}\" ? Les tournées déjà créées sont conservées."
+    },
+    "errors": {
+      "forbidden": "Vous n'êtes pas autorisé à gérer les tournées automatiques.",
+      "loadFailed": "Le chargement des configurations a échoué.",
+      "saveFailed": "L'enregistrement de la configuration a échoué.",
+      "deleteFailed": "La suppression de la configuration a échoué."
+    }
+  },
+  "exports": {
+    "title": "Extractions",
+    "subtitle": "Export Excel des tournées et des statistiques par officine",
+    "tabs": {
+      "tours": "Tournées",
+      "pharmacies": "Pharmacies"
+    },
+    "filters": {
+      "title": "Période extraite",
+      "startDate": "Date de début",
+      "endDate": "Date de fin",
+      "presets": "Préréglages",
+      "reset": "Réinitialiser",
+      "clear": "Effacer les filtres",
+      "closedOnly": "Tournées clôturées uniquement",
+      "pharmacyCip": "Pharmacie (CIP)",
+      "driverId": "Chauffeur (identifiant)",
+      "allPharmacies": "Toutes les officines",
+      "allDrivers": "Tous les chauffeurs",
+      "rangeSummary": "{{count}} jour(s) couverts, bornes incluses. Les dates sont conservées d'un onglet à l'autre.",
+      "preset": {
+        "thisMonth": "Ce mois",
+        "lastMonth": "Mois dernier",
+        "last7Days": "7 derniers jours"
+      },
+      "errors": {
+        "missing": "Renseignez une date de début et une date de fin.",
+        "invalid": "Format de date invalide (attendu AAAA-MM-JJ).",
+        "reversed": "La date de début doit être antérieure ou égale à la date de fin."
+      },
+      "warnings": {
+        "warning": "Plage de {{count}} jours, le chargement peut prendre du temps.",
+        "danger": "Plage de {{count}} jours, le chargement peut prendre plusieurs minutes."
+      }
+    },
+    "actions": {
+      "load": "Charger les données",
+      "loading": "Chargement",
+      "loadingWithTime": "Chargement... {{seconds}}s",
+      "selectAll": "Tout sélectionner",
+      "deselectAll": "Tout désélectionner",
+      "preview": "Aperçu du classeur",
+      "download": "Télécharger .xlsx"
+    },
+    "progress": {
+      "title": "Génération du classeur...",
+      "preparing": "Préparation des données..."
+    },
+    "duration": {
+      "milliseconds": "en {{value}} ms",
+      "seconds": "en {{value}} s"
+    },
+    "confirm": {
+      "title": "Plage de {{count}} jours",
+      "body": "Au-delà de {{days}} jours, l'extraction calcule la distance de chaque commande en direct et peut durer plusieurs dizaines de secondes. Lancer quand même ?",
+      "confirm": "Lancer l'extraction"
+    },
+    "preview": {
+      "toursTitle": "Aperçu du classeur - Tournées",
+      "pharmaciesTitle": "Aperçu du classeur - Statistiques pharmacies",
+      "emptySheet": "Aucune donnée pour cette feuille",
+      "truncated": "Aperçu limité aux {{shown}} premières lignes. Le fichier en contiendra {{total}}."
+    },
+    "kpi": {
+      "tours": "Tournées",
+      "commands": "Commandes",
+      "deliveryRate": "Taux de livraison",
+      "packages": "Colis",
+      "packageRate": "Taux de livraison colis",
+      "weight": "Poids total",
+      "billed": "Total facturé",
+      "calculatedKm": "Km calculés",
+      "realKm": "Km réels",
+      "packagesPerCommand": "Colis par commande",
+      "deliveredHint": "{{count}} livrées",
+      "commandsPerTour": "{{value}} commandes par tournée",
+      "notDelivered": "Non livrées"
+    },
+    "results": {
+      "none": "Aucune donnée chargée"
+    },
+    "tours": {
+      "scopeHint": "Filtrage sur la date planifiée de la tournée (initialDate), bornes incluses. Les distances sont calculées en direct : sur une plage large, la réponse peut demander plusieurs dizaines de secondes.",
+      "loadingTitle": "Calcul des distances et tarifs...",
+      "loadingDetail": "{{seconds}} s écoulées, plage de {{days}} jour(s)",
+      "idle": "Choisissez une période puis lancez le chargement.",
+      "empty": "Aucune donnée sur cette période",
+      "found": "{{count}} tournée(s) trouvée(s)",
+      "selectionTitle": "Tournées à exporter ({{count}})",
+      "tableTitle": "Détail par tournée",
+      "commandsTitle": "Commandes ({{count}})",
+      "noCommands": "Aucune commande dans la sélection courante.",
+      "hideRemoved": "Masquer les commandes retirées",
+      "localTotals": "Totaux recalculés localement : ils ne correspondent plus au résumé calculé par le serveur.",
+      "withoutTarif": "{{commands}} commande(s) sans palier tarifaire sur {{tours}} tournée(s). Un tarif à 0 ne veut pas dire gratuit : aucun palier ne couvre la distance.",
+      "removedNotice": "{{count}} commande(s) retirée(s) au débrief : elles sont comptées dans le total et facturées.",
+      "removedBadge": "{{count}} retirée(s) au débrief",
+      "withoutTarifBadge": "{{count}} sans tarif",
+      "otherStatuses": "({{count}} autres statuts)",
+      "countsInline": "{{commands}} cmd / {{packages}} colis",
+      "newPharmacy": "Nouvelle",
+      "removed": "Retirée"
+    },
+    "pharmacies": {
+      "loadingTitle": "Chargement des statistiques pharmacies...",
+      "scopeHint": "Filtrage sur la date d'expédition de la commande (expDate), bornes en UTC. Les filtres laissés vides sont envoyés à null.",
+      "idle": "Choisissez une période puis lancez le chargement.",
+      "empty": "Aucune donnée sur cette période",
+      "found": "{{count}} officine(s) trouvée(s)",
+      "tableTitle": "Pharmacies ({{shown}} sur {{total}})",
+      "selectedCount": "{{count}} sélectionnée(s)",
+      "searchPlaceholder": "Rechercher par nom, CIP ou ville",
+      "noMatch": "Aucune officine ne correspond à la recherche.",
+      "localTotals": "Sélection partielle : les totaux sont recalculés localement et le taux de livraison du serveur ne s'applique plus.",
+      "lowRate": "{{count}} officine(s) sous {{threshold}} % de taux de livraison, mises en évidence dans le tableau.",
+      "tableNote": "Taux global issu de la synthèse serveur, jamais moyenné depuis les lignes. Les officines sans commande sur la période n'apparaissent pas.",
+      "coherence": "Ecart de cohérence : la synthèse annonce {{overview}} commande(s) alors que le détail par officine en totalise {{rows}}. A remonter à l'équipe backend."
+    },
+    "sheets": {
+      "summary": "Synthèse",
+      "tours": "Tournées",
+      "commands": "Commandes",
+      "tarifs": "Tarifs",
+      "drivers": "Par chauffeur",
+      "pharmacies": "Pharmacies"
+    },
+    "summary": {
+      "metric": "Métrique",
+      "value": "Valeur",
+      "generatedAt": "Date de génération",
+      "startDate": "Date de début (incluse)",
+      "endDate": "Date de fin (incluse)",
+      "closedOnly": "Tournées clôturées uniquement",
+      "dateField": "Champ de date filtré",
+      "dateFieldTours": "Date planifiée de la tournée (initialDate)",
+      "dateFieldPharmacies": "Date d'expédition de la commande (expDate), bornes en UTC",
+      "scope": "Périmètre",
+      "scopeTours": "Commandes des tournées de la plage, commandes retirées au débrief incluses. Commandes en souffrance exclues côté serveur.",
+      "scopePharmacies": "Toutes les commandes du compte sur la plage, avec ou sans tournée. Commandes et colis en souffrance exclus, commandes sans CIP exclues.",
+      "removedPolicy": "Commandes retirées au débrief",
+      "removedIncluded": "Incluses (comptées et facturées)",
+      "removedHidden": "Masquées de cet export",
+      "totalsSource": "Source des totaux",
+      "totalsServer": "Résumé calculé par le serveur",
+      "totalsOverview": "Synthèse serveur (/stats/overview)",
+      "totalsLocal": "Recalcul local",
+      "totalsLocalPartial": "Recalcul local (sélection partielle de tournées)",
+      "totalsLocalHidden": "Recalcul local (commandes retirées au débrief masquées)",
+      "totalsLocalBoth": "Recalcul local (sélection partielle et commandes retirées masquées)",
+      "exportedTours": "Tournées exportées",
+      "loadedTours": "Tournées chargées",
+      "exportedPharmacies": "Officines exportées",
+      "loadedPharmacies": "Officines chargées",
+      "appliedFilters": "Filtres appliqués",
+      "noFilter": "Aucun",
+      "tarifNoteLabel": "Note tarification",
+      "tarifNote": "Les commandes à tarif propre sont comprises dans le total mais absentes de la feuille Tarifs."
+    },
+    "columns": {
+      "id": "ID",
+      "name": "Nom",
+      "date": "Date",
+      "zone": "Zone",
+      "driver": "Chauffeur",
+      "immat": "Immatriculation",
+      "status": "Statut",
+      "start": "Début",
+      "end": "Fin",
+      "durationMinutes": "Durée (min)",
+      "startKm": "Km départ",
+      "endKm": "Km arrivée",
+      "realKm": "Km réels",
+      "estimateKm": "Km estimés",
+      "calculatedDistance": "Distance calculée",
+      "avgDistance": "Distance moyenne par commande",
+      "loadingMinutes": "Temps de chargement (min)",
+      "sorted": "Triée",
+      "totalCommands": "Total commandes",
+      "commands": "Cmd",
+      "delivered": "Livrées",
+      "notDelivered": "Non livrées",
+      "otherStatuses": "Autres statuts",
+      "totalPackages": "Total colis",
+      "packages": "Colis",
+      "deliveredPackages": "Colis livrés",
+      "notDeliveredPackages": "Colis non livrés",
+      "totalWeight": "Poids total",
+      "weight": "Poids",
+      "totalPrice": "Prix total",
+      "price": "Facturé",
+      "withoutTarif": "Commandes sans tarif",
+      "removedDebrief": "Retirée au débrief",
+      "tour": "Tournée",
+      "tourDate": "Date tournée",
+      "commandId": "ID commande",
+      "pharmacy": "Pharmacie",
+      "cip": "CIP",
+      "city": "Ville",
+      "order": "Ordre",
+      "tarif": "Tarif",
+      "distance": "Distance",
+      "newPharmacy": "Nouvelle pharmacie",
+      "expDate": "Date d'expédition",
+      "closeDate": "Date de fermeture",
+      "tarifId": "ID tarif",
+      "kmMax": "Km max",
+      "unitPrice": "Prix unitaire",
+      "commandCount": "Commandes",
+      "categoryTotal": "Total catégorie",
+      "tourCount": "Tournées",
+      "totalDuration": "Durée totale (min)",
+      "deliveryRate": "Taux de livraison",
+      "notDeliveryRate": "Taux de non-livraison",
+      "packageDeliveryRate": "Taux de livraison colis",
+      "loadedCommands": "Commandes chargées",
+      "pendingCommands": "Commandes en attente",
+      "missingCommands": "Commandes manquantes",
+      "avgPackages": "Colis par commande",
+      "avgCommands": "Commandes par tournée"
+    },
+    "values": {
+      "unassigned": "Non assignée",
+      "unnamedTour": "Tournée sans nom",
+      "unknownDate": "Date inconnue",
+      "noPlate": "Non définie",
+      "toursCount": "{{count}} tournée(s)",
+      "commandsCount": "{{count}} commande(s)",
+      "tarifsCount": "{{count}} palier(s)",
+      "driversCount": "{{count}} chauffeur(s)",
+      "pharmaciesCount": "{{count}} officine(s)"
+    },
+    "errors": {
+      "adminOnly": "Réservé aux administrateurs.",
+      "timeout": "Le délai de la requête est dépassé. Réduisez la plage de dates puis relancez."
+    }
+  },
+  "errors": {
+    "notFound": "Page introuvable",
+    "notFoundDesc": "La page que vous recherchez n'existe pas.",
+    "loadFailed": "Échec du chargement des données.",
+    "backHome": "Retour au tableau de bord",
+    "adminOnly": "Cet ecran est reserve aux administrateurs.",
+    "hyperadminOnly": "Cet écran est réservé aux hyperadmins."
+  },
+  "address": {
+    "search": "Rechercher une adresse",
+    "placeholder": "Numéro, rue, ville",
+    "minChars": "Saisissez au moins {{count}} caractères",
+    "searching": "Recherche en cours",
+    "noResults": "Aucune adresse trouvée",
+    "unavailable": "La recherche d'adresse est indisponible, réessayez plus tard.",
+    "failed": "La recherche d'adresse a échoué"
+  },
+  "souffrance": {
+    "title": "Souffrance",
+    "subtitle": "Commandes et colis mis à l'écart, hors des tournées et des vues du jour",
+    "tabs": {
+      "commands": "Commandes",
+      "packages": "Colis"
+    },
+    "searchPlaceholderCommands": "Rechercher par pharmacie, ville, code postal, CIP ou identifiant",
+    "searchPlaceholderPackages": "Rechercher par code-barres, pharmacie, ville, code postal, CIP ou identifiant",
+    "detailedHintPackages": "La recherche détaillée combine tous les champs. Le nom et la ville acceptent aussi les variantes st et saint, contrairement à la recherche simple.",
+    "expDateHint": "La période filtre la date d'expédition de la commande, pas la date de mise en souffrance.",
+    "emptyCommands": "Aucune commande en souffrance.",
+    "emptyPackages": "Aucun colis en souffrance.",
+    "noResults": "Aucun élément en souffrance ne correspond à cette recherche.",
+    "selectAll": "Sélectionner toutes les lignes de cette page",
+    "openCommand": "Ouvrir la commande",
+    "copyId": "Copier l'identifiant de commande",
+    "idCopied": "Identifiant copié",
+    "columns": {
+      "flagged": "Mise en souffrance",
+      "order": "Commande",
+      "action": "Souffrance"
+    },
+    "flag": {
+      "title": "Mettre en souffrance",
+      "subtitle": "Appliqué à {{count}} commande(s)",
+      "warnTour": "Chaque commande est retirée de sa tournée, et les itinéraires impactés sont recalculés.",
+      "warnPackages": "Tous les colis de la commande passent aussi en souffrance.",
+      "warnClosedTour": "Une commande sur une tournée clôturée bloque tout le lot : rien n'est modifié.",
+      "pending": "Recalcul des tournées impactées en cours, cela peut prendre du temps.",
+      "confirm": "Mettre en souffrance"
+    },
+    "flagPackages": {
+      "title": "Mettre le colis en souffrance",
+      "subtitle": "Appliqué à {{count}} colis",
+      "action": "Mettre le colis en souffrance",
+      "warnCommand": "La commande parente reste visible. Si tous ses colis sont en souffrance, elle apparaîtra vide.",
+      "warnTrace": "Aucun auteur ni aucune date ne sont conservés pour un colis mis en souffrance individuellement.",
+      "confirm": "Mettre en souffrance"
+    },
+    "restore": {
+      "action": "Restaurer la sélection",
+      "actionShort": "Restaurer",
+      "title": "Restaurer",
+      "subtitleCommands": "Appliqué à {{count}} commande(s)",
+      "subtitlePackages": "Appliqué à {{count}} colis",
+      "warnTour": "Les commandes ne sont pas remises sur leur tournée : elles reviennent non affectées et doivent être replanifiées.",
+      "warnPackages": "Tous les colis de la commande sont restaurés, y compris ceux mis en souffrance individuellement.",
+      "checkingParents": "Vérification des commandes parentes",
+      "blockedParents": "{{count}} colis ne peuvent pas être restaurés : leur commande est elle-même en souffrance. Restaurez la commande depuis l'onglet Commandes.",
+      "packagesHint": "{{count}} colis seront restaurés.",
+      "confirm": "Restaurer"
+    },
+    "hiddenParcels": {
+      "title": "Colis en souffrance",
+      "description": "{{count}} colis de cette commande sont en souffrance et ne sont pas listés ci-dessous. Le nombre de colis et les totaux ne correspondent plus au bordereau d'origine."
+    },
+    "errors": {
+      "invalid": "La requête a été refusée. Vérifiez votre sélection.",
+      "forbidden": "Vous n'avez pas les droits pour cette action.",
+      "notFoundPackages": "Aucun colis éligible : ils sont peut-être déjà en souffrance, ou déjà restaurés.",
+      "actionFailed": "L'action a échoué. Veuillez réessayer."
+    },
+    "selectHint": "Sélectionnez des lignes pour les restaurer."
+  },
+  "landing": {
+    "documentTitle": "Movix - Logiciel de tournées de livraison pour pharmacies",
+    "metaDescription": "Optimisez vos tournées de livraison vers les pharmacies : scan des colis, application chauffeur, suivi en temps réel. Pour grossistes et transporteurs.",
+    "nav": {
+      "workflow": "Fonctionnement",
+      "features": "Fonctionnalités",
+      "field": "Sur le terrain",
+      "login": "Se connecter",
+      "openApp": "Ouvrir l'application",
+      "audiences": "Pour qui",
+      "faq": "FAQ",
+      "register": "Créer un compte"
+    },
+    "hero": {
+      "eyebrow": "Plateforme de livraison pharmaceutique",
+      "title": "Toutes vos livraisons, du dépôt au comptoir",
+      "subtitle": "Movix réunit la préparation des expéditions, la construction des tournées, l'optimisation de l'ordre de passage et le suivi terrain dans une seule interface.",
+      "ctaPrimary": "Créer un compte",
+      "ctaSecondary": "Voir le fonctionnement",
+      "note": "Application web pour l'exploitation, application mobile pour les chauffeurs, en français et en anglais.",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "signIn": "Se connecter"
+    },
+    "highlights": {
+      "map": {
+        "title": "Tout sur la carte",
+        "desc": "Les commandes du jour, les tournées et les zones sur une carte interactive, aux couleurs de vos tournées."
+      },
+      "optimize": {
+        "title": "Ordre de passage optimisé",
+        "desc": "L'optimisation d'itinéraire est calculée côté serveur, avec un aperçu à vérifier avant de l'appliquer."
+      },
+      "realtime": {
+        "title": "Notifications instantanées",
+        "desc": "Un flux temps réel tient chaque écran à jour sans recharger la page."
+      }
+    },
+    "workflow": {
+      "eyebrow": "Une journée d'exploitation",
+      "title": "De la commande reçue à la tournée clôturée",
+      "subtitle": "Movix suit la séquence réelle d'une journée d'exploitation, sans tableur intermédiaire.",
+      "steps": {
+        "intake": {
+          "title": "Les commandes arrivent",
+          "desc": "Commandes, colis et pharmacies entrent dans Movix avec leur statut, leur date de clôture et leur tarif."
+        },
+        "build": {
+          "title": "Les tournées se construisent",
+          "desc": "Sélectionnez les commandes dans la liste ou directement sur la carte, puis affectez-les à une tournée en une action."
+        },
+        "optimize": {
+          "title": "L'ordre de passage s'optimise",
+          "desc": "Demandez un ordre optimisé, vérifiez le trajet proposé et les heures d'arrivée, puis enregistrez quand cela vous convient."
+        },
+        "close": {
+          "title": "Suivi et clôture",
+          "desc": "Anomalies, colis mis en souffrance, rapports chauffeurs et extractions Excel referment la journée."
+        }
+      }
+    },
+    "features": {
+      "eyebrow": "Modules",
+      "title": "Un seul outil pour toute la chaîne de livraison",
+      "subtitle": "Chaque module est un écran complet de l'application, pas une option ajoutée sur le côté.",
+      "items": {
+        "expeditions": {
+          "title": "Expéditions",
+          "desc": "Les commandes du jour sur la carte, affectées aux tournées en deux gestes."
+        },
+        "tours": {
+          "title": "Tournées",
+          "desc": "Constituez, colorez, affectez un chauffeur, suivez distance et durée, éditez le PDF."
+        },
+        "commands": {
+          "title": "Commandes",
+          "desc": "Recherchez, modifiez et suivez l'historique des colis de chaque commande."
+        },
+        "souffrance": {
+          "title": "Souffrance",
+          "desc": "Mettez de côté une commande ou un seul colis, hors des tournées et des vues du jour, puis remettez-le en circulation."
+        },
+        "anomalies": {
+          "title": "Anomalies",
+          "desc": "Les incidents déclarés depuis le terrain, avec photos, envoyés sous forme de rapport."
+        },
+        "pharmacies": {
+          "title": "Pharmacies",
+          "desc": "Le référentiel par CIP, avec adresses, contacts et rapports de livraison."
+        },
+        "zones": {
+          "title": "Zones",
+          "desc": "Regroupez les pharmacies en zones géographiques et dessinez-les sur la carte."
+        },
+        "exports": {
+          "title": "Extractions",
+          "desc": "Extractions Excel des tournées, des pharmacies et des volumes sur la période de votre choix."
+        },
+        "profiles": {
+          "title": "Profils",
+          "desc": "Comptes web et mobiles, rôles et droits de votre équipe."
+        },
+        "notifications": {
+          "title": "Notifications",
+          "desc": "Un flux en direct de ce qui a changé, consultable depuis n'importe quel écran."
+        }
+      }
+    },
+    "map": {
+      "eyebrow": "Carte et itinéraires",
+      "title": "Lisez votre journée sur la carte",
+      "subtitle": "Zones, tournées, arrêts et dépôt partagent le même code couleur sur tous les écrans.",
+      "legend": {
+        "north": "Tournée Nord",
+        "east": "Tournée Est",
+        "south": "Tournée Sud"
+      },
+      "points": {
+        "zones": {
+          "title": "Des zones colorées.",
+          "desc": "Regroupez vos pharmacies géographiquement et repérez immédiatement ce qui sort d'une tournée."
+        },
+        "routes": {
+          "title": "De vrais tracés routiers.",
+          "desc": "Les trajets viennent du moteur d'itinéraire, jamais de segments droits entre les arrêts."
+        },
+        "eta": {
+          "title": "Une heure d'arrivée par arrêt.",
+          "desc": "Changez l'heure de départ et toutes les heures d'arrivée suivent, sans aller-retour avec le serveur."
+        }
+      }
+    },
+    "field": {
+      "eyebrow": "Sur le terrain",
+      "title": "L'application mobile du chauffeur",
+      "subtitle": "Le chauffeur charge, livre et signale depuis son téléphone. Tout ce qu'il valide remonte immédiatement dans l'application web.",
+      "screens": {
+        "tours": {
+          "title": "Sa tournée du jour",
+          "desc": "Le chauffeur ouvre sa tournée et voit immédiatement les commandes déjà livrées, le nombre de colis, la distance et la durée estimée.",
+          "alt": "Écran Mes tournées de l'application mobile, avec le compteur de commandes, le nombre de colis, la distance et la durée."
+        },
+        "loading": {
+          "title": "Chargement scanné",
+          "desc": "Chaque colis est scanné à son code-barres avant le départ. Ce qui n'est pas passé reste marqué non chargé, pharmacie par pharmacie.",
+          "alt": "Écran de chargement, avec les codes-barres des colis d'une pharmacie et les boutons Non chargé et Scanner."
+        },
+        "delivery": {
+          "title": "Livraison arrêt par arrêt",
+          "desc": "Itinéraire vers la pharmacie, livraison validée ou refusée sur place, et le compteur de la tournée avance.",
+          "alt": "Écran de livraison, avec les actions carte, navigation et refus, et le bouton Livrer."
+        },
+        "anomaly": {
+          "title": "Anomalie avec photos",
+          "desc": "Motif, actions prises, colis concernés et photos obligatoires. L'anomalie arrive complète dans le back-office.",
+          "alt": "Écran de déclaration d'anomalie, avec les photos, le motif, les actions prises et les colis concernés."
+        }
+      },
+      "download": "Télécharger l'application chauffeur"
+    },
+    "cta": {
+      "title": "Prêt à ouvrir votre journée dans Movix ?",
+      "subtitle": "Contactez-nous pour demander un accès, nous ouvrons votre compte.",
+      "phone": "06 98 29 11 12",
+      "email": "clement.veillet@stack.bzh",
+      "note": "Français et anglais",
+      "register": "Créer un compte"
+    },
+    "footer": {
+      "tagline": "La gestion des livraisons pharmaceutiques, du dépôt au comptoir.",
+      "product": "Produit",
+      "access": "Accès",
+      "rights": "{{year}} {{name}}. Tous droits réservés.",
+      "legal": "Légal"
+    },
+    "mock": {
+      "company": "Ouest Distribution",
+      "user": "Camille Morel",
+      "urlShipments": "movix.fr/app/expeditions",
+      "urlTourOrder": "movix.fr/app/tours/order",
+      "shipmentsCaption": "Écran Expéditions : les commandes du jour en liste, à côté de la carte des tournées.",
+      "tourOrderCaption": "Écran Ordre de passage : les arrêts ordonnés d'une tournée, avec leurs heures d'arrivée et le trajet calculé.",
+      "phoneCaption": "Vue mobile de l'écran Expéditions, avec la barre de sélection à portée de pouce.",
+      "tourName": "Tournée Nord",
+      "depot": "Dépôt",
+      "status": {
+        "delivered": "Livrée",
+        "loaded": "Chargée",
+        "toDeliver": "À livrer",
+        "preparing": "En préparation"
+      }
+    },
+    "audiences": {
+      "eyebrow": "Pour qui",
+      "title": "Conçu pour la distribution pharmaceutique",
+      "subtitle": "Movix s'adapte aux équipes qui livrent des médicaments aux pharmacies chaque jour, quelle que soit leur taille.",
+      "items": {
+        "wholesalers": {
+          "title": "Grossistes-répartiteurs",
+          "desc": "Préparez les expéditions quotidiennes de vos agences, construisez les tournées et suivez chaque livraison jusqu'au comptoir."
+        },
+        "carriers": {
+          "title": "Transporteurs spécialisés",
+          "desc": "Exploitez les tournées confiées par vos clients avec les mêmes outils : ordre de passage, application chauffeur, preuve de livraison et signalement des anomalies."
+        },
+        "depots": {
+          "title": "Dépôts et plateformes régionales",
+          "desc": "Gérez plusieurs sites depuis un seul compte, chacun avec ses chauffeurs, ses zones et ses heures de départ."
+        }
+      }
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions fréquentes",
+      "subtitle": "Tout ce qu'il faut savoir avant d'ouvrir votre première journée dans Movix.",
+      "items": {
+        "who": {
+          "q": "À qui s'adresse Movix ?",
+          "a": "Aux grossistes-répartiteurs, transporteurs spécialisés et dépôts de livraison qui livrent des médicaments aux pharmacies. L'application web est destinée à l'exploitation, l'application mobile aux chauffeurs."
+        },
+        "access": {
+          "q": "Comment obtenir un accès ?",
+          "a": "Créez votre compte, puis rejoignez votre entreprise avec le code d'invitation remis par un administrateur. Si votre entreprise n'est pas encore sur Movix, contactez-nous et nous ouvrons son compte."
+        },
+        "mobile": {
+          "q": "Les chauffeurs ont-ils besoin d'un équipement particulier ?",
+          "a": "Non. L'application chauffeur fonctionne sur un téléphone Android. Les scans de chargement et de livraison utilisent l'appareil photo du téléphone."
+        },
+        "routing": {
+          "q": "Comment l'ordre de passage est-il calculé ?",
+          "a": "Movix calcule le trajet et les heures d'arrivée estimées sur ses propres serveurs, en tenant compte du créneau de livraison de chaque pharmacie. L'ordre n'est enregistré que lorsque vous le confirmez."
+        },
+        "exports": {
+          "q": "Puis-je exporter mes données ?",
+          "a": "Oui. Les tournées, les commandes et les factures s'exportent à tout moment vers des fichiers tableur."
+        },
+        "languages": {
+          "q": "Quelles langues sont disponibles ?",
+          "a": "L'application web et l'application chauffeur existent en français et en anglais. Chaque utilisateur choisit sa langue."
+        }
+      }
+    }
+  },
+  "apiTokens": {
+    "title": "Tokens API",
+    "subtitle": "Tokens utilises par les systemes tiers pour importer les commandes.",
+    "create": "Nouveau token",
+    "empty": "Aucun token API pour le moment.",
+    "noMatch": "Aucun token ne correspond a ces filtres.",
+    "searchPlaceholder": "Rechercher par nom ou description",
+    "managed": "Gere par Movix",
+    "managedHint": "Token gere par Movix, il ne peut pas etre supprime ici. Contactez le support pour le retirer.",
+    "neverUsed": "Jamais utilise",
+    "proxyOn": "Proxy beta",
+    "status": {
+      "active": "Actif",
+      "inactive": "Desactive"
+    },
+    "columns": {
+      "token": "Token",
+      "description": "Description",
+      "lastUsed": "Derniere utilisation",
+      "createdAt": "Creation",
+      "betaProxy": "Proxy beta"
+    },
+    "token": {
+      "reveal": "Afficher le token",
+      "hide": "Masquer le token",
+      "copy": "Copier le token",
+      "copied": "Token copie"
+    },
+    "actions": {
+      "activate": "Activer le token",
+      "deactivate": "Desactiver le token",
+      "protected": "Token protege, suppression impossible"
+    },
+    "form": {
+      "createTitle": "Nouveau token API",
+      "createSubtitle": "Le token est genere par le serveur et rattache a votre compte.",
+      "editTitle": "Modifier le token",
+      "editSubtitle": "La valeur du token ne change jamais. Laissez un champ tel quel pour le conserver.",
+      "nameHint": "Nom affiche dans la liste, par exemple le nom du partenaire.",
+      "nameTooLong": "Maximum {{max}} caracteres.",
+      "descriptionHint": "Optionnel, l'usage de ce token.",
+      "descriptionTooLong": "Maximum {{max}} caracteres.",
+      "active": "Token actif",
+      "activeHint": "Un token desactive est refuse par l'API d'import mais reste dans la liste.",
+      "createNotice": "Le token est cree actif et devient visible dans la liste juste apres.",
+      "account": "Compte",
+      "accountHint": "Laissez vide pour creer le token sur votre compte courant.",
+      "betaProxy": "Beta proxy",
+      "betaProxyHint": "Les imports recus par ce token sont rediriges vers l'environnement beta."
+    },
+    "delete": {
+      "title": "Supprimer ce token",
+      "confirm": "Le token {{name}} sera supprime definitivement et tout systeme qui l'utilise cessera de fonctionner immediatement.",
+      "warning": "Cette action est irreversible et le token ne pourra pas etre restaure.",
+      "typeName": "Saisissez {{name}} pour confirmer"
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut gerer les tokens API.",
+      "loadFailed": "Echec du chargement des tokens API.",
+      "createFailed": "Echec de la creation du token.",
+      "saveFailed": "Echec de l'enregistrement du token.",
+      "deleteFailed": "Echec de la suppression du token.",
+      "notFound": "Ce token n'existe plus.",
+      "actionFailed": "L'action a echoue."
+    }
+  },
+  "factures": {
+    "title": "Factures",
+    "subtitle": "Factures emises pour votre compte.",
+    "empty": "Aucune facture pour le moment.",
+    "noMatch": "Aucune facture ne correspond a ces filtres.",
+    "noPdf": "Pas de PDF",
+    "status": {
+      "paid": "Payee",
+      "unpaid": "A regler"
+    },
+    "columns": {
+      "date": "Date de facture",
+      "amount": "Montant TTC",
+      "createdAt": "Ajoutee le"
+    },
+    "filters": {
+      "from": "Du",
+      "to": "Au"
+    },
+    "kpi": {
+      "total": "Total affiche",
+      "paid": "Paye",
+      "unpaid": "Reste a regler",
+      "count_one": "{{count}} facture",
+      "count_other": "{{count}} factures"
+    },
+    "actions": {
+      "preview": "Apercu du PDF"
+    },
+    "preview": {
+      "title": "PDF de la facture",
+      "subtitle": "Facture du {{date}}, {{amount}} TTC."
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut acceder aux factures.",
+      "loadFailed": "Echec du chargement des factures.",
+      "pdfFailed": "Echec du chargement du PDF.",
+      "noAccount": "Votre profil n'est rattache a aucun compte, les factures sont indisponibles.",
+      "actionFailed": "L'action a echoue."
+    }
+  },
+  "mobileApp": {
+    "title": "Application mobile Movix",
+    "subtitle": "Installez Movix sur votre téléphone pour effectuer les tournées sur le terrain.",
+    "eyebrow": "Application mobile",
+    "documentTitle": "Télécharger l'application mobile Movix",
+    "metaDescription": "Téléchargez l'application mobile Movix pour Android et iOS : scannez le QR code avec votre téléphone ou ouvrez directement le store.",
+    "footerLink": "Télécharger l'application",
+    "recommended": "Recommandé pour votre appareil",
+    "scanHint": "Scannez ce code avec l'appareil photo de votre téléphone",
+    "qrFailed": "QR code indisponible",
+    "android": {
+      "title": "Android",
+      "description": "Téléchargez l'APK publié par Movix.",
+      "action": "Télécharger l'APK",
+      "version": "Version {{version}}",
+      "published": "Publiée le {{date}}",
+      "unknownDate": "Date de publication inconnue",
+      "qrLabel": "QR code pour télécharger l'APK Android de Movix",
+      "warning": "Pour installer l'APK, vous devrez peut-être autoriser l'installation depuis des sources inconnues dans les paramètres de sécurité de votre appareil.",
+      "changelogTitle": "Nouveautés",
+      "empty": "Aucune version Android publiée pour le moment."
+    },
+    "ios": {
+      "title": "iOS - App Store",
+      "description": "Installez la version publique de Movix depuis l'App Store.",
+      "action": "Ouvrir l'App Store",
+      "qrLabel": "QR code pour ouvrir Movix sur l'App Store"
+    },
+    "testflight": {
+      "title": "iOS - bêta TestFlight",
+      "description": "Essayez la prochaine version iOS avant sa sortie sur l'App Store.",
+      "action": "Rejoindre la bêta TestFlight",
+      "qrLabel": "QR code pour rejoindre la bêta TestFlight de Movix",
+      "requirement": "Installez d'abord l'application TestFlight depuis l'App Store. Un lien d'invitation publique peut expirer ou atteindre sa limite de testeurs."
+    },
+    "history": {
+      "title": "Historique des versions Android",
+      "subtitle": "Tous les APK encore disponibles sur le serveur, du plus récent au plus ancien.",
+      "current": "Actuelle",
+      "mandatory": "Obligatoire",
+      "showQr": "Afficher le QR code de la version {{version}}",
+      "downloadVersion": "Télécharger la version {{version}}",
+      "dialogTitle": "Version {{version}}",
+      "empty": "Aucune version publiée pour le moment."
+    },
+    "publicCta": {
+      "title": "Vous travaillez déjà avec Movix ?",
+      "subtitle": "L'application mobile nécessite un compte Movix. Connectez-vous à l'application web pour gérer les expéditions et les tournées.",
+      "action": "Se connecter",
+      "discover": "Découvrir Movix"
+    }
+  },
+  "hyperadmin": {
+    "title": "Hyperadmin",
+    "subtitle": "Outils inter-comptes reserves a l'equipe Movix.",
+    "tabs": {
+      "account": "Entreprises",
+      "factures": "Factures",
+      "updates": "Application mobile"
+    },
+    "accounts": {
+      "placeholder": "Rechercher un compte",
+      "search": "Rechercher un compte",
+      "loading": "Chargement des comptes",
+      "loadFailed": "Echec du chargement des comptes.",
+      "noResults": "Aucun compte ne correspond a cette recherche.",
+      "inactive": "Inactif"
+    },
+    "members": {
+      "accountLabel": "Entreprise",
+      "selectAccount": "Sélectionnez une entreprise pour gérer ses membres.",
+      "joinTitle": "Rejoindre cette entreprise",
+      "joinHint": "Ajoute votre compte utilisateur comme membre web de cette entreprise. Le quota de profils est ignoré.",
+      "joinAsAdmin": "Rejoindre en tant qu'admin (recommandé pour le support)",
+      "joinAction": "Me rejoindre",
+      "joined": "Vous êtes maintenant membre de {{account}}.",
+      "alreadyMember": "Vous êtes déjà membre de cette entreprise.",
+      "memberHint": "Vous êtes membre de cette entreprise.",
+      "current": "Cette entreprise est actuellement sélectionnée.",
+      "switchAction": "Basculer sur {{account}}",
+      "title": "Membres et profils",
+      "addTitle": "Ajouter un utilisateur",
+      "addAction": "Ajouter",
+      "added": "{{email}} a été ajouté à l'entreprise.",
+      "emailRequired": "Saisissez l'adresse email de l'utilisateur.",
+      "noUser": "Aucun utilisateur avec cet email.",
+      "userAlreadyMember": "Cet utilisateur est déjà membre de cette entreprise.",
+      "empty": "Aucun profil dans cette entreprise.",
+      "editTitle": "Modifier les permissions",
+      "updated": "Permissions mises à jour.",
+      "removeTitle": "Retirer de l'entreprise",
+      "removeConfirmLinked": "Retirer \"{{name}}\" de {{account}} ? Son compte utilisateur et ses autres entreprises ne sont pas affectés.",
+      "removeConfirm": "Retirer le profil \"{{name}}\" de {{account}} ?",
+      "removeAction": "Retirer",
+      "removed": "Profil retiré de l'entreprise."
+    },
+    "factures": {
+      "accountLabel": "Compte",
+      "create": "Nouvelle facture",
+      "selectAccount": "Selectionnez un compte pour voir ses factures.",
+      "empty": "Aucune facture pour ce compte pour le moment.",
+      "form": {
+        "createTitle": "Nouvelle facture",
+        "createSubtitle": "Le PDF est envoye avec les informations de la facture.",
+        "editTitle": "Modifier la facture",
+        "editSubtitle": "Laissez le PDF vide pour conserver l'actuel.",
+        "date": "Date de facture",
+        "amount": "Montant TTC",
+        "invalidAmount": "Saisissez un montant valide.",
+        "pdf": "Fichier PDF",
+        "pdfHint": "PDF uniquement.",
+        "pdfKeepHint": "PDF uniquement. Laissez vide pour conserver le PDF actuel.",
+        "pdfOnly": "Le fichier doit etre un PDF.",
+        "pdfTooLarge": "Maximum {{max}} Mo.",
+        "readFailed": "Echec de la lecture du fichier.",
+        "paid": "Facture payee",
+        "paidHint": "Une facture payee apparait comme reglee cote client."
+      },
+      "delete": {
+        "title": "Supprimer cette facture",
+        "confirm": "La facture du {{date}} ({{amount}}) et son PDF seront supprimes definitivement."
+      },
+      "errors": {
+        "loadFailed": "Echec du chargement des factures.",
+        "createFailed": "Echec de la creation de la facture.",
+        "saveFailed": "Echec de l'enregistrement de la facture.",
+        "deleteFailed": "Echec de la suppression de la facture."
+      }
+    },
+    "updates": {
+      "form": {
+        "version": "Version",
+        "versionHint": "Format semver, par exemple 1.4.2.",
+        "invalidVersion": "La version doit respecter le format x.y.z.",
+        "apk": "Fichier APK",
+        "apkHint": "APK Android signé, {{max}} Mo maximum.",
+        "apkTooLarge": "Maximum {{max}} Mo.",
+        "changelog": "Notes de version",
+        "changelogHint": "Notes optionnelles affichées aux chauffeurs avant la mise à jour.",
+        "mandatory": "Mise à jour obligatoire",
+        "mandatoryHint": "Les versions plus anciennes de l'application sont bloquées jusqu'à la mise à jour.",
+        "submit": "Publier l'APK"
+      },
+      "uploading": "Envoi en cours, cela peut prendre du temps pour un gros APK.",
+      "uploaded": "Version {{version}} publiée.",
+      "versionCode": "code {{code}}",
+      "copySha256": "Copier l'empreinte SHA-256 de la version {{version}}",
+      "sha256Copied": "Empreinte copiée.",
+      "editVersion": "Modifier la version {{version}}",
+      "edited": "Version {{version}} mise à jour.",
+      "edit": {
+        "title": "Modifier la version {{version}}",
+        "description": "Les notes de version et le caractère obligatoire restent modifiables après publication."
+      },
+      "deleteVersion": "Supprimer la version {{version}}",
+      "delete": {
+        "title": "Supprimer cette version",
+        "confirm": "La version {{version}} ne sera plus disponible au téléchargement."
+      },
+      "errors": {
+        "uploadFailed": "Échec de la publication de l'APK.",
+        "deleteFailed": "Échec de la suppression de la version.",
+        "editFailed": "Échec de la mise à jour de la version."
+      }
+    },
+    "errors": {
+      "forbidden": "Votre profil n'est pas hyperadmin.",
+      "notFound": "Cette ressource n'existe plus.",
+      "actionFailed": "L'action a echoue."
+    }
+  },
+  "appUpdate": {
+    "title": "Nouvelle version disponible",
+    "description": "La version {{version}} a été déployée. Mettez à jour pour récupérer les derniers changements.",
+    "action": "Mettre à jour",
+    "dismiss": "Ignorer",
+    "currentVersion": "Version {{version}}"
+  },
+  "map": {
+    "cooperative": {
+      "ctrl": "Utilisez Ctrl + molette pour zoomer la carte",
+      "cmd": "Utilisez Cmd + molette pour zoomer la carte",
+      "touch": "Utilisez deux doigts pour déplacer la carte"
+    }
+  },
+  "consent": {
+    "banner": {
+      "title": "Cookies et données",
+      "description": "Movix n'utilise que des cookies nécessaires à son fonctionnement. La connexion Google dépose des cookies tiers, chargés uniquement avec votre accord."
+    },
+    "policyLink": "Politique cookies",
+    "manage": "Gérer les cookies",
+    "actions": {
+      "refuse": "Refuser les cookies tiers",
+      "acceptAll": "Tout accepter",
+      "customize": "Personnaliser",
+      "saveChoices": "Enregistrer mes choix",
+      "keepCurrent": "Conserver mes choix actuels"
+    },
+    "preferences": {
+      "title": "Préférences de cookies",
+      "description": "Choisissez les catégories que vous acceptez. Les éléments nécessaires au fonctionnement ne peuvent pas être désactivés."
+    },
+    "categories": {
+      "necessary": {
+        "label": "Nécessaire",
+        "description": "Session, langue, entreprise sélectionnée et préférences d'affichage. Toujours actif."
+      },
+      "google": {
+        "label": "Connexion Google (tiers)",
+        "description": "Charge le script Google Identity Services, qui dépose des cookies Google. Utile uniquement pour le bouton Continuer avec Google."
+      },
+      "analytics": {
+        "label": "Mesure d'audience",
+        "description": "Aucun outil de mesure d'audience n'est utilisé actuellement."
+      }
+    },
+    "google": {
+      "buttonLabel": "Continuer avec Google",
+      "disabled": "Connexion Google désactivée par vos choix de cookies.",
+      "undecided": "Choisissez vos préférences de cookies pour utiliser la connexion Google.",
+      "modify": "Modifier",
+      "choose": "Choisir"
+    }
+  },
+  "terms": {
+    "acceptLabel": "J'ai lu et j'accepte les <terms>Conditions générales d'utilisation</terms> et la <privacy>Politique de confidentialité</privacy>",
+    "required": "Vous devez accepter les conditions d'utilisation pour continuer.",
+    "googleBlocked": "Acceptez les conditions d'utilisation pour continuer avec Google",
+    "gate": {
+      "title": "Conditions d'utilisation",
+      "titleUpdate": "Nouvelles conditions d'utilisation",
+      "description": "Pour utiliser Movix, vous devez accepter les conditions d'utilisation et prendre connaissance de la politique de confidentialité. Cela ne prend qu'un instant.",
+      "descriptionUpdate": "Nos conditions d'utilisation ont été mises à jour. Merci de les relire et de les accepter pour continuer à utiliser Movix.",
+      "accept": "Accepter et continuer"
+    }
+  },
+  "legal": {
+    "navLabel": "Informations légales",
+    "nav": {
+      "terms": "Conditions d'utilisation",
+      "privacy": "Confidentialité",
+      "cookies": "Cookies"
+    },
+    "updatedAt": "Dernière mise à jour : {{date}}",
+    "tocLabel": "Sommaire",
+    "terms": {
+      "documentTitle": "Conditions générales d'utilisation - Movix",
+      "metaDescription": "Conditions générales d'utilisation de la plateforme Movix de gestion des livraisons pharmaceutiques."
+    },
+    "privacy": {
+      "documentTitle": "Politique de confidentialité - Movix",
+      "metaDescription": "Données personnelles traitées par Movix, finalités, destinataires, durées de conservation et droits des utilisateurs."
+    },
+    "cookies": {
+      "documentTitle": "Politique cookies - Movix",
+      "metaDescription": "Liste des cookies et données stockées dans le navigateur par Movix, avec leur finalité, leur durée et leur catégorie."
+    }
+  }
+}

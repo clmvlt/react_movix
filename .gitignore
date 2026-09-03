@@ -1,0 +1,42 @@
+# Dependances
+node_modules
+
+# Build
+dist
+dist-ssr
+*.tsbuildinfo
+
+# Environnements : un .env.<mode> local par environnement (voir .env.example)
+.env
+.env.*
+!.env.example
+
+# Deploiement : identifiants SSH (voir deploy/.env.example)
+deploy/.env
+__pycache__/
+*.pyc
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Harness de capture visuelle (fichiers locaux, hors depot)
+__preview.html
+shot-*.mjs
+*.local
+
+# Editeur / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
+Thumbs.db

@@ -1,10 +1,20 @@
 import { useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Loader2, Pencil, Plus, Search, Ticket, Trash2, Users } from "lucide-react";
+import {
+  Loader2,
+  Pencil,
+  Plus,
+  Search,
+  Ticket,
+  Trash2,
+  TriangleAlert,
+  Users,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import {
   Table,
   TableBody,
@@ -30,6 +40,7 @@ import { ProfileFormDialog } from "@/components/profile-form-dialog";
 import { GrantWebDialog } from "@/components/profiles/grant-web-dialog";
 import { InvitationsDialog } from "@/components/profiles/invitations-dialog";
 import { ProfilKindIcon } from "@/components/profiles/profil-kind-icon";
+import { ProfilesQuotaBadge } from "@/components/profiles/profiles-quota-badge";
 import { useIsAdmin } from "@/components/admin-gate";
 import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
@@ -53,6 +64,14 @@ export function ProfilesPage() {
   const [deleteTarget, setDeleteTarget] = useState<Profil | null>(null);
   const [invitationsOpen, setInvitationsOpen] = useState(false);
   const [grantTarget, setGrantTarget] = useState<Profil | null>(null);
+
+  const maxProfiles = user?.account?.maxProfiles;
+  const usedProfiles = data?.length;
+  const quotaReached =
+    usedProfiles != null &&
+    maxProfiles != null &&
+    maxProfiles > 0 &&
+    usedProfiles >= maxProfiles;
 
   const canInvite = Boolean(user?.userId) && isAdmin;
   const canManage = (profile: Profil) =>
@@ -131,6 +150,11 @@ export function ProfilesPage() {
     <div className="flex flex-1 flex-col">
       <PageHeader
         title={t("profiles.title")}
+        titleExtra={
+          usedProfiles == null ? undefined : (
+            <ProfilesQuotaBadge used={usedProfiles} max={maxProfiles} />
+          )
+        }
         subtitle={t("profiles.subtitle")}
         actions={
           <>
@@ -154,6 +178,18 @@ export function ProfilesPage() {
           </>
         }
       />
+
+      {quotaReached && (
+        <Alert variant="warning" className="mb-4">
+          <TriangleAlert />
+          <AlertDescription>
+            {t("profiles.quota.reachedAlert", {
+              used: usedProfiles,
+              max: maxProfiles,
+            })}
+          </AlertDescription>
+        </Alert>
+      )}
 
       <div className="relative mb-4">
         <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

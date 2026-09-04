@@ -368,6 +368,16 @@
       "mobile": "Profil mobile"
     },
     "linkedBadge": "Compte lié",
+    "quota": {
+      "value_one": "{{used}} / {{count}} profil",
+      "value_other": "{{used}} / {{count}} profils",
+      "unlimited_one": "{{count}} profil",
+      "unlimited_other": "{{count}} profils",
+      "hint": "Quota de profils de l'entreprise : {{used}} sur {{max}}.",
+      "unlimitedHint": "Aucune limite de profils sur cette entreprise.",
+      "reachedHint": "Quota atteint. Supprimez un profil ou contactez Movix pour augmenter la limite.",
+      "reachedAlert": "Le quota de profils de cette entreprise est atteint ({{used}} / {{max}}). Supprimez un profil ou contactez Movix pour l'augmenter."
+    },
     "form": {
       "createTitle": "Nouveau profil",
       "editTitle": "Modifier le profil",

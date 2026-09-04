@@ -914,6 +914,7 @@
       "recalculating": "Recomputing the route",
       "correlationId": "(reference {{value}})",
       "save": "Save order",
+      "saved": "Order saved.",
       "unsaved": "unsaved order",
       "leaveDialog": {
         "title": "Unsaved order",

@@ -318,6 +318,14 @@ panneau d'infos de la page Tournees.
   coordonnees, optimisation, troncons, ETA). `src/features/ors/` reste reserve au geocodage
   d'adresse (spring-org).
 - L'ordre n'est JAMAIS enregistre automatiquement : bouton "Enregistrer l'ordre" explicite.
+  Il est actif des qu'une difference est detectee entre l'ecran et le serveur : ordre local
+  different, tournee `sorted: false` (badge "A trier"), ou trajet enregistre absent /
+  `routeStale` (ETA, duree, distance perimes). Il appelle TOUJOURS
+  `PUT /tours/update-order/{id}` avec l'ordre courant, meme identique a l'ordre enregistre :
+  le serveur remarque la tournee `sorted`, recalcule et persiste le trajet, la reponse
+  remplace le cache et un toast `tours.order.saved` confirme. Jamais de faux enregistrement
+  (spinner sans appel) : s'il n'y a rien a ecrire, le bouton est desactive. L'heure de
+  depart locale n'est PAS un critere : elle n'est jamais persistee (voir ETA plus bas).
 - Des que l'ordre local change, le trajet est recalcule cote serveur en APERCU (sans rien
   persister) : `POST /tours/{id}/route/preview` (corps identique a `update-order`) -> `TourRoute`.
   Appel debounce 400 ms, `useTourRoutePreview` (query cachee par signature d'ordre, donc undo/redo

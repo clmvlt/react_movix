@@ -441,8 +441,6 @@ export function TourOrderPage() {
   const [history, setHistory] = useState<string[][]>([]);
   const [cursor, setCursor] = useState(0);
   const [proposal, setProposal] = useState<Proposal | null>(null);
-  const [fakeSaving, setFakeSaving] = useState(false);
-  const [pendingFakeSave, setPendingFakeSave] = useState(false);
   const [leaveOpen, setLeaveOpen] = useState(false);
   const [routeFailure, setRouteFailure] = useState<string | null>(null);
   const [confirmLateOpen, setConfirmLateOpen] = useState(false);
@@ -459,14 +457,6 @@ export function TourOrderPage() {
   const syncedRef = useRef<string>("");
   const departureRef = useRef<string>("");
   const dragRef = useRef<string[] | null>(null);
-  const fakeSaveRef = useRef<number | null>(null);
-
-  useEffect(
-    () => () => {
-      if (fakeSaveRef.current != null) window.clearTimeout(fakeSaveRef.current);
-    },
-    []
-  );
 
   const depotCoords = useMemo<LngLat | null>(() => {
     const account = user?.account;
@@ -544,7 +534,6 @@ export function TourOrderPage() {
     setHistory([serverOrder]);
     setCursor(0);
     setProposal(null);
-    setPendingFakeSave(false);
     setSelected(new Set());
   }, [serverOrder]);
 
@@ -640,6 +629,14 @@ export function TourOrderPage() {
     (stop) => coordsOf(stop) === null
   ).length;
 
+  const storedRouteBroken =
+    orderedStops.length > 1 &&
+    !routeQuery.isPending &&
+    (route?.routeStale === true || !route?.geometry);
+  const needsSave =
+    dirty ||
+    (orderedStops.length > 0 && (tour?.sorted === false || storedRouteBroken));
+
   const positions = useMemo(() => {
     const map = new Map<string, number>();
     order.forEach((stopId, index) => map.set(stopId, index));
@@ -661,14 +658,12 @@ export function TourOrderPage() {
     setOrder(next);
     setHistory((previous) => [...previous.slice(0, cursor + 1), next]);
     setCursor((previous) => previous + 1);
-    setPendingFakeSave(next.join("|") === serverOrderKey);
   };
 
   const commitCurrent = () => {
     if (history[cursor]?.join("|") === orderKey) return;
     setHistory((previous) => [...previous.slice(0, cursor + 1), order]);
     setCursor((previous) => previous + 1);
-    setPendingFakeSave(orderKey === serverOrderKey);
   };
 
   const goHistory = (step: number) => {
@@ -676,7 +671,6 @@ export function TourOrderPage() {
     if (target < 0 || target >= history.length) return;
     setCursor(target);
     setOrder(history[target]);
-    setPendingFakeSave(history[target].join("|") === serverOrderKey);
   };
 
   const insertGroup = (source: string[], ids: string[], at: number): string[] => {
@@ -800,16 +794,21 @@ export function TourOrderPage() {
       );
     }
     if (id) {
+      const markSorted = (entry: Tour): Tour => ({
+        ...entry,
+        sorted: true,
+        commands: (entry.commands ?? []).map(reorder),
+      });
       queryClient.setQueryData<Tour>(tourKeys.detail(id), (previous) =>
-        previous
-          ? {
-              ...previous,
-              sorted: true,
-              commands: (previous.commands ?? []).map(reorder),
-            }
-          : previous
+        previous ? markSorted(previous) : previous
+      );
+      queryClient.setQueriesData<Tour[]>(
+        { queryKey: tourKeys.byDates() },
+        (previous) =>
+          previous?.map((entry) => (entry.id === id ? markSorted(entry) : entry))
       );
       void queryClient.invalidateQueries({ queryKey: tourKeys.detail(id) });
+      void queryClient.invalidateQueries({ queryKey: tourKeys.byDates() });
     }
     if (date) {
       void queryClient.invalidateQueries({ queryKey: commandKeys.byDate(date) });
@@ -843,7 +842,6 @@ export function TourOrderPage() {
       const applied = [...proposed, ...tail];
 
       commit(applied);
-      if (applied.join("|") === serverOrderKey) setPendingFakeSave(true);
       if (
         result.previewRoute &&
         applied.join("|") === result.order.join("|") &&
@@ -876,8 +874,8 @@ export function TourOrderPage() {
   };
 
   const save = () => {
-    if (!id || closed || busy || fakeSaving) return;
-    if (dirty && schedule.lateCount > 0) {
+    if (!id || closed || busy || !needsSave) return;
+    if (schedule.lateCount > 0) {
       setConfirmLateOpen(true);
       return;
     }
@@ -885,16 +883,7 @@ export function TourOrderPage() {
   };
 
   const performSave = async () => {
-    if (!id || closed || busy || fakeSaving) return;
-    if (!dirty) {
-      if (!pendingFakeSave) return;
-      setFakeSaving(true);
-      fakeSaveRef.current = window.setTimeout(() => {
-        setFakeSaving(false);
-        setPendingFakeSave(false);
-      }, 600);
-      return;
-    }
+    if (!id || closed || busy) return;
     const saved = order;
     try {
       await updateOrder.mutateAsync({
@@ -909,6 +898,7 @@ export function TourOrderPage() {
       applySavedOrder(saved);
       setProposal(null);
       setRouteFailure(null);
+      toast.success(t("tours.order.saved"));
     } catch (cause) {
       toast.error(describeError(cause, t("tours.order.errors.saveFailed"), "order"));
     }
@@ -919,7 +909,6 @@ export function TourOrderPage() {
     setHistory([serverOrder]);
     setCursor(0);
     setProposal(null);
-    setPendingFakeSave(false);
   };
 
   const recalculate = async () => {
@@ -996,10 +985,9 @@ export function TourOrderPage() {
     tour?.geometry ??
     null;
 
-  const savedRouteBroken =
-    orderedStops.length > 1 && (routeStale || !route?.geometry);
   const canRefresh =
-    !dirty && (savedRouteBroken || refreshRoute.isPending || routeFailure !== null);
+    !dirty &&
+    (storedRouteBroken || refreshRoute.isPending || routeFailure !== null);
 
   const routeCoords = useMemo<LngLat[]>(
     () => geometryToCoordinates(shownGeometry),
@@ -1137,25 +1125,19 @@ export function TourOrderPage() {
             </Button>
             <Button
               className="min-h-11 lg:min-h-10"
-              disabled={
-                (!dirty && !pendingFakeSave) || closed || busy || fakeSaving
-              }
+              disabled={!needsSave || closed || busy}
               onClick={save}
               aria-label={
-                saving || fakeSaving
-                  ? t("tours.order.saving")
-                  : t("tours.order.save")
+                saving ? t("tours.order.saving") : t("tours.order.save")
               }
             >
-              {saving || fakeSaving ? (
+              {saving ? (
                 <Loader2 className="size-4 animate-spin" />
               ) : (
                 <Save className="size-4" />
               )}
               <span className="hidden sm:inline">
-                {saving || fakeSaving
-                  ? t("tours.order.saving")
-                  : t("tours.order.save")}
+                {saving ? t("tours.order.saving") : t("tours.order.save")}
               </span>
             </Button>
           </div>

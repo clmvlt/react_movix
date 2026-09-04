@@ -1,6 +1,7 @@
 export const tourKeys = {
   all: ["tours"] as const,
-  byDate: (date: string) => [...tourKeys.all, "by-date", date] as const,
+  byDates: () => [...tourKeys.all, "by-date"] as const,
+  byDate: (date: string) => [...tourKeys.byDates(), date] as const,
   details: () => [...tourKeys.all, "detail"] as const,
   detail: (id: string) => [...tourKeys.details(), id] as const,
   history: (id: string) => [...tourKeys.all, "history", id] as const,

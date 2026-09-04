@@ -914,6 +914,7 @@
       "recalculating": "Recalcul du trajet",
       "correlationId": "(référence {{value}})",
       "save": "Enregistrer l'ordre",
+      "saved": "Ordre enregistré.",
       "unsaved": "ordre non enregistré",
       "leaveDialog": {
         "title": "Ordre non enregistré",

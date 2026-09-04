@@ -31,6 +31,7 @@ import { JoinCompanyDialog } from "@/components/nav/join-company-dialog";
 import { BrandMark } from "@/components/brand-mark";
 import { InitialsImage } from "@/components/initials-image";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { WorkingDateControl } from "@/components/working-date-control";
 import { NotificationBell } from "@/components/notifications/notification-bell";
 import { useIsAdmin, useIsHyperadmin } from "@/components/admin-gate";
@@ -205,11 +206,19 @@ export function AppNavbar() {
               </SheetTitle>
             </SheetHeader>
             <MobileNav onNavigate={() => setMenuOpen(false)} />
-            <div className="flex shrink-0 items-center justify-between gap-2 border-t border-border px-4 py-2 sm:hidden">
-              <span className="text-sm text-muted-foreground">
-                {t("language.label")}
-              </span>
-              <LanguageSwitcher className="size-11" />
+            <div className="flex shrink-0 flex-col border-t border-border px-4 py-2 sm:hidden">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {t("language.label")}
+                </span>
+                <LanguageSwitcher className="size-11" />
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm text-muted-foreground">
+                  {t("theme.label")}
+                </span>
+                <ThemeSwitcher className="size-11" />
+              </div>
             </div>
           </SheetContent>
         </Sheet>
@@ -231,6 +240,7 @@ export function AppNavbar() {
       </div>
 
       <div className="flex shrink-0 items-center gap-1">
+        <ThemeSwitcher className="hidden size-10 sm:inline-flex" />
         <LanguageSwitcher className="hidden size-10 sm:inline-flex" />
         <NotificationBell />
 

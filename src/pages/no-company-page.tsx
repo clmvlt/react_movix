@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { BrandMark } from "@/components/brand-mark";
 import { FormField } from "@/components/form-field";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { AccountProfileTab } from "@/components/account/account-profile-tab";
 import { ApiError, apiErrorText } from "@/lib/api-error";
 import { useAuth } from "@/app/auth-context";
@@ -181,6 +182,7 @@ export function NoCompanyPage() {
       <header className="mx-auto flex h-14 w-full max-w-5xl items-center justify-between gap-2 px-4 sm:px-6">
         <BrandMark />
         <div className="flex items-center gap-1">
+          <ThemeSwitcher className="size-10" />
           <LanguageSwitcher className="size-10" />
           <Button
             type="button"

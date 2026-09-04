@@ -88,6 +88,12 @@
     "en": "English",
     "fr": "French"
   },
+  "theme": {
+    "label": "Theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
   "workingDate": {
     "label": "Working date",
     "previous": "Previous day",

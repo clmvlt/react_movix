@@ -66,7 +66,7 @@ function TermsGateDialog() {
       >
         <DialogHeader>
           <div className="mb-1 flex justify-center sm:justify-start">
-            <span className="flex size-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+            <span className="flex size-10 items-center justify-center rounded-full bg-accent text-primary">
               <ScrollText className="size-5" aria-hidden />
             </span>
           </div>

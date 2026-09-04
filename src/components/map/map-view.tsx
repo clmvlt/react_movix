@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import i18n from "@/i18n";
+import { useTheme } from "@/hooks/use-theme";
 import { config } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { MapContext, type MapContextValue } from "./map-context";
@@ -18,18 +19,21 @@ export interface MapViewProps {
 }
 
 const DEFAULT_CENTER: LngLat = [2.3522, 46.6];
-const DEFAULT_STYLE = "mapbox://styles/mapbox/streets-v12";
+const LIGHT_STYLE = "mapbox://styles/mapbox/streets-v12";
+const DARK_STYLE = "mapbox://styles/mapbox/dark-v11";
 
 export function MapView({
   center = DEFAULT_CENTER,
   zoom = 5,
-  styleUrl = DEFAULT_STYLE,
+  styleUrl,
   className,
   interactive = true,
   cooperativeGestures = false,
   children,
 }: MapViewProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { isDark } = useTheme();
+  const resolvedStyle = styleUrl ?? (isDark ? DARK_STYLE : LIGHT_STYLE);
   const [context, setContext] = useState<MapContextValue>({
     map: null,
     loaded: false,
@@ -46,7 +50,7 @@ export function MapView({
 
     const map = new mapboxgl.Map({
       container,
-      style: styleUrl,
+      style: resolvedStyle,
       center,
       zoom,
       interactive,
@@ -77,7 +81,7 @@ export function MapView({
     };
     // Initialise once; runtime updates go through markers/children.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [styleUrl]);
+  }, [resolvedStyle]);
 
   return (
     <MapContext.Provider value={context}>

@@ -18,7 +18,7 @@ export function MockPhone({ className }: { className?: string }) {
       <div className="overflow-hidden rounded-[2rem] border-[6px] border-neutral-900 bg-background shadow-2xl">
         <div className="relative flex aspect-[9/19] flex-col" aria-hidden>
           <div className="flex h-5 shrink-0 items-center justify-center bg-card">
-            <span className="h-1 w-12 rounded-full bg-neutral-200" />
+            <span className="h-1 w-12 rounded-full bg-border" />
           </div>
 
           <div className="flex h-9 shrink-0 items-center justify-between gap-2 border-b bg-card px-2.5">

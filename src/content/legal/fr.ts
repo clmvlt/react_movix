@@ -423,6 +423,12 @@ export const cookiesFr: LegalDocumentContent = {
               "Nécessaire / fonctionnel",
             ],
             [
+              "movix.theme",
+              "Thème d'affichage choisi (clair ou sombre). Absent lorsque vous suivez le réglage de votre appareil.",
+              "Persistant",
+              "Nécessaire / fonctionnel",
+            ],
+            [
               "movix.workingDate",
               "Date de travail sélectionnée dans la barre de navigation.",
               "Persistant",

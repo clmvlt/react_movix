@@ -99,7 +99,7 @@ export function AppSideRail() {
                 aria-label={t("nav.admin")}
                 className={ITEM_CLASS}
               >
-                <ShieldCheck className="size-5 shrink-0 text-status-danger-bg" />
+                <ShieldCheck className="size-5 shrink-0 text-status-danger-bg dark:text-white/70" />
                 <span className={cn(LABEL_CLASS, "flex-1 text-left")}>
                   {t("nav.admin")}
                 </span>
@@ -138,7 +138,7 @@ export function AppSideRail() {
                   cn(ITEM_CLASS, isActive && "bg-white/15 text-white")
                 }
               >
-                <HYPERADMIN_NAV_ITEM.icon className="size-5 shrink-0 text-status-warning-bg" />
+                <HYPERADMIN_NAV_ITEM.icon className="size-5 shrink-0 text-status-warning-bg dark:text-white/70" />
                 <span className={LABEL_CLASS}>
                   {t(HYPERADMIN_NAV_ITEM.labelKey)}
                 </span>

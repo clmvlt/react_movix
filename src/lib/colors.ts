@@ -157,6 +157,18 @@ export const status = {
 
 export type StatusCategory = keyof typeof status;
 
+export type ColorScheme = "light" | "dark";
+
+export const statusDark: Record<StatusCategory, StatusToken> = {
+  neutral: { strong: "#A8A29E", badgeBg: "#3B3D44", badgeText: "#D6D3D1" },
+  pending: { strong: "#FBBF24", badgeBg: "#4D4429", badgeText: "#FCD34D" },
+  progress: { strong: "#60A5FA", badgeBg: "#2B3E59", badgeText: "#93C5FD" },
+  info: { strong: "#22D3EE", badgeBg: "#1D4856", badgeText: "#67E8F9" },
+  success: { strong: "#4ADE80", badgeBg: "#264B3E", badgeText: "#86EFAC" },
+  warning: { strong: "#FB923C", badgeBg: "#4D3A2F", badgeText: "#FDBA74" },
+  danger: { strong: "#F87171", badgeBg: "#4C333A", badgeText: "#FCA5A5" },
+};
+
 export const statusOrder: StatusCategory[] = [
   "neutral",
   "pending",
@@ -167,19 +179,43 @@ export const statusOrder: StatusCategory[] = [
   "danger",
 ];
 
+function cssStatusToken(category: StatusCategory): StatusToken {
+  return {
+    strong: `var(--color-status-${category}-strong)`,
+    badgeBg: `var(--color-status-${category}-bg)`,
+    badgeText: `var(--color-status-${category}-text)`,
+  };
+}
+
+const statusCssTokens = Object.fromEntries(
+  statusOrder.map((category) => [category, cssStatusToken(category)])
+) as Record<StatusCategory, StatusToken>;
+
 export function getStatusTokens(
   category: StatusCategory | null | undefined
 ): StatusToken {
-  if (category && category in status) return status[category];
-  return status.neutral;
+  if (category && category in statusCssTokens) {
+    return statusCssTokens[category];
+  }
+  return statusCssTokens.neutral;
+}
+
+export function getStatusPalette(
+  category: StatusCategory | null | undefined,
+  scheme: ColorScheme = "light"
+): StatusToken {
+  const palette = scheme === "dark" ? statusDark : status;
+  if (category && category in palette) return palette[category];
+  return palette.neutral;
 }
 
 function toKebab(scale: string, key: string): string {
   return `--color-${scale}-${key}`;
 }
 
-export function applyColorTokens(): void {
+export function applyColorTokens(scheme: ColorScheme = "light"): void {
   const root = document.documentElement;
+  const palette = scheme === "dark" ? statusDark : status;
 
   for (const [key, value] of Object.entries(brand)) {
     root.style.setProperty(toKebab("brand", key), value);
@@ -190,7 +226,7 @@ export function applyColorTokens(): void {
   for (const [key, value] of Object.entries(semantic)) {
     root.style.setProperty(`--color-semantic-${key}`, value);
   }
-  for (const [key, token] of Object.entries(status)) {
+  for (const [key, token] of Object.entries(palette)) {
     root.style.setProperty(`--color-status-${key.toLowerCase()}-strong`, token.strong);
     root.style.setProperty(`--color-status-${key.toLowerCase()}-bg`, token.badgeBg);
     root.style.setProperty(`--color-status-${key.toLowerCase()}-text`, token.badgeText);

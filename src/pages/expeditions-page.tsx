@@ -29,7 +29,7 @@ import {
   type LngLat,
   type MapPin as MapPinData,
 } from "@/components/map";
-import { getStatusTokens } from "@/lib/colors";
+import { getStatusPalette } from "@/lib/colors";
 import { commandStatusCategory } from "@/lib/status";
 import { useAuth } from "@/app/auth-context";
 import { useWorkingDate } from "@/app/working-date-context";
@@ -45,7 +45,7 @@ function coordsOf(command: CommandExpedition): LngLat | null {
 
 function markerColor(command: CommandExpedition): string {
   if (command.tour?.color) return command.tour.color;
-  return getStatusTokens(commandStatusCategory(command.status?.id)).strong;
+  return getStatusPalette(commandStatusCategory(command.status?.id)).strong;
 }
 
 export function ExpeditionsPage() {

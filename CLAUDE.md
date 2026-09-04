@@ -171,7 +171,8 @@ chacun avec `VITE_APP_ENV` et `VITE_API_BASE_URL`. Les `.env.*` sont ignores par
   (`ProtectedRoute` / `PublicOnlyRoute`). Contexte auth `src/app/auth-context.tsx`.
 - Layouts : `AuthLayout` (public) et `AppLayout` (protege, navbar responsive + burger mobile).
 - Providers (`main.tsx`) : `QueryClientProvider` -> `BrowserRouter` -> `AuthProvider` -> `App`.
-  Devtools React Query en lazy uniquement en dev. `applyColorTokens()` avant le render.
+  Devtools React Query en lazy uniquement en dev. `initTheme()` (`src/lib/theme.ts`) avant le
+  render : pose la classe `dark` et appelle `applyColorTokens(theme)`.
 
 ## Contrat API (specificites Movix)
 - Erreurs : corps souvent une chaine brute (pas `{message}`). Validation = HTTP 400,
@@ -224,6 +225,32 @@ chacun avec `VITE_APP_ENV` et `VITE_API_BASE_URL`. Les `.env.*` sont ignores par
   dans un `en.ts` du meme format. Ne jamais inventer de mentions legales (SIREN, adresse, DPO).
   La page cookies doit rester alignee sur l'inventaire reel des cles `movix.*` et du cookie
   `auth_token`.
+
+## Theme clair / sombre
+- Store hors React `src/lib/theme.ts` (cle `movix.theme` = `light` | `dark`, cle ABSENTE =
+  suivre le systeme via `prefers-color-scheme`), hook `useTheme()` (`src/hooks/use-theme.ts` :
+  `preference`, `resolved`, `isDark`, `setPreference`), selecteur `<ThemeSwitcher>`
+  (`src/components/theme-switcher.tsx`, meme forme que `<LanguageSwitcher>`, place a cote de lui
+  partout : navbar, tiroir mobile, layout auth, landing, /join, ecran sans entreprise).
+- Le theme est la classe `dark` sur `<html>` (`@custom-variant dark` dans `index.css`), posee par
+  un script inline dans `index.html` AVANT le premier rendu (aucun flash), puis tenue par le store
+  (changement de preference, changement systeme, evenement `storage` entre onglets). `color-scheme`
+  suit la classe : les controles natifs (date, scrollbars) basculent seuls. La meta `theme-color`
+  suit aussi.
+- Tokens : les tokens shadcn (`--background`, `--card`...) ET les tokens de statut
+  (`--color-status-*`) ont une variante dans `.dark` de `index.css`, repliquee dans `statusDark` de
+  `colors.ts`. `applyColorTokens(scheme)` ecrit les tokens de statut EN INLINE sur `<html>` : il doit
+  etre rappele a chaque changement de theme (le store le fait), sinon l'inline ecrase `.dark`.
+- `getStatusTokens()` renvoie des references `var(--color-status-*)` : a utiliser UNIQUEMENT dans
+  des styles DOM (`style={{ backgroundColor }}`, classes). Pour un canvas, une image ou Mapbox
+  (`MapPins` dessine les pins dans un canvas), prendre une vraie couleur hex via
+  `getStatusPalette(category)` ou la palette brute `status`.
+- `MapView` sans `styleUrl` suit le theme (`streets-v12` / `dark-v11`) : changer de theme remonte la
+  carte (l'effet depend du style), les couches enfants se recreent seules.
+- Pieges : `text-status-*-bg` comme teinte d'icone sur fond de marque (rail lateral) devient sombre
+  en mode sombre, doubler d'un `dark:text-white/70`. Les surfaces volontairement sombres (visionneuse
+  photo, cadre de telephone, panneau brand du layout auth) restent en couleurs fixes. Pour une pastille
+  d'icone, `bg-accent text-primary` (jamais `bg-brand-50 text-brand-600`).
 
 ## Cartes (Mapbox GL)
 - Token : `VITE_MAPBOX_TOKEN` dans chaque `.env.<mode>`, lu via `config.mapboxToken` (jamais `import.meta.env`
@@ -484,7 +511,9 @@ local `http://localhost:8080`).
 ## Regles d'or (non negociables)
 1. Ne jamais commenter le code sauf demande explicite.
 2. Couleurs : source unique `src/lib/colors.ts` (couleur de marque `#123456`), repliquee
-   dans le `@theme` de `src/index.css`. Jamais de couleur en dur ailleurs.
+   dans le `@theme` de `src/index.css`. Jamais de couleur en dur ailleurs. Tout nouvel ecran
+   doit tenir en mode sombre : tokens shadcn / statut ou variante `dark:`, jamais `bg-white`,
+   `text-neutral-*` ou `bg-brand-50` pour une surface ou un texte (cf. section Theme).
 3. Design coherent : espacements multiples de 4, rayons via `--radius`, tokens shadcn
    (`bg-background`, `text-muted-foreground`, `primary`...). Aucun element qui detonne.
 4. i18n obligatoire : aucun texte visible en dur ; anglais par defaut ; toute chaine ajoutee

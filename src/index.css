@@ -44,6 +44,7 @@
 }
 
 :root {
+  color-scheme: light;
   --radius: 0.625rem;
 
   --background: #f7f8fa;
@@ -72,6 +73,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   --background: #161a22;
   --foreground: #f7f8fa;
   --card: #1c212b;
@@ -94,6 +96,28 @@
 
   --scrollbar-thumb: var(--color-neutral-700);
   --scrollbar-thumb-hover: var(--color-neutral-400);
+
+  --color-status-neutral-strong: #a8a29e;
+  --color-status-neutral-bg: #3b3d44;
+  --color-status-neutral-text: #d6d3d1;
+  --color-status-pending-strong: #fbbf24;
+  --color-status-pending-bg: #4d4429;
+  --color-status-pending-text: #fcd34d;
+  --color-status-progress-strong: #60a5fa;
+  --color-status-progress-bg: #2b3e59;
+  --color-status-progress-text: #93c5fd;
+  --color-status-info-strong: #22d3ee;
+  --color-status-info-bg: #1d4856;
+  --color-status-info-text: #67e8f9;
+  --color-status-success-strong: #4ade80;
+  --color-status-success-bg: #264b3e;
+  --color-status-success-text: #86efac;
+  --color-status-warning-strong: #fb923c;
+  --color-status-warning-bg: #4d3a2f;
+  --color-status-warning-text: #fdba74;
+  --color-status-danger-strong: #f87171;
+  --color-status-danger-bg: #4c333a;
+  --color-status-danger-text: #fca5a5;
 }
 
 @theme inline {

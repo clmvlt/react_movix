@@ -2,7 +2,7 @@ import { StrictMode, Suspense, lazy } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import { applyColorTokens } from "@/lib/colors";
+import { initTheme } from "@/lib/theme";
 import { queryClient } from "@/lib/query-client";
 import { config } from "@/lib/config";
 import { AuthProvider } from "@/app/auth-context";
@@ -22,7 +22,7 @@ const ReactQueryDevtools = config.isDev
     )
   : null;
 
-applyColorTokens();
+initTheme();
 
 window.addEventListener("vite:preloadError", (event) => {
   const key = "movix.preloadReload";

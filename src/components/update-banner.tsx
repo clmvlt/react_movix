@@ -14,7 +14,7 @@ export function UpdateBanner() {
     <div className="fixed inset-x-0 bottom-0 z-50 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:inset-x-auto sm:bottom-4 sm:right-4 sm:w-96 sm:max-w-[calc(100vw-2rem)] sm:p-0">
       <div className="rounded-lg border border-border bg-card p-4 shadow-lg">
         <div className="flex items-start gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent text-primary">
             <RefreshCw className="size-5" />
           </span>
           <div className="min-w-0 flex-1">

@@ -29,9 +29,9 @@ export function AppFrame({
         aria-hidden
       >
         <span className="flex shrink-0 gap-1.5">
-          <span className="size-2.5 rounded-full bg-neutral-200" />
-          <span className="size-2.5 rounded-full bg-neutral-200" />
-          <span className="size-2.5 rounded-full bg-neutral-200" />
+          <span className="size-2.5 rounded-full bg-border" />
+          <span className="size-2.5 rounded-full bg-border" />
+          <span className="size-2.5 rounded-full bg-border" />
         </span>
         <span className="mx-auto flex min-w-0 max-w-[70%] items-center gap-1.5 rounded-md bg-background px-2.5 py-1 text-[10px] text-muted-foreground">
           <Lock className="size-2.5 shrink-0" />

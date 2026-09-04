@@ -20,6 +20,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { BrandMark } from "@/components/brand-mark";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { ApiError, apiErrorText } from "@/lib/api-error";
 import { clearAuthRedirect, saveAuthRedirect } from "@/lib/auth-redirect";
 import { useAuth } from "@/app/auth-context";
@@ -244,7 +245,10 @@ export function JoinPage() {
     <div className="flex min-h-dvh w-full flex-col bg-background">
       <header className="flex items-center justify-between px-4 py-4 sm:px-6">
         <BrandMark />
-        <LanguageSwitcher />
+        <div className="flex items-center gap-1">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
       </header>
       <main className="flex flex-1 items-start justify-center px-4 py-8 sm:items-center sm:py-12">
         <div className="w-full max-w-md">{renderBody()}</div>

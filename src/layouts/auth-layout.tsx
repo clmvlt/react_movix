@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { BrandMark } from "@/components/brand-mark";
 import { LEGAL_LINKS } from "@/components/legal/legal-links";
 import { setRobotsNoindex } from "@/lib/seo";
@@ -87,6 +88,7 @@ export function AuthLayout() {
                 {t("auth.panel.backToSite")}
               </Link>
             </Button>
+            <ThemeSwitcher />
             <LanguageSwitcher />
           </div>
         </header>

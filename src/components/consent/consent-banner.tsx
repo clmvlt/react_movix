@@ -29,7 +29,7 @@ export function ConsentBanner() {
         >
           <div className="rounded-lg border border-border bg-card p-4 shadow-lg">
             <div className="flex items-start gap-3">
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent text-primary">
                 <Cookie className="size-5" aria-hidden />
               </span>
               <div className="min-w-0 flex-1">

@@ -44,6 +44,11 @@ const importFactures = () => import("@/pages/factures-page");
 const importMobileApp = () => import("@/pages/mobile-app-page");
 const importDownload = () => import("@/pages/download-page");
 const importHyperadmin = () => import("@/pages/hyperadmin-page");
+const importHyperCompanyCreate = () =>
+  import("@/pages/hyper-company-create-page");
+const importHyperCompanyEdit = () => import("@/pages/hyper-company-edit-page");
+const importConfirmAccountDeletion = () =>
+  import("@/pages/confirm-account-deletion-page");
 const importLegalTerms = () => import("@/pages/legal/terms-page");
 const importLegalPrivacy = () => import("@/pages/legal/privacy-page");
 const importLegalCookies = () => import("@/pages/legal/cookies-page");
@@ -153,6 +158,22 @@ const DownloadPage = lazy(() =>
 
 const HyperadminPage = lazy(() =>
   importHyperadmin().then((m) => ({ default: m.HyperadminPage }))
+);
+
+const HyperCompanyCreatePage = lazy(() =>
+  importHyperCompanyCreate().then((m) => ({
+    default: m.HyperCompanyCreatePage,
+  }))
+);
+
+const HyperCompanyEditPage = lazy(() =>
+  importHyperCompanyEdit().then((m) => ({ default: m.HyperCompanyEditPage }))
+);
+
+const ConfirmAccountDeletionPage = lazy(() =>
+  importConfirmAccountDeletion().then((m) => ({
+    default: m.ConfirmAccountDeletionPage,
+  }))
 );
 
 const LegalTermsPage = lazy(() =>
@@ -380,6 +401,22 @@ export default function App() {
               }
             />
             <Route
+              path="/app/hyperadmin/companies/new"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <HyperCompanyCreatePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/hyperadmin/companies/:accountId"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <HyperCompanyEditPage />
+                </Suspense>
+              }
+            />
+            <Route
               path="/app/notifications"
               element={
                 <Suspense fallback={<InlineSpinner />}>
@@ -414,6 +451,14 @@ export default function App() {
           </Route>
         </Route>
 
+        <Route
+          path="/confirm-account-deletion"
+          element={
+            <Suspense fallback={<FullPageSpinner />}>
+              <ConfirmAccountDeletionPage />
+            </Suspense>
+          }
+        />
         <Route path="/join" element={<JoinPage />} />
         <Route path="/" element={<LandingPage />} />
         <Route

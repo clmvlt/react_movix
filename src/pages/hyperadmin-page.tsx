@@ -1,17 +1,20 @@
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Building2, Receipt, Smartphone } from "lucide-react";
+import { Building2, Receipt, Smartphone, Users } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { HyperadminGate } from "@/components/admin-gate";
 import { ViewSwitch } from "@/components/view-switch";
 import { HyperMembersPanel } from "@/components/hyperadmin/hyper-members-panel";
+import { HyperCompaniesPanel } from "@/components/hyperadmin/hyper-companies-panel";
 import { HyperFacturesPanel } from "@/components/hyperadmin/hyper-factures-panel";
 import { HyperUpdatesPanel } from "@/components/hyperadmin/hyper-updates-panel";
 
-type HyperTab = "account" | "factures" | "updates";
+type HyperTab = "account" | "companies" | "factures" | "updates";
 
 function parseTab(raw: string | null): HyperTab {
-  return raw === "factures" || raw === "updates" ? raw : "account";
+  return raw === "companies" || raw === "factures" || raw === "updates"
+    ? raw
+    : "account";
 }
 
 function HyperadminContent() {
@@ -25,6 +28,10 @@ function HyperadminContent() {
         const params = new URLSearchParams(previous);
         if (next === "account") params.delete("tab");
         else params.set("tab", next);
+        if (next !== "companies") {
+          params.delete("q");
+          params.delete("state");
+        }
         return params;
       },
       { replace: true }
@@ -46,6 +53,11 @@ function HyperadminContent() {
           {
             value: "account",
             label: t("hyperadmin.tabs.account"),
+            icon: Users,
+          },
+          {
+            value: "companies",
+            label: t("hyperadmin.tabs.companies"),
             icon: Building2,
           },
           {
@@ -62,6 +74,7 @@ function HyperadminContent() {
       />
 
       {tab === "account" && <HyperMembersPanel />}
+      {tab === "companies" && <HyperCompaniesPanel />}
       {tab === "factures" && <HyperFacturesPanel />}
       {tab === "updates" && <HyperUpdatesPanel />}
     </div>

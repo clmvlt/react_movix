@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import {
   Boxes,
   Layers,
+  ListFilter,
   MapPin,
   Package,
   Spline,
@@ -14,6 +15,15 @@ import { Badge } from "@/components/ui/badge";
 import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
+import { ExpeditionFilterButton } from "@/components/expeditions/expedition-filter-button";
+import {
+  EMPTY_EXPEDITION_FILTERS,
+  hasExpeditionFilters,
+  matchesExpeditionFilters,
+  parseExpeditionFilters,
+  writeExpeditionFilters,
+  type ExpeditionFilters,
+} from "@/components/expeditions/expedition-filters";
 import { SelectionBar } from "@/components/selection-bar";
 import { ViewSwitch } from "@/components/view-switch";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
@@ -35,6 +45,7 @@ import { useAuth } from "@/app/auth-context";
 import { useWorkingDate } from "@/app/working-date-context";
 import { useExpeditions, type CommandExpedition } from "@/features/commands";
 import { CLOSED_TOUR_STATUS_ID, useToursByDate } from "@/features/tours";
+import { useZones } from "@/features/zones";
 
 function coordsOf(command: CommandExpedition): LngLat | null {
   const lng = command.pharmacy?.longitude;
@@ -78,7 +89,26 @@ export function ExpeditionsPage() {
     setSelected(new Set());
   }, [date]);
 
+  const filters = useMemo(
+    () => parseExpeditionFilters(searchParams),
+    [searchParams]
+  );
+  const filtersActive = hasExpeditionFilters(filters);
+  const setFilters = (next: ExpeditionFilters) => {
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev);
+        writeExpeditionFilters(params, next);
+        return params;
+      },
+      { replace: true }
+    );
+    setSelected(new Set());
+  };
+
   const toursQuery = useToursByDate(date);
+  const zonesQuery = useZones();
+  const zones = useMemo(() => zonesQuery.data ?? [], [zonesQuery.data]);
 
   const account = user?.account;
   const depotCoords = useMemo<LngLat | null>(
@@ -120,8 +150,12 @@ export function ExpeditionsPage() {
 
   const visibleCommands = useMemo(
     () =>
-      showAssigned ? expeditions : expeditions.filter((command) => !command.tour),
-    [expeditions, showAssigned]
+      expeditions.filter(
+        (command) =>
+          (showAssigned || !command.tour) &&
+          matchesExpeditionFilters(command, filters)
+      ),
+    [expeditions, showAssigned, filters]
   );
 
   const pins = useMemo<MapPinData[]>(() => {
@@ -177,6 +211,7 @@ export function ExpeditionsPage() {
         <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <ViewSwitch
             className="min-w-0 flex-1"
+            compactLabels
             value={view}
             onChange={setView}
             items={[
@@ -188,6 +223,14 @@ export function ExpeditionsPage() {
               },
               { value: "map", label: t("common.views.map"), icon: MapPin },
             ]}
+          />
+          <ExpeditionFilterButton
+            filters={filters}
+            onChange={setFilters}
+            commands={expeditions}
+            zones={zones}
+            className="size-11"
+            iconClassName="size-5"
           />
           <Button
             variant={showAssigned ? "default" : "outline"}
@@ -215,7 +258,7 @@ export function ExpeditionsPage() {
         <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
           <div
             className={cn(
-              "order-2 flex min-h-0 w-full flex-col lg:order-1 lg:w-[440px] lg:shrink-0",
+              "order-2 flex min-h-0 w-full flex-col lg:order-1 lg:w-[480px] lg:shrink-0",
               view === "map" && "hidden lg:flex"
             )}
           >
@@ -273,6 +316,14 @@ export function ExpeditionsPage() {
 
               <span className="mx-0.5 h-5 w-px shrink-0 bg-border" />
               <div className="flex shrink-0 items-center gap-1.5 pr-1">
+                <ExpeditionFilterButton
+                  filters={filters}
+                  onChange={setFilters}
+                  commands={expeditions}
+                  zones={zones}
+                  className="size-8"
+                  iconClassName="size-4"
+                />
                 <Button
                   variant={showAssigned ? "default" : "outline"}
                   size="icon"
@@ -301,8 +352,29 @@ export function ExpeditionsPage() {
 
             {visibleCommands.length === 0 ? (
               <EmptyState
-                message={t("expeditions.empty")}
-                icon={<MapPin className="size-8" />}
+                message={
+                  filtersActive
+                    ? t("expeditions.filters.empty")
+                    : t("expeditions.empty")
+                }
+                icon={
+                  filtersActive ? (
+                    <ListFilter className="size-8" />
+                  ) : (
+                    <MapPin className="size-8" />
+                  )
+                }
+                action={
+                  filtersActive ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setFilters(EMPTY_EXPEDITION_FILTERS)}
+                    >
+                      {t("common.clearFilters")}
+                    </Button>
+                  ) : undefined
+                }
                 className="min-h-0 flex-1"
               />
             ) : (

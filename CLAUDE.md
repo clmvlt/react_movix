@@ -278,6 +278,18 @@ chacun avec `VITE_APP_ENV` et `VITE_API_BASE_URL`. Les `.env.*` sont ignores par
   (fetch + ReadableStream) pour tout flux SSE authentifie. Les compteurs "temps reel" existants
   (ex. `expedition-count`) restent derives cote client depuis la liste (`GET /commands/by-date/{date}`).
 
+## Page Expeditions (liste + carte)
+- Filtres statut / zone : `src/components/expeditions/expedition-filters.tsx` (bouton + popover,
+  multi-selection, compteur par option). Etat dans l'URL (`?status=3,5&zone=<id>,none`, ecriture
+  en `replace`, cf. regle 8). Liste, pins et auto-fit de la carte derivent de `visibleCommands` ;
+  changer un filtre vide la selection. La zone est `pharmacy.zone {id,name}` de
+  `GET /commands/by-date/{date}` (zone de la fiche du compte, `null` = "Sans zone", valeur `none`
+  dans l'URL) ; les options viennent de `GET /zones` (`useZones`).
+- Barre mobile : `ViewSwitch compactLabels` (conteneur `@container`, libelles en `sr-only` sous
+  220px de large : icone + compteur seulement) pour caser filtre + affectees + trajets a 360px.
+  Le popover de filtres borne sa hauteur par `--radix-popover-content-available-height`
+  (jamais `100dvh - X`, qui deborde sous le bouton) avec `collisionPadding={8}`.
+
 ## Champs date
 TOUTE saisie de date passe par `<DateField>` (`src/components/date-field.tsx`). Jamais de
 `<Input type="date">` nu dans une page ou un dialog.

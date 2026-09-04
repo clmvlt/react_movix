@@ -14,6 +14,7 @@ interface ViewSwitchProps<T extends string> {
   onChange: (value: T) => void;
   className?: string;
   size?: "default" | "sm";
+  compactLabels?: boolean;
 }
 
 export function ViewSwitch<T extends string>({
@@ -22,6 +23,7 @@ export function ViewSwitch<T extends string>({
   onChange,
   className,
   size = "default",
+  compactLabels = false,
 }: ViewSwitchProps<T>) {
   const sm = size === "sm";
   return (
@@ -30,6 +32,7 @@ export function ViewSwitch<T extends string>({
       className={cn(
         "flex items-center gap-1 rounded-xl border bg-card p-1",
         sm && "gap-0.5 rounded-lg p-0.5",
+        compactLabels && "@container",
         className
       )}
     >
@@ -51,7 +54,14 @@ export function ViewSwitch<T extends string>({
             )}
           >
             <item.icon className={cn("size-4 shrink-0", sm && "size-3.5")} />
-            <span className="truncate">{item.label}</span>
+            <span
+              className={cn(
+                "truncate",
+                compactLabels && "@max-[220px]:sr-only"
+              )}
+            >
+              {item.label}
+            </span>
             {item.count != null && (
               <span
                 className={cn(

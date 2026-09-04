@@ -443,6 +443,12 @@
     "toProcess": "{{count}} to dispatch",
     "showAssigned": "Show assigned",
     "showRoutes": "Show routes",
+    "filters": {
+      "active": "{{count}} active filter(s)",
+      "zone": "Zone",
+      "noZone": "No zone",
+      "empty": "No shipment matches the filters."
+    },
     "empty": "No shipment for this day.",
     "selected": "{{count}} selected",
     "clearSelection": "Clear",

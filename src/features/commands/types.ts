@@ -1,4 +1,5 @@
 import type { RouteLeg } from "@/features/tours/types";
+import type { PharmacyZoneRef } from "@/features/pharmacies/types";
 
 export interface StatusRef {
   id: number;
@@ -26,6 +27,7 @@ export interface ExpeditionPharmacy {
   numero?: string | null;
   deliveryWindowStart?: string | null;
   deliveryWindowEnd?: string | null;
+  zone?: PharmacyZoneRef | null;
 }
 
 export interface CommandExpedition {

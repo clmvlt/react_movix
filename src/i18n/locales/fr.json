@@ -443,6 +443,12 @@
     "toProcess": "{{count}} à affecter",
     "showAssigned": "Afficher les affectées",
     "showRoutes": "Afficher les itinéraires",
+    "filters": {
+      "active": "{{count}} filtre(s) actif(s)",
+      "zone": "Zone",
+      "noZone": "Sans zone",
+      "empty": "Aucune expédition ne correspond aux filtres."
+    },
     "empty": "Aucune expédition pour ce jour.",
     "selected": "{{count}} sélectionnée(s)",
     "clearSelection": "Effacer",

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { CheckCircle2, Loader2, MailCheck, MailWarning } from "lucide-react";
@@ -12,6 +12,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/app/toast-context";
+import { useRemainingSeconds } from "@/hooks/use-remaining-seconds";
 import { ApiError } from "@/lib/api-error";
 import { formatDateTime } from "@/lib/date";
 import { useResendRegistration, type RegistrationPending } from "@/features/auth";
@@ -25,19 +26,6 @@ interface PendingState {
 interface RegistrationPendingCardProps {
   pending: RegistrationPending;
   onRestart: () => void;
-}
-
-function useRemainingSeconds(deadline: number): number {
-  const [now, setNow] = useState(() => Date.now());
-  const remaining = Math.max(0, Math.ceil((deadline - now) / 1000));
-
-  useEffect(() => {
-    if (deadline <= Date.now()) return;
-    const timer = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(timer);
-  }, [deadline]);
-
-  return remaining;
 }
 
 export function RegistrationPendingCard({

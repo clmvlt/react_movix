@@ -131,7 +131,11 @@ function ApiTokensContent() {
               {errorMessage(tokensQuery.error, "apiTokens.errors.loadFailed")}
             </AlertDescription>
           </Alert>
-          <ErrorState onRetry={() => void tokensQuery.refetch()} />
+          <ErrorState
+            error={tokensQuery.error}
+            retrying={tokensQuery.isFetching}
+            onRetry={() => void tokensQuery.refetch()}
+          />
         </>
       );
     }

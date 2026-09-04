@@ -179,7 +179,11 @@ export function AnomaliesPage() {
         {anomalies.isLoading ? (
           <LoadingState />
         ) : anomalies.isError ? (
-          <ErrorState onRetry={() => void anomalies.refetch()} />
+          <ErrorState
+            error={anomalies.error}
+            retrying={anomalies.isFetching}
+            onRetry={() => void anomalies.refetch()}
+          />
         ) : rows.length === 0 ? (
           <EmptyState
             message={

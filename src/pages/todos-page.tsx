@@ -253,7 +253,11 @@ export function TodosPage() {
       {isLoading ? (
         <LoadingState />
       ) : isError ? (
-        <ErrorState onRetry={retry} />
+        <ErrorState
+          error={todosQuery.error ?? categoriesQuery.error}
+          retrying={todosQuery.isFetching || categoriesQuery.isFetching}
+          onRetry={retry}
+        />
       ) : !hasContent ? (
         <EmptyState
           message={t("todos.empty")}

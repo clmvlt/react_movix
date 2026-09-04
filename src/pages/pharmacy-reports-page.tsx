@@ -163,7 +163,11 @@ export function PharmacyReportsPage() {
           {reportsQuery.isLoading ? (
             <LoadingState />
           ) : reportsQuery.isError ? (
-            <ErrorState onRetry={() => void reportsQuery.refetch()} />
+            <ErrorState
+              error={reportsQuery.error}
+              retrying={reportsQuery.isFetching}
+              onRetry={() => void reportsQuery.refetch()}
+            />
           ) : reports.length === 0 ? (
             <EmptyState
               message={t("pharmacies.reports.empty")}

@@ -13,6 +13,7 @@
     "search": "Rechercher",
     "back": "Retour",
     "retry": "Réessayer",
+    "retrying": "Nouvelle tentative...",
     "copyFailed": "La copie a échoué. Sélectionnez et copiez la valeur manuellement.",
     "refresh": "Actualiser",
     "none": "Aucun",
@@ -2062,6 +2063,12 @@
     "notFound": "Page introuvable",
     "notFoundDesc": "La page que vous recherchez n'existe pas.",
     "loadFailed": "Échec du chargement des données.",
+    "network": {
+      "title": "Serveur injoignable",
+      "description": "Vérifiez votre connexion internet, puis réessayez.",
+      "offlineTitle": "Vous êtes hors ligne",
+      "offlineDescription": "Les données se rechargeront automatiquement dès que la connexion reviendra."
+    },
     "backHome": "Retour au tableau de bord",
     "adminOnly": "Cet ecran est reserve aux administrateurs.",
     "hyperadminOnly": "Cet écran est réservé aux hyperadmins."

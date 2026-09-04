@@ -195,7 +195,11 @@ export function DashboardPage() {
       {summaryQuery.isPending && <LoadingState />}
 
       {summaryQuery.isError && (
-        <ErrorState onRetry={() => void summaryQuery.refetch()} />
+        <ErrorState
+          error={summaryQuery.error}
+          retrying={summaryQuery.isFetching}
+          onRetry={() => void summaryQuery.refetch()}
+        />
       )}
 
       {summary && (

@@ -43,7 +43,11 @@ export function VersionHistory({ latest }: { latest: MobileUpdate | null }) {
           {updatesQuery.isPending && <LoadingState />}
 
           {updatesQuery.isError && (
-            <ErrorState onRetry={() => void updatesQuery.refetch()} />
+            <ErrorState
+              error={updatesQuery.error}
+              retrying={updatesQuery.isFetching}
+              onRetry={() => void updatesQuery.refetch()}
+            />
           )}
 
           {!updatesQuery.isPending && !updatesQuery.isError && (

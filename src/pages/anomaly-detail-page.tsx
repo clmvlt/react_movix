@@ -43,7 +43,8 @@ export function AnomalyDetailPage() {
   const [commentOpen, setCommentOpen] = useState(false);
   const [emailOpen, setEmailOpen] = useState(false);
 
-  const { data, isLoading, isError, error, refetch } = useAnomaly(id);
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useAnomaly(id);
   const openPdfPreview = usePdfPreview();
   const describeError = useAnomalyError();
 
@@ -118,7 +119,11 @@ export function AnomalyDetailPage() {
           icon={<TriangleAlert className="size-8" />}
         />
       ) : isError || !data ? (
-        <ErrorState onRetry={() => void refetch()} />
+        <ErrorState
+          error={error}
+          retrying={isFetching}
+          onRetry={() => void refetch()}
+        />
       ) : (
         <div className="flex flex-1 flex-col gap-4">
           <Card>

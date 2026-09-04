@@ -1021,7 +1021,13 @@ export function TourOrderPage() {
 
   if (tourQuery.isPending) return <LoadingState />;
   if (tourQuery.isError || !tour) {
-    return <ErrorState onRetry={() => void tourQuery.refetch()} />;
+    return (
+      <ErrorState
+        error={tourQuery.error}
+        retrying={tourQuery.isFetching}
+        onRetry={() => void tourQuery.refetch()}
+      />
+    );
   }
 
   const statsDimmed = routeStale || saving || routePending;

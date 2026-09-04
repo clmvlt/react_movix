@@ -65,7 +65,8 @@ export function ExpeditionsPage() {
   const { user } = useAuth();
   const { date } = useWorkingDate();
 
-  const { data, isLoading, isError, refetch } = useExpeditions(date);
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useExpeditions(date);
   const expeditions = useMemo(() => data ?? [], [data]);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -205,7 +206,11 @@ export function ExpeditionsPage() {
       {isLoading ? (
         <LoadingState />
       ) : isError ? (
-        <ErrorState onRetry={() => void refetch()} />
+        <ErrorState
+          error={error}
+          retrying={isFetching}
+          onRetry={() => void refetch()}
+        />
       ) : (
         <>
         <div className="flex shrink-0 items-center gap-2 lg:hidden">

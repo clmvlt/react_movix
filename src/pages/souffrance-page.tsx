@@ -355,7 +355,11 @@ export function SouffrancePage() {
         {activeQuery.isLoading ? (
           <LoadingState />
         ) : activeQuery.isError ? (
-          <ErrorState onRetry={() => void activeQuery.refetch()} />
+          <ErrorState
+            error={activeQuery.error}
+            retrying={activeQuery.isFetching}
+            onRetry={() => void activeQuery.refetch()}
+          />
         ) : count === 0 ? (
           <EmptyState
             message={

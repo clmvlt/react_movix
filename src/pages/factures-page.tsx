@@ -136,7 +136,11 @@ function FacturesContent() {
               {errorMessage(facturesQuery.error, "factures.errors.loadFailed")}
             </AlertDescription>
           </Alert>
-          <ErrorState onRetry={() => void facturesQuery.refetch()} />
+          <ErrorState
+            error={facturesQuery.error}
+            retrying={facturesQuery.isFetching}
+            onRetry={() => void facturesQuery.refetch()}
+          />
         </>
       );
     }

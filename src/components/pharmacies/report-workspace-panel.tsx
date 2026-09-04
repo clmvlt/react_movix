@@ -140,7 +140,11 @@ export function ReportWorkspacePanel({
           {pharmacyQuery.isLoading ? (
             <LoadingState />
           ) : pharmacyQuery.isError ? (
-            <ErrorState onRetry={() => void pharmacyQuery.refetch()} />
+            <ErrorState
+              error={pharmacyQuery.error}
+              retrying={pharmacyQuery.isFetching}
+              onRetry={() => void pharmacyQuery.refetch()}
+            />
           ) : pharmacy ? (
             <>
               <ReportSection

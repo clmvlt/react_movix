@@ -356,7 +356,11 @@ function MembersCard({ account }: { account: Account }) {
         {membersQuery.isLoading ? (
           <LoadingState />
         ) : membersQuery.isError ? (
-          <ErrorState onRetry={() => void membersQuery.refetch()} />
+          <ErrorState
+            error={membersQuery.error}
+            retrying={membersQuery.isFetching}
+            onRetry={() => void membersQuery.refetch()}
+          />
         ) : members.length === 0 ? (
           <EmptyState
             message={t("hyperadmin.members.empty")}

@@ -13,6 +13,7 @@
     "search": "Search",
     "back": "Back",
     "retry": "Retry",
+    "retrying": "Retrying...",
     "copyFailed": "Copy failed. Select and copy the value manually.",
     "refresh": "Refresh",
     "none": "None",
@@ -2062,6 +2063,12 @@
     "notFound": "Page not found",
     "notFoundDesc": "The page you are looking for does not exist.",
     "loadFailed": "Failed to load data.",
+    "network": {
+      "title": "Server unreachable",
+      "description": "Check your internet connection, then try again.",
+      "offlineTitle": "You are offline",
+      "offlineDescription": "Data will reload automatically as soon as the connection is back."
+    },
     "backHome": "Back to dashboard",
     "adminOnly": "This screen is reserved for administrators.",
     "hyperadminOnly": "This screen is reserved for hyperadmins."

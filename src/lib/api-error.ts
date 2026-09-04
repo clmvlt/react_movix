@@ -23,6 +23,10 @@ export class ApiError extends Error {
     return this.errorCode === "NO_ACCOUNT_ACCESS";
   }
 
+  get isNetworkError(): boolean {
+    return this.status === 0 || this.status === 408;
+  }
+
   get isRegistrationTokenInvalid(): boolean {
     return this.errorCode === "REGISTRATION_TOKEN_INVALID";
   }
@@ -58,6 +62,11 @@ export class ApiError extends Error {
     }
     return result;
   }
+}
+
+export function isNetworkError(error: unknown): boolean {
+  if (error instanceof ApiError) return error.isNetworkError;
+  return error instanceof TypeError;
 }
 
 export function apiErrorText(error: unknown): string | null {

@@ -146,7 +146,8 @@ export function ToursPage() {
   const { user } = useAuth();
   const { date } = useWorkingDate();
 
-  const { data, isLoading, isError, refetch } = useToursByDate(date);
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useToursByDate(date);
   const tours = useMemo(() => data ?? [], [data]);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -335,7 +336,11 @@ export function ToursPage() {
       {isLoading ? (
         <LoadingState />
       ) : isError ? (
-        <ErrorState onRetry={() => void refetch()} />
+        <ErrorState
+          error={error}
+          retrying={isFetching}
+          onRetry={() => void refetch()}
+        />
       ) : (
         <>
           <div className="flex shrink-0 items-center gap-2 lg:hidden">

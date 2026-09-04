@@ -40,7 +40,11 @@ export function PackageHistoryDialog({
         {history.isLoading ? (
           <LoadingState />
         ) : history.isError ? (
-          <ErrorState onRetry={() => void history.refetch()} />
+          <ErrorState
+            error={history.error}
+            retrying={history.isFetching}
+            onRetry={() => void history.refetch()}
+          />
         ) : (
           <StatusTimeline
             entries={history.data ?? []}

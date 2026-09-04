@@ -269,7 +269,11 @@ export function InvitationsDialog({
           {listQuery.isLoading ? (
             <LoadingState />
           ) : listQuery.isError ? (
-            <ErrorState onRetry={() => void listQuery.refetch()} />
+            <ErrorState
+              error={listQuery.error}
+              retrying={listQuery.isFetching}
+              onRetry={() => void listQuery.refetch()}
+            />
           ) : rows.length === 0 ? (
             <EmptyState
               message={t("profiles.invitations.empty")}

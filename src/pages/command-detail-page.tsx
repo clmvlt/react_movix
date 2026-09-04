@@ -51,7 +51,8 @@ export function CommandDetailPage() {
   const [restoreOpen, setRestoreOpen] = useState(false);
   const [anomalyOpen, setAnomalyOpen] = useState(false);
 
-  const { data, isLoading, isError, error, refetch } = useCommand(id);
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useCommand(id);
   const updateCommand = useUpdateCommands();
   const describeError = useCommandError();
 
@@ -190,7 +191,11 @@ export function CommandDetailPage() {
           icon={<PackageX className="size-8" />}
         />
       ) : isError || !data ? (
-        <ErrorState onRetry={() => void refetch()} />
+        <ErrorState
+          error={error}
+          retrying={isFetching}
+          onRetry={() => void refetch()}
+        />
       ) : (
         <div className="flex flex-1 flex-col gap-4">
           {souffrance && (

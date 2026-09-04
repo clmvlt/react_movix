@@ -44,7 +44,8 @@ export function ProfilesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") ?? "";
 
-  const { data, isLoading, isError, refetch } = useProfiles();
+  const { data, isLoading, isError, error, refetch, isFetching } =
+    useProfiles();
   const deleteProfile = useDeleteProfile();
 
   const [formOpen, setFormOpen] = useState(false);
@@ -168,7 +169,11 @@ export function ProfilesPage() {
       {isLoading ? (
         <LoadingState />
       ) : isError ? (
-        <ErrorState onRetry={() => void refetch()} />
+        <ErrorState
+          error={error}
+          retrying={isFetching}
+          onRetry={() => void refetch()}
+        />
       ) : rows.length === 0 ? (
         <EmptyState
           message={t("profiles.empty")}

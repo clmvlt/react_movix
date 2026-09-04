@@ -386,7 +386,11 @@ export function ZonesPage() {
           {zonesQuery.isLoading ? (
             <LoadingState />
           ) : zonesQuery.isError ? (
-            <ErrorState onRetry={() => void zonesQuery.refetch()} />
+            <ErrorState
+              error={zonesQuery.error}
+              retrying={zonesQuery.isFetching}
+              onRetry={() => void zonesQuery.refetch()}
+            />
           ) : bucket && !zoneGone ? (
             <ZonePharmaciesPanel
               key={bucket}

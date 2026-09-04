@@ -230,7 +230,13 @@ export function HyperUpdatesPanel() {
   const renderList = () => {
     if (updatesQuery.isLoading) return <LoadingState />;
     if (updatesQuery.isError) {
-      return <ErrorState onRetry={() => void updatesQuery.refetch()} />;
+      return (
+        <ErrorState
+          error={updatesQuery.error}
+          retrying={updatesQuery.isFetching}
+          onRetry={() => void updatesQuery.refetch()}
+        />
+      );
     }
     if (updates.length === 0) {
       return (

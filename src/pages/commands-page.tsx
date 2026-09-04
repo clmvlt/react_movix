@@ -191,7 +191,11 @@ export function CommandsPage() {
         {searchQuery.isLoading ? (
           <LoadingState />
         ) : searchQuery.isError ? (
-          <ErrorState onRetry={() => void searchQuery.refetch()} />
+          <ErrorState
+            error={searchQuery.error}
+            retrying={searchQuery.isFetching}
+            onRetry={() => void searchQuery.refetch()}
+          />
         ) : rows.length === 0 ? (
           <EmptyState
             message={

@@ -112,7 +112,11 @@ export function HyperFacturesPanel() {
               )}
             </AlertDescription>
           </Alert>
-          <ErrorState onRetry={() => void facturesQuery.refetch()} />
+          <ErrorState
+            error={facturesQuery.error}
+            retrying={facturesQuery.isFetching}
+            onRetry={() => void facturesQuery.refetch()}
+          />
         </>
       );
     }

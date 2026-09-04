@@ -549,6 +549,8 @@ export function PharmacyStatsTab({ api }: { api: ExportFiltersApi }) {
 
       {!isLoading && isError && (
         <ErrorState
+          error={overviewQuery.error ?? byPharmacyQuery.error}
+          retrying={overviewQuery.isFetching || byPharmacyQuery.isFetching}
           onRetry={() => {
             overviewQuery.refetch();
             byPharmacyQuery.refetch();

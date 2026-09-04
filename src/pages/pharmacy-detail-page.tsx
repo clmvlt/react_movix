@@ -502,7 +502,11 @@ export function PharmacyDetailPage() {
             icon={<Building2 className="size-8" />}
           />
         ) : (
-          <ErrorState onRetry={() => void pharmacyQuery.refetch()} />
+          <ErrorState
+            error={pharmacyQuery.error}
+            retrying={pharmacyQuery.isFetching}
+            onRetry={() => void pharmacyQuery.refetch()}
+          />
         )}
       </div>
     );

@@ -380,12 +380,18 @@
       "passwordHint": "Leave empty to keep the current password.",
       "passwordCreate": "Mobile password",
       "passwordCreateHint": "Used for mobile sign-in within this company.",
-      "passwordMobileEdit": "New mobile password",
       "linkedBadge": "Linked user account",
       "linkedHint": "This profile is attached to a Movix user account. The email belongs to that account; first and last name are managed by the user and may be overwritten.",
       "emailLinkedHint": "The email belongs to the user's Movix account and cannot be changed here.",
       "attachedExisting": "Existing Movix user attached to your company.",
       "conflict": "This username is already used in this account, or this email is already in use."
+    },
+    "password": {
+      "ownedByUser": "This person manages their password from their own account (settings or \"forgot password\"). It opens the web app and the mobile app, in every company they belong to.",
+      "resetAction": "Send a reset link",
+      "resetHint": "The email goes to this person, not to you.",
+      "resetSent": "A reset link has been sent to {{email}}.",
+      "noEmail": "No email address is known for this person, so no reset link can be sent."
     },
     "invitations": {
       "open": "Invite",
@@ -1383,7 +1389,7 @@
       "submit": "Update password",
       "done": "Your password has been updated.",
       "wrongCurrent": "Your current password is incorrect.",
-      "webOnlyHint": "This password is used for web sign-in, for all your companies. Mobile passwords are managed per company on the Profiles page."
+      "scopeHint": "This password signs you in to the web app and the mobile app, in every one of your companies."
     },
     "google": {
       "title": "Google sign-in",

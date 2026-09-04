@@ -380,12 +380,18 @@
       "passwordHint": "Laisser vide pour conserver le mot de passe actuel.",
       "passwordCreate": "Mot de passe mobile",
       "passwordCreateHint": "Sert à la connexion mobile dans cette entreprise.",
-      "passwordMobileEdit": "Nouveau mot de passe mobile",
       "linkedBadge": "Compte utilisateur lié",
       "linkedHint": "Ce profil est rattaché à un compte utilisateur Movix. L'email appartient à ce compte ; le prénom et le nom sont gérés par l'utilisateur et peuvent être écrasés.",
       "emailLinkedHint": "L'email appartient au compte utilisateur Movix et ne peut pas être modifié ici.",
       "attachedExisting": "Utilisateur Movix existant rattaché à votre entreprise.",
       "conflict": "Cet identifiant est déjà utilisé dans ce compte, ou cet email est déjà utilisé."
+    },
+    "password": {
+      "ownedByUser": "Cette personne gère son mot de passe depuis son compte (paramètres ou \"mot de passe oublié\"). Il lui ouvre le web et l'application mobile, dans toutes ses entreprises.",
+      "resetAction": "Envoyer un lien de réinitialisation",
+      "resetHint": "L'email part vers cette personne, pas vers vous.",
+      "resetSent": "Un lien de réinitialisation a été envoyé à {{email}}.",
+      "noEmail": "Aucune adresse email n'est connue pour cette personne : aucun lien ne peut être envoyé."
     },
     "invitations": {
       "open": "Inviter",
@@ -1383,7 +1389,7 @@
       "submit": "Mettre à jour",
       "done": "Votre mot de passe a été mis à jour.",
       "wrongCurrent": "Votre mot de passe actuel est incorrect.",
-      "webOnlyHint": "Ce mot de passe sert à la connexion web, pour toutes vos entreprises. Les mots de passe mobiles se gèrent entreprise par entreprise dans la page Profils."
+      "scopeHint": "Ce mot de passe vous connecte au web et à l'application mobile, dans toutes vos entreprises."
     },
     "google": {
       "title": "Connexion Google",

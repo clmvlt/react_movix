@@ -34,6 +34,7 @@ import { FormField } from "@/components/form-field";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { ProfilKindIcon } from "@/components/profiles/profil-kind-icon";
 import { AccountPicker } from "@/components/hyperadmin/account-picker";
+import { PasswordOwnedNotice } from "@/components/profiles/password-owned-notice";
 import { useHyperError } from "@/components/hyperadmin/use-hyper-error";
 import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
@@ -546,6 +547,7 @@ function MemberEditDialog({
 
   const baseline = memberFlags(member);
   const dirty = MEMBER_FLAGS.some(([flag]) => form[flag] !== baseline[flag]);
+  const ownsPassword = Boolean(member?.userId) || member?.isWeb === true;
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
@@ -606,6 +608,10 @@ function MemberEditDialog({
               </label>
             ))}
           </div>
+
+          {ownsPassword && (
+            <PasswordOwnedNotice email={member?.email} className="mt-3" />
+          )}
 
           <DialogFooter className="mt-4">
             <Button

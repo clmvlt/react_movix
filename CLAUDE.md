@@ -68,9 +68,18 @@ chacun avec `VITE_APP_ENV` et `VITE_API_BASE_URL`. Les `.env.*` sont ignores par
   compte legacy : aucun header, comportement historique. Profils : `ProfilDTO.userId`
   non-null = rattache a un compte utilisateur (email lecture seule, 409 sinon ; suppression
   = retrait de l'entreprise, l'identite survit) ; la creation peut RATTACHER un utilisateur
-  existant (reponse avec `userId`, `check-email` isUsed=false inclut ce cas) ; le mot de
-  passe des profils est le mot de passe MOBILE par entreprise, `change-password` = mot de
-  passe WEB de l'identite. Cloisonnement : un utilisateur NON-admin ne gere que les
+  existant (reponse avec `userId`, `check-email` isUsed=false inclut ce cas). MOT DE PASSE
+  UNIQUE : une personne n'a qu'un mot de passe, celui de son compte (User), qui ouvre le web
+  ET le mobile dans toutes ses entreprises ; personne d'autre ne peut le changer. Le champ
+  mot de passe du formulaire profil ne s'affiche donc que si `userId === null && !isWeb`
+  (profil mobile autonome) - sinon `<PasswordOwnedNotice>`
+  (`src/components/profiles/password-owned-notice.tsx`) explique la regle et propose
+  "Envoyer un lien de reinitialisation" (`POST /profiles/forgot-password {email}`, public,
+  204 systematique, l'email part vers la personne). Ne JAMAIS envoyer `password` pour ces
+  profils : 403 avec un corps en TEXTE BRUT (meme si le Content-Type annonce JSON), a
+  afficher tel quel via `apiErrorText`. Meme regle sur
+  `PUT /account/{accountId}/members/{profilId}` (hyperadmin). `change-password` change ce
+  mot de passe unique. Cloisonnement : un utilisateur NON-admin ne gere que les
   profils MOBILES purs (pas d'edition/suppression d'un profil isWeb ou lie, pas d'octroi
   web/admin, pas d'invitations - l'API renvoie 403) ; le champ email n'apparait dans le
   formulaire profil que si "acces web" est coche (profil mobile = identifiant + mot de

@@ -24,7 +24,7 @@ import { initialsFromName } from "@/lib/initials";
 import { useDebouncedValue } from "@/lib/use-debounced-value";
 import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
-import { authKeys, type ProfilAuth } from "@/features/auth";
+import { authKeys, canAccessWeb, type ProfilAuth } from "@/features/auth";
 import {
   PROFIL_PICTURE_INPUT_MAX_BYTES,
   profilPictureTooLarge,
@@ -480,9 +480,9 @@ function PasswordCard() {
           className="grid grid-cols-1 gap-x-4"
           noValidate
         >
-          {Boolean(user?.userId) && (
+          {user && canAccessWeb(user) && (
             <p className="mb-3 text-xs leading-4 text-muted-foreground">
-              {t("account.password.webOnlyHint")}
+              {t("account.password.scopeHint")}
             </p>
           )}
           <FormField

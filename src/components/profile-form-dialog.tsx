@@ -17,7 +17,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/app/toast-context";
 import { FormField } from "@/components/form-field";
 import { useIsAdmin } from "@/components/admin-gate";
-import { ApiError } from "@/lib/api-error";
+import { PasswordOwnedNotice } from "@/components/profiles/password-owned-notice";
+import { ApiError, apiErrorText } from "@/lib/api-error";
 import type { Profil } from "@/features/auth";
 import {
   useCreateProfile,
@@ -87,13 +88,11 @@ export function ProfileFormDialog({
 
   const pending = createProfile.isPending || updateProfile.isPending;
   const showEmail = form.isWeb || linkedUser;
+  const ownsPassword = isEdit && (linkedUser || profile?.isWeb === true);
 
-  let passwordLabel = t("profiles.form.passwordCreate");
-  if (isEdit) {
-    passwordLabel = linkedUser
-      ? t("profiles.form.passwordMobileEdit")
-      : t("profiles.form.passwordEdit");
-  }
+  const passwordLabel = isEdit
+    ? t("profiles.form.passwordEdit")
+    : t("profiles.form.passwordCreate");
 
   const passwordHint = isEdit
     ? t("profiles.form.passwordHint")
@@ -130,7 +129,9 @@ export function ProfileFormDialog({
       if (err instanceof ApiError) {
         const fields = err.fieldErrors;
         if (Object.keys(fields).length > 0) setFieldErrors(fields);
-        else if (err.status === 409) {
+        else if (err.status === 403) {
+          toast.error(apiErrorText(err) ?? t("profiles.password.ownedByUser"));
+        } else if (err.status === 409) {
           const message = err.message || t("profiles.form.conflict");
           const lower = message.toLowerCase();
           const identifiantConflict =
@@ -150,9 +151,10 @@ export function ProfileFormDialog({
       updateProfile.mutate(
         {
           id: profile.id,
-          input: form.password
-            ? { ...base, password: form.password }
-            : base,
+          input:
+            !ownsPassword && form.password
+              ? { ...base, password: form.password }
+              : base,
         },
         { onSuccess: () => onOpenChange(false), onError }
       );
@@ -252,21 +254,25 @@ export function ProfileFormDialog({
             </FormField>
           )}
 
-          <FormField
-            label={passwordLabel}
-            htmlFor="pf-password"
-            error={fieldErrors.password}
-            hint={passwordHint}
-          >
-            <Input
-              id="pf-password"
-              type="password"
-              value={form.password}
-              onChange={(e) => set("password", e.target.value)}
-              autoComplete="new-password"
-              className="min-h-11 lg:min-h-10"
-            />
-          </FormField>
+          {ownsPassword ? (
+            <PasswordOwnedNotice email={profile?.email} className="mb-2" />
+          ) : (
+            <FormField
+              label={passwordLabel}
+              htmlFor="pf-password"
+              error={fieldErrors.password}
+              hint={passwordHint}
+            >
+              <Input
+                id="pf-password"
+                type="password"
+                value={form.password}
+                onChange={(e) => set("password", e.target.value)}
+                autoComplete="new-password"
+                className="min-h-11 lg:min-h-10"
+              />
+            </FormField>
+          )}
 
           <div className="mt-1 grid grid-cols-2 gap-2">
             {(

@@ -62,6 +62,7 @@ import { ColorPicker } from "@/components/color-picker";
 import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
+import { RefreshButton } from "@/components/refresh-button";
 import { SelectionBar } from "@/components/selection-bar";
 import { ViewSwitch } from "@/components/view-switch";
 import { StatusBadge } from "@/components/status-badge";
@@ -358,6 +359,12 @@ export function ToursPage() {
               onToggleClosed={() => setHideClosed((value) => !value)}
               onCreate={() => setCreateOpen(true)}
             />
+            <RefreshButton
+              className="size-11"
+              iconClassName="size-5"
+              refreshing={isFetching}
+              onRefresh={refetch}
+            />
           </div>
 
           <ViewSwitch
@@ -389,6 +396,11 @@ export function ToursPage() {
                     {t("tours.listLabel", { count: tours.length })}
                   </p>
                   <div className="flex items-center gap-1.5">
+                    <RefreshButton
+                      className="size-7"
+                      refreshing={isFetching}
+                      onRefresh={refetch}
+                    />
                     {closedCount > 0 && (
                       <Button
                         variant={hideClosed ? "default" : "outline"}

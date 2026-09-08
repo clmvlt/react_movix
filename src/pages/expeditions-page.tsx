@@ -16,6 +16,7 @@ import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
 import { ExpeditionFilterButton } from "@/components/expeditions/expedition-filter-button";
+import { RefreshButton } from "@/components/refresh-button";
 import {
   EMPTY_EXPEDITION_FILTERS,
   hasExpeditionFilters,
@@ -110,6 +111,8 @@ export function ExpeditionsPage() {
   const toursQuery = useToursByDate(date);
   const zonesQuery = useZones();
   const zones = useMemo(() => zonesQuery.data ?? [], [zonesQuery.data]);
+  const refreshing = isFetching || toursQuery.isFetching;
+  const refresh = () => Promise.all([refetch(), toursQuery.refetch()]);
 
   const account = user?.account;
   const depotCoords = useMemo<LngLat | null>(
@@ -258,6 +261,12 @@ export function ExpeditionsPage() {
           >
             <Spline className="size-5" />
           </Button>
+          <RefreshButton
+            className="size-11"
+            iconClassName="size-5"
+            refreshing={refreshing}
+            onRefresh={refresh}
+          />
         </div>
 
         <div className="flex min-h-0 flex-1 flex-col gap-4 lg:flex-row">
@@ -352,6 +361,11 @@ export function ExpeditionsPage() {
                 >
                   <Spline className="size-4" />
                 </Button>
+                <RefreshButton
+                  className="size-8"
+                  refreshing={refreshing}
+                  onRefresh={refresh}
+                />
               </div>
             </div>
 

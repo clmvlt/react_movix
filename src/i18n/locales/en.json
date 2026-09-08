@@ -2187,6 +2187,24 @@
       "haveAccount": "Already have an account?",
       "signIn": "Sign in"
     },
+    "trust": {
+      "web": {
+        "title": "Web app",
+        "desc": "A full operations workstation in the browser, with nothing to install."
+      },
+      "stores": {
+        "title": "Driver app",
+        "desc": "The Android app installs on your drivers' phones in a few minutes."
+      },
+      "routing": {
+        "title": "Real road routes",
+        "desc": "Routes and arrival times come from a routing engine, never straight lines."
+      },
+      "languages": {
+        "title": "French and English",
+        "desc": "Every user picks their own language, on the web and on mobile."
+      }
+    },
     "highlights": {
       "map": {
         "title": "Everything on the map",

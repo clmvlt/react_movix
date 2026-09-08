@@ -2187,6 +2187,24 @@
       "haveAccount": "Vous avez déjà un compte ?",
       "signIn": "Se connecter"
     },
+    "trust": {
+      "web": {
+        "title": "Application web",
+        "desc": "Un poste d'exploitation complet dans le navigateur, sans rien à installer."
+      },
+      "stores": {
+        "title": "Application chauffeur",
+        "desc": "L'application Android s'installe sur les téléphones de vos chauffeurs en quelques minutes."
+      },
+      "routing": {
+        "title": "Itinéraires réels",
+        "desc": "Trajets et heures d'arrivée calculés par un moteur d'itinéraire, jamais à vol d'oiseau."
+      },
+      "languages": {
+        "title": "Français et anglais",
+        "desc": "Chaque utilisateur choisit sa langue, sur le web comme sur le mobile."
+      }
+    },
     "highlights": {
       "map": {
         "title": "Tout sur la carte",

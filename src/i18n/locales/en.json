@@ -476,6 +476,7 @@
     "changeStatus": "Change status",
     "changeExpDate": "Change shipping date",
     "assign": "Assign to a tour",
+    "assignByZone": "Assign automatically by zone",
     "selectAll": "Select all ({{count}})",
     "noTours": "No tour available for this day",
     "unassign": "Remove from tour",
@@ -504,6 +505,23 @@
       "date": "New shipping date",
       "warning": "Changing the shipping date removes the orders from their tours and recomputes the impacted routes.",
       "current": "Current date: {{date}}"
+    },
+    "zoneAssignDialog": {
+      "title": "Assign to tours by zone",
+      "subtitle": "{{count}} order(s) selected. Each order joins the day's tour linked to its pharmacy's zone.",
+      "commands": "{{count}} order(s)",
+      "already": "{{count}} already in this tour",
+      "moved": "{{count}} moved from another tour",
+      "noTour": "No tour of the day is linked to this zone",
+      "chooseTour": "{{count}} tours share this zone, choose one",
+      "skip": "Do not assign",
+      "tourFor": "Tour for the zone {{zone}}",
+      "withoutZone": "{{count}} order(s) whose pharmacy has no zone stay as they are.",
+      "noZonedTour": "No tour of this day is linked to a zone. Set a tour's zone on the Tours page first.",
+      "submit": "Assign {{count}} order(s)",
+      "done": "{{count}} order(s) assigned to {{tours}} tour(s).",
+      "failed": "These tours could not receive their orders:",
+      "failure": "{{tour}}: {{message}}"
     }
   },
   "commands": {

@@ -9,6 +9,8 @@ import {
 import { commandsApi } from "./commands.api";
 import { commandKeys } from "./commands.keys";
 import type {
+  CommandAssignBatchResult,
+  CommandAssignGroup,
   CommandCreateInput,
   CommandIdsInput,
   CommandScope,
@@ -148,6 +150,29 @@ export function useAssignCommands() {
       commandIds: string[];
     }) => commandsApi.assign(tourId, { commandIds }),
     onSuccess: () => invalidateCommands(queryClient),
+  });
+}
+
+export function useAssignCommandsByTour() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (
+      groups: CommandAssignGroup[]
+    ): Promise<CommandAssignBatchResult> => {
+      const result: CommandAssignBatchResult = { assigned: [], failed: [] };
+      for (const group of groups) {
+        try {
+          await commandsApi.assign(group.tourId, {
+            commandIds: group.commandIds,
+          });
+          result.assigned.push(group);
+        } catch (error) {
+          result.failed.push({ ...group, error });
+        }
+      }
+      return result;
+    },
+    onSettled: () => invalidateCommands(queryClient),
   });
 }
 

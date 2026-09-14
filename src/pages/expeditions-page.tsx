@@ -162,6 +162,12 @@ export function ExpeditionsPage() {
     [expeditions, showAssigned, filters]
   );
 
+  const selectedCommands = useMemo(
+    () => expeditions.filter((command) => selected.has(command.id)),
+    [expeditions, selected]
+  );
+  const zoneAssign = { commands: selectedCommands, zones };
+
   const allVisibleSelected =
     visibleCommands.length > 0 &&
     visibleCommands.every((command) => selected.has(command.id));
@@ -341,6 +347,7 @@ export function ExpeditionsPage() {
               <CommandActions
                 commandIds={selectedIds}
                 tours={tours}
+                zoneAssign={zoneAssign}
                 onDone={clearSelection}
               />
 
@@ -502,6 +509,7 @@ export function ExpeditionsPage() {
             layout="bar"
             commandIds={selectedIds}
             tours={tours}
+            zoneAssign={zoneAssign}
             onDone={clearSelection}
           />
         </SelectionBar>

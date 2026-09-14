@@ -364,6 +364,17 @@ Les UUID des paths sont mis en MINUSCULES (`normalizeAccountId`, sinon 400).
   (jamais `100dvh - X`, qui deborde sous le bouton) avec `collisionPadding={8}`.
 - Tout selectionner : case dans la barre desktop et ligne `lg:hidden` au-dessus de la liste,
   portee = `visibleCommands` (filtres et "affectees" respectes).
+- Attribution par zone : option "Attribuer automatiquement selon les zones" en tete du dialog
+  "Affecter a une tournee" de `CommandActions`, pleine largeur au-dessus de la liste des tournees
+  (jamais dans le pied : a cote de "Retirer de la tournee" elle debordait du dialog), presente
+  seulement avec la prop `zoneAssign` (page Expeditions). Elle ferme ce dialog et ouvre
+  `zone-assign-dialog.tsx` (pas d'action dediee dans la barre) ; logique pure dans `zone-assign.ts`. L'API
+  n'a PAS d'endpoint dedie : les commandes sont groupees par `pharmacy.zone.id`, la cible est la
+  tournee du jour dont `tour.zone.id` correspond (tournees non cloturees). Une seule tournee =
+  preselectionnee ; plusieurs = choix explicite obligatoire (rien par defaut) ; aucune = zone
+  signalee et ignoree ; commandes sans zone jamais touchees. `useAssignCommandsByTour` enchaine
+  les `PUT /commands/assign/{tourId}` UN PAR UN (chaque appel recalcule les trajets) et collecte
+  les echecs par tournee : un echec partiel garde le dialog ouvert avec le texte API par tournee.
 
 ## Champs date
 TOUTE saisie de date passe par `<DateField>` (`src/components/date-field.tsx`). Jamais de

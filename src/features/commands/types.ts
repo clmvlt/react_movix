@@ -12,6 +12,20 @@ export interface CommandUnassignedCount {
   count: number;
 }
 
+export interface CommandAssignGroup {
+  tourId: string;
+  commandIds: string[];
+}
+
+export interface CommandAssignGroupFailure extends CommandAssignGroup {
+  error: unknown;
+}
+
+export interface CommandAssignBatchResult {
+  assigned: CommandAssignGroup[];
+  failed: CommandAssignGroupFailure[];
+}
+
 export interface CommandTour {
   id: string;
   name: string;

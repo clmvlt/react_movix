@@ -476,6 +476,7 @@
     "changeStatus": "Changer le statut",
     "changeExpDate": "Changer la date d'expédition",
     "assign": "Affecter à une tournée",
+    "assignByZone": "Attribuer automatiquement selon les zones",
     "selectAll": "Tout sélectionner ({{count}})",
     "noTours": "Aucune tournée disponible pour ce jour",
     "unassign": "Retirer de la tournée",
@@ -504,6 +505,23 @@
       "date": "Nouvelle date d'expédition",
       "warning": "Changer la date d'expédition retire les commandes de leurs tournées et recalcule les itinéraires impactés.",
       "current": "Date actuelle : {{date}}"
+    },
+    "zoneAssignDialog": {
+      "title": "Attribuer aux tournées selon la zone",
+      "subtitle": "{{count}} commande(s) sélectionnée(s). Chaque commande rejoint la tournée du jour rattachée à la zone de sa pharmacie.",
+      "commands": "{{count}} commande(s)",
+      "already": "{{count}} déjà dans cette tournée",
+      "moved": "{{count}} déplacée(s) depuis une autre tournée",
+      "noTour": "Aucune tournée du jour n'est rattachée à cette zone",
+      "chooseTour": "{{count}} tournées partagent cette zone, choisissez-en une",
+      "skip": "Ne pas attribuer",
+      "tourFor": "Tournée pour la zone {{zone}}",
+      "withoutZone": "{{count}} commande(s) dont la pharmacie n'a pas de zone restent inchangées.",
+      "noZonedTour": "Aucune tournée de ce jour n'est rattachée à une zone. Choisissez d'abord la zone d'une tournée sur la page Tournées.",
+      "submit": "Attribuer {{count}} commande(s)",
+      "done": "{{count}} commande(s) attribuée(s) à {{tours}} tournée(s).",
+      "failed": "Ces tournées n'ont pas pu recevoir leurs commandes :",
+      "failure": "{{tour}} : {{message}}"
     }
   },
   "commands": {

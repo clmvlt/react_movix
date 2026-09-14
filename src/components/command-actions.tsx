@@ -7,9 +7,12 @@ import {
   CalendarClock,
   CircleDot,
   Loader2,
+  MapPinned,
   PackageX,
   Route as RouteIcon,
 } from "lucide-react";
+import { ZoneAssignDialog } from "@/components/expeditions/zone-assign-dialog";
+import type { ZoneAssignCommand } from "@/components/expeditions/zone-assign";
 import { Button } from "@/components/ui/button";
 import { DateField } from "@/components/date-field";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -35,11 +38,13 @@ import {
   useUpdateCommands,
 } from "@/features/commands";
 import { tourKeys } from "@/features/tours";
+import type { Zone } from "@/features/zones";
 
 export interface CommandActionTour {
   id: string;
   name: string;
   color?: string;
+  zone?: { id: string; name: string } | null;
 }
 
 interface CommandActionsProps {
@@ -50,6 +55,7 @@ interface CommandActionsProps {
   lockedTitle?: string;
   layout?: "inline" | "bar";
   showAssign?: boolean;
+  zoneAssign?: { commands: ZoneAssignCommand[]; zones: Zone[] };
 }
 
 export function CommandActions({
@@ -60,12 +66,14 @@ export function CommandActions({
   lockedTitle,
   layout = "inline",
   showAssign = true,
+  zoneAssign,
 }: CommandActionsProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const [statusOpen, setStatusOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
+  const [zoneAssignOpen, setZoneAssignOpen] = useState(false);
   const [expDateOpen, setExpDateOpen] = useState(false);
   const [souffranceOpen, setSouffranceOpen] = useState(false);
 
@@ -161,6 +169,24 @@ export function CommandActions({
           commandIds={commandIds}
           tours={tours}
           onDone={done}
+          onAssignByZone={
+            zoneAssign
+              ? () => {
+                  setAssignOpen(false);
+                  window.setTimeout(() => setZoneAssignOpen(true), 0);
+                }
+              : undefined
+          }
+        />
+      )}
+      {showAssign && zoneAssign && (
+        <ZoneAssignDialog
+          open={zoneAssignOpen}
+          onOpenChange={setZoneAssignOpen}
+          commands={zoneAssign.commands}
+          tours={tours}
+          zones={zoneAssign.zones}
+          onDone={done}
         />
       )}
       <CommandExpDateDialog
@@ -192,7 +218,11 @@ function AssignDialog({
   commandIds,
   tours,
   onDone,
-}: ActionDialogProps & { tours: CommandActionTour[] }) {
+  onAssignByZone,
+}: ActionDialogProps & {
+  tours: CommandActionTour[];
+  onAssignByZone?: () => void;
+}) {
   const { t } = useTranslation();
   const assign = useAssignCommands();
   const unassign = useUnassignCommands();
@@ -218,6 +248,17 @@ function AssignDialog({
             })}
           </DialogDescription>
         </DialogHeader>
+        {onAssignByZone && (
+          <Button
+            variant="outline"
+            className="h-auto min-h-11 w-full justify-start gap-2.5 whitespace-normal border-primary/40 px-3 py-2 text-left lg:min-h-10"
+            disabled={pending}
+            onClick={onAssignByZone}
+          >
+            <MapPinned className="size-4 shrink-0 text-primary" />
+            <span className="min-w-0">{t("expeditions.assignByZone")}</span>
+          </Button>
+        )}
         <div className="flex max-h-72 flex-col gap-2 overflow-y-auto">
           {tours.length === 0 ? (
             <p className="px-1 py-4 text-center text-sm text-muted-foreground">

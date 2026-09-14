@@ -492,7 +492,8 @@ panneau d'infos de la page Tournees.
   `plannedDepartureTime` : l'heure de depart n'est jamais persistee, c'est un affichage pur,
   initialise depuis `tour.startDate` (depart reel) sinon l'heure par defaut du compte
   (`account.defaultTourDepartureTime`, format "21h00", reglee dans Parametres -> Options).
-  Aucun temps d'arret en pharmacie n'est modelise.
+  Le serveur compte un temps d'arret fixe de 3 min par pharmacie (`TourEta.STOP_SERVICE_SECONDS`),
+  deja inclus dans `estimateMins`, `cumulativeDurationMins` et les ETA.
 - Ne jamais envoyer `geometry`, `estimateKm` ou `estimateMins` calcules cote front dans
   `PUT /tours/{id}` : ils sont ecrits tels quels et ecrases au prochain recalcul.
 - `GET /tours/by-date-range` renvoie `geometry: ""` : jamais pour la carte.

@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
@@ -161,6 +162,24 @@ export function ExpeditionsPage() {
     [expeditions, showAssigned, filters]
   );
 
+  const allVisibleSelected =
+    visibleCommands.length > 0 &&
+    visibleCommands.every((command) => selected.has(command.id));
+  const selectAllState = allVisibleSelected
+    ? true
+    : hasSelection
+      ? "indeterminate"
+      : false;
+  const toggleAll = () =>
+    setSelected(
+      allVisibleSelected
+        ? new Set()
+        : new Set(visibleCommands.map((command) => command.id))
+    );
+  const selectAllLabel = t("expeditions.selectAll", {
+    count: visibleCommands.length,
+  });
+
   const pins = useMemo<MapPinData[]>(() => {
     const list: MapPinData[] = [];
     for (const command of visibleCommands) {
@@ -272,6 +291,14 @@ export function ExpeditionsPage() {
           >
             <div className="mb-3 hidden h-11 shrink-0 items-center gap-1.5 rounded-xl border bg-card p-1.5 lg:flex">
               <div className="flex min-w-0 flex-1 items-center gap-1.5 pl-1">
+                <Checkbox
+                  className="mx-1"
+                  checked={selectAllState}
+                  onCheckedChange={toggleAll}
+                  disabled={visibleCommands.length === 0}
+                  title={selectAllLabel}
+                  aria-label={selectAllLabel}
+                />
                 {hasSelection ? (
                   <>
                     <span
@@ -357,6 +384,16 @@ export function ExpeditionsPage() {
                 />
               </div>
             </div>
+
+            {visibleCommands.length > 0 && (
+              <label className="mb-2 flex min-h-11 shrink-0 cursor-pointer items-center gap-3 rounded-xl border bg-card px-3 text-sm font-medium text-foreground lg:hidden">
+                <Checkbox
+                  checked={selectAllState}
+                  onCheckedChange={toggleAll}
+                />
+                <span className="truncate">{selectAllLabel}</span>
+              </label>
+            )}
 
             {visibleCommands.length === 0 ? (
               <EmptyState

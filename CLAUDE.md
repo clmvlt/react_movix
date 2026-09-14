@@ -362,6 +362,8 @@ Les UUID des paths sont mis en MINUSCULES (`normalizeAccountId`, sinon 400).
   220px de large : icone + compteur seulement) pour caser filtre + affectees + trajets a 360px.
   Le popover de filtres borne sa hauteur par `--radix-popover-content-available-height`
   (jamais `100dvh - X`, qui deborde sous le bouton) avec `collisionPadding={8}`.
+- Tout selectionner : case dans la barre desktop et ligne `lg:hidden` au-dessus de la liste,
+  portee = `visibleCommands` (filtres et "affectees" respectes).
 
 ## Champs date
 TOUTE saisie de date passe par `<DateField>` (`src/components/date-field.tsx`). Jamais de

@@ -476,6 +476,7 @@
     "changeStatus": "Changer le statut",
     "changeExpDate": "Changer la date d'expédition",
     "assign": "Affecter à une tournée",
+    "selectAll": "Tout sélectionner ({{count}})",
     "noTours": "Aucune tournée disponible pour ce jour",
     "unassign": "Retirer de la tournée",
     "souffrance": "Mettre en souffrance",

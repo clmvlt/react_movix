@@ -476,6 +476,7 @@
     "changeStatus": "Change status",
     "changeExpDate": "Change shipping date",
     "assign": "Assign to a tour",
+    "selectAll": "Select all ({{count}})",
     "noTours": "No tour available for this day",
     "unassign": "Remove from tour",
     "souffrance": "Flag as pending",

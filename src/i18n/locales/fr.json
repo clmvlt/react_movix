@@ -811,6 +811,8 @@
     "create": "Nouvelle tournée",
     "empty": "Aucune tournée pour ce jour.",
     "listLabel": "{{count}} tournée(s)",
+    "totals": "Total",
+    "totalsHint": "Distance et durée estimées de toutes les tournées du jour",
     "ordersCount": "{{count}} commande(s)",
     "packagesCount": "{{count}} colis",
     "closedTours": {

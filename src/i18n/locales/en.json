@@ -811,6 +811,8 @@
     "create": "New tour",
     "empty": "No tour for this day.",
     "listLabel": "{{count}} tour(s)",
+    "totals": "Total",
+    "totalsHint": "Estimated distance and duration of all the day's tours",
     "ordersCount": "{{count}} order(s)",
     "packagesCount": "{{count}} package(s)",
     "closedTours": {

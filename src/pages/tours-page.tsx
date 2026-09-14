@@ -347,6 +347,7 @@ export function ToursPage() {
           <div className="flex shrink-0 items-center gap-2 lg:hidden">
             <MobileTourPicker
               tours={visibleTours}
+              allTours={tours}
               selectedTourId={selectedTourId}
               onSelect={setSelectedTourId}
               emptyLabel={
@@ -392,9 +393,12 @@ export function ToursPage() {
             >
               <div className="hidden flex-col lg:flex">
                 <div className="mb-2 flex items-center justify-between gap-2 px-1">
-                  <p className="text-xs font-medium uppercase text-muted-foreground">
-                    {t("tours.listLabel", { count: tours.length })}
-                  </p>
+                  <div className="flex min-w-0 items-center gap-3">
+                    <p className="shrink-0 text-xs font-medium uppercase text-muted-foreground">
+                      {t("tours.listLabel", { count: tours.length })}
+                    </p>
+                    <ToursTotals tours={tours} />
+                  </div>
                   <div className="flex items-center gap-1.5">
                     <RefreshButton
                       className="size-7"
@@ -753,8 +757,48 @@ export function ToursPage() {
   );
 }
 
+function sumEstimates(
+  tours: Tour[],
+  pick: (tour: Tour) => number | null | undefined
+): number | null {
+  let total: number | null = null;
+  for (const tour of tours) {
+    const value = pick(tour);
+    if (value != null) total = (total ?? 0) + value;
+  }
+  return total;
+}
+
+function ToursTotals({ tours }: { tours: Tour[] }) {
+  const { t } = useTranslation();
+  const km = sumEstimates(tours, (tour) => tour.estimateKm);
+  const mins = sumEstimates(tours, (tour) => tour.estimateMins);
+  if (km == null && mins == null) return null;
+  return (
+    <p className="flex min-w-0 items-center gap-2.5 text-xs tabular-nums text-muted-foreground">
+      <span className="shrink-0 font-medium text-foreground">
+        {t("tours.totals")}
+        <span className="sr-only">{` - ${t("tours.totalsHint")}`}</span>
+      </span>
+      {km != null && (
+        <span className="flex shrink-0 items-center gap-1">
+          <Route className="size-3" aria-hidden />
+          {Math.round(km)} km
+        </span>
+      )}
+      {mins != null && (
+        <span className="flex shrink-0 items-center gap-1">
+          <Clock className="size-3" aria-hidden />
+          {formatDuration(mins)}
+        </span>
+      )}
+    </p>
+  );
+}
+
 function MobileTourPicker({
   tours,
+  allTours,
   selectedTourId,
   onSelect,
   emptyLabel,
@@ -764,6 +808,7 @@ function MobileTourPicker({
   onCreate,
 }: {
   tours: Tour[];
+  allTours: Tour[];
   selectedTourId: string | null;
   onSelect: (id: string) => void;
   emptyLabel: string;
@@ -812,9 +857,12 @@ function MobileTourPicker({
         className="flex max-h-[80dvh] flex-col gap-0 rounded-t-xl p-0"
       >
         <SheetHeader className="flex-row items-center justify-between border-b p-4">
-          <SheetTitle>
-            {t("tours.listLabel", { count: tours.length })}
-          </SheetTitle>
+          <div className="flex min-w-0 flex-col gap-1">
+            <SheetTitle>
+              {t("tours.listLabel", { count: tours.length })}
+            </SheetTitle>
+            <ToursTotals tours={allTours} />
+          </div>
           <SheetDescription className="sr-only">
             {t("tours.subtitle")}
           </SheetDescription>

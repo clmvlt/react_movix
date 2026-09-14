@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { ApiError } from "@/lib/api-error";
-import { openSseStream } from "@/lib/sse";
+import { openSseStream, type SseMessage } from "@/lib/sse";
 import {
   NOTIFICATION_STREAM_PATH,
   notificationsApi,
@@ -63,13 +63,15 @@ export function useMarkNotificationsBatchRead() {
 
 export function useNotificationCenter(
   enabled: boolean,
-  onAuthFailure: () => void
+  onAuthFailure: () => void,
+  onEvent?: (message: SseMessage) => void
 ): NotificationCenter {
   const [state, setState] = useState<StreamState>(EMPTY_STATE);
   const [error, setError] = useState<NotificationErrorKind | null>(null);
 
   const stateRef = useRef(state);
   const authFailureRef = useRef(onAuthFailure);
+  const eventRef = useRef(onEvent);
 
   useEffect(() => {
     stateRef.current = state;
@@ -78,6 +80,10 @@ export function useNotificationCenter(
   useEffect(() => {
     authFailureRef.current = onAuthFailure;
   }, [onAuthFailure]);
+
+  useEffect(() => {
+    eventRef.current = onEvent;
+  }, [onEvent]);
 
   useEffect(() => {
     if (!enabled) {
@@ -134,7 +140,10 @@ export function useNotificationCenter(
               setState((prev) => ({ ...prev, connected: true }));
             },
             onMessage: (message) => {
-              if (message.event !== "notifications") return;
+              if (message.event !== "notifications") {
+                eventRef.current?.(message);
+                return;
+              }
               const payload = parsePayload(message.data);
               if (!payload) return;
               setState({

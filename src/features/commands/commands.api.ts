@@ -15,6 +15,7 @@ import type {
   CommandStatusHistoryEntry,
   CommandStatusInput,
   CommandTarifInput,
+  CommandUnassignedCount,
   CommandUpdateInput,
 } from "./types";
 
@@ -106,6 +107,11 @@ export const commandsApi = {
 
   byDate: (date: string) =>
     http.get<CommandExpedition[]>(`${RESOURCE}/by-date/${date}`),
+
+  unassignedCount: (date: string, signal?: AbortSignal) =>
+    http.get<CommandUnassignedCount>(`${RESOURCE}/unassigned-count/${date}`, {
+      signal,
+    }),
 
   get: (id: string) => http.get<CommandDetail>(`${RESOURCE}/${pathId(id)}`),
 

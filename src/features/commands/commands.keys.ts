@@ -2,7 +2,11 @@ import type { CommandScope, CommandSearchInput } from "./types";
 
 export const commandKeys = {
   all: ["commands"] as const,
-  byDate: (date: string) => [...commandKeys.all, "by-date", date] as const,
+  byDates: () => [...commandKeys.all, "by-date"] as const,
+  byDate: (date: string) => [...commandKeys.byDates(), date] as const,
+  unassignedCounts: () => [...commandKeys.all, "unassigned-count"] as const,
+  unassignedCount: (date: string) =>
+    [...commandKeys.unassignedCounts(), date] as const,
   details: () => [...commandKeys.all, "detail"] as const,
   detail: (id: string) => [...commandKeys.details(), id] as const,
   history: (id: string) => [...commandKeys.all, "history", id] as const,

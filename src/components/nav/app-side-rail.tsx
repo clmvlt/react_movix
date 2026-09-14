@@ -9,6 +9,11 @@ import {
   SETTINGS_NAV_ITEM,
   visibleNavGroups,
 } from "@/components/nav/nav-items";
+import { NavCountBadge } from "@/components/nav/nav-badge";
+import {
+  navItemLabel,
+  type NavBadges,
+} from "@/components/nav/use-nav-badges";
 import { useAuth } from "@/app/auth-context";
 import { initialsFromLabel } from "@/lib/initials";
 import { cn } from "@/lib/utils";
@@ -22,7 +27,7 @@ const SCROLL_CLASS =
 const ITEM_CLASS =
   "flex h-10 shrink-0 items-center gap-3 rounded-md px-2.5 text-sm font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white/60";
 
-export function AppSideRail() {
+export function AppSideRail({ badges }: { badges: NavBadges }) {
   const { t } = useTranslation();
   const { user } = useAuth();
   const isAdmin = useIsAdmin();
@@ -67,30 +72,42 @@ export function AppSideRail() {
             <div
               key={group.id}
               className={cn(
-                "flex flex-col",
+                "flex flex-col gap-1",
                 groupIndex > 0 && "mt-2 border-t border-white/10 pt-2"
               )}
             >
-              {group.items.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  title={t(item.labelKey)}
-                  aria-label={t(item.labelKey)}
-                  className={({ isActive }) =>
-                    cn(ITEM_CLASS, isActive && "bg-white/15 text-white")
-                  }
-                >
-                  <item.icon className="size-5 shrink-0" />
-                  <span className={LABEL_CLASS}>{t(item.labelKey)}</span>
-                </NavLink>
-              ))}
+              {group.items.map((item) => {
+                const badge = item.badge ? badges[item.badge] : undefined;
+                const label = navItemLabel(t(item.labelKey), badge, t);
+                return (
+                  <NavLink
+                    key={item.to}
+                    to={item.to}
+                    end={item.end}
+                    title={label}
+                    aria-label={label}
+                    className={({ isActive }) =>
+                      cn(ITEM_CLASS, isActive && "bg-white/15 text-white")
+                    }
+                  >
+                    <span className="relative flex shrink-0">
+                      <item.icon className="size-5 shrink-0" />
+                      {badge && (
+                        <NavCountBadge
+                          count={badge.count}
+                          className="absolute -right-2.5 -top-2 ring-2 ring-brand-600"
+                        />
+                      )}
+                    </span>
+                    <span className={LABEL_CLASS}>{t(item.labelKey)}</span>
+                  </NavLink>
+                );
+              })}
             </div>
           ))}
 
           {isAdmin && (
-            <div className="mt-2 flex flex-col border-t border-white/10 pt-2">
+            <div className="mt-2 flex flex-col gap-1 border-t border-white/10 pt-2">
               <button
                 type="button"
                 onClick={() => setAdminOpen((open) => !open)}

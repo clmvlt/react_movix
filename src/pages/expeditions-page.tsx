@@ -11,7 +11,6 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
@@ -190,11 +189,6 @@ export function ExpeditionsPage() {
     [toursQuery.data]
   );
 
-  const unassignedCount = useMemo(
-    () => expeditions.filter((command) => !command.tour).length,
-    [expeditions]
-  );
-
   const totalPackages = useMemo(
     () =>
       expeditions.reduce(
@@ -313,11 +307,6 @@ export function ExpeditionsPage() {
                       <Boxes className="size-4 text-muted-foreground" />
                       <span className="font-medium">{totalPackages}</span>
                     </span>
-                    {unassignedCount > 0 && (
-                      <Badge variant="secondary" className="truncate">
-                        {t("expeditions.toProcess", { count: unassignedCount })}
-                      </Badge>
-                    )}
                   </>
                 )}
               </div>

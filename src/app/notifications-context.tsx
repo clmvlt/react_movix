@@ -8,10 +8,16 @@ import {
 import { useQueryClient } from "@tanstack/react-query";
 import { authKeys } from "@/features/auth";
 import {
+  COMMANDS_CHANGED_EVENT,
+  invalidateCommandDates,
+  parseCommandsChangedDates,
+} from "@/features/commands";
+import {
   useNotificationCenter,
   type NotificationCenter,
 } from "@/features/notifications";
 import { useAuth } from "@/app/auth-context";
+import type { SseMessage } from "@/lib/sse";
 
 interface NotificationsContextValue extends NotificationCenter {
   available: boolean;
@@ -31,7 +37,22 @@ export function NotificationsProvider({ children }: { children: ReactNode }) {
     void queryClient.refetchQueries({ queryKey: authKeys.me() });
   }, [queryClient]);
 
-  const center = useNotificationCenter(available, handleAuthFailure);
+  const handleStreamEvent = useCallback(
+    (message: SseMessage) => {
+      if (message.event !== COMMANDS_CHANGED_EVENT) return;
+      invalidateCommandDates(
+        queryClient,
+        parseCommandsChangedDates(message.data)
+      );
+    },
+    [queryClient]
+  );
+
+  const center = useNotificationCenter(
+    available,
+    handleAuthFailure,
+    handleStreamEvent
+  );
 
   const value = useMemo<NotificationsContextValue>(
     () => ({ ...center, available }),

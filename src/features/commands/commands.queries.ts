@@ -27,6 +27,26 @@ export function useExpeditions(date: string) {
   });
 }
 
+const UNASSIGNED_COUNT_POLL_MS = 60_000;
+const UNASSIGNED_COUNT_PUSHED_POLL_MS = 5 * 60_000;
+
+export function useUnassignedCommandsCount(
+  date: string,
+  enabled: boolean,
+  pushed: boolean
+) {
+  return useQuery({
+    queryKey: commandKeys.unassignedCount(date),
+    queryFn: ({ signal }) => commandsApi.unassignedCount(date, signal),
+    enabled: enabled && Boolean(date),
+    select: (result) => result.count,
+    refetchInterval: pushed
+      ? UNASSIGNED_COUNT_PUSHED_POLL_MS
+      : UNASSIGNED_COUNT_POLL_MS,
+    refetchOnWindowFocus: true,
+  });
+}
+
 export function useCommand(id: string | undefined) {
   return useQuery({
     queryKey: commandKeys.detail(id ?? ""),

@@ -41,13 +41,25 @@ import {
   SETTINGS_NAV_ITEM,
   visibleNavGroups,
 } from "@/components/nav/nav-items";
+import { NavCountBadge } from "@/components/nav/nav-badge";
+import {
+  navBadgesTotal,
+  navItemLabel,
+  type NavBadges,
+} from "@/components/nav/use-nav-badges";
 import { useAuth } from "@/app/auth-context";
 import { profilFullName, useLogout } from "@/features/auth";
 import { profilPictureUrl } from "@/lib/images";
 import { initialsFromName } from "@/lib/initials";
 import { cn } from "@/lib/utils";
 
-function MobileNav({ onNavigate }: { onNavigate: () => void }) {
+function MobileNav({
+  onNavigate,
+  badges,
+}: {
+  onNavigate: () => void;
+  badges: NavBadges;
+}) {
   const { t } = useTranslation();
   const isAdmin = useIsAdmin();
   const isHyperadmin = useIsHyperadmin();
@@ -65,23 +77,30 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
             <p className="px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">
               {t(group.labelKey)}
             </p>
-            {group.items.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.end}
-                onClick={onNavigate}
-                className={({ isActive }) =>
-                  cn(
-                    "flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent",
-                    isActive && "bg-accent text-accent-foreground"
-                  )
-                }
-              >
-                <item.icon className="size-5 shrink-0 text-muted-foreground" />
-                <span className="truncate">{t(item.labelKey)}</span>
-              </NavLink>
-            ))}
+            {group.items.map((item) => {
+              const badge = item.badge ? badges[item.badge] : undefined;
+              return (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.end}
+                  onClick={onNavigate}
+                  aria-label={navItemLabel(t(item.labelKey), badge, t)}
+                  className={({ isActive }) =>
+                    cn(
+                      "flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-foreground transition-colors hover:bg-accent",
+                      isActive && "bg-accent text-accent-foreground"
+                    )
+                  }
+                >
+                  <item.icon className="size-5 shrink-0 text-muted-foreground" />
+                  <span className="truncate">{t(item.labelKey)}</span>
+                  {badge && (
+                    <NavCountBadge count={badge.count} className="ml-auto" />
+                  )}
+                </NavLink>
+              );
+            })}
           </div>
         ))}
 
@@ -163,7 +182,7 @@ function MobileNav({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-export function AppNavbar() {
+export function AppNavbar({ badges }: { badges: NavBadges }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user, accounts } = useAuth();
@@ -171,6 +190,7 @@ export function AppNavbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [joinOpen, setJoinOpen] = useState(false);
   const multiCompany = accounts.length > 1;
+  const badgeTotal = navBadgesTotal(badges);
 
   const fullName = profilFullName(user);
 
@@ -188,10 +208,20 @@ export function AppNavbar() {
             <Button
               variant="ghost"
               size="icon"
-              className="size-11 shrink-0 lg:hidden"
-              aria-label={t("nav.menu")}
+              className="relative size-11 shrink-0 lg:hidden"
+              aria-label={
+                badgeTotal > 0
+                  ? t("nav.menuWithBadge", { count: badgeTotal })
+                  : t("nav.menu")
+              }
             >
               <Menu className="size-5" />
+              {badgeTotal > 0 && (
+                <NavCountBadge
+                  count={badgeTotal}
+                  className="absolute right-1 top-1.5 ring-2 ring-card"
+                />
+              )}
             </Button>
           </SheetTrigger>
           <SheetContent
@@ -205,7 +235,10 @@ export function AppNavbar() {
                 </span>
               </SheetTitle>
             </SheetHeader>
-            <MobileNav onNavigate={() => setMenuOpen(false)} />
+            <MobileNav
+              onNavigate={() => setMenuOpen(false)}
+              badges={badges}
+            />
             <div className="flex shrink-0 flex-col border-t border-border px-4 py-2 sm:hidden">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-sm text-muted-foreground">

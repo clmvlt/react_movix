@@ -236,7 +236,12 @@
     "admin": "Admin",
     "companyLabel": "Company",
     "companySwitch": "Switch company (current: {{company}})",
-    "joinCompany": "Join a company"
+    "joinCompany": "Join a company",
+    "itemWithBadge": "{{label}}, {{badge}}",
+    "menuWithBadge": "Menu, {{count}} item(s) to process",
+    "badges": {
+      "unassignedCommands": "{{count}} unassigned order(s) on {{date}}"
+    }
   },
   "noCompany": {
     "title": "You do not belong to any company",
@@ -457,7 +462,6 @@
     "title": "Shipments",
     "subtitle": "The day's orders, on the list and on the map",
     "date": "Day",
-    "toProcess": "{{count}} to dispatch",
     "showAssigned": "Show assigned",
     "showRoutes": "Show routes",
     "filters": {

@@ -236,7 +236,12 @@
     "admin": "Admin",
     "companyLabel": "Entreprise",
     "companySwitch": "Changer d'entreprise (actuelle : {{company}})",
-    "joinCompany": "Rejoindre une entreprise"
+    "joinCompany": "Rejoindre une entreprise",
+    "itemWithBadge": "{{label}}, {{badge}}",
+    "menuWithBadge": "Menu, {{count}} élément(s) à traiter",
+    "badges": {
+      "unassignedCommands": "{{count}} commande(s) non attribuée(s) le {{date}}"
+    }
   },
   "noCompany": {
     "title": "Vous n'appartenez à aucune entreprise",
@@ -457,7 +462,6 @@
     "title": "Expéditions",
     "subtitle": "Les commandes du jour, en liste et sur la carte",
     "date": "Jour",
-    "toProcess": "{{count}} à affecter",
     "showAssigned": "Afficher les affectées",
     "showRoutes": "Afficher les itinéraires",
     "filters": {

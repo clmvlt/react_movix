@@ -5,6 +5,7 @@ import {
   useQueryClient,
   type QueryClient,
 } from "@tanstack/react-query";
+import { commandKeys } from "@/features/commands/commands.keys";
 import { toursApi } from "./tours.api";
 import { tourKeys } from "./tours.keys";
 import type {
@@ -157,6 +158,9 @@ export function useDeleteTour() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => toursApi.remove(id),
-    onSuccess: () => invalidateTours(queryClient),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: commandKeys.all });
+      return invalidateTours(queryClient);
+    },
   });
 }

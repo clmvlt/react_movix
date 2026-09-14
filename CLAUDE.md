@@ -201,6 +201,21 @@ chacun avec `VITE_APP_ENV` et `VITE_API_BASE_URL`. Les `.env.*` sont ignores par
   Bearer quand il existe - `EventSource` ne le peut pas), UNE seule connexion pour toute l'app via
   `NotificationsProvider` (`src/app/notifications-context.tsx`), marquage lu optimiste, resynchro au
   retour d'onglet / retour reseau / toutes les 15 min, arret apres 3 echecs (pas de boucle sur 401).
+  L'API est servie en HTTP/1.1 (6 connexions par domaine, partagees entre TOUS les onglets) : ne
+  jamais ouvrir un second flux SSE persistant, tout evenement temps reel passe par ce flux. Les autres
+  evenements nommes sont transmis via le parametre `onEvent` de `useNotificationCenter`, traites dans
+  `NotificationsProvider`. `commands-changed` `{dates: ["yyyy-MM-dd"] | null}` (commandes creees,
+  attribuees, desattribuees, supprimees, mises en souffrance / restaurees, changement d'`expDate`,
+  tournee supprimee) -> `invalidateCommandDates` (`src/features/commands/commands.events.ts`) invalide
+  le compteur et la liste `by-date` de ces jours (`null` = tous).
+- Pastille navbar "commandes non attribuees" : `GET /commands/unassigned-count/{date}` -> `{date, count}`
+  (meme definition que la page Expeditions : `tour` null, hors souffrance), pour la date de travail.
+  `useNavBadges()` (`src/components/nav/use-nav-badges.ts`, pastille `NavCountBadge` dans
+  `nav-badge.tsx`) est appele UNE seule fois dans `AppLayout` et
+  passe aux navs (rail, tiroir mobile, bouton burger) : un seul observateur, donc un seul minuteur de
+  polling. `NavItem.badge` rattache une pastille a une entree. Fraicheur : invalidation par les
+  mutations (`commandKeys.all`, suppression de tournee comprise), par `commands-changed`, au retour
+  d'onglet, et polling de secours (60 s si le flux est coupe, 5 min sinon, jamais en arriere-plan).
 - Regle email non verifie : un profil `isWeb` a l'email non verifie recoit `403 EMAIL_NOT_VERIFIED`
   sur les routes protegees sauf `/auth/me`, `/auth/logout`, `/profiles/resend-verification`
   (`ApiError.isEmailNotVerified`).
@@ -332,8 +347,9 @@ Les UUID des paths sont mis en MINUSCULES (`normalizeAccountId`, sinon 400).
   du bundle initial. Importer une carte = importer depuis `@/components/map`.
 - CSS Mapbox (`mapbox-gl/dist/mapbox-gl.css`) importe dans `map-view.tsx` (CSS de lib, pas du custom).
 - Auth SSE : `EventSource` ne peut pas envoyer de header `Authorization`, d'ou le client `src/lib/sse.ts`
-  (fetch + ReadableStream) pour tout flux SSE authentifie. Les compteurs "temps reel" existants
-  (ex. `expedition-count`) restent derives cote client depuis la liste (`GET /commands/by-date/{date}`).
+  (fetch + ReadableStream) pour tout flux SSE authentifie. Le flux `GET /commands/expedition-count/{date}/stream`
+  n'est PAS utilise (un flux de plus par onglet, thread serveur par connexion) : le nombre de commandes
+  non attribuees vient de `GET /commands/unassigned-count/{date}` + evenement `commands-changed`.
 
 ## Page Expeditions (liste + carte)
 - Filtres statut / zone : `src/components/expeditions/expedition-filters.tsx` (bouton + popover,

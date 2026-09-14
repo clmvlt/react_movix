@@ -21,12 +21,15 @@ import {
 } from "lucide-react";
 import { config } from "@/lib/config";
 
+export type NavBadge = "unassignedCommands";
+
 export interface NavItem {
   to: string;
   labelKey: string;
   icon: LucideIcon;
   end?: boolean;
   adminOnly?: boolean;
+  badge?: NavBadge;
 }
 
 export interface NavGroup {
@@ -53,7 +56,12 @@ const GROUPS: NavGroup[] = [
         icon: LayoutDashboard,
         end: true,
       },
-      { to: "/app/expeditions", labelKey: "nav.expeditions", icon: Truck },
+      {
+        to: "/app/expeditions",
+        labelKey: "nav.expeditions",
+        icon: Truck,
+        badge: "unassignedCommands",
+      },
       { to: "/app/tours", labelKey: "nav.tours", icon: Route },
       {
         to: "/app/tour-configs",

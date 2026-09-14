@@ -7,6 +7,11 @@ export interface StatusRef {
   createdAt?: string | null;
 }
 
+export interface CommandUnassignedCount {
+  date: string;
+  count: number;
+}
+
 export interface CommandTour {
   id: string;
   name: string;

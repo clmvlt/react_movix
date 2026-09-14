@@ -1,10 +1,12 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AppNavbar } from "@/components/nav/app-navbar";
 import { AppSideRail } from "@/components/nav/app-side-rail";
+import { useNavBadges } from "@/components/nav/use-nav-badges";
 import { cn } from "@/lib/utils";
 
 export function AppLayout() {
   const { pathname } = useLocation();
+  const badges = useNavBadges();
   const fullBleed =
     pathname.startsWith("/app/expeditions") ||
     pathname.startsWith("/app/tours") ||
@@ -14,9 +16,9 @@ export function AppLayout() {
 
   return (
     <div className="flex h-dvh w-full bg-background">
-      <AppSideRail />
+      <AppSideRail badges={badges} />
       <div className="flex min-w-0 flex-1 flex-col">
-        <AppNavbar />
+        <AppNavbar badges={badges} />
         <main
           className={cn(
             "min-h-0 w-full flex-1 overflow-y-auto",

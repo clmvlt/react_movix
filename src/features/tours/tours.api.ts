@@ -4,6 +4,10 @@ import type {
   Tour,
   TourAssignInput,
   TourCreateInput,
+  TourDispatchApplyInput,
+  TourDispatchApplyResult,
+  TourDispatchPreview,
+  TourDispatchPreviewInput,
   TourOptimizeInput,
   TourOptimizeResult,
   TourRoute,
@@ -15,6 +19,9 @@ import type {
 const RESOURCE = "/tours";
 
 const ROUTING_TIMEOUT = 90_000;
+const DISPATCH_DEFAULT_SOLVING_SECONDS = 20;
+const DISPATCH_TIMEOUT_MARGIN = 120_000;
+const DISPATCH_APPLY_TIMEOUT = 120_000;
 
 export const toursApi = {
   byDate: (date: string) => http.get<Tour[]>(`${RESOURCE}/by-date/${date}`),
@@ -34,6 +41,19 @@ export const toursApi = {
   updateOrder: (id: string, input: TourUpdateOrderInput) =>
     http.put<TourRoute>(`${RESOURCE}/update-order/${id}`, {
       commands: input.commands,
+    }),
+
+  dispatchPreview: (input: TourDispatchPreviewInput, signal?: AbortSignal) =>
+    http.post<TourDispatchPreview>(`${RESOURCE}/dispatch/preview`, input, {
+      signal,
+      timeoutMs:
+        (input.maxSolvingSeconds ?? DISPATCH_DEFAULT_SOLVING_SECONDS) * 1000 +
+        DISPATCH_TIMEOUT_MARGIN,
+    }),
+
+  dispatchApply: (input: TourDispatchApplyInput) =>
+    http.post<TourDispatchApplyResult>(`${RESOURCE}/dispatch/apply`, input, {
+      timeoutMs: DISPATCH_APPLY_TIMEOUT,
     }),
 
   route: (id: string) => http.get<TourRoute>(`${RESOURCE}/${id}/route`),

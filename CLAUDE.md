@@ -376,6 +376,39 @@ Les UUID des paths sont mis en MINUSCULES (`normalizeAccountId`, sinon 400).
   les `PUT /commands/assign/{tourId}` UN PAR UN (chaque appel recalcule les trajets) et collecte
   les echecs par tournee : un echec partiel garde le dialog ouvert avec le texte API par tournee.
 
+## Repartition automatique des tournees (Beta, page Expeditions)
+Bouton "(Beta) Repartir automatiquement les tournees" en surimpression en haut a gauche de la carte
+d'Expeditions (`dispatch-launcher.tsx`), qui ouvre `src/components/dispatch/dispatch-dialog.tsx`.
+TOUT le calcul et l'application sont faits par l'API (`toursApi.dispatchPreview` / `dispatchApply`,
+hooks `useTourDispatchPreview` / `useTourDispatchApply`). Le front n'appelle JAMAIS spring-org pour
+cette fonctionnalite et ne duplique aucune regle metier (visites, regroupement par pharmacie, creneaux,
+heure de depart par defaut, temps d'arret, coordonnees, rapprochement avec les tournees existantes,
+evaluation de l'existant) : il ne garde que l'interface.
+- Apercu `POST /tours/dispatch/preview` (aucune ecriture) : `commandIds` = perimetre filtre par la
+  liste (statut, zone), commandes non affectees, plus celles des tournees non cloturees avec
+  "Inclure les commandes deja affectees". Le serveur ecarte et signale le reste (`excludedCommands`,
+  information et non erreur). `departureTime` absent = heure par defaut du compte ; saisie = heure de
+  Paris sans offset (`yyyy-MM-ddTHH:mm:00`). `stopServiceSeconds` 180 par defaut, `maxSolvingSeconds`
+  10 / 20 / 45. Timeout HTTP = `maxSolvingSeconds + 120` s, annulable. Erreurs : 400 texte brut, 422 /
+  503 JSON `TourRouteFailure` (`tourRouteFailureOf`, afficher `detail` + `correlationId`, 503 =
+  "Reessayer" avec la meme requete).
+- Resultat : `proposed` vs `current` (`current.commands` peut etre inferieur, les non affectees n'y
+  sont pas : le dire). Le `timeWindowViolations` du haut compte des PHARMACIES, celui des `Workload`
+  des COMMANDES : ne jamais les comparer. `Proposal.route` a la forme de `GET /tours/{id}/route` ; les
+  arrets consecutifs d'une meme pharmacie sont regroupes a l'affichage (`proposalStops`). Tournee
+  existante (`matchedTourId`) : nom et couleur non modifiables ; nouvelle : nom obligatoire (bouton
+  bloque sinon) et couleur modifiables (defauts "Tournee N" sans collision, palette sans les couleurs
+  prises). `releasedTours` ne sont pas supprimees : prevenir.
+- Application `POST /tours/dispatch/apply` : propositions non `unchanged` seulement, `tourId` =
+  `matchedTourId`, `commandIds` dans le meme ordre, `expected` = copie EXACTE de l'apercu. Une seule
+  transaction serveur puis recalcul des trajets de toutes les tournees touchees : les `routes` vont
+  dans le cache `tourKeys.route`, commandes et tournees du jour sont rechargees. `routeFailures`
+  n'est pas un echec (bouton "Recalculer le trajet" = `useRefreshTourRoute`). 409 JSON
+  `DISPATCH_STALE` (`dispatchStaleOf`) = rien n'est ecrit, "La situation a change depuis le calcul"
+  + relance de l'apercu avec la meme requete ; 409 texte = afficher le texte et proposer la relance ;
+  400 texte = bug front (console + message) ; pas de reponse (timeout, reseau) = l'application a pu
+  aboutir, faire verifier les tournees.
+
 ## Champs date
 TOUTE saisie de date passe par `<DateField>` (`src/components/date-field.tsx`). Jamais de
 `<Input type="date">` nu dans une page ou un dialog.

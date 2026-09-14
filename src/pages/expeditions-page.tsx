@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DispatchLauncher } from "@/components/dispatch/dispatch-launcher";
 import { CommandActions } from "@/components/command-actions";
 import { CommandContextMenu } from "@/components/commands/command-context-menu";
 import { CommandList, type CommandListHandle } from "@/components/command-list";
@@ -464,10 +465,19 @@ export function ExpeditionsPage() {
 
           <div
             className={cn(
-              "order-1 min-h-0 flex-1 overflow-hidden rounded-xl border lg:order-2",
+              "relative order-1 min-h-0 flex-1 overflow-hidden rounded-xl border lg:order-2",
               view === "list" && "hidden lg:block"
             )}
           >
+            <DispatchLauncher
+              className="absolute left-3 top-3 z-10"
+              date={date}
+              expeditions={expeditions}
+              filters={filters}
+              existingTours={toursQuery.data ?? []}
+              depot={depotCoords}
+              depotLabel={account?.societe ?? t("expeditions.depot")}
+            />
             <MapView center={depotCoords ?? undefined} zoom={depotCoords ? 9 : 5}>
               <MapAutoFit points={points} />
               <MapFlyTo

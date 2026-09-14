@@ -11,6 +11,8 @@ import { tourKeys } from "./tours.keys";
 import type {
   TourAssignInput,
   TourCreateInput,
+  TourDispatchApplyInput,
+  TourDispatchPreviewInput,
   TourOptimizeInput,
   TourStatusInput,
   TourUpdateInput,
@@ -162,5 +164,43 @@ export function useDeleteTour() {
       void queryClient.invalidateQueries({ queryKey: commandKeys.all });
       return invalidateTours(queryClient);
     },
+  });
+}
+
+export function useTourDispatchPreview() {
+  return useMutation({
+    mutationFn: ({
+      input,
+      signal,
+    }: {
+      input: TourDispatchPreviewInput;
+      signal?: AbortSignal;
+    }) => toursApi.dispatchPreview(input, signal),
+    retry: false,
+  });
+}
+
+function refreshDispatchedDay(queryClient: QueryClient) {
+  void queryClient.invalidateQueries({ queryKey: commandKeys.all });
+  void queryClient.invalidateQueries({
+    queryKey: tourKeys.all,
+    predicate: (query) => query.queryKey[1] !== "route",
+  });
+}
+
+export function useTourDispatchApply() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (input: TourDispatchApplyInput) => toursApi.dispatchApply(input),
+    onSuccess: (result) => {
+      for (const route of result.routes ?? []) {
+        if (route?.tourId) {
+          queryClient.setQueryData(tourKeys.route(route.tourId), route);
+        }
+      }
+      refreshDispatchedDay(queryClient);
+    },
+    onError: () => refreshDispatchedDay(queryClient),
+    retry: false,
   });
 }

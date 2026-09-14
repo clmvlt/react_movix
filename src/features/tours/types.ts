@@ -211,3 +211,114 @@ export interface TourStatusInput {
 export interface TourAssignInput {
   profilId?: string;
 }
+
+export interface TourDispatchPreviewInput {
+  date: string;
+  commandIds: string[];
+  vehicleCount: number;
+  departureTime?: string;
+  stopServiceSeconds?: number;
+  maxSolvingSeconds?: number;
+}
+
+export interface TourDispatchWorkload {
+  tours: number;
+  commands: number;
+  drivingMins: number;
+  serviceMins: number;
+  waitingMins: number;
+  distanceKm: number;
+  timeWindowViolations: number;
+  spreadMins: number;
+}
+
+export interface TourDispatchProposal {
+  key: string;
+  matchedTourId: string | null;
+  matchedTourName: string | null;
+  matchedTourColor: string | null;
+  kept: number;
+  incoming: number;
+  outgoing: number;
+  unchanged: boolean;
+  commandIds: string[];
+  route: TourRoute;
+}
+
+export interface TourDispatchReleasedTour {
+  tourId: string;
+  name: string | null;
+  outgoing: number;
+}
+
+export type TourDispatchSkipReason =
+  | "UNROUTABLE"
+  | "TOO_FAR"
+  | "NO_COORDINATES"
+  | "NOT_RETURNED_BY_ENGINE";
+
+export interface TourDispatchSkipped {
+  commandId: string;
+  pharmacyCip: string | null;
+  pharmacyName: string | null;
+  reason: TourDispatchSkipReason;
+  snapDistanceMeters: number | null;
+}
+
+export type TourDispatchExclusionReason =
+  | "TOUR_LOCKED"
+  | "NOT_FOUND"
+  | "SOUFFRANCE"
+  | "OTHER_DAY";
+
+export interface TourDispatchExcluded {
+  commandId: string;
+  reason: TourDispatchExclusionReason;
+}
+
+export interface TourDispatchExpected {
+  commandId: string;
+  tourId: string | null;
+}
+
+export interface TourDispatchPreview {
+  date: string;
+  departureTime: string | null;
+  stopServiceSeconds: number;
+  solvingTimeSeconds: number;
+  feasible: boolean;
+  timeWindowViolations: number;
+  proposed: TourDispatchWorkload;
+  current: TourDispatchWorkload | null;
+  tours: TourDispatchProposal[];
+  releasedTours: TourDispatchReleasedTour[];
+  skipped: TourDispatchSkipped[];
+  excludedCommands: TourDispatchExcluded[];
+  expected: TourDispatchExpected[];
+}
+
+export interface TourDispatchApplyTour {
+  tourId: string | null;
+  name?: string;
+  color?: string;
+  commandIds: string[];
+}
+
+export interface TourDispatchApplyInput {
+  date: string;
+  tours: TourDispatchApplyTour[];
+  expected: TourDispatchExpected[];
+}
+
+export interface TourDispatchApplyResult {
+  createdTourIds: string[];
+  updatedTourIds: string[];
+  routes: TourRoute[];
+  routeFailures: TourRouteFailure[];
+}
+
+export interface TourDispatchStale {
+  error: "DISPATCH_STALE";
+  message?: string | null;
+  commands?: string[] | null;
+}

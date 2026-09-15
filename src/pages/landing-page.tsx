@@ -48,10 +48,9 @@ import {
 } from "@/components/landing/mock-data";
 import { setJsonLd, usePageSeo } from "@/lib/seo";
 import { cn } from "@/lib/utils";
-import mobileToursUrl from "@/assets/images/mobile/gestion_tournee.png";
-import mobileLoadingUrl from "@/assets/images/mobile/chargement_page.png";
-import mobileDeliveryUrl from "@/assets/images/mobile/livraison_page.png";
-import mobileAnomalyUrl from "@/assets/images/mobile/gestion_anomalie.png";
+import mobileHomeUrl from "@/assets/images/mobile/accueil.webp";
+import mobileToursUrl from "@/assets/images/mobile/tournees.webp";
+import mobileAnomalyUrl from "@/assets/images/mobile/anomalie.webp";
 
 interface Entry {
   key: string;
@@ -102,9 +101,8 @@ const MAP_POINTS = ["zones", "routes", "eta"];
 const FAQ_KEYS = ["who", "access", "mobile", "routing", "exports", "languages"];
 
 const MOBILE_SCREENS = [
+  { key: "home", src: mobileHomeUrl },
   { key: "tours", src: mobileToursUrl },
-  { key: "loading", src: mobileLoadingUrl },
-  { key: "delivery", src: mobileDeliveryUrl },
   { key: "anomaly", src: mobileAnomalyUrl },
 ];
 
@@ -453,19 +451,21 @@ export function LandingPage() {
             title={t("landing.field.title")}
             subtitle={t("landing.field.subtitle")}
           />
-          <div className="mt-10 grid gap-8 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-10 grid gap-10 md:grid-cols-3 md:gap-6 xl:gap-10">
             {MOBILE_SCREENS.map((screen, index) => (
               <figure key={screen.key} className="flex flex-col">
-                <div className="mx-auto w-full max-w-[240px] overflow-hidden rounded-[2rem] border-[6px] border-neutral-900 bg-neutral-900 shadow-xl">
+                <div className="mx-auto w-full max-w-[320px] overflow-hidden rounded-3xl border border-border shadow-lg">
                   <img
                     src={screen.src}
                     alt={t(`landing.field.screens.${screen.key}.alt`)}
                     loading="lazy"
                     decoding="async"
-                    className="block aspect-[1179/2556] w-full object-cover"
+                    width={720}
+                    height={1558}
+                    className="block aspect-720/1558 h-auto w-full object-cover"
                   />
                 </div>
-                <figcaption className="mx-auto mt-5 w-full max-w-[280px]">
+                <figcaption className="mx-auto mt-5 w-full max-w-[320px]">
                   <h3 className="flex items-center gap-2 font-semibold text-foreground">
                     <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                       {index + 1}

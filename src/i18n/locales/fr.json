@@ -2498,25 +2498,20 @@
       "title": "L'application mobile du chauffeur",
       "subtitle": "Le chauffeur charge, livre et signale depuis son téléphone. Tout ce qu'il valide remonte immédiatement dans l'application web.",
       "screens": {
+        "home": {
+          "title": "Sa journée d'un coup d'œil",
+          "desc": "Dès l'ouverture, le chauffeur voit la tournée en cours et son statut, puis le bilan de sa journée : tournées, commandes, colis et distance.",
+          "alt": "Écran d'accueil de l'application chauffeur, avec la tournée en cours de chargement et les tournées, commandes, colis et distance du jour."
+        },
         "tours": {
-          "title": "Sa tournée du jour",
-          "desc": "Le chauffeur ouvre sa tournée et voit immédiatement les commandes déjà livrées, le nombre de colis, la distance et la durée estimée.",
-          "alt": "Écran Mes tournées de l'application mobile, avec le compteur de commandes, le nombre de colis, la distance et la durée."
-        },
-        "loading": {
-          "title": "Chargement scanné",
-          "desc": "Chaque colis est scanné à son code-barres avant le départ. Ce qui n'est pas passé reste marqué non chargé, pharmacie par pharmacie.",
-          "alt": "Écran de chargement, avec les codes-barres des colis d'une pharmacie et les boutons Non chargé et Scanner."
-        },
-        "delivery": {
-          "title": "Livraison arrêt par arrêt",
-          "desc": "Itinéraire vers la pharmacie, livraison validée ou refusée sur place, et le compteur de la tournée avance.",
-          "alt": "Écran de livraison, avec les actions carte, navigation et refus, et le bouton Livrer."
+          "title": "Toutes ses tournées",
+          "desc": "Chaque tournée du jour avec son statut, les commandes livrées, les colis, la distance et la durée estimée, à un tap du détail.",
+          "alt": "Écran Mes tournées, avec une tournée en chargement et une tournée en livraison, chacune avec ses commandes, colis, distance et durée."
         },
         "anomaly": {
-          "title": "Anomalie avec photos",
-          "desc": "Motif, actions prises, colis concernés et photos obligatoires. L'anomalie arrive complète dans le back-office.",
-          "alt": "Écran de déclaration d'anomalie, avec les photos, le motif, les actions prises et les colis concernés."
+          "title": "Les anomalies en quelques clics",
+          "desc": "Une photo, un motif et les actions prises sur place. L'anomalie arrive complète dans le back-office.",
+          "alt": "Écran Signaler une anomalie, avec la zone photo, le choix du motif, les actions prises et le bouton de validation."
         }
       },
       "download": "Télécharger l'application chauffeur"

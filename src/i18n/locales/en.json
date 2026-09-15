@@ -2498,25 +2498,20 @@
       "title": "The driver app",
       "subtitle": "Drivers load, deliver and report from their phone. Everything they confirm lands in the web app straight away.",
       "screens": {
+        "home": {
+          "title": "Their day at a glance",
+          "desc": "As soon as the app opens, the driver sees the current tour and its status, then the totals for the day: tours, orders, parcels and distance.",
+          "alt": "Home screen of the driver app, with the tour being loaded and the day's tours, orders, parcels and distance."
+        },
         "tours": {
-          "title": "Their tour for the day",
-          "desc": "The driver opens the tour and sees at once how many orders are done, how many parcels, the distance and the estimated duration.",
-          "alt": "My tours screen of the mobile app, with the order counter, the parcel count, the distance and the duration."
-        },
-        "loading": {
-          "title": "Scanned loading",
-          "desc": "Every parcel is scanned on its barcode before departure. Whatever was not scanned stays marked as not loaded, pharmacy by pharmacy.",
-          "alt": "Loading screen, with the parcel barcodes of a pharmacy and the Not loaded and Scan buttons."
-        },
-        "delivery": {
-          "title": "Delivery stop by stop",
-          "desc": "Route to the pharmacy, delivery confirmed or refused on the spot, and the tour counter moves forward.",
-          "alt": "Delivery screen, with the map, navigation and refusal actions and the Deliver button."
+          "title": "All their tours",
+          "desc": "Every tour of the day with its status, delivered orders, parcels, distance and estimated duration, one tap away from the detail.",
+          "alt": "My tours screen, with a tour being loaded and a tour being delivered, each with its orders, parcels, distance and duration."
         },
         "anomaly": {
-          "title": "Anomaly with pictures",
-          "desc": "Reason, actions taken, parcels involved and mandatory pictures. The anomaly reaches the back office complete.",
-          "alt": "Anomaly declaration screen, with the pictures, the reason, the actions taken and the parcels involved."
+          "title": "Anomalies in a few taps",
+          "desc": "A picture, a reason and the actions taken on site. The anomaly reaches the back office complete.",
+          "alt": "Report an anomaly screen, with the picture area, the reason picker, the actions taken and the submit button."
         }
       },
       "download": "Download the driver app"

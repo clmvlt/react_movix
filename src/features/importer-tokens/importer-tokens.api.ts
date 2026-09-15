@@ -37,9 +37,6 @@ function updateBody(input: ImporterTokenUpdateInput) {
 export const importerTokensApi = {
   list: () => http.get<ImporterToken[]>(ADMIN_RESOURCE),
 
-  get: (id: string) =>
-    http.get<ImporterToken>(`${ADMIN_RESOURCE}/${pathId(id)}`),
-
   create: (input: ImporterTokenCreateInput) =>
     http.post<ImporterToken>(ADMIN_RESOURCE, createBody(input)),
 

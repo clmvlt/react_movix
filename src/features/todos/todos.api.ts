@@ -9,8 +9,6 @@ const OPEN: RequestOptions = { auth: false };
 export const todosApi = {
   list: () => http.get<Todo[]>(RESOURCE, OPEN),
 
-  get: (id: number) => http.get<Todo>(`${RESOURCE}/${id}`, OPEN),
-
   create: (input: TodoInput) => http.post<Todo>(RESOURCE, input, OPEN),
 
   update: (id: number, input: TodoInput) =>

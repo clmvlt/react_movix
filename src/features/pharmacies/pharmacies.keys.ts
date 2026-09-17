@@ -8,4 +8,5 @@ export const pharmacyKeys = {
   details: () => [...pharmacyKeys.all, "detail"] as const,
   detail: (cip: string) => [...pharmacyKeys.details(), cip] as const,
   exists: (cip: string) => [...pharmacyKeys.all, "exists", cip] as const,
+  label: (id: string) => [...pharmacyKeys.all, "label", id] as const,
 };

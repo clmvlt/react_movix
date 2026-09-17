@@ -103,7 +103,7 @@ export function PharmacyPicker({
             </li>
           ) : (
             results.map((pharmacy) => (
-              <li key={pharmacy.cip}>
+              <li key={pharmacy.id}>
                 <button
                   type="button"
                   onClick={() => onSelect(pharmacy)}

@@ -14,6 +14,7 @@ export interface PharmacyZoneRef {
 }
 
 export interface Pharmacy {
+  id: string;
   cip: string;
   name: string | null;
   address1?: string | null;

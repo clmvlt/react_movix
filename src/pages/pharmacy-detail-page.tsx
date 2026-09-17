@@ -108,7 +108,7 @@ function PharmacyReadView({
 
   const handleLabel = () => {
     openPdfPreview({
-      key: [...pharmacyKeys.all, "label", pharmacy.cip],
+      key: pharmacyKeys.label(pharmacy.id),
       title: t("pharmacies.label.title"),
       subtitle: title,
       filename: pharmacyLabelFilename(pharmacy),
@@ -530,7 +530,7 @@ export function PharmacyDetailPage() {
   if (wantsEdit) {
     return (
       <PharmacyEditView
-        key={pharmacy.cip}
+        key={pharmacy.id}
         {...shared}
         focusPosition={focusPosition}
         onExit={stopEditing}

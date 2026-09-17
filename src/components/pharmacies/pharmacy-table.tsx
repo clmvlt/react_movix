@@ -77,7 +77,7 @@ export function PharmacyTable({
             const located = hasValidLocation(row);
             return (
               <TableRow
-                key={row.cip}
+                key={row.id}
                 className="cursor-pointer"
                 onClick={() => onOpen(row.cip)}
               >

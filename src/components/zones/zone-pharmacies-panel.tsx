@@ -227,7 +227,7 @@ export function ZonePharmaciesPanel({
                   const label = row.name?.trim() || t("pharmacies.untitled");
                   return (
                     <TableRow
-                      key={row.cip}
+                      key={row.id}
                       data-state={checked ? "selected" : undefined}
                       className="cursor-pointer"
                       onClick={() => onToggle(row.cip)}

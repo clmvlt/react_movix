@@ -176,7 +176,7 @@ export function PharmaciesPage() {
 
   const handleLabel = (pharmacy: Pharmacy) => {
     openPdfPreview({
-      key: [...pharmacyKeys.all, "label", pharmacy.cip],
+      key: pharmacyKeys.label(pharmacy.id),
       title: t("pharmacies.label.title"),
       subtitle: pharmacy.name?.trim() || pharmacy.cip,
       filename: pharmacyLabelFilename(pharmacy),

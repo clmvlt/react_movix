@@ -561,7 +561,8 @@
         "serviceDecrease": "One minute less",
         "serviceIncrease": "One minute more",
         "minutesUnit": "min",
-        "serviceHint": "Time spent at each pharmacy, used to balance the tours.",        "quality": "Computation",
+        "serviceHint": "Time spent at each pharmacy, used to balance the tours.",
+        "quality": "Computation",
         "qualityHint": "A longer computation gives better balanced tours.",
         "seconds": "{{count}} s",
         "qualities": {
@@ -593,7 +594,8 @@
         "totalDistance": "Total distance",
         "spread": "Gap between tours",
         "spreadHint": "Longest tour minus shortest tour",
-        "settingsLine": "Departure at {{time}}, {{minutes}} min per stop.",        "infeasible": "{{count}} pharmacy(ies) cannot be delivered within their window. The split is still proposed: change the departure time and compute again, or adjust it later on the tour order page.",
+        "settingsLine": "Departure at {{time}}, {{minutes}} min per stop.",
+        "infeasible": "{{count}} pharmacy(ies) cannot be delivered within their window. The split is still proposed: change the departure time and compute again, or adjust it later on the tour order page.",
         "skipped": "{{count}} order(s) cannot be split and stay where they are:",
         "reasons": {
           "UNROUTABLE": "no road access",

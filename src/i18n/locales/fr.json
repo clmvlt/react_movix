@@ -561,7 +561,8 @@
         "serviceDecrease": "Une minute de moins",
         "serviceIncrease": "Une minute de plus",
         "minutesUnit": "min",
-        "serviceHint": "Temps passé dans chaque pharmacie, utilisé pour équilibrer les tournées.",        "quality": "Calcul",
+        "serviceHint": "Temps passé dans chaque pharmacie, utilisé pour équilibrer les tournées.",
+        "quality": "Calcul",
         "qualityHint": "Un calcul plus long donne des tournées mieux équilibrées.",
         "seconds": "{{count}} s",
         "qualities": {
@@ -593,7 +594,8 @@
         "totalDistance": "Distance totale",
         "spread": "Écart entre tournées",
         "spreadHint": "Tournée la plus longue moins la plus courte",
-        "settingsLine": "Départ à {{time}}, {{minutes}} min par arrêt.",        "infeasible": "{{count}} pharmacie(s) ne peuvent pas être livrées dans leur créneau. La répartition est tout de même proposée : changez l'heure de départ et relancez le calcul, ou ajustez plus tard sur la page d'ordre de passage.",
+        "settingsLine": "Départ à {{time}}, {{minutes}} min par arrêt.",
+        "infeasible": "{{count}} pharmacie(s) ne peuvent pas être livrées dans leur créneau. La répartition est tout de même proposée : changez l'heure de départ et relancez le calcul, ou ajustez plus tard sur la page d'ordre de passage.",
         "skipped": "{{count}} commande(s) ne peuvent pas être réparties et restent où elles sont :",
         "reasons": {
           "UNROUTABLE": "aucun accès routier",

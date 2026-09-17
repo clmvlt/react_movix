@@ -44,7 +44,7 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
 - Couche API feature-sliced `src/features/<domaine>/` : `types.ts`, `<domaine>.keys.ts`, `<domaine>.api.ts`
   (`RESOURCE = "/xxx"`), `<domaine>.queries.ts`, `index.ts`. Un domaine n'importe pas l'api / les hooks
   d'un autre (import de type seul tolere). Tous les domaines metier existent deja (auth, profiles,
-  commands, tours, pharmacies, anomalies, packages, factures, zones, dashboard, stats, exports...) :
+  commands, tours, pharmacies, anomalies, packages, subscription-invoices, zones, dashboard, stats, exports...) :
   reutiliser le domaine existant avant d'en creer un.
 - UI : pages dans `src/pages/`, composants par domaine dans `src/components/<domaine>/`, primitives
   shadcn dans `src/components/ui/`, hooks transverses dans `src/hooks/`, utilitaires dans `src/lib/`.
@@ -73,6 +73,11 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
   `userId === null && !isWeb` ; sinon ne JAMAIS envoyer `password` (403).
 - Itineraires, ETA, optimisation, repartition : tout est calcule cote serveur. Le front n'appelle JAMAIS
   `/ors/*` pour un trajet et ne duplique aucune regle metier (`src/features/ors/` = geocodage seulement).
+- Factures d'abonnement (Movix -> entreprise, `src/features/subscription-invoices/`, `/subscription-invoices`)
+  != facturation des entreprises a leurs clients. La future facturation vivra dans une feature separee
+  et ne reutilisera JAMAIS `subscription-invoices` ; "invoice" / "facture" seul lui est reserve, tout ce
+  qui touche l'abonnement porte `subscription` / "d'abonnement". Detail :
+  [docs/claude/factures-abonnement.md](docs/claude/factures-abonnement.md).
 - Les endpoints de modification de tournee renvoient le trajet recalcule : appliquer la reponse au cache,
   ne pas refetch. L'ordre de passage n'est jamais enregistre automatiquement.
 - Ne jamais envoyer de chaine vide involontaire sur un champ pharmacie (le mapper ignore `null`, une
@@ -90,6 +95,7 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
 | Page Expeditions, attribution par zone, repartition auto (Beta) | [docs/claude/expeditions.md](docs/claude/expeditions.md) |
 | Ordre de passage des tournees, ETA, creneaux de livraison | [docs/claude/tournees.md](docs/claude/tournees.md) |
 | Pharmacies (coordonnees, page fiche / edition / creation), page commande | [docs/claude/pharmacies-et-commandes.md](docs/claude/pharmacies-et-commandes.md) |
+| Factures d'abonnement (Movix -> entreprise), notification `SUBSCRIPTION_INVOICE` | [docs/claude/factures-abonnement.md](docs/claude/factures-abonnement.md) |
 
 Toute nouvelle regle d'un domaine va dans son fichier `docs/claude/`, pas ici. Ici : seulement ce qui
 s'applique a tout le projet.

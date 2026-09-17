@@ -16,24 +16,24 @@ import {
 } from "@/components/ui/dialog";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { AccountPicker } from "@/components/hyperadmin/account-picker";
-import { HyperFactureFormDialog } from "@/components/hyperadmin/hyper-facture-form-dialog";
+import { HyperSubscriptionInvoiceFormDialog } from "@/components/hyperadmin/hyper-subscription-invoice-form-dialog";
 import { useHyperError } from "@/components/hyperadmin/use-hyper-error";
 import { usePdfPreview } from "@/app/pdf-preview-context";
 import { useToast } from "@/app/toast-context";
 import { formatDate } from "@/lib/date";
 import {
-  factureDate,
-  factureFileName,
-  factureKeys,
-  facturesApi,
-  formatMontant,
-  useAccountFactures,
-  useDeleteFacture,
-  type Facture,
-} from "@/features/factures";
+  subscriptionInvoiceDate,
+  subscriptionInvoiceFileName,
+  subscriptionInvoiceKeys,
+  subscriptionInvoicesApi,
+  formatSubscriptionInvoiceAmount,
+  useAccountSubscriptionInvoices,
+  useDeleteSubscriptionInvoice,
+  type SubscriptionInvoice,
+} from "@/features/subscription-invoices";
 import type { Account } from "@/features/auth";
 
-export function HyperFacturesPanel() {
+export function HyperSubscriptionInvoicesPanel() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? i18n.language;
   const errorMessage = useHyperError();
@@ -42,49 +42,52 @@ export function HyperFacturesPanel() {
 
   const [account, setAccount] = useState<Account | null>(null);
   const [formOpen, setFormOpen] = useState(false);
-  const [editing, setEditing] = useState<Facture | null>(null);
-  const [deleting, setDeleting] = useState<Facture | null>(null);
+  const [editing, setEditing] = useState<SubscriptionInvoice | null>(null);
+  const [deleting, setDeleting] = useState<SubscriptionInvoice | null>(null);
 
-  const facturesQuery = useAccountFactures(account?.id ?? null);
-  const deleteFacture = useDeleteFacture();
+  const invoicesQuery = useAccountSubscriptionInvoices(account?.id ?? null);
+  const deleteInvoice = useDeleteSubscriptionInvoice();
 
-  const factures = facturesQuery.data ?? [];
+  const invoices = invoicesQuery.data ?? [];
 
   const openCreate = () => {
     setEditing(null);
     setFormOpen(true);
   };
 
-  const openEdit = (facture: Facture) => {
-    setEditing(facture);
+  const openEdit = (invoice: SubscriptionInvoice) => {
+    setEditing(invoice);
     setFormOpen(true);
   };
 
-  const handlePreview = (facture: Facture) => {
+  const handlePreview = (invoice: SubscriptionInvoice) => {
     openPdfPreview({
-      key: factureKeys.pdf(facture.id),
-      title: t("factures.preview.title"),
-      subtitle: t("factures.preview.subtitle", {
-        date: formatDate(factureDate(facture), lang),
-        amount: formatMontant(facture.montantTTC, lang),
+      key: subscriptionInvoiceKeys.pdf(invoice.id),
+      title: t("subscriptionInvoices.preview.title"),
+      subtitle: t("subscriptionInvoices.preview.subtitle", {
+        date: formatDate(subscriptionInvoiceDate(invoice), lang),
+        amount: formatSubscriptionInvoiceAmount(invoice.montantTTC, lang),
       }),
-      filename: factureFileName(facture),
-      load: () => facturesApi.pdf(facture.id),
+      filename: subscriptionInvoiceFileName(invoice),
+      load: () => subscriptionInvoicesApi.pdf(invoice.id),
       describeError: (error) =>
-        errorMessage(error, "factures.errors.pdfFailed"),
+        errorMessage(error, "subscriptionInvoices.errors.pdfFailed"),
     });
   };
 
   const handleDelete = () => {
     if (!deleting || !account) return;
-    deleteFacture.mutate(
+    deleteInvoice.mutate(
       { id: deleting.id, accountId: account.id },
       {
         onSuccess: () => setDeleting(null),
         onError: (error) => {
           setDeleting(null);
           toast.error(
-            errorMessage(error, "hyperadmin.factures.errors.deleteFailed")
+            errorMessage(
+              error,
+              "hyperadmin.subscriptionInvoices.errors.deleteFailed"
+            )
           );
         },
       }
@@ -95,59 +98,59 @@ export function HyperFacturesPanel() {
     if (!account) {
       return (
         <EmptyState
-          message={t("hyperadmin.factures.selectAccount")}
+          message={t("hyperadmin.subscriptionInvoices.selectAccount")}
           icon={<Receipt className="size-8" />}
         />
       );
     }
-    if (facturesQuery.isLoading) return <LoadingState />;
-    if (facturesQuery.isError) {
+    if (invoicesQuery.isLoading) return <LoadingState />;
+    if (invoicesQuery.isError) {
       return (
         <>
           <Alert variant="warning" className="mb-4">
             <AlertDescription>
               {errorMessage(
-                facturesQuery.error,
-                "hyperadmin.factures.errors.loadFailed"
+                invoicesQuery.error,
+                "hyperadmin.subscriptionInvoices.errors.loadFailed"
               )}
             </AlertDescription>
           </Alert>
           <ErrorState
-            error={facturesQuery.error}
-            retrying={facturesQuery.isFetching}
-            onRetry={() => void facturesQuery.refetch()}
+            error={invoicesQuery.error}
+            retrying={invoicesQuery.isFetching}
+            onRetry={() => void invoicesQuery.refetch()}
           />
         </>
       );
     }
-    if (factures.length === 0) {
+    if (invoices.length === 0) {
       return (
         <EmptyState
-          message={t("hyperadmin.factures.empty")}
+          message={t("hyperadmin.subscriptionInvoices.empty")}
           icon={<Receipt className="size-8" />}
         />
       );
     }
     return (
       <ul className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card">
-        {factures.map((facture) => (
+        {invoices.map((invoice) => (
           <li
-            key={facture.id}
+            key={invoice.id}
             className="flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:justify-between"
           >
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="font-medium text-foreground">
-                  {formatDate(factureDate(facture), lang)}
+                  {formatDate(subscriptionInvoiceDate(invoice), lang)}
                 </span>
-                <Badge variant={facture.isPaid ? "secondary" : "outline"}>
-                  {facture.isPaid
-                    ? t("factures.status.paid")
-                    : t("factures.status.unpaid")}
+                <Badge variant={invoice.isPaid ? "secondary" : "outline"}>
+                  {invoice.isPaid
+                    ? t("subscriptionInvoices.status.paid")
+                    : t("subscriptionInvoices.status.unpaid")}
                 </Badge>
               </div>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                {formatMontant(facture.montantTTC, lang)}
+                {formatSubscriptionInvoiceAmount(invoice.montantTTC, lang)}
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-2">
@@ -155,8 +158,8 @@ export function HyperFacturesPanel() {
                 variant="outline"
                 size="icon"
                 className="size-11 lg:size-9"
-                aria-label={t("factures.actions.preview")}
-                onClick={() => handlePreview(facture)}
+                aria-label={t("subscriptionInvoices.actions.preview")}
+                onClick={() => handlePreview(invoice)}
               >
                 <FileText className="size-4" />
               </Button>
@@ -165,7 +168,7 @@ export function HyperFacturesPanel() {
                 size="icon"
                 className="size-11 lg:size-9"
                 aria-label={t("common.edit")}
-                onClick={() => openEdit(facture)}
+                onClick={() => openEdit(invoice)}
               >
                 <Pencil className="size-4" />
               </Button>
@@ -174,7 +177,7 @@ export function HyperFacturesPanel() {
                 size="icon"
                 className="size-11 lg:size-9"
                 aria-label={t("common.delete")}
-                onClick={() => setDeleting(facture)}
+                onClick={() => setDeleting(invoice)}
               >
                 <Trash2 className="size-4 text-destructive" />
               </Button>
@@ -190,11 +193,11 @@ export function HyperFacturesPanel() {
       <Card>
         <CardContent className="flex flex-col gap-3 p-4 sm:flex-row sm:items-end">
           <div className="flex min-w-0 flex-1 flex-col gap-1.5">
-            <Label htmlFor="hyper-factures-account">
-              {t("hyperadmin.factures.accountLabel")}
+            <Label htmlFor="hyper-subscription-invoices-account">
+              {t("hyperadmin.subscriptionInvoices.accountLabel")}
             </Label>
             <AccountPicker
-              id="hyper-factures-account"
+              id="hyper-subscription-invoices-account"
               value={account}
               onChange={setAccount}
             />
@@ -205,7 +208,7 @@ export function HyperFacturesPanel() {
             onClick={openCreate}
           >
             <Plus className="size-4" />
-            {t("hyperadmin.factures.create")}
+            {t("hyperadmin.subscriptionInvoices.create")}
           </Button>
         </CardContent>
       </Card>
@@ -213,30 +216,32 @@ export function HyperFacturesPanel() {
       {renderList()}
 
       {account && (
-        <HyperFactureFormDialog
+        <HyperSubscriptionInvoiceFormDialog
           open={formOpen}
           onOpenChange={setFormOpen}
           accountId={account.id}
-          facture={editing}
+          invoice={editing}
         />
       )}
 
       <Dialog
         open={deleting !== null}
         onOpenChange={(open) => {
-          if (!open && !deleteFacture.isPending) setDeleting(null);
+          if (!open && !deleteInvoice.isPending) setDeleting(null);
         }}
       >
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>{t("hyperadmin.factures.delete.title")}</DialogTitle>
+            <DialogTitle>
+              {t("hyperadmin.subscriptionInvoices.delete.title")}
+            </DialogTitle>
             <DialogDescription>
-              {t("hyperadmin.factures.delete.confirm", {
+              {t("hyperadmin.subscriptionInvoices.delete.confirm", {
                 date: deleting
-                  ? formatDate(factureDate(deleting), lang)
+                  ? formatDate(subscriptionInvoiceDate(deleting), lang)
                   : "",
                 amount: deleting
-                  ? formatMontant(deleting.montantTTC, lang)
+                  ? formatSubscriptionInvoiceAmount(deleting.montantTTC, lang)
                   : "",
               })}
             </DialogDescription>
@@ -247,7 +252,7 @@ export function HyperFacturesPanel() {
               variant="outline"
               className="min-h-11 sm:min-h-10"
               onClick={() => setDeleting(null)}
-              disabled={deleteFacture.isPending}
+              disabled={deleteInvoice.isPending}
             >
               {t("common.cancel")}
             </Button>
@@ -256,9 +261,9 @@ export function HyperFacturesPanel() {
               variant="destructive"
               className="min-h-11 sm:min-h-10"
               onClick={handleDelete}
-              disabled={deleteFacture.isPending}
+              disabled={deleteInvoice.isPending}
             >
-              {deleteFacture.isPending && (
+              {deleteInvoice.isPending && (
                 <Loader2 className="size-4 animate-spin" />
               )}
               {t("common.delete")}

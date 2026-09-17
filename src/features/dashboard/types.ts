@@ -67,7 +67,7 @@ export interface DashboardTourProgress {
   lastActivityAt?: string | null;
 }
 
-export interface DashboardUnpaidInvoices {
+export interface DashboardUnpaidSubscriptionInvoices {
   count: number;
   amountTTC: number;
 }
@@ -78,7 +78,7 @@ export interface DashboardAttention {
   anomaliesLast7Days: number;
   pharmacyReportsPending: number;
   pharmacyReportsInvalidGeocoding: number;
-  unpaidInvoices?: DashboardUnpaidInvoices | null;
+  unpaidSubscriptionInvoices?: DashboardUnpaidSubscriptionInvoices | null;
 }
 
 export interface DashboardSummary {

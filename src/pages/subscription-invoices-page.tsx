@@ -16,25 +16,25 @@ import { DateField } from "@/components/date-field";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { ViewSwitch } from "@/components/view-switch";
 import { KpiTile } from "@/components/exports/kpi-tile";
-import { useFactureError } from "@/components/factures/use-facture-error";
+import { useSubscriptionInvoiceError } from "@/components/subscription-invoices/use-subscription-invoice-error";
 import { usePdfPreview } from "@/app/pdf-preview-context";
-import { FactureTable } from "@/components/factures/facture-table";
-import { FactureCardList } from "@/components/factures/facture-card-list";
+import { SubscriptionInvoiceTable } from "@/components/subscription-invoices/subscription-invoice-table";
+import { SubscriptionInvoiceCardList } from "@/components/subscription-invoices/subscription-invoice-card-list";
 import { formatDate, isValidApiDate } from "@/lib/date";
 import {
-  factureApiDate,
-  factureDate,
-  factureFileName,
-  factureKeys,
-  facturesApi,
-  formatMontant,
-  sumMontants,
-  useFactures,
-  type Facture,
-  type FacturePaidFilter,
-} from "@/features/factures";
+  subscriptionInvoiceApiDate,
+  subscriptionInvoiceDate,
+  subscriptionInvoiceFileName,
+  subscriptionInvoiceKeys,
+  subscriptionInvoicesApi,
+  formatSubscriptionInvoiceAmount,
+  sumSubscriptionInvoiceAmounts,
+  useSubscriptionInvoices,
+  type SubscriptionInvoice,
+  type SubscriptionInvoicePaidFilter,
+} from "@/features/subscription-invoices";
 
-function parsePaid(raw: string | null): FacturePaidFilter {
+function parsePaid(raw: string | null): SubscriptionInvoicePaidFilter {
   return raw === "paid" || raw === "unpaid" ? raw : "all";
 }
 
@@ -42,17 +42,17 @@ function parseDate(raw: string | null): string {
   return isValidApiDate(raw) ? (raw as string) : "";
 }
 
-function FacturesContent() {
+function SubscriptionInvoicesContent() {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? i18n.language;
-  const errorMessage = useFactureError();
+  const errorMessage = useSubscriptionInvoiceError();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const paid = parsePaid(searchParams.get("paid"));
   const from = parseDate(searchParams.get("from"));
   const to = parseDate(searchParams.get("to"));
 
-  const facturesQuery = useFactures();
+  const invoicesQuery = useSubscriptionInvoices();
   const openPdfPreview = usePdfPreview();
 
   const setParam = (key: string, value: string, fallback: string) => {
@@ -67,87 +67,98 @@ function FacturesContent() {
     );
   };
 
-  const factures = useMemo(
-    () => facturesQuery.data ?? [],
-    [facturesQuery.data]
+  const invoices = useMemo(
+    () => invoicesQuery.data ?? [],
+    [invoicesQuery.data]
   );
 
   const rows = useMemo(
     () =>
-      factures
-        .filter((facture) =>
-          paid === "all" ? true : paid === "paid" ? facture.isPaid : !facture.isPaid
+      invoices
+        .filter((invoice) =>
+          paid === "all"
+            ? true
+            : paid === "paid"
+              ? invoice.isPaid
+              : !invoice.isPaid
         )
-        .filter((facture) => {
-          const date = factureApiDate(facture);
+        .filter((invoice) => {
+          const date = subscriptionInvoiceApiDate(invoice);
           if (from && date < from) return false;
           if (to && date > to) return false;
           return true;
         }),
-    [factures, paid, from, to]
+    [invoices, paid, from, to]
   );
 
   const totals = useMemo(
     () => ({
-      total: sumMontants(rows),
-      paid: sumMontants(rows.filter((facture) => facture.isPaid)),
-      unpaid: sumMontants(rows.filter((facture) => !facture.isPaid)),
-      unpaidCount: rows.filter((facture) => !facture.isPaid).length,
+      total: sumSubscriptionInvoiceAmounts(rows),
+      paid: sumSubscriptionInvoiceAmounts(
+        rows.filter((invoice) => invoice.isPaid)
+      ),
+      unpaid: sumSubscriptionInvoiceAmounts(
+        rows.filter((invoice) => !invoice.isPaid)
+      ),
+      unpaidCount: rows.filter((invoice) => !invoice.isPaid).length,
     }),
     [rows]
   );
 
   const counts = useMemo(
     () => ({
-      all: factures.length,
-      paid: factures.filter((facture) => facture.isPaid).length,
-      unpaid: factures.filter((facture) => !facture.isPaid).length,
+      all: invoices.length,
+      paid: invoices.filter((invoice) => invoice.isPaid).length,
+      unpaid: invoices.filter((invoice) => !invoice.isPaid).length,
     }),
-    [factures]
+    [invoices]
   );
 
-  const handlePreview = (facture: Facture) => {
+  const handlePreview = (invoice: SubscriptionInvoice) => {
     openPdfPreview({
-      key: factureKeys.pdf(facture.id),
-      title: t("factures.preview.title"),
-      subtitle: t("factures.preview.subtitle", {
-        date: formatDate(factureDate(facture), lang),
-        amount: formatMontant(facture.montantTTC, lang),
+      key: subscriptionInvoiceKeys.pdf(invoice.id),
+      title: t("subscriptionInvoices.preview.title"),
+      subtitle: t("subscriptionInvoices.preview.subtitle", {
+        date: formatDate(subscriptionInvoiceDate(invoice), lang),
+        amount: formatSubscriptionInvoiceAmount(invoice.montantTTC, lang),
       }),
-      filename: factureFileName(facture),
-      load: () => facturesApi.pdf(facture.id),
+      filename: subscriptionInvoiceFileName(invoice),
+      load: () => subscriptionInvoicesApi.pdf(invoice.id),
       describeError: (error) =>
-        errorMessage(error, "factures.errors.pdfFailed"),
+        errorMessage(error, "subscriptionInvoices.errors.pdfFailed"),
     });
   };
 
   const listProps = {
-    factures: rows,
+    invoices: rows,
     onPreview: handlePreview,
   };
 
   const renderList = () => {
-    if (facturesQuery.isLoading) return <LoadingState />;
-    if (facturesQuery.isError) {
+    if (invoicesQuery.isLoading) return <LoadingState />;
+    if (invoicesQuery.isError) {
       return (
         <>
           <Alert variant="warning" className="mb-4">
             <AlertDescription>
-              {errorMessage(facturesQuery.error, "factures.errors.loadFailed")}
+              {errorMessage(
+                invoicesQuery.error,
+                "subscriptionInvoices.errors.loadFailed"
+              )}
             </AlertDescription>
           </Alert>
           <ErrorState
-            error={facturesQuery.error}
-            retrying={facturesQuery.isFetching}
-            onRetry={() => void facturesQuery.refetch()}
+            error={invoicesQuery.error}
+            retrying={invoicesQuery.isFetching}
+            onRetry={() => void invoicesQuery.refetch()}
           />
         </>
       );
     }
-    if (factures.length === 0) {
+    if (invoices.length === 0) {
       return (
         <EmptyState
-          message={t("factures.empty")}
+          message={t("subscriptionInvoices.empty")}
           icon={<Receipt className="size-8" />}
           className="flex-1"
         />
@@ -156,7 +167,7 @@ function FacturesContent() {
     if (rows.length === 0) {
       return (
         <EmptyState
-          message={t("factures.noMatch")}
+          message={t("subscriptionInvoices.noMatch")}
           icon={<ListFilter className="size-8" />}
           className="flex-1"
         />
@@ -164,32 +175,37 @@ function FacturesContent() {
     }
     return (
       <>
-        <FactureTable {...listProps} />
-        <FactureCardList {...listProps} />
+        <SubscriptionInvoiceTable {...listProps} />
+        <SubscriptionInvoiceCardList {...listProps} />
       </>
     );
   };
 
   return (
     <div className="flex flex-1 flex-col">
-      <PageHeader title={t("factures.title")} subtitle={t("factures.subtitle")} />
+      <PageHeader
+        title={t("subscriptionInvoices.title")}
+        subtitle={t("subscriptionInvoices.subtitle")}
+      />
 
       <div className="mb-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
         <KpiTile
-          label={t("factures.kpi.total")}
-          value={formatMontant(totals.total, lang)}
-          hint={t("factures.kpi.count", { count: rows.length })}
+          label={t("subscriptionInvoices.kpi.total")}
+          value={formatSubscriptionInvoiceAmount(totals.total, lang)}
+          hint={t("subscriptionInvoices.kpi.count", { count: rows.length })}
           icon={FileText}
         />
         <KpiTile
-          label={t("factures.kpi.paid")}
-          value={formatMontant(totals.paid, lang)}
+          label={t("subscriptionInvoices.kpi.paid")}
+          value={formatSubscriptionInvoiceAmount(totals.paid, lang)}
           icon={CheckCircle2}
         />
         <KpiTile
-          label={t("factures.kpi.unpaid")}
-          value={formatMontant(totals.unpaid, lang)}
-          hint={t("factures.kpi.count", { count: totals.unpaidCount })}
+          label={t("subscriptionInvoices.kpi.unpaid")}
+          value={formatSubscriptionInvoiceAmount(totals.unpaid, lang)}
+          hint={t("subscriptionInvoices.kpi.count", {
+            count: totals.unpaidCount,
+          })}
           icon={Clock}
         />
       </div>
@@ -207,13 +223,13 @@ function FacturesContent() {
             },
             {
               value: "unpaid",
-              label: t("factures.status.unpaid"),
+              label: t("subscriptionInvoices.status.unpaid"),
               icon: Clock,
               count: counts.unpaid,
             },
             {
               value: "paid",
-              label: t("factures.status.paid"),
+              label: t("subscriptionInvoices.status.paid"),
               icon: CheckCircle2,
               count: counts.paid,
             },
@@ -221,9 +237,11 @@ function FacturesContent() {
         />
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           <div className="flex min-w-0 flex-col gap-1.5">
-            <Label htmlFor="facture-from">{t("factures.filters.from")}</Label>
+            <Label htmlFor="subscription-invoice-from">
+              {t("subscriptionInvoices.filters.from")}
+            </Label>
             <DateField
-              id="facture-from"
+              id="subscription-invoice-from"
               value={from}
               max={to || undefined}
               onChange={(next) => setParam("from", next, "")}
@@ -231,9 +249,11 @@ function FacturesContent() {
             />
           </div>
           <div className="flex min-w-0 flex-col gap-1.5">
-            <Label htmlFor="facture-to">{t("factures.filters.to")}</Label>
+            <Label htmlFor="subscription-invoice-to">
+              {t("subscriptionInvoices.filters.to")}
+            </Label>
             <DateField
-              id="facture-to"
+              id="subscription-invoice-to"
               value={to}
               min={from || undefined}
               onChange={(next) => setParam("to", next, "")}
@@ -248,10 +268,10 @@ function FacturesContent() {
   );
 }
 
-export function FacturesPage() {
+export function SubscriptionInvoicesPage() {
   return (
     <AdminGate>
-      <FacturesContent />
+      <SubscriptionInvoicesContent />
     </AdminGate>
   );
 }

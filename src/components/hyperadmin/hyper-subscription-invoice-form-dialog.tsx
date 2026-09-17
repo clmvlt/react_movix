@@ -21,37 +21,37 @@ import { fileToDataUrl } from "@/lib/images";
 import {
   PDF_MAX_BYTES,
   PDF_MIME_TYPE,
-  factureApiDate,
-  useCreateFacture,
-  useUpdateFacture,
-  type Facture,
-  type FactureUpdateInput,
-} from "@/features/factures";
+  subscriptionInvoiceApiDate,
+  useCreateSubscriptionInvoice,
+  useUpdateSubscriptionInvoice,
+  type SubscriptionInvoice,
+  type SubscriptionInvoiceUpdateInput,
+} from "@/features/subscription-invoices";
 
-interface HyperFactureFormDialogProps {
+interface HyperSubscriptionInvoiceFormDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   accountId: string;
-  facture: Facture | null;
+  invoice: SubscriptionInvoice | null;
 }
 
 interface FormState {
   dateFacture: string;
-  montant: string;
+  amount: string;
   isPaid: boolean;
   file: File | null;
 }
 
-function initialForm(facture: Facture | null): FormState {
+function initialForm(invoice: SubscriptionInvoice | null): FormState {
   return {
-    dateFacture: facture ? factureApiDate(facture) : "",
-    montant: facture ? String(facture.montantTTC) : "",
-    isPaid: facture?.isPaid ?? false,
+    dateFacture: invoice ? subscriptionInvoiceApiDate(invoice) : "",
+    amount: invoice ? String(invoice.montantTTC) : "",
+    isPaid: invoice?.isPaid ?? false,
     file: null,
   };
 }
 
-function parseMontant(raw: string): number | null {
+function parseAmount(raw: string): number | null {
   const value = Number(raw.trim().replace(",", "."));
   if (!Number.isFinite(value) || value < 0) return null;
   return Math.round(value * 100) / 100;
@@ -63,17 +63,17 @@ function isPdfFile(file: File): boolean {
   );
 }
 
-export function HyperFactureFormDialog({
+export function HyperSubscriptionInvoiceFormDialog({
   open,
   onOpenChange,
   accountId,
-  facture,
-}: HyperFactureFormDialogProps) {
+  invoice,
+}: HyperSubscriptionInvoiceFormDialogProps) {
   const { t } = useTranslation();
   const errorMessage = useHyperError();
   const toast = useToast();
-  const createFacture = useCreateFacture();
-  const updateFacture = useUpdateFacture();
+  const createInvoice = useCreateSubscriptionInvoice();
+  const updateInvoice = useUpdateSubscriptionInvoice();
 
   const [form, setForm] = useState<FormState>(() => initialForm(null));
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -81,12 +81,12 @@ export function HyperFactureFormDialog({
 
   useEffect(() => {
     if (!open) return;
-    setForm(initialForm(facture));
+    setForm(initialForm(invoice));
     setErrors({});
-  }, [open, facture]);
+  }, [open, invoice]);
 
-  const isEdit = Boolean(facture);
-  const pending = createFacture.isPending || updateFacture.isPending || reading;
+  const isEdit = Boolean(invoice);
+  const pending = createInvoice.isPending || updateInvoice.isPending || reading;
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((previous) => ({ ...previous, [key]: value }));
@@ -96,17 +96,17 @@ export function HyperFactureFormDialog({
   const validate = (): Record<string, string> => {
     const next: Record<string, string> = {};
     if (!form.dateFacture) next.dateFacture = t("common.required");
-    if (parseMontant(form.montant) === null) {
-      next.montant = form.montant.trim()
-        ? t("hyperadmin.factures.form.invalidAmount")
+    if (parseAmount(form.amount) === null) {
+      next.amount = form.amount.trim()
+        ? t("hyperadmin.subscriptionInvoices.form.invalidAmount")
         : t("common.required");
     }
     if (!isEdit && !form.file) next.file = t("common.required");
     if (form.file) {
       if (!isPdfFile(form.file)) {
-        next.file = t("hyperadmin.factures.form.pdfOnly");
+        next.file = t("hyperadmin.subscriptionInvoices.form.pdfOnly");
       } else if (form.file.size > PDF_MAX_BYTES) {
-        next.file = t("hyperadmin.factures.form.pdfTooLarge", {
+        next.file = t("hyperadmin.subscriptionInvoices.form.pdfTooLarge", {
           max: Math.round(PDF_MAX_BYTES / (1024 * 1024)),
         });
       }
@@ -121,14 +121,14 @@ export function HyperFactureFormDialog({
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    const montant = parseMontant(form.montant) as number;
+    const amount = parseAmount(form.amount) as number;
     const onError = (error: unknown) => {
       toast.error(
         errorMessage(
           error,
           isEdit
-            ? "hyperadmin.factures.errors.saveFailed"
-            : "hyperadmin.factures.errors.createFailed"
+            ? "hyperadmin.subscriptionInvoices.errors.saveFailed"
+            : "hyperadmin.subscriptionInvoices.errors.createFailed"
         )
       );
     };
@@ -141,7 +141,7 @@ export function HyperFactureFormDialog({
       } catch {
         setErrors((previous) => ({
           ...previous,
-          file: t("hyperadmin.factures.form.readFailed"),
+          file: t("hyperadmin.subscriptionInvoices.form.readFailed"),
         }));
         return;
       } finally {
@@ -149,13 +149,13 @@ export function HyperFactureFormDialog({
       }
     }
 
-    if (facture) {
-      const patch: FactureUpdateInput = {};
-      if (form.dateFacture !== factureApiDate(facture)) {
+    if (invoice) {
+      const patch: SubscriptionInvoiceUpdateInput = {};
+      if (form.dateFacture !== subscriptionInvoiceApiDate(invoice)) {
         patch.dateFacture = form.dateFacture;
       }
-      if (montant !== facture.montantTTC) patch.montantTTC = montant;
-      if (form.isPaid !== facture.isPaid) patch.isPaid = form.isPaid;
+      if (amount !== invoice.montantTTC) patch.montantTTC = amount;
+      if (form.isPaid !== invoice.isPaid) patch.isPaid = form.isPaid;
       if (pdfBase64) patch.pdfBase64 = pdfBase64;
 
       if (Object.keys(patch).length === 0) {
@@ -163,18 +163,18 @@ export function HyperFactureFormDialog({
         return;
       }
 
-      updateFacture.mutate(
-        { id: facture.id, accountId, input: patch },
+      updateInvoice.mutate(
+        { id: invoice.id, accountId, input: patch },
         { onSuccess: () => onOpenChange(false), onError }
       );
       return;
     }
 
-    createFacture.mutate(
+    createInvoice.mutate(
       {
         accountId,
         dateFacture: form.dateFacture,
-        montantTTC: montant,
+        montantTTC: amount,
         isPaid: form.isPaid,
         pdfBase64: pdfBase64 as string,
       },
@@ -188,13 +188,13 @@ export function HyperFactureFormDialog({
         <DialogHeader>
           <DialogTitle>
             {isEdit
-              ? t("hyperadmin.factures.form.editTitle")
-              : t("hyperadmin.factures.form.createTitle")}
+              ? t("hyperadmin.subscriptionInvoices.form.editTitle")
+              : t("hyperadmin.subscriptionInvoices.form.createTitle")}
           </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? t("hyperadmin.factures.form.editSubtitle")
-              : t("hyperadmin.factures.form.createSubtitle")}
+              ? t("hyperadmin.subscriptionInvoices.form.editSubtitle")
+              : t("hyperadmin.subscriptionInvoices.form.createSubtitle")}
           </DialogDescription>
         </DialogHeader>
 
@@ -204,13 +204,13 @@ export function HyperFactureFormDialog({
           noValidate
         >
           <FormField
-            label={t("hyperadmin.factures.form.date")}
-            htmlFor="hyper-facture-date"
+            label={t("hyperadmin.subscriptionInvoices.form.date")}
+            htmlFor="hyper-subscription-invoice-date"
             error={errors.dateFacture}
             required
           >
             <DateField
-              id="hyper-facture-date"
+              id="hyper-subscription-invoice-date"
               value={form.dateFacture}
               onChange={(next) => set("dateFacture", next)}
               required
@@ -219,58 +219,56 @@ export function HyperFactureFormDialog({
           </FormField>
 
           <FormField
-            label={t("hyperadmin.factures.form.amount")}
-            htmlFor="hyper-facture-amount"
-            error={errors.montant}
+            label={t("hyperadmin.subscriptionInvoices.form.amount")}
+            htmlFor="hyper-subscription-invoice-amount"
+            error={errors.amount}
             required
           >
             <Input
-              id="hyper-facture-amount"
+              id="hyper-subscription-invoice-amount"
               type="number"
               inputMode="decimal"
               step="0.01"
               min="0"
-              value={form.montant}
-              onChange={(event) => set("montant", event.target.value)}
+              value={form.amount}
+              onChange={(event) => set("amount", event.target.value)}
               className="min-h-11 lg:min-h-10"
             />
           </FormField>
 
           <FormField
-            label={t("hyperadmin.factures.form.pdf")}
-            htmlFor="hyper-facture-pdf"
+            label={t("hyperadmin.subscriptionInvoices.form.pdf")}
+            htmlFor="hyper-subscription-invoice-pdf"
             error={errors.file}
             hint={
               isEdit
-                ? t("hyperadmin.factures.form.pdfKeepHint")
-                : t("hyperadmin.factures.form.pdfHint")
+                ? t("hyperadmin.subscriptionInvoices.form.pdfKeepHint")
+                : t("hyperadmin.subscriptionInvoices.form.pdfHint")
             }
             required={!isEdit}
           >
             <Input
-              id="hyper-facture-pdf"
+              id="hyper-subscription-invoice-pdf"
               type="file"
               accept=".pdf,application/pdf"
-              onChange={(event) =>
-                set("file", event.target.files?.[0] ?? null)
-              }
+              onChange={(event) => set("file", event.target.files?.[0] ?? null)}
               className="min-h-11 pt-2.5 lg:min-h-10 lg:pt-2"
             />
           </FormField>
 
           <div className="mb-2 flex items-start gap-3 rounded-xl border border-border bg-card p-3">
             <Checkbox
-              id="hyper-facture-paid"
+              id="hyper-subscription-invoice-paid"
               checked={form.isPaid}
               onCheckedChange={(checked) => set("isPaid", checked === true)}
               className="mt-0.5"
             />
             <div className="min-w-0">
-              <Label htmlFor="hyper-facture-paid">
-                {t("hyperadmin.factures.form.paid")}
+              <Label htmlFor="hyper-subscription-invoice-paid">
+                {t("hyperadmin.subscriptionInvoices.form.paid")}
               </Label>
               <p className="mt-1 text-xs text-muted-foreground">
-                {t("hyperadmin.factures.form.paidHint")}
+                {t("hyperadmin.subscriptionInvoices.form.paidHint")}
               </p>
             </div>
           </div>

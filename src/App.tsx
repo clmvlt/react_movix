@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { ProtectedRoute, PublicOnlyRoute } from "@/app/protected-route";
 import { AuthLayout } from "@/layouts/auth-layout";
 import { AppLayout } from "@/layouts/app-layout";
@@ -40,7 +40,7 @@ const importSouffrance = () => import("@/pages/souffrance-page");
 const importAnomalies = () => import("@/pages/anomalies-page");
 const importAnomalyDetail = () => import("@/pages/anomaly-detail-page");
 const importApiTokens = () => import("@/pages/api-tokens-page");
-const importFactures = () => import("@/pages/factures-page");
+const importSubscriptionInvoices = () => import("@/pages/subscription-invoices-page");
 const importMobileApp = () => import("@/pages/mobile-app-page");
 const importDownload = () => import("@/pages/download-page");
 const importHyperadmin = () => import("@/pages/hyperadmin-page");
@@ -144,8 +144,8 @@ const ApiTokensPage = lazy(() =>
   importApiTokens().then((m) => ({ default: m.ApiTokensPage }))
 );
 
-const FacturesPage = lazy(() =>
-  importFactures().then((m) => ({ default: m.FacturesPage }))
+const SubscriptionInvoicesPage = lazy(() =>
+  importSubscriptionInvoices().then((m) => ({ default: m.SubscriptionInvoicesPage }))
 );
 
 const MobileAppPage = lazy(() =>
@@ -187,6 +187,11 @@ const LegalPrivacyPage = lazy(() =>
 const LegalCookiesPage = lazy(() =>
   importLegalCookies().then((m) => ({ default: m.LegalCookiesPage }))
 );
+
+function LegacySubscriptionInvoicesRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={`/app/subscription-invoices${search}${hash}`} replace />;
+}
 
 export default function App() {
   useEffect(() => {
@@ -377,12 +382,16 @@ export default function App() {
               }
             />
             <Route
-              path="/app/factures"
+              path="/app/subscription-invoices"
               element={
                 <Suspense fallback={<InlineSpinner />}>
-                  <FacturesPage />
+                  <SubscriptionInvoicesPage />
                 </Suspense>
               }
+            />
+            <Route
+              path="/app/factures"
+              element={<LegacySubscriptionInvoicesRedirect />}
             />
             <Route
               path="/app/mobile-app"

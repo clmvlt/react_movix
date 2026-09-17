@@ -230,7 +230,7 @@
     "menu": "Menu",
     "souffrance": "Souffrance",
     "apiTokens": "Tokens API",
-    "factures": "Factures",
+    "subscriptionInvoices": "Factures d'abonnement",
     "mobileApp": "Application mobile",
     "hyperadmin": "Hyperadmin",
     "admin": "Admin",
@@ -319,8 +319,8 @@
       "pharmacyReports_other": "{{count}} signalements pharmacie",
       "newPharmacies_one": "{{count}} nouvelle pharmacie à vérifier",
       "newPharmacies_other": "{{count}} nouvelles pharmacies à vérifier",
-      "unpaidInvoices_one": "{{count}} facture impayée",
-      "unpaidInvoices_other": "{{count}} factures impayées"
+      "unpaidSubscriptionInvoices_one": "{{count}} facture d'abonnement impayée",
+      "unpaidSubscriptionInvoices_other": "{{count}} factures d'abonnement impayées"
     },
     "tours": {
       "title": "Tournées du jour",
@@ -1546,7 +1546,7 @@
     "types": {
       "ANOMALIE": "Anomalie",
       "INFORMATION": "Information pharmacie",
-      "FACTURE": "Facture",
+      "SUBSCRIPTION_INVOICE": "Facture d'abonnement",
       "OTHER": "Notification"
     },
     "errors": {
@@ -2661,11 +2661,11 @@
       "actionFailed": "L'action a echoue."
     }
   },
-  "factures": {
-    "title": "Factures",
-    "subtitle": "Factures emises pour votre compte.",
-    "empty": "Aucune facture pour le moment.",
-    "noMatch": "Aucune facture ne correspond a ces filtres.",
+  "subscriptionInvoices": {
+    "title": "Factures d'abonnement",
+    "subtitle": "Factures de votre abonnement Movix.",
+    "empty": "Aucune facture d'abonnement pour le moment.",
+    "noMatch": "Aucune facture d'abonnement ne correspond a ces filtres.",
     "noPdf": "Pas de PDF",
     "status": {
       "paid": "Payee",
@@ -2691,14 +2691,14 @@
       "preview": "Apercu du PDF"
     },
     "preview": {
-      "title": "PDF de la facture",
-      "subtitle": "Facture du {{date}}, {{amount}} TTC."
+      "title": "PDF de la facture d'abonnement",
+      "subtitle": "Facture d'abonnement du {{date}}, {{amount}} TTC."
     },
     "errors": {
-      "forbidden": "Seul un administrateur peut acceder aux factures.",
-      "loadFailed": "Echec du chargement des factures.",
+      "forbidden": "Seul un administrateur peut acceder aux factures d'abonnement.",
+      "loadFailed": "Echec du chargement des factures d'abonnement.",
       "pdfFailed": "Echec du chargement du PDF.",
-      "noAccount": "Votre profil n'est rattache a aucun compte, les factures sont indisponibles.",
+      "noAccount": "Votre profil n'est rattache a aucun compte, les factures d'abonnement sont indisponibles.",
       "actionFailed": "L'action a echoue."
     }
   },
@@ -2760,7 +2760,7 @@
     "tabs": {
       "account": "Membres",
       "companies": "Entreprises",
-      "factures": "Factures",
+      "subscriptionInvoices": "Factures d'abonnement",
       "updates": "Application mobile"
     },
     "accounts": {
@@ -2905,7 +2905,7 @@
           "pharmacyReports": "Rapports pharmacie",
           "zones": "Zones",
           "tourConfigs": "Modeles de tournee",
-          "factures": "Factures",
+          "subscriptionInvoices": "Factures d'abonnement",
           "tarifs": "Tarifs",
           "emailRecipients": "Destinataires email",
           "emailLogs": "Journaux email",
@@ -2950,15 +2950,15 @@
         "anomaliesEmails": "Saisissez des adresses email valides separees par des virgules."
       }
     },
-    "factures": {
+    "subscriptionInvoices": {
       "accountLabel": "Compte",
-      "create": "Nouvelle facture",
-      "selectAccount": "Selectionnez un compte pour voir ses factures.",
-      "empty": "Aucune facture pour ce compte pour le moment.",
+      "create": "Nouvelle facture d'abonnement",
+      "selectAccount": "Selectionnez un compte pour voir ses factures d'abonnement.",
+      "empty": "Aucune facture d'abonnement pour ce compte pour le moment.",
       "form": {
-        "createTitle": "Nouvelle facture",
+        "createTitle": "Nouvelle facture d'abonnement",
         "createSubtitle": "Le PDF est envoye avec les informations de la facture.",
-        "editTitle": "Modifier la facture",
+        "editTitle": "Modifier la facture d'abonnement",
         "editSubtitle": "Laissez le PDF vide pour conserver l'actuel.",
         "date": "Date de facture",
         "amount": "Montant TTC",
@@ -2973,11 +2973,11 @@
         "paidHint": "Une facture payee apparait comme reglee cote client."
       },
       "delete": {
-        "title": "Supprimer cette facture",
-        "confirm": "La facture du {{date}} ({{amount}}) et son PDF seront supprimes definitivement."
+        "title": "Supprimer cette facture d'abonnement",
+        "confirm": "La facture d'abonnement du {{date}} ({{amount}}) et son PDF seront supprimes definitivement."
       },
       "errors": {
-        "loadFailed": "Echec du chargement des factures.",
+        "loadFailed": "Echec du chargement des factures d'abonnement.",
         "createFailed": "Echec de la creation de la facture.",
         "saveFailed": "Echec de l'enregistrement de la facture.",
         "deleteFailed": "Echec de la suppression de la facture."

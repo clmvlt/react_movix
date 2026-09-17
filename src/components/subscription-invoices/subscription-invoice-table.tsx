@@ -10,18 +10,21 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { formatDate, formatDateTime } from "@/lib/date";
 import {
-  factureDate,
-  formatMontant,
-  type Facture,
-} from "@/features/factures";
-import { FactureActions } from "./facture-actions";
+  subscriptionInvoiceDate,
+  formatSubscriptionInvoiceAmount,
+  type SubscriptionInvoice,
+} from "@/features/subscription-invoices";
+import { SubscriptionInvoiceActions } from "./subscription-invoice-actions";
 
-interface FactureTableProps {
-  factures: Facture[];
-  onPreview: (facture: Facture) => void;
+interface SubscriptionInvoiceTableProps {
+  invoices: SubscriptionInvoice[];
+  onPreview: (invoice: SubscriptionInvoice) => void;
 }
 
-export function FactureTable({ factures, onPreview }: FactureTableProps) {
+export function SubscriptionInvoiceTable({
+  invoices,
+  onPreview,
+}: SubscriptionInvoiceTableProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? i18n.language;
 
@@ -30,37 +33,37 @@ export function FactureTable({ factures, onPreview }: FactureTableProps) {
       <Table className="min-w-[720px]">
         <TableHeader>
           <TableRow>
-            <TableHead>{t("factures.columns.date")}</TableHead>
+            <TableHead>{t("subscriptionInvoices.columns.date")}</TableHead>
             <TableHead className="text-right">
-              {t("factures.columns.amount")}
+              {t("subscriptionInvoices.columns.amount")}
             </TableHead>
             <TableHead>{t("common.status")}</TableHead>
-            <TableHead>{t("factures.columns.createdAt")}</TableHead>
+            <TableHead>{t("subscriptionInvoices.columns.createdAt")}</TableHead>
             <TableHead className="text-right">{t("common.actions")}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {factures.map((facture) => (
-            <TableRow key={facture.id}>
+          {invoices.map((invoice) => (
+            <TableRow key={invoice.id}>
               <TableCell className="py-3 font-medium text-foreground">
-                {formatDate(factureDate(facture), lang)}
+                {formatDate(subscriptionInvoiceDate(invoice), lang)}
               </TableCell>
               <TableCell className="py-3 text-right font-medium tabular-nums text-foreground">
-                {formatMontant(facture.montantTTC, lang)}
+                {formatSubscriptionInvoiceAmount(invoice.montantTTC, lang)}
               </TableCell>
               <TableCell className="py-3">
-                <Badge variant={facture.isPaid ? "secondary" : "outline"}>
-                  {facture.isPaid
-                    ? t("factures.status.paid")
-                    : t("factures.status.unpaid")}
+                <Badge variant={invoice.isPaid ? "secondary" : "outline"}>
+                  {invoice.isPaid
+                    ? t("subscriptionInvoices.status.paid")
+                    : t("subscriptionInvoices.status.unpaid")}
                 </Badge>
               </TableCell>
               <TableCell className="py-3 text-sm text-muted-foreground">
-                {formatDateTime(facture.createdAt, lang) || "-"}
+                {formatDateTime(invoice.createdAt, lang) || "-"}
               </TableCell>
               <TableCell className="py-3">
-                <FactureActions
-                  facture={facture}
+                <SubscriptionInvoiceActions
+                  invoice={invoice}
                   onPreview={onPreview}
                   className="justify-end"
                   compact

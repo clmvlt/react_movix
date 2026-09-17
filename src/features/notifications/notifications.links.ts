@@ -8,12 +8,18 @@ const ENTITY_ROUTES: Record<string, (id: string) => string> = {
   PHARMACY_INFO: (id) => `/app/pharmacy-reports?report=${id}`,
 };
 
+const LIST_ROUTES: Record<string, string> = {
+  SUBSCRIPTION_INVOICE: "/app/subscription-invoices",
+};
+
 export function notificationTarget(
   notification: AppNotification
 ): string | null {
   const type = notification.relatedEntityType?.trim().toUpperCase();
+  if (!type) return null;
+  if (LIST_ROUTES[type]) return LIST_ROUTES[type];
   const id = notification.relatedEntityId?.trim();
-  if (!type || !id || !UUID_PATTERN.test(id)) return null;
+  if (!id || !UUID_PATTERN.test(id)) return null;
   const build = ENTITY_ROUTES[type];
   return build ? build(id.toLowerCase()) : null;
 }
@@ -21,7 +27,7 @@ export function notificationTarget(
 const KNOWN_TYPES: NotificationType[] = [
   "ANOMALIE",
   "INFORMATION",
-  "FACTURE",
+  "SUBSCRIPTION_INVOICE",
   "OTHER",
 ];
 

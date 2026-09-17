@@ -2,24 +2,24 @@ import { useTranslation } from "react-i18next";
 import { Eye } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import type { Facture } from "@/features/factures";
+import type { SubscriptionInvoice } from "@/features/subscription-invoices";
 
-interface FactureActionsProps {
-  facture: Facture;
-  onPreview: (facture: Facture) => void;
+interface SubscriptionInvoiceActionsProps {
+  invoice: SubscriptionInvoice;
+  onPreview: (invoice: SubscriptionInvoice) => void;
   className?: string;
   compact?: boolean;
 }
 
-export function FactureActions({
-  facture,
+export function SubscriptionInvoiceActions({
+  invoice,
   onPreview,
   className,
   compact,
-}: FactureActionsProps) {
+}: SubscriptionInvoiceActionsProps) {
   const { t } = useTranslation();
 
-  if (!facture.pdfUrl) {
+  if (!invoice.pdfUrl) {
     return (
       <span
         className={cn(
@@ -28,7 +28,7 @@ export function FactureActions({
           className
         )}
       >
-        {t("factures.noPdf")}
+        {t("subscriptionInvoices.noPdf")}
       </span>
     );
   }
@@ -43,9 +43,9 @@ export function FactureActions({
         variant="ghost"
         size="icon"
         className={cn("shrink-0", size)}
-        aria-label={t("factures.actions.preview")}
-        title={t("factures.actions.preview")}
-        onClick={() => onPreview(facture)}
+        aria-label={t("subscriptionInvoices.actions.preview")}
+        title={t("subscriptionInvoices.actions.preview")}
+        onClick={() => onPreview(invoice)}
       >
         <Eye className={icon} />
       </Button>

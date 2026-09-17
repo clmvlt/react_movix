@@ -6,13 +6,15 @@ import { HyperadminGate } from "@/components/admin-gate";
 import { ViewSwitch } from "@/components/view-switch";
 import { HyperMembersPanel } from "@/components/hyperadmin/hyper-members-panel";
 import { HyperCompaniesPanel } from "@/components/hyperadmin/hyper-companies-panel";
-import { HyperFacturesPanel } from "@/components/hyperadmin/hyper-factures-panel";
+import { HyperSubscriptionInvoicesPanel } from "@/components/hyperadmin/hyper-subscription-invoices-panel";
 import { HyperUpdatesPanel } from "@/components/hyperadmin/hyper-updates-panel";
 
-type HyperTab = "account" | "companies" | "factures" | "updates";
+type HyperTab = "account" | "companies" | "subscription-invoices" | "updates";
 
 function parseTab(raw: string | null): HyperTab {
-  return raw === "companies" || raw === "factures" || raw === "updates"
+  return raw === "companies" ||
+    raw === "subscription-invoices" ||
+    raw === "updates"
     ? raw
     : "account";
 }
@@ -61,8 +63,8 @@ function HyperadminContent() {
             icon: Building2,
           },
           {
-            value: "factures",
-            label: t("hyperadmin.tabs.factures"),
+            value: "subscription-invoices",
+            label: t("hyperadmin.tabs.subscriptionInvoices"),
             icon: Receipt,
           },
           {
@@ -75,7 +77,7 @@ function HyperadminContent() {
 
       {tab === "account" && <HyperMembersPanel />}
       {tab === "companies" && <HyperCompaniesPanel />}
-      {tab === "factures" && <HyperFacturesPanel />}
+      {tab === "subscription-invoices" && <HyperSubscriptionInvoicesPanel />}
       {tab === "updates" && <HyperUpdatesPanel />}
     </div>
   );

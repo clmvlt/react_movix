@@ -109,9 +109,9 @@ function attentionSources(summary: DashboardSummary): AttentionSource[] {
       category: "info",
     },
     {
-      id: "unpaidInvoices",
-      count: attention.unpaidInvoices?.count ?? 0,
-      to: "/app/factures",
+      id: "unpaidSubscriptionInvoices",
+      count: attention.unpaidSubscriptionInvoices?.count ?? 0,
+      to: "/app/subscription-invoices",
       category: "pending",
     },
   ];

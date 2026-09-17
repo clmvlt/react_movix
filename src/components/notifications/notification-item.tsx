@@ -28,7 +28,7 @@ const TYPE_STYLES: Record<
     icon: Info,
     className: "bg-status-info-bg text-status-info-strong",
   },
-  FACTURE: {
+  SUBSCRIPTION_INVOICE: {
     icon: FileText,
     className: "bg-status-success-bg text-status-success-strong",
   },

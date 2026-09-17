@@ -1,10 +1,13 @@
 export type NotificationType =
   | "ANOMALIE"
   | "INFORMATION"
-  | "FACTURE"
+  | "SUBSCRIPTION_INVOICE"
   | "OTHER";
 
-export type NotificationEntityType = "ANOMALIE" | "PHARMACY_INFO" | "FACTURE";
+export type NotificationEntityType =
+  | "ANOMALIE"
+  | "PHARMACY_INFO"
+  | "SUBSCRIPTION_INVOICE";
 
 export interface AppNotification {
   id: string;

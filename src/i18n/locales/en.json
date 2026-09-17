@@ -230,7 +230,7 @@
     "menu": "Menu",
     "souffrance": "Pending",
     "apiTokens": "API tokens",
-    "factures": "Invoices",
+    "subscriptionInvoices": "Subscription invoices",
     "mobileApp": "Mobile app",
     "hyperadmin": "Hyperadmin",
     "admin": "Admin",
@@ -319,8 +319,8 @@
       "pharmacyReports_other": "{{count}} pharmacy reports",
       "newPharmacies_one": "{{count}} new pharmacy to check",
       "newPharmacies_other": "{{count}} new pharmacies to check",
-      "unpaidInvoices_one": "{{count}} outstanding invoice",
-      "unpaidInvoices_other": "{{count}} outstanding invoices"
+      "unpaidSubscriptionInvoices_one": "{{count}} unpaid subscription invoice",
+      "unpaidSubscriptionInvoices_other": "{{count}} unpaid subscription invoices"
     },
     "tours": {
       "title": "Tours today",
@@ -1546,7 +1546,7 @@
     "types": {
       "ANOMALIE": "Anomaly",
       "INFORMATION": "Pharmacy information",
-      "FACTURE": "Invoice",
+      "SUBSCRIPTION_INVOICE": "Subscription invoice",
       "OTHER": "Notification"
     },
     "errors": {
@@ -2661,11 +2661,11 @@
       "actionFailed": "The action failed."
     }
   },
-  "factures": {
-    "title": "Invoices",
-    "subtitle": "Invoices issued for your account.",
-    "empty": "No invoice yet.",
-    "noMatch": "No invoice matches these filters.",
+  "subscriptionInvoices": {
+    "title": "Subscription invoices",
+    "subtitle": "Invoices for your Movix subscription.",
+    "empty": "No subscription invoice yet.",
+    "noMatch": "No subscription invoice matches these filters.",
     "noPdf": "No PDF",
     "status": {
       "paid": "Paid",
@@ -2691,14 +2691,14 @@
       "preview": "Preview the PDF"
     },
     "preview": {
-      "title": "Invoice PDF",
-      "subtitle": "Invoice dated {{date}}, {{amount}} incl. VAT."
+      "title": "Subscription invoice PDF",
+      "subtitle": "Subscription invoice dated {{date}}, {{amount}} incl. VAT."
     },
     "errors": {
-      "forbidden": "Only an administrator can access invoices.",
-      "loadFailed": "Failed to load invoices.",
+      "forbidden": "Only an administrator can access subscription invoices.",
+      "loadFailed": "Failed to load subscription invoices.",
       "pdfFailed": "Failed to load the PDF.",
-      "noAccount": "Your profile is not linked to an account, invoices are unavailable.",
+      "noAccount": "Your profile is not linked to an account, subscription invoices are unavailable.",
       "actionFailed": "The action failed."
     }
   },
@@ -2760,7 +2760,7 @@
     "tabs": {
       "account": "Members",
       "companies": "Companies",
-      "factures": "Invoices",
+      "subscriptionInvoices": "Subscription invoices",
       "updates": "Mobile app"
     },
     "accounts": {
@@ -2905,7 +2905,7 @@
           "pharmacyReports": "Pharmacy reports",
           "zones": "Zones",
           "tourConfigs": "Tour templates",
-          "factures": "Invoices",
+          "subscriptionInvoices": "Subscription invoices",
           "tarifs": "Price tiers",
           "emailRecipients": "Email recipients",
           "emailLogs": "Email logs",
@@ -2950,15 +2950,15 @@
         "anomaliesEmails": "Enter valid email addresses separated by commas."
       }
     },
-    "factures": {
+    "subscriptionInvoices": {
       "accountLabel": "Account",
-      "create": "New invoice",
-      "selectAccount": "Select an account to see its invoices.",
-      "empty": "No invoice for this account yet.",
+      "create": "New subscription invoice",
+      "selectAccount": "Select an account to see its subscription invoices.",
+      "empty": "No subscription invoice for this account yet.",
       "form": {
-        "createTitle": "New invoice",
+        "createTitle": "New subscription invoice",
         "createSubtitle": "The PDF is uploaded with the invoice details.",
-        "editTitle": "Edit the invoice",
+        "editTitle": "Edit the subscription invoice",
         "editSubtitle": "Leave the PDF empty to keep the current one.",
         "date": "Invoice date",
         "amount": "Amount incl. VAT",
@@ -2973,11 +2973,11 @@
         "paidHint": "A paid invoice shows as settled on the customer side."
       },
       "delete": {
-        "title": "Delete this invoice",
-        "confirm": "The invoice dated {{date}} ({{amount}}) and its PDF will be deleted for good."
+        "title": "Delete this subscription invoice",
+        "confirm": "The subscription invoice dated {{date}} ({{amount}}) and its PDF will be deleted for good."
       },
       "errors": {
-        "loadFailed": "Failed to load the invoices.",
+        "loadFailed": "Failed to load the subscription invoices.",
         "createFailed": "Failed to create the invoice.",
         "saveFailed": "Failed to save the invoice.",
         "deleteFailed": "Failed to delete the invoice."

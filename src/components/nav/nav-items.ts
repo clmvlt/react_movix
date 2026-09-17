@@ -109,7 +109,11 @@ const GROUPS: NavGroup[] = [
 export const ADMIN_NAV_ITEMS: NavItem[] = [
   { to: "/app/exports", labelKey: "nav.exports", icon: FileSpreadsheet },
   { to: "/app/api-tokens", labelKey: "nav.apiTokens", icon: KeyRound },
-  { to: "/app/factures", labelKey: "nav.factures", icon: Receipt },
+  {
+    to: "/app/subscription-invoices",
+    labelKey: "nav.subscriptionInvoices",
+    icon: Receipt,
+  },
 ];
 
 export const SETTINGS_NAV_ITEM: NavItem = {

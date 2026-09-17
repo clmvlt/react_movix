@@ -90,7 +90,7 @@ export const DELETION_COUNT_KEYS = [
   "commands",
   "packages",
   "anomalies",
-  "pharmacyInformations",
+  "pharmacies",
   "pharmacyReports",
   "zones",
   "tourConfigs",

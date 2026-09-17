@@ -36,8 +36,9 @@ Les UUID des paths sont mis en MINUSCULES (`normalizeAccountId`, sinon 400).
   lien de confirmation part vers le demandeur lui-meme (`requesterEmail`), `emailSent:false`
   + `retryAfterSeconds > 0` = rate limit (1 email / 2 min) affiche en compte a rebours, pas
   en erreur ; `POST .../deletion/resend` et `DELETE .../deletion` pour renvoyer ou annuler.
-  Le dialog exige de RETAPER le nom exact de l'entreprise, montre les volumes detruits et
-  rappelle ce qui survit (referentiel pharmacies partage et comptes utilisateurs).
+  Le dialog exige de RETAPER le nom exact de l'entreprise, montre les volumes detruits (dont
+  `pharmacies`, les pharmacies du compte, supprimees AVEC l'entreprise depuis la migration V20)
+  et rappelle ce qui survit (les comptes utilisateurs, qui perdent seulement leur appartenance).
 - Page de confirmation `/confirm-account-deletion?token=X`
   (`confirm-account-deletion-page.tsx`, HORS `ProtectedRoute` pour survivre a la perte de la
   derniere entreprise) : exige une session hyperadmin, sinon redirige vers `/login` en

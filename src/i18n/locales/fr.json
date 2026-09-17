@@ -208,6 +208,7 @@
       "operations": "Exploitation",
       "tracking": "Suivi",
       "directory": "Référentiel",
+      "billing": "Facturation",
       "administration": "Administration",
       "beta": "Beta"
     },
@@ -231,6 +232,8 @@
     "souffrance": "Souffrance",
     "apiTokens": "Tokens API",
     "subscriptionInvoices": "Factures d'abonnement",
+    "invoices": "Factures",
+    "billingCustomers": "Clients facturés",
     "mobileApp": "Application mobile",
     "hyperadmin": "Hyperadmin",
     "admin": "Admin",
@@ -2818,6 +2821,298 @@
       "actionFailed": "L'action a echoue."
     }
   },
+  "invoices": {
+    "title": "Factures",
+    "subtitle": "Factures et avoirs émis pour vos clients.",
+    "empty": "Aucune facture pour le moment. Facturez une tournée ou des commandes, ou créez une facture libre.",
+    "noMatch": "Aucune facture ne correspond à ces filtres.",
+    "draftLabel": "Brouillon",
+    "issuedOn": "Émise le {{date}}",
+    "notIssued": "Non émise",
+    "invoicedOn": "Facturée : {{number}}",
+    "invoicedDraft": "Brouillon de facture",
+    "status": {
+      "DRAFT": "Brouillon",
+      "ISSUED": "Émise",
+      "OVERDUE": "En retard",
+      "PAID": "Payée",
+      "CANCELLED": "Annulée",
+      "CREDIT_NOTE": "Avoir"
+    },
+    "types": {
+      "INVOICE": "Facture",
+      "CREDIT_NOTE": "Avoir"
+    },
+    "sources": {
+      "COMMANDS": "Commandes",
+      "TOURS": "Tournées",
+      "MANUAL": "Saisie libre"
+    },
+    "columns": {
+      "number": "Numéro",
+      "customer": "Client",
+      "issueDate": "Émission",
+      "dueDate": "Échéance",
+      "totalHt": "Total HT",
+      "totalTtc": "Total TTC"
+    },
+    "fields": {
+      "customer": "Client",
+      "type": "Type",
+      "issueDate": "Date d'émission",
+      "dueDate": "Échéance",
+      "paidAt": "Payée le",
+      "period": "Période de prestation",
+      "serviceStartDate": "Début de prestation",
+      "serviceEndDate": "Fin de prestation",
+      "notes": "Notes",
+      "source": "Origine"
+    },
+    "filters": {
+      "allStatuses": "Tous les statuts",
+      "allTypes": "Factures et avoirs",
+      "allCustomers": "Tous les clients",
+      "customerLoading": "Chargement du client",
+      "from": "Émise à partir du",
+      "to": "Émise jusqu'au",
+      "clear": "Effacer"
+    },
+    "lines": {
+      "description": "Désignation",
+      "quantity": "Quantité",
+      "unitPriceHt": "Prix unitaire HT",
+      "vatRate": "TVA",
+      "totalHt": "Total HT"
+    },
+    "vat": {
+      "rate": "Taux",
+      "base": "Base HT",
+      "amount": "TVA"
+    },
+    "totals": {
+      "ht": "Total HT",
+      "vat": "TVA",
+      "ttc": "Total TTC"
+    },
+    "party": {
+      "siret": "SIRET {{value}}",
+      "vat": "TVA {{value}}"
+    },
+    "actions": {
+      "edit": "Modifier",
+      "issue": "Émettre",
+      "pdf": "PDF",
+      "markPaid": "Marquer payée",
+      "cancelPayment": "Annuler le paiement",
+      "creditNote": "Annuler par avoir"
+    },
+    "create": {
+      "action": "Nouvelle facture",
+      "title": "Nouvelle facture libre",
+      "subtitle": "Un brouillon vide est créé pour ce client, vous saisirez ensuite les lignes.",
+      "submit": "Créer le brouillon"
+    },
+    "detail": {
+      "title": "Facture",
+      "lines": "Lignes",
+      "noLines": "Aucune ligne sur cette facture.",
+      "dates": "Dates",
+      "customer": "Client",
+      "seller": "Émetteur",
+      "periodValue": "Du {{from}} au {{to}}",
+      "creditedInvoice": "Avoir de la facture {{number}}",
+      "creditNote": "Annulée par l'avoir {{number}}",
+      "commands_one": "{{count}} commande facturée",
+      "commands_other": "{{count}} commandes facturées",
+      "commandInactive": "Inactive",
+      "draftHint": "Brouillon modifiable : vérifiez les lignes puis émettez la facture pour lui attribuer un numéro."
+    },
+    "generate": {
+      "action": "Facturer les commandes",
+      "actionShort": "Facturer",
+      "actionTour": "Facturer la tournée",
+      "actionSelection_one": "Facturer {{count}} tournée",
+      "actionSelection_other": "Facturer {{count}} tournées",
+      "title": "Facturer",
+      "subtitleTours_one": "Une facture brouillon sera créée pour {{count}} tournée.",
+      "subtitleTours_other": "Une facture brouillon sera créée pour {{count}} tournées.",
+      "subtitleCommands_one": "Une facture brouillon sera créée pour {{count}} commande.",
+      "subtitleCommands_other": "Une facture brouillon sera créée pour {{count}} commandes.",
+      "lineMode": "Lignes de la facture",
+      "modes": {
+        "DETAILED": {
+          "label": "Détaillé",
+          "hint": "Une ligne par commande."
+        },
+        "GROUPED": {
+          "label": "Groupé par tranche",
+          "hint": "Une ligne par tranche tarifaire."
+        }
+      },
+      "customerOptional": "Facultatif si toutes les commandes vont à la même pharmacie : son client est alors utilisé.",
+      "customerRequired": "Ces commandes vont à plusieurs pharmacies : choisissez le client à facturer.",
+      "customerRequiredHint": "Obligatoire pour ces commandes.",
+      "alreadyOn": "Déjà facturée sur {{number}}",
+      "pending": "Calcul de la facture en cours",
+      "pendingHint": "Le calcul des distances peut prendre quelques secondes.",
+      "submit": "Générer le brouillon"
+    },
+    "generation": {
+      "unpriced_one": "{{count}} commande facturée à 0 €, à corriger dans le brouillon",
+      "unpriced_other": "{{count}} commandes facturées à 0 €, à corriger dans le brouillon",
+      "excluded_one": "{{count}} commande déjà facturée a été écartée",
+      "excluded_other": "{{count}} commandes déjà facturées ont été écartées",
+      "excludedItem": "{{pharmacy}} : déjà facturée sur {{number}}"
+    },
+    "editor": {
+      "title": "Modifier le brouillon",
+      "general": "Client et période",
+      "addLine": "Ajouter une ligne",
+      "removeLine": "Supprimer la ligne",
+      "moveUp": "Monter la ligne",
+      "moveDown": "Descendre la ligne",
+      "noLines": "Aucune ligne. Ajoutez une ligne pour facturer une prestation.",
+      "companyRate": "Taux de l'entreprise",
+      "indicative": "Totaux indicatifs, recalculés par le serveur à l'enregistrement.",
+      "count": "{{count}} / {{max}} caractères",
+      "dirtyStatus": "Modifications non enregistrées",
+      "saved": "Brouillon enregistré.",
+      "franchiseHint": "Votre entreprise est en franchise en base de TVA : les lignes doivent être à 0 %.",
+      "notDraft": "Cette facture est émise : elle ne se modifie plus. Annulez-la par un avoir si besoin.",
+      "openInvoice": "Voir la facture",
+      "errors": {
+        "fix": "Corrigez les champs en erreur avant d'enregistrer.",
+        "periodOrder": "La fin de prestation doit suivre le début.",
+        "tooLong": "{{max}} caractères maximum.",
+        "quantity": "Quantité supérieure à 0, 3 décimales maximum.",
+        "price": "Montant invalide, 2 décimales maximum."
+      }
+    },
+    "issue": {
+      "title": "Émettre la facture",
+      "subtitle": "Facture pour {{customer}}, {{amount}} TTC.",
+      "irreversible": "Action irréversible : un numéro définitif est attribué et la facture ne pourra plus être modifiée ni supprimée. Seul un avoir pourra l'annuler.",
+      "confirm": "Émettre",
+      "done": "Facture {{number}} émise."
+    },
+    "payment": {
+      "title": "Marquer comme payée",
+      "subtitle": "Facture {{number}}, {{amount}} TTC.",
+      "date": "Date du paiement",
+      "dateHint": "Entre la date d'émission et aujourd'hui.",
+      "confirm": "Marquer payée",
+      "done": "Facture marquée comme payée.",
+      "cancelled": "Paiement annulé."
+    },
+    "creditNote": {
+      "title": "Annuler par un avoir",
+      "subtitle": "Un avoir de {{amount}} TTC annulera la facture {{number}}.",
+      "irreversible": "Action irréversible : l'avoir est émis immédiatement, la facture passe à Annulée et ses commandes redeviennent facturables.",
+      "reason": "Motif (facultatif)",
+      "reasonCount": "{{count}} / {{max}} caractères",
+      "confirm": "Émettre l'avoir",
+      "done": "Avoir {{number}} émis."
+    },
+    "delete": {
+      "title": "Supprimer le brouillon",
+      "confirm": "Le brouillon sera supprimé et ses commandes redeviendront facturables.",
+      "done": "Brouillon supprimé."
+    },
+    "pdf": {
+      "title": "Facture {{number}}",
+      "draftTitle": "Brouillon de facture"
+    },
+    "problems": {
+      "missing": "Champs manquants : {{fields}}.",
+      "openBillingSettings": "Compléter les paramètres de facturation",
+      "editCustomer": "Compléter le client",
+      "customerNotice": "Complétez ce client pour pouvoir émettre la facture.",
+      "vatNotApplicableHint": "En franchise en base de TVA (art. 293 B du CGI), vous ne facturez pas de TVA : passez toutes les lignes à 0 % dans le brouillon, ou changez de régime dans les paramètres de facturation."
+    },
+    "errors": {
+      "actionFailed": "L'action a échoué.",
+      "forbidden": "Seul un administrateur peut gérer la facturation.",
+      "notFound": "Facture introuvable.",
+      "generateFailed": "La génération de la facture a échoué.",
+      "createFailed": "La création de la facture a échoué.",
+      "saveFailed": "L'enregistrement du brouillon a échoué.",
+      "pdfFailed": "Le chargement du PDF a échoué.",
+      "codes": {
+        "BILLING_CUSTOMER_INVALID": "Informations du client invalides.",
+        "BILLING_CUSTOMER_HAS_INVOICES": "Ce client a des factures : il ne peut pas être supprimé.",
+        "CUSTOMER_REQUIRED": "Choisissez le client à facturer.",
+        "COMMAND_ALREADY_INVOICED": "Certaines commandes sont déjà facturées.",
+        "NOTHING_TO_INVOICE": "Rien à facturer : toutes les commandes sont déjà facturées.",
+        "TOUR_NOT_FOUND": "Tournée introuvable.",
+        "COMMAND_NOT_FOUND": "Commande introuvable.",
+        "INVOICE_INVALID": "Informations de la facture invalides.",
+        "INVOICE_NOT_DRAFT": "Cette facture n'est plus un brouillon.",
+        "INVOICE_EMPTY": "Impossible d'émettre une facture sans ligne.",
+        "INVOICE_NEGATIVE_TOTAL": "Impossible d'émettre une facture dont le total est négatif.",
+        "BILLING_INFO_INCOMPLETE": "Les informations de facturation de l'entreprise sont incomplètes.",
+        "CUSTOMER_INFO_INCOMPLETE": "Les informations du client sont incomplètes.",
+        "VAT_NOT_APPLICABLE": "TVA non applicable : l'entreprise est en franchise en base.",
+        "INVOICE_NOT_ISSUED": "Seule une facture émise peut être marquée payée.",
+        "INVOICE_NOT_PAID": "Cette facture n'est pas payée.",
+        "CREDIT_NOTE_NOT_ALLOWED": "Un avoir ne peut pas être émis pour cette facture."
+      }
+    }
+  },
+  "billingCustomers": {
+    "title": "Clients facturés",
+    "subtitle": "Grossistes, laboratoires et pharmacies à qui vous émettez des factures.",
+    "create": "Nouveau client",
+    "empty": "Aucun client facturé pour le moment.",
+    "noMatch": "Aucun client ne correspond à cette recherche.",
+    "searchPlaceholder": "Rechercher un client",
+    "saved": "Client enregistré.",
+    "deleted": "Client supprimé.",
+    "incomplete": "Incomplet",
+    "linkedPharmacy": "Pharmacie",
+    "missingTitle": "Mentions manquantes pour émettre une facture",
+    "missingHint": "Requis pour émettre une facture.",
+    "emittingHint": "Requis pour émettre une facture.",
+    "countryPlaceholder": "France",
+    "columns": {
+      "place": "Ville"
+    },
+    "fields": {
+      "name": "Nom ou raison sociale",
+      "siret": "SIRET",
+      "vatNumber": "N° de TVA",
+      "address1": "Adresse",
+      "address2": "Complément d'adresse",
+      "postalCode": "Code postal",
+      "city": "Ville",
+      "country": "Pays",
+      "email": "Email",
+      "phone": "Téléphone"
+    },
+    "form": {
+      "createTitle": "Nouveau client facturé",
+      "editTitle": "Modifier le client",
+      "subtitle": "Ces informations sont figées sur chaque facture au moment de son émission."
+    },
+    "picker": {
+      "placeholder": "Rechercher un client",
+      "loading": "Chargement des clients",
+      "noResults": "Aucun client trouvé.",
+      "create": "Créer un client",
+      "createNamed": "Créer le client {{name}}",
+      "clear": "Effacer le client"
+    },
+    "delete": {
+      "title": "Supprimer le client",
+      "confirm": "Le client {{name}} sera supprimé définitivement.",
+      "hasInvoices": "Ce client a déjà des factures ou des brouillons : il ne peut pas être supprimé.",
+      "seeInvoices": "Voir ses factures"
+    },
+    "errors": {
+      "loadFailed": "Le chargement des clients a échoué.",
+      "saveFailed": "L'enregistrement du client a échoué.",
+      "deleteFailed": "La suppression du client a échoué."
+    }
+  },
   "mobileApp": {
     "title": "Application mobile Movix",
     "subtitle": "Installez Movix sur votre téléphone pour effectuer les tournées sur le terrain.",
@@ -3022,6 +3317,7 @@
           "zones": "Zones",
           "tourConfigs": "Modeles de tournee",
           "subscriptionInvoices": "Factures d'abonnement",
+          "invoices": "Factures et avoirs émis",
           "tarifs": "Tarifs",
           "emailRecipients": "Destinataires email",
           "emailLogs": "Journaux email",

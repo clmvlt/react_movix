@@ -41,6 +41,10 @@ const importAnomalies = () => import("@/pages/anomalies-page");
 const importAnomalyDetail = () => import("@/pages/anomaly-detail-page");
 const importApiTokens = () => import("@/pages/api-tokens-page");
 const importSubscriptionInvoices = () => import("@/pages/subscription-invoices-page");
+const importInvoices = () => import("@/pages/invoices-page");
+const importInvoiceDetail = () => import("@/pages/invoice-detail-page");
+const importInvoiceEdit = () => import("@/pages/invoice-edit-page");
+const importBillingCustomers = () => import("@/pages/billing-customers-page");
 const importMobileApp = () => import("@/pages/mobile-app-page");
 const importDownload = () => import("@/pages/download-page");
 const importHyperadmin = () => import("@/pages/hyperadmin-page");
@@ -146,6 +150,22 @@ const ApiTokensPage = lazy(() =>
 
 const SubscriptionInvoicesPage = lazy(() =>
   importSubscriptionInvoices().then((m) => ({ default: m.SubscriptionInvoicesPage }))
+);
+
+const InvoicesPage = lazy(() =>
+  importInvoices().then((m) => ({ default: m.InvoicesPage }))
+);
+
+const InvoiceDetailPage = lazy(() =>
+  importInvoiceDetail().then((m) => ({ default: m.InvoiceDetailPage }))
+);
+
+const InvoiceEditPage = lazy(() =>
+  importInvoiceEdit().then((m) => ({ default: m.InvoiceEditPage }))
+);
+
+const BillingCustomersPage = lazy(() =>
+  importBillingCustomers().then((m) => ({ default: m.BillingCustomersPage }))
 );
 
 const MobileAppPage = lazy(() =>
@@ -392,6 +412,38 @@ export default function App() {
             <Route
               path="/app/factures"
               element={<LegacySubscriptionInvoicesRedirect />}
+            />
+            <Route
+              path="/app/invoices"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <InvoicesPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/invoices/:id"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <InvoiceDetailPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/invoices/:id/edit"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <InvoiceEditPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/billing-customers"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <BillingCustomersPage />
+                </Suspense>
+              }
             />
             <Route
               path="/app/mobile-app"

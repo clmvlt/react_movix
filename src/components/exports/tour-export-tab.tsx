@@ -12,6 +12,7 @@ import {
   Eye,
   FileSpreadsheet,
   Package,
+  ReceiptText,
   Route,
   Search,
   Square,
@@ -44,6 +45,7 @@ import {
 } from "@/components/ui/table";
 import { EmptyState } from "@/components/states";
 import { InlineSpinner } from "@/components/full-page-spinner";
+import { InvoiceGenerateDialog } from "@/components/invoices/invoice-generate-dialog";
 import { KpiTile } from "./kpi-tile";
 import { SheetPreviewDialog } from "./sheet-preview-dialog";
 import type { ExportFiltersApi } from "./use-export-filters";
@@ -143,6 +145,7 @@ export function TourExportTab({ api }: { api: ExportFiltersApi }) {
 
   const [params, setParams] = useState<TourExportParams | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
   const [hideRemoved, setHideRemoved] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -368,6 +371,11 @@ export function TourExportTab({ api }: { api: ExportFiltersApi }) {
 
   return (
     <div className="flex flex-1 flex-col gap-3">
+      <InvoiceGenerateDialog
+        open={invoiceOpen}
+        onOpenChange={setInvoiceOpen}
+        tourIds={selectedTours.map((tour) => tour.id)}
+      />
       <Card>
         <CardContent className="flex flex-col gap-3 p-3 sm:p-4">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -485,6 +493,18 @@ export function TourExportTab({ api }: { api: ExportFiltersApi }) {
               >
                 <Eye className="size-3.5" />
                 {t("exports.actions.preview")}
+              </Button>
+
+              <Button
+                variant="outline"
+                className="min-h-11 lg:min-h-10"
+                disabled={selectedTours.length === 0}
+                onClick={() => setInvoiceOpen(true)}
+              >
+                <ReceiptText className="size-3.5" />
+                {t("invoices.generate.actionSelection", {
+                  count: selectedTours.length,
+                })}
               </Button>
 
               <Button

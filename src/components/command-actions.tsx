@@ -9,6 +9,7 @@ import {
   Loader2,
   MapPinned,
   PackageX,
+  ReceiptText,
   Route as RouteIcon,
 } from "lucide-react";
 import { ZoneAssignDialog } from "@/components/expeditions/zone-assign-dialog";
@@ -28,6 +29,8 @@ import { FormField } from "@/components/form-field";
 import { CommandSouffranceDialog } from "@/components/commands/command-souffrance-dialog";
 import { CommandStatusDialog } from "@/components/commands/command-status-dialog";
 import { useCommandError } from "@/components/commands/use-command-error";
+import { useIsAdmin } from "@/components/admin-gate";
+import { InvoiceGenerateDialog } from "@/components/invoices/invoice-generate-dialog";
 import { useToast } from "@/app/toast-context";
 import { safeCategoryColor } from "@/lib/colors";
 import { dateToApiDate, formatDate, parseDate } from "@/lib/date";
@@ -55,6 +58,7 @@ interface CommandActionsProps {
   lockedTitle?: string;
   layout?: "inline" | "bar";
   showAssign?: boolean;
+  showInvoice?: boolean;
   zoneAssign?: { commands: ZoneAssignCommand[]; zones: Zone[] };
 }
 
@@ -66,16 +70,20 @@ export function CommandActions({
   lockedTitle,
   layout = "inline",
   showAssign = true,
+  showInvoice = true,
   zoneAssign,
 }: CommandActionsProps) {
   const { t } = useTranslation();
   const queryClient = useQueryClient();
+  const isAdmin = useIsAdmin();
+  const canInvoice = showInvoice && isAdmin;
 
   const [statusOpen, setStatusOpen] = useState(false);
   const [assignOpen, setAssignOpen] = useState(false);
   const [zoneAssignOpen, setZoneAssignOpen] = useState(false);
   const [expDateOpen, setExpDateOpen] = useState(false);
   const [souffranceOpen, setSouffranceOpen] = useState(false);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
 
   const inactive = disabled || commandIds.length === 0;
   const title = (label: string) =>
@@ -123,6 +131,18 @@ export function CommandActions({
       disabled: inactive,
       onClick: () => setSouffranceOpen(true),
     },
+    ...(canInvoice
+      ? [
+          {
+            key: "invoice",
+            icon: ReceiptText,
+            label: t("invoices.generate.action"),
+            short: t("invoices.generate.actionShort"),
+            disabled: commandIds.length === 0,
+            onClick: () => setInvoiceOpen(true),
+          },
+        ]
+      : []),
   ];
 
   return (
@@ -201,6 +221,14 @@ export function CommandActions({
         commandIds={commandIds}
         onDone={done}
       />
+      {canInvoice && (
+        <InvoiceGenerateDialog
+          open={invoiceOpen}
+          onOpenChange={setInvoiceOpen}
+          commandIds={commandIds}
+          onGenerated={onDone}
+        />
+      )}
     </>
   );
 }

@@ -27,6 +27,7 @@ import {
   Play,
   Plus,
   ReceiptEuro,
+  ReceiptText,
   Route,
   Square,
   Timer,
@@ -75,6 +76,9 @@ import { TourAssignDialog } from "@/components/tours/tour-assign-dialog";
 import { TourHistoryDialog } from "@/components/tours/tour-history-dialog";
 import { TourStatusDialog } from "@/components/tours/tour-status-dialog";
 import { UnsortedBadge } from "@/components/tours/unsorted-badge";
+import { useIsAdmin } from "@/components/admin-gate";
+import { InvoiceGenerateDialog } from "@/components/invoices/invoice-generate-dialog";
+import { InvoicedBadges } from "@/components/invoices/invoiced-badges";
 import { NotProvided } from "@/components/not-provided";
 import {
   initialTourForm,
@@ -1304,6 +1308,8 @@ function TourInfo({
   const { user } = useAuth();
   const updateTour = useUpdateTour();
   const updateStatus = useUpdateTourStatus();
+  const isAdmin = useIsAdmin();
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
 
   const defaultDeparture = frTimeToTimeInput(
     user?.account?.defaultTourDepartureTime
@@ -1379,6 +1385,13 @@ function TourInfo({
 
   return (
     <div className="flex shrink-0 flex-col gap-3">
+      {isAdmin && (
+        <InvoiceGenerateDialog
+          open={invoiceOpen}
+          onOpenChange={setInvoiceOpen}
+          tourIds={[tour.id]}
+        />
+      )}
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div className="min-w-0">
           <div className="flex min-h-8 min-w-0 flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -1415,6 +1428,7 @@ function TourInfo({
               editLabel={t("tours.changeStatus")}
             />
             {isTourUnsorted(tour) && <UnsortedBadge className="shrink-0 py-1" />}
+            <InvoicedBadges tourId={tour.id} />
             <div className="flex shrink-0 items-center gap-4 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Package className="size-4" />
@@ -1480,6 +1494,19 @@ function TourInfo({
                   aria-label={t("tours.pdfTarif")}
                 >
                   <ReceiptEuro className="size-4" />
+                </Button>
+              )}
+              {isAdmin && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="size-10 lg:size-9"
+                  onClick={() => setInvoiceOpen(true)}
+                  disabled={commandCount === 0}
+                  title={t("invoices.generate.actionTour")}
+                  aria-label={t("invoices.generate.actionTour")}
+                >
+                  <ReceiptText className="size-4" />
                 </Button>
               )}
               <Button

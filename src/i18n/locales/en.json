@@ -208,6 +208,7 @@
       "operations": "Operations",
       "tracking": "Tracking",
       "directory": "Directory",
+      "billing": "Invoicing",
       "administration": "Administration",
       "beta": "Beta"
     },
@@ -231,6 +232,8 @@
     "souffrance": "Pending",
     "apiTokens": "API tokens",
     "subscriptionInvoices": "Subscription invoices",
+    "invoices": "Invoices",
+    "billingCustomers": "Billed customers",
     "mobileApp": "Mobile app",
     "hyperadmin": "Hyperadmin",
     "admin": "Admin",
@@ -2818,6 +2821,298 @@
       "actionFailed": "The action failed."
     }
   },
+  "invoices": {
+    "title": "Invoices",
+    "subtitle": "Invoices and credit notes issued to your customers.",
+    "empty": "No invoice yet. Invoice a tour or orders, or create a free-form invoice.",
+    "noMatch": "No invoice matches these filters.",
+    "draftLabel": "Draft",
+    "issuedOn": "Issued on {{date}}",
+    "notIssued": "Not issued",
+    "invoicedOn": "Invoiced: {{number}}",
+    "invoicedDraft": "Draft invoice",
+    "status": {
+      "DRAFT": "Draft",
+      "ISSUED": "Issued",
+      "OVERDUE": "Overdue",
+      "PAID": "Paid",
+      "CANCELLED": "Cancelled",
+      "CREDIT_NOTE": "Credit note"
+    },
+    "types": {
+      "INVOICE": "Invoice",
+      "CREDIT_NOTE": "Credit note"
+    },
+    "sources": {
+      "COMMANDS": "Orders",
+      "TOURS": "Tours",
+      "MANUAL": "Free-form"
+    },
+    "columns": {
+      "number": "Number",
+      "customer": "Customer",
+      "issueDate": "Issued",
+      "dueDate": "Due",
+      "totalHt": "Total excl. VAT",
+      "totalTtc": "Total incl. VAT"
+    },
+    "fields": {
+      "customer": "Customer",
+      "type": "Type",
+      "issueDate": "Issue date",
+      "dueDate": "Due date",
+      "paidAt": "Paid on",
+      "period": "Service period",
+      "serviceStartDate": "Service start",
+      "serviceEndDate": "Service end",
+      "notes": "Notes",
+      "source": "Origin"
+    },
+    "filters": {
+      "allStatuses": "All statuses",
+      "allTypes": "Invoices and credit notes",
+      "allCustomers": "All customers",
+      "customerLoading": "Loading customer",
+      "from": "Issued from",
+      "to": "Issued until",
+      "clear": "Clear"
+    },
+    "lines": {
+      "description": "Description",
+      "quantity": "Quantity",
+      "unitPriceHt": "Unit price excl. VAT",
+      "vatRate": "VAT",
+      "totalHt": "Total excl. VAT"
+    },
+    "vat": {
+      "rate": "Rate",
+      "base": "Base excl. VAT",
+      "amount": "VAT"
+    },
+    "totals": {
+      "ht": "Total excl. VAT",
+      "vat": "VAT",
+      "ttc": "Total incl. VAT"
+    },
+    "party": {
+      "siret": "SIRET {{value}}",
+      "vat": "VAT {{value}}"
+    },
+    "actions": {
+      "edit": "Edit",
+      "issue": "Issue",
+      "pdf": "PDF",
+      "markPaid": "Mark as paid",
+      "cancelPayment": "Cancel payment",
+      "creditNote": "Cancel with credit note"
+    },
+    "create": {
+      "action": "New invoice",
+      "title": "New free-form invoice",
+      "subtitle": "An empty draft is created for this customer, you will then enter the lines.",
+      "submit": "Create draft"
+    },
+    "detail": {
+      "title": "Invoice",
+      "lines": "Lines",
+      "noLines": "No line on this invoice.",
+      "dates": "Dates",
+      "customer": "Customer",
+      "seller": "Issuer",
+      "periodValue": "From {{from}} to {{to}}",
+      "creditedInvoice": "Credit note for invoice {{number}}",
+      "creditNote": "Cancelled by credit note {{number}}",
+      "commands_one": "{{count}} invoiced order",
+      "commands_other": "{{count}} invoiced orders",
+      "commandInactive": "Inactive",
+      "draftHint": "Editable draft: check the lines then issue the invoice to assign it a number."
+    },
+    "generate": {
+      "action": "Invoice the orders",
+      "actionShort": "Invoice",
+      "actionTour": "Invoice the tour",
+      "actionSelection_one": "Invoice {{count}} tour",
+      "actionSelection_other": "Invoice {{count}} tours",
+      "title": "Invoice",
+      "subtitleTours_one": "A draft invoice will be created for {{count}} tour.",
+      "subtitleTours_other": "A draft invoice will be created for {{count}} tours.",
+      "subtitleCommands_one": "A draft invoice will be created for {{count}} order.",
+      "subtitleCommands_other": "A draft invoice will be created for {{count}} orders.",
+      "lineMode": "Invoice lines",
+      "modes": {
+        "DETAILED": {
+          "label": "Detailed",
+          "hint": "One line per order."
+        },
+        "GROUPED": {
+          "label": "Grouped by bracket",
+          "hint": "One line per price bracket."
+        }
+      },
+      "customerOptional": "Optional when every order goes to the same pharmacy: its customer is used.",
+      "customerRequired": "These orders go to several pharmacies: choose the customer to invoice.",
+      "customerRequiredHint": "Required for these orders.",
+      "alreadyOn": "Already invoiced on {{number}}",
+      "pending": "Computing the invoice",
+      "pendingHint": "Computing distances can take a few seconds.",
+      "submit": "Generate draft"
+    },
+    "generation": {
+      "unpriced_one": "{{count}} order invoiced at 0 €, to fix in the draft",
+      "unpriced_other": "{{count}} orders invoiced at 0 €, to fix in the draft",
+      "excluded_one": "{{count}} already invoiced order was left out",
+      "excluded_other": "{{count}} already invoiced orders were left out",
+      "excludedItem": "{{pharmacy}}: already invoiced on {{number}}"
+    },
+    "editor": {
+      "title": "Edit draft",
+      "general": "Customer and period",
+      "addLine": "Add a line",
+      "removeLine": "Remove the line",
+      "moveUp": "Move the line up",
+      "moveDown": "Move the line down",
+      "noLines": "No line. Add a line to invoice a service.",
+      "companyRate": "Company rate",
+      "indicative": "Indicative totals, computed again by the server when saving.",
+      "count": "{{count}} / {{max}} characters",
+      "dirtyStatus": "Unsaved changes",
+      "saved": "Draft saved.",
+      "franchiseHint": "Your company is VAT exempt: lines must be at 0%.",
+      "notDraft": "This invoice is issued: it can no longer be edited. Cancel it with a credit note if needed.",
+      "openInvoice": "Open the invoice",
+      "errors": {
+        "fix": "Fix the fields in error before saving.",
+        "periodOrder": "The service end must follow the start.",
+        "tooLong": "{{max}} characters maximum.",
+        "quantity": "Quantity above 0, 3 decimals maximum.",
+        "price": "Invalid amount, 2 decimals maximum."
+      }
+    },
+    "issue": {
+      "title": "Issue the invoice",
+      "subtitle": "Invoice for {{customer}}, {{amount}} incl. VAT.",
+      "irreversible": "Irreversible action: a final number is assigned and the invoice can no longer be edited or deleted. Only a credit note can cancel it.",
+      "confirm": "Issue",
+      "done": "Invoice {{number}} issued."
+    },
+    "payment": {
+      "title": "Mark as paid",
+      "subtitle": "Invoice {{number}}, {{amount}} incl. VAT.",
+      "date": "Payment date",
+      "dateHint": "Between the issue date and today.",
+      "confirm": "Mark as paid",
+      "done": "Invoice marked as paid.",
+      "cancelled": "Payment cancelled."
+    },
+    "creditNote": {
+      "title": "Cancel with a credit note",
+      "subtitle": "A credit note of {{amount}} incl. VAT will cancel invoice {{number}}.",
+      "irreversible": "Irreversible action: the credit note is issued right away, the invoice becomes Cancelled and its orders can be invoiced again.",
+      "reason": "Reason (optional)",
+      "reasonCount": "{{count}} / {{max}} characters",
+      "confirm": "Issue credit note",
+      "done": "Credit note {{number}} issued."
+    },
+    "delete": {
+      "title": "Delete the draft",
+      "confirm": "The draft will be deleted and its orders can be invoiced again.",
+      "done": "Draft deleted."
+    },
+    "pdf": {
+      "title": "Invoice {{number}}",
+      "draftTitle": "Draft invoice"
+    },
+    "problems": {
+      "missing": "Missing fields: {{fields}}.",
+      "openBillingSettings": "Complete the billing settings",
+      "editCustomer": "Complete the customer",
+      "customerNotice": "Complete this customer to be able to issue the invoice.",
+      "vatNotApplicableHint": "Under the VAT exemption scheme (art. 293 B of the French tax code), you do not charge VAT: set every line to 0% in the draft, or change the regime in the billing settings."
+    },
+    "errors": {
+      "actionFailed": "The action failed.",
+      "forbidden": "Only an administrator can manage invoicing.",
+      "notFound": "Invoice not found.",
+      "generateFailed": "Generating the invoice failed.",
+      "createFailed": "Creating the invoice failed.",
+      "saveFailed": "Saving the draft failed.",
+      "pdfFailed": "Loading the PDF failed.",
+      "codes": {
+        "BILLING_CUSTOMER_INVALID": "Invalid customer information.",
+        "BILLING_CUSTOMER_HAS_INVOICES": "This customer has invoices: it cannot be deleted.",
+        "CUSTOMER_REQUIRED": "Choose the customer to invoice.",
+        "COMMAND_ALREADY_INVOICED": "Some orders are already invoiced.",
+        "NOTHING_TO_INVOICE": "Nothing to invoice: every order is already invoiced.",
+        "TOUR_NOT_FOUND": "Tour not found.",
+        "COMMAND_NOT_FOUND": "Order not found.",
+        "INVOICE_INVALID": "Invalid invoice information.",
+        "INVOICE_NOT_DRAFT": "This invoice is no longer a draft.",
+        "INVOICE_EMPTY": "An invoice without lines cannot be issued.",
+        "INVOICE_NEGATIVE_TOTAL": "An invoice with a negative total cannot be issued.",
+        "BILLING_INFO_INCOMPLETE": "The company billing information is incomplete.",
+        "CUSTOMER_INFO_INCOMPLETE": "The customer information is incomplete.",
+        "VAT_NOT_APPLICABLE": "VAT not applicable: the company is VAT exempt.",
+        "INVOICE_NOT_ISSUED": "Only an issued invoice can be marked as paid.",
+        "INVOICE_NOT_PAID": "This invoice is not paid.",
+        "CREDIT_NOTE_NOT_ALLOWED": "A credit note cannot be issued for this invoice."
+      }
+    }
+  },
+  "billingCustomers": {
+    "title": "Billed customers",
+    "subtitle": "Wholesalers, laboratories and pharmacies you issue invoices to.",
+    "create": "New customer",
+    "empty": "No billed customer yet.",
+    "noMatch": "No customer matches this search.",
+    "searchPlaceholder": "Search a customer",
+    "saved": "Customer saved.",
+    "deleted": "Customer deleted.",
+    "incomplete": "Incomplete",
+    "linkedPharmacy": "Pharmacy",
+    "missingTitle": "Missing details to issue an invoice",
+    "missingHint": "Required to issue an invoice.",
+    "emittingHint": "Required to issue an invoice.",
+    "countryPlaceholder": "France",
+    "columns": {
+      "place": "City"
+    },
+    "fields": {
+      "name": "Name or company name",
+      "siret": "SIRET",
+      "vatNumber": "VAT number",
+      "address1": "Address",
+      "address2": "Address line 2",
+      "postalCode": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "email": "Email",
+      "phone": "Phone"
+    },
+    "form": {
+      "createTitle": "New billed customer",
+      "editTitle": "Edit the customer",
+      "subtitle": "These details are frozen on each invoice when it is issued."
+    },
+    "picker": {
+      "placeholder": "Search a customer",
+      "loading": "Loading customers",
+      "noResults": "No customer found.",
+      "create": "Create a customer",
+      "createNamed": "Create customer {{name}}",
+      "clear": "Clear the customer"
+    },
+    "delete": {
+      "title": "Delete the customer",
+      "confirm": "Customer {{name}} will be deleted for good.",
+      "hasInvoices": "This customer already has invoices or drafts: it cannot be deleted.",
+      "seeInvoices": "See its invoices"
+    },
+    "errors": {
+      "loadFailed": "Loading customers failed.",
+      "saveFailed": "Saving the customer failed.",
+      "deleteFailed": "Deleting the customer failed."
+    }
+  },
   "mobileApp": {
     "title": "Movix mobile app",
     "subtitle": "Install Movix on your phone to run tours in the field.",
@@ -3022,6 +3317,7 @@
           "zones": "Zones",
           "tourConfigs": "Tour templates",
           "subscriptionInvoices": "Subscription invoices",
+          "invoices": "Issued invoices and credit notes",
           "tarifs": "Price tiers",
           "emailRecipients": "Email recipients",
           "emailLogs": "Email logs",

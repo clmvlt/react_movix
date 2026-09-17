@@ -11,12 +11,14 @@ import {
   PackageSearch,
   PackageX,
   Receipt,
+  ReceiptText,
   Route,
   Settings,
   Smartphone,
   TriangleAlert,
   Truck,
   Users,
+  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 import { config } from "@/lib/config";
@@ -90,6 +92,24 @@ const GROUPS: NavGroup[] = [
         icon: ClipboardList,
       },
       { to: "/app/zones", labelKey: "nav.zones", icon: MapPinned },
+    ],
+  },
+  {
+    id: "billing",
+    labelKey: "nav.groups.billing",
+    items: [
+      {
+        to: "/app/invoices",
+        labelKey: "nav.invoices",
+        icon: ReceiptText,
+        adminOnly: true,
+      },
+      {
+        to: "/app/billing-customers",
+        labelKey: "nav.billingCustomers",
+        icon: UsersRound,
+        adminOnly: true,
+      },
     ],
   },
   {

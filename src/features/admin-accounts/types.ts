@@ -95,6 +95,7 @@ export const DELETION_COUNT_KEYS = [
   "zones",
   "tourConfigs",
   "subscriptionInvoices",
+  "invoices",
   "tarifs",
   "emailRecipients",
   "emailLogs",

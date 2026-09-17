@@ -6,6 +6,7 @@ import {
   FileDown,
   History,
   ReceiptEuro,
+  ReceiptText,
   Trash2,
   UserPlus,
   Wand2,
@@ -24,6 +25,8 @@ import { TourAssignDialog } from "@/components/tours/tour-assign-dialog";
 import { TourHistoryDialog } from "@/components/tours/tour-history-dialog";
 import { TourStatusDialog } from "@/components/tours/tour-status-dialog";
 import { pdfErrorKey } from "@/components/tours/tour-form";
+import { useIsAdmin } from "@/components/admin-gate";
+import { InvoiceGenerateDialog } from "@/components/invoices/invoice-generate-dialog";
 import { useAuth } from "@/app/auth-context";
 import { usePdfPreview } from "@/app/pdf-preview-context";
 import type { Profil } from "@/features/auth";
@@ -64,6 +67,8 @@ export function TourContextMenu({
   const [assignOpen, setAssignOpen] = useState(false);
   const [historyOpen, setHistoryOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
+  const isAdmin = useIsAdmin();
 
   const locked = isTourClosed(tour.status);
   const canPdf = canDownloadTourPdf(user, "standard");
@@ -139,6 +144,18 @@ export function TourContextMenu({
               )}
             </>
           )}
+          {isAdmin && (
+            <>
+              <ContextMenuSeparator />
+              <ContextMenuItem
+                disabled={(tour.commands?.length ?? 0) === 0}
+                onSelect={() => openDialog(setInvoiceOpen)}
+              >
+                <ReceiptText />
+                {t("invoices.generate.actionTour")}
+              </ContextMenuItem>
+            </>
+          )}
           <ContextMenuSeparator />
           <ContextMenuItem
             className="text-destructive focus:text-destructive"
@@ -169,6 +186,13 @@ export function TourContextMenu({
         tourId={tour.id}
         tourName={tour.name}
       />
+      {isAdmin && (
+        <InvoiceGenerateDialog
+          open={invoiceOpen}
+          onOpenChange={setInvoiceOpen}
+          tourIds={[tour.id]}
+        />
+      )}
       <DeleteTourDialog
         open={deleteOpen}
         onOpenChange={setDeleteOpen}

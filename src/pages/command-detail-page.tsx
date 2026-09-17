@@ -2,7 +2,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
-import { PackageCheck, PackageX, TriangleAlert } from "lucide-react";
+import { PackageCheck, PackageX, ReceiptText, TriangleAlert } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageHeader } from "@/components/page-header";
@@ -17,6 +17,8 @@ import { CommandStatusDialog } from "@/components/commands/command-status-dialog
 import { CommandTarifDialog } from "@/components/commands/command-tarif-dialog";
 import { useCommandError } from "@/components/commands/use-command-error";
 import { AnomalyCreateDialog } from "@/components/anomalies/anomaly-create-dialog";
+import { InvoiceGenerateDialog } from "@/components/invoices/invoice-generate-dialog";
+import { InvoicedBadges } from "@/components/invoices/invoiced-badges";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
@@ -50,6 +52,7 @@ export function CommandDetailPage() {
   const [souffranceOpen, setSouffranceOpen] = useState(false);
   const [restoreOpen, setRestoreOpen] = useState(false);
   const [anomalyOpen, setAnomalyOpen] = useState(false);
+  const [invoiceOpen, setInvoiceOpen] = useState(false);
 
   const { data, isLoading, isError, error, refetch, isFetching } =
     useCommand(id);
@@ -153,6 +156,16 @@ export function CommandDetailPage() {
           <PackageX className="size-4" />
           {t("expeditions.souffrance")}
         </Button>
+        {isAdmin && (
+          <Button
+            variant="outline"
+            className="min-h-11 shrink-0 gap-1.5 px-3 lg:min-h-10"
+            onClick={() => setInvoiceOpen(true)}
+          >
+            <ReceiptText className="size-4" />
+            {t("invoices.generate.actionShort")}
+          </Button>
+        )}
       </>
     );
   }
@@ -175,6 +188,7 @@ export function CommandDetailPage() {
                 end={data.pharmacyDeliveryWindowEnd}
                 size="md"
               />
+              <InvoicedBadges commandId={data.id} />
             </span>
           ) : undefined
         }
@@ -297,6 +311,13 @@ export function CommandDetailPage() {
             commandIds={[id]}
             onDone={done}
           />
+          {isAdmin && (
+            <InvoiceGenerateDialog
+              open={invoiceOpen}
+              onOpenChange={setInvoiceOpen}
+              commandIds={[id]}
+            />
+          )}
           <AnomalyCreateDialog
             open={anomalyOpen}
             onOpenChange={setAnomalyOpen}

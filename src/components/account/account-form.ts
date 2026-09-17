@@ -92,6 +92,7 @@ const TAB_FIELDS: Record<SettingsTab, (keyof AccountFormState)[]> = {
   ],
   options: ["isScanCIP", "defaultTourDepartureTime"],
   tarifs: [],
+  billing: [],
   colors: [],
 };
 

@@ -50,6 +50,24 @@ export class ApiError extends Error {
     return raw === "TERMS_NOT_ACCEPTED";
   }
 
+  get isBillingInvalid(): boolean {
+    return this.status === 400 && this.errorCode === "BILLING_INVALID";
+  }
+
+  get structuredFieldErrors(): Record<string, string> {
+    if (typeof this.body !== "object" || this.body === null) return {};
+    const items = (this.body as { errors?: unknown }).errors;
+    if (!Array.isArray(items)) return {};
+    const result: Record<string, string> = {};
+    for (const item of items) {
+      if (typeof item !== "object" || item === null) continue;
+      const { field, message } = item as { field?: unknown; message?: unknown };
+      if (typeof field !== "string" || typeof message !== "string") continue;
+      if (!result[field]) result[field] = message;
+    }
+    return result;
+  }
+
   get fieldErrors(): Record<string, string> {
     if (this.status !== 400) return {};
     const raw =

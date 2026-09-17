@@ -2,6 +2,8 @@ import { http } from "@/lib/http";
 import { ApiError } from "@/lib/api-error";
 import type { Account } from "@/features/auth/types";
 import type {
+  AccountBilling,
+  AccountBillingInput,
   AccountDetail,
   AccountUpdateInput,
   EmailTestResult,
@@ -27,6 +29,11 @@ export const accountApi = {
 
   update: (input: AccountUpdateInput) =>
     http.put<Account>(`${RESOURCE}/update`, input),
+
+  billing: () => http.get<AccountBilling>(`${RESOURCE}/billing`),
+
+  updateBilling: (input: AccountBillingInput) =>
+    http.put<AccountBilling>(`${RESOURCE}/billing`, input),
 
   testEmail: async (): Promise<EmailTestResult> => {
     try {

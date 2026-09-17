@@ -96,6 +96,7 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
 | Ordre de passage des tournees, ETA, creneaux de livraison | [docs/claude/tournees.md](docs/claude/tournees.md) |
 | Pharmacies (coordonnees, page fiche / edition / creation), page commande | [docs/claude/pharmacies-et-commandes.md](docs/claude/pharmacies-et-commandes.md) |
 | Factures d'abonnement (Movix -> entreprise), notification `SUBSCRIPTION_INVOICE` | [docs/claude/factures-abonnement.md](docs/claude/factures-abonnement.md) |
+| Fiche de facturation de l'entreprise (`/account/billing`, PUT = remplacement complet) | [docs/claude/facturation-entreprise.md](docs/claude/facturation-entreprise.md) |
 
 Toute nouvelle regle d'un domaine va dans son fichier `docs/claude/`, pas ici. Ici : seulement ce qui
 s'applique a tout le projet.

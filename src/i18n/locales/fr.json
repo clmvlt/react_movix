@@ -1622,6 +1622,7 @@
       "smtp": "SMTP",
       "options": "Options",
       "tarifs": "Tarifs",
+      "billing": "Facturation",
       "colors": "Couleurs"
     },
     "form": {
@@ -1894,6 +1895,121 @@
       "fontSizeRange": "Taille comprise entre {{min}} et {{max}}.",
       "fontSizeNumber": "Saisissez un nombre entier.",
       "fixFields": "Corrigez les tailles hors bornes avant d'enregistrer."
+    }
+  },
+  "billing": {
+    "choose": "Choisir",
+    "notSet": "Non renseigné",
+    "saved": "Informations de facturation enregistrées.",
+    "status": {
+      "complete": "Fiche complète",
+      "completeHint": "Toutes les informations obligatoires pour facturer sont renseignées.",
+      "incomplete": "Informations manquantes pour facturer",
+      "updatedAt": "Dernière mise à jour le {{date}}",
+      "neverSaved": "Fiche jamais enregistrée",
+      "unsaved": "Enregistrez pour mettre à jour cet état"
+    },
+    "identity": {
+      "title": "Identité légale",
+      "subtitle": "Mentions légales imprimées sur les factures.",
+      "siren": "SIREN : {{siren}}",
+      "siretHint": "14 chiffres, espaces acceptés.",
+      "apeHint": "Par exemple 49.41A.",
+      "rcsHint": "Ville du greffe d'immatriculation, par exemple Rennes.",
+      "optionalForForm": "Facultatif pour cette forme juridique."
+    },
+    "vat": {
+      "title": "TVA",
+      "subtitle": "Régime et taux appliqués par défaut sur les factures.",
+      "regimeHint": {
+        "STANDARD": "La TVA est collectée et figure sur les factures.",
+        "FRANCHISE": "Pas de TVA facturée : le taux et l'option sur les débits ne s'appliquent pas."
+      },
+      "mentionPreview": "Mention ajoutée sur les factures",
+      "franchiseMention": "TVA non applicable, art. 293 B du CGI",
+      "numberHint": "Par exemple FR44732829320, doit correspondre au SIRET.",
+      "suggestion": "D'après le SIRET : {{vat}}",
+      "fromSiret": "Calculer depuis le SIRET",
+      "rateValue": "{{rate}} %",
+      "debitsHint": "Par défaut, la TVA sur les prestations de services est exigible à l'encaissement."
+    },
+    "address": {
+      "title": "Adresse et contact",
+      "subtitle": "Coordonnées de l'émetteur des factures.",
+      "phoneHint": "9 à 15 chiffres, + . - ( ) et espaces acceptés.",
+      "fromCompany": "Reprendre l'adresse de la société"
+    },
+    "bank": {
+      "title": "Coordonnées bancaires",
+      "subtitle": "Affichées sur les factures pour le règlement par virement.",
+      "bicHint": "8 ou 11 caractères."
+    },
+    "payment": {
+      "title": "Conditions de paiement",
+      "subtitle": "Mentions obligatoires sur les délais et les retards de paiement.",
+      "termHint": "De 0 à 60 jours (maximum légal).",
+      "discountHint": "Laissez vide pour indiquer l'absence d'escompte.",
+      "noDiscount": "Pas d'escompte pour paiement anticipé",
+      "penaltyLegal": "Le taux des pénalités de retard ne peut pas être inférieur à 3 fois le taux d'intérêt légal.",
+      "recoveryFee": "L'indemnité forfaitaire de 40 € pour frais de recouvrement sera ajoutée automatiquement sur les factures."
+    },
+    "numbering": {
+      "title": "Numérotation et pied de facture",
+      "subtitle": "Préfixe des numéros de facture et texte libre en bas de page.",
+      "prefixHint": "{{max}} caractères maximum : lettres, chiffres, - _ /.",
+      "footerCount": "{{count}} / {{max}} caractères"
+    },
+    "fields": {
+      "legalName": "Raison sociale",
+      "legalForm": "Forme juridique",
+      "shareCapital": "Capital social (€)",
+      "siret": "SIRET",
+      "rcsCity": "Ville du RCS",
+      "apeCode": "Code APE",
+      "vatNumber": "N° de TVA intracommunautaire",
+      "vatRegime": "Régime de TVA",
+      "vatOnDebits": "Option pour le paiement de la TVA sur les débits",
+      "defaultVatRate": "Taux de TVA par défaut",
+      "address1": "Adresse",
+      "address2": "Complément d'adresse",
+      "postalCode": "Code postal",
+      "city": "Ville",
+      "email": "Email de facturation",
+      "phone": "Téléphone",
+      "iban": "IBAN",
+      "bic": "BIC",
+      "paymentTermDays": "Délai de paiement (jours)",
+      "latePenaltyRate": "Pénalités de retard (% annuel)",
+      "earlyPaymentDiscount": "Escompte pour paiement anticipé",
+      "invoicePrefix": "Préfixe des factures",
+      "invoiceFooter": "Pied de facture"
+    },
+    "legalForms": {
+      "EI": "EI - Entreprise individuelle",
+      "EURL": "EURL",
+      "SARL": "SARL",
+      "SASU": "SASU",
+      "SAS": "SAS",
+      "SA": "SA",
+      "SNC": "SNC",
+      "SCOP": "SCOP",
+      "ASSOCIATION": "Association",
+      "OTHER": "Autre"
+    },
+    "vatRegimes": {
+      "STANDARD": "Assujetti",
+      "FRANCHISE": "Franchise en base"
+    },
+    "errors": {
+      "forbidden": "Seul un administrateur peut accéder aux informations de facturation.",
+      "loadFailed": "Le chargement des informations de facturation a échoué.",
+      "saveFailed": "L'enregistrement des informations de facturation a échoué.",
+      "invalid": "Informations de facturation invalides.",
+      "siret": "Le SIRET doit comporter 14 chiffres.",
+      "postalCode": "Le code postal doit comporter 5 chiffres.",
+      "paymentTermDays": "Saisissez un nombre entier de jours entre 0 et {{max}}.",
+      "shareCapital": "Saisissez un montant positif.",
+      "latePenaltyRate": "Saisissez un taux entre 0 et {{max}}."
     }
   },
   "tarifs": {

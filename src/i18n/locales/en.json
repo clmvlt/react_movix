@@ -1622,6 +1622,7 @@
       "smtp": "SMTP",
       "options": "Options",
       "tarifs": "Pricing",
+      "billing": "Billing",
       "colors": "Colors"
     },
     "form": {
@@ -1894,6 +1895,121 @@
       "fontSizeRange": "Size must be between {{min}} and {{max}}.",
       "fontSizeNumber": "Enter a whole number.",
       "fixFields": "Fix the out-of-range sizes before saving."
+    }
+  },
+  "billing": {
+    "choose": "Select",
+    "notSet": "Not set",
+    "saved": "Billing information saved.",
+    "status": {
+      "complete": "Billing profile complete",
+      "completeHint": "All the information required to issue invoices is filled in.",
+      "incomplete": "Missing information to issue invoices",
+      "updatedAt": "Last updated {{date}}",
+      "neverSaved": "Never saved",
+      "unsaved": "Save to refresh this status"
+    },
+    "identity": {
+      "title": "Legal identity",
+      "subtitle": "Legal notices printed on invoices.",
+      "siren": "SIREN: {{siren}}",
+      "siretHint": "14 digits, spaces allowed.",
+      "apeHint": "For example 49.41A.",
+      "rcsHint": "City of the registry court, for example Rennes.",
+      "optionalForForm": "Optional for this legal form."
+    },
+    "vat": {
+      "title": "VAT",
+      "subtitle": "Regime and rate applied to invoices by default.",
+      "regimeHint": {
+        "STANDARD": "VAT is charged and shown on invoices.",
+        "FRANCHISE": "No VAT charged: the rate and the debit option do not apply."
+      },
+      "mentionPreview": "Notice added to invoices",
+      "franchiseMention": "TVA non applicable, art. 293 B du CGI",
+      "numberHint": "For example FR44732829320, must match the SIRET.",
+      "suggestion": "From the SIRET: {{vat}}",
+      "fromSiret": "Compute from the SIRET",
+      "rateValue": "{{rate}}%",
+      "debitsHint": "By default, VAT on services is due when payment is received."
+    },
+    "address": {
+      "title": "Address and contact",
+      "subtitle": "Details of the invoice issuer.",
+      "phoneHint": "9 to 15 digits, + . - ( ) and spaces allowed.",
+      "fromCompany": "Use the company address"
+    },
+    "bank": {
+      "title": "Bank details",
+      "subtitle": "Shown on invoices for payment by bank transfer.",
+      "bicHint": "8 or 11 characters."
+    },
+    "payment": {
+      "title": "Payment terms",
+      "subtitle": "Mandatory notices on payment terms and late payments.",
+      "termHint": "From 0 to 60 days (legal maximum).",
+      "discountHint": "Leave empty to state that no discount applies.",
+      "noDiscount": "No discount for early payment",
+      "penaltyLegal": "The late payment penalty rate cannot be lower than 3 times the legal interest rate.",
+      "recoveryFee": "The fixed 40 € recovery fee will be added automatically to invoices."
+    },
+    "numbering": {
+      "title": "Numbering and invoice footer",
+      "subtitle": "Invoice number prefix and free text at the bottom of the page.",
+      "prefixHint": "{{max}} characters maximum: letters, digits, - _ /.",
+      "footerCount": "{{count}} / {{max}} characters"
+    },
+    "fields": {
+      "legalName": "Legal name",
+      "legalForm": "Legal form",
+      "shareCapital": "Share capital (€)",
+      "siret": "SIRET",
+      "rcsCity": "RCS city",
+      "apeCode": "APE code",
+      "vatNumber": "EU VAT number",
+      "vatRegime": "VAT regime",
+      "vatOnDebits": "Opt to pay VAT on debits",
+      "defaultVatRate": "Default VAT rate",
+      "address1": "Address",
+      "address2": "Address line 2",
+      "postalCode": "Postal code",
+      "city": "City",
+      "email": "Billing email",
+      "phone": "Phone",
+      "iban": "IBAN",
+      "bic": "BIC",
+      "paymentTermDays": "Payment term (days)",
+      "latePenaltyRate": "Late payment penalties (% per year)",
+      "earlyPaymentDiscount": "Early payment discount",
+      "invoicePrefix": "Invoice prefix",
+      "invoiceFooter": "Invoice footer"
+    },
+    "legalForms": {
+      "EI": "EI - Sole proprietorship",
+      "EURL": "EURL",
+      "SARL": "SARL",
+      "SASU": "SASU",
+      "SAS": "SAS",
+      "SA": "SA",
+      "SNC": "SNC",
+      "SCOP": "SCOP",
+      "ASSOCIATION": "Non-profit association",
+      "OTHER": "Other"
+    },
+    "vatRegimes": {
+      "STANDARD": "VAT registered",
+      "FRANCHISE": "VAT exempt"
+    },
+    "errors": {
+      "forbidden": "Only an administrator can access billing information.",
+      "loadFailed": "Loading billing information failed.",
+      "saveFailed": "Saving billing information failed.",
+      "invalid": "Invalid billing information.",
+      "siret": "The SIRET must have 14 digits.",
+      "postalCode": "The postal code must have 5 digits.",
+      "paymentTermDays": "Enter a whole number of days between 0 and {{max}}.",
+      "shareCapital": "Enter a positive amount.",
+      "latePenaltyRate": "Enter a rate between 0 and {{max}}."
     }
   },
   "tarifs": {

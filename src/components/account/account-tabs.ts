@@ -4,6 +4,7 @@ import {
   LayoutTemplate,
   Mail,
   Palette,
+  Receipt,
   Server,
   SlidersHorizontal,
   Tag,
@@ -27,6 +28,7 @@ export type SettingsTab =
   | "smtp"
   | "options"
   | "tarifs"
+  | "billing"
   | "colors";
 
 export const SETTINGS_TABS: SettingsTabDef[] = [
@@ -38,6 +40,7 @@ export const SETTINGS_TABS: SettingsTabDef[] = [
   { value: "smtp", labelKey: "account.tabs.smtp", icon: Server, adminOnly: true },
   { value: "options", labelKey: "account.tabs.options", icon: SlidersHorizontal, adminOnly: true },
   { value: "tarifs", labelKey: "account.tabs.tarifs", icon: Euro, adminOnly: true },
+  { value: "billing", labelKey: "account.tabs.billing", icon: Receipt, adminOnly: true },
   { value: "colors", labelKey: "account.tabs.colors", icon: Palette, adminOnly: false },
 ];
 

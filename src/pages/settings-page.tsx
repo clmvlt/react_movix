@@ -32,6 +32,7 @@ import { EmailLogsCard } from "@/components/email/email-logs-card";
 import { AccountSmtpTab } from "@/components/account/account-smtp-tab";
 import { AccountOptionsTab } from "@/components/account/account-options-tab";
 import { TarifsTab } from "@/components/tarifs/tarifs-tab";
+import { BillingTab } from "@/components/billing/billing-tab";
 import { AccountColorsTab } from "@/components/account-colors/account-colors-tab";
 import { LabelSettingsTab } from "@/components/label-settings/label-settings-tab";
 import { LEGAL_LINKS } from "@/components/legal/legal-links";
@@ -196,6 +197,7 @@ export function SettingsPage() {
   const renderPanel = () => {
     if (tab === "labelLayout") return <LabelSettingsTab />;
     if (tab === "tarifs") return <TarifsTab />;
+    if (tab === "billing") return <BillingTab />;
     if (tab === "colors") return <AccountColorsTab />;
     if (tab === "company" && !isAdmin) return <AccountCompanyTab readOnly />;
     return renderAccountTab();

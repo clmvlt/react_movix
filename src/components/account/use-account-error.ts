@@ -1,7 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { ApiError, apiErrorText } from "@/lib/api-error";
 
-type ErrorScope = "account" | "tarifs" | "tourConfigs" | "labelSettings";
+type ErrorScope =
+  | "account"
+  | "tarifs"
+  | "tourConfigs"
+  | "labelSettings"
+  | "billing";
 
 export function useApiErrorMessage(scope: ErrorScope = "account") {
   const { t } = useTranslation();

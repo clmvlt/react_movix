@@ -2,21 +2,33 @@
 
 Detail extrait de CLAUDE.md. A lire avant de modifier ce domaine.
 
-## Pharmacies : coordonnees et infos par compte (REGLE CRITIQUE)
-Une pharmacie porte DEUX jeux d'informations cote serveur : la fiche globale (table `pharmacy`,
-partagee par tous les comptes) et la fiche du compte (`pharmacy_informations`). **La fiche du
-compte prime TOUJOURS** : nom, adresse, ville, telephone et surtout latitude / longitude.
-- L'API renvoie deja la valeur resolue dans `latitude` / `longitude` : afficher ce champ tel
-  quel, ne jamais reconstruire une position a partir d'une autre source.
-- L'edition depuis la page pharmacie (`PUT /pharmacies/{cip}`) n'ecrit QUE la fiche du compte.
-  Ne jamais appeler d'endpoint "base" (fiche globale) depuis ce front : il est reserve a
-  l'admin et modifierait la position pour tous les comptes.
+## Pharmacies : une pharmacie appartient a une entreprise (REGLE CRITIQUE)
+Depuis la migration V20 de l'API, une ligne = une pharmacie POUR UN COMPTE. Il n'y a plus de
+referentiel global partage, plus de table `pharmacy_informations`, plus de surcharge a la lecture.
+- **`id` (UUID) est l'identite STABLE** : cle React, cle de cache, identite de ligne, cle de
+  selection. Le `cip` est une donnee metier MODIFIABLE, unique par entreprise seulement : ce n'est
+  jamais un identifiant persistant. Seule exception assumee, l'URL `/app/pharmacies/:cip` et
+  `pharmacyKeys.detail(cip)`, parce que l'API ne sait lire une pharmacie que par CIP
+  (`GET /pharmacies/{cip}`, resolu dans l'entreprise du header `X-Account-Id`).
+- L'API renvoie la position dans `latitude` / `longitude` : afficher ce champ tel quel, ne jamais
+  reconstruire une position a partir d'une autre source.
 - `command.latitude` / `command.longitude` sont la position de LIVRAISON de la commande, pas
   celle de la pharmacie. Pour un trajet, un tri ou un marqueur d'arret, utiliser toujours la
-  position de la pharmacie (`stop.latitude` / `stop.longitude` des reponses trajet).
-- Incident de reference : une fiche globale geocodee sur le depot faisait trier la pharmacie
-  collee au depot par l'auto-tri, alors que la page pharmacie affichait la bonne position
-  (celle du compte). Symptome typique : un arret dont `previousLeg` vaut ~0 km.
+  position de la pharmacie (`stop.latitude` / `stop.longitude` des reponses trajet). Symptome
+  typique d'une confusion des deux : un arret dont `previousLeg` vaut ~0 km.
+- Renommer le CIP : `PUT /pharmacies/{cip}` accepte `cip` dans le corps. Le renommage CHANGE l'URL
+  de la ressource : `useUpdatePharmacy` purge la cle detail de l'ancien CIP et resseme la nouvelle,
+  et la page fiche navigue en `replace` vers la nouvelle URL. Conflit dans l'entreprise = 409
+  `{"error":"PHARMACY_CIP_ALREADY_USED"}`, rattrape par `ApiError.isPharmacyCipAlreadyUsed` et
+  affiche sous le champ CIP par `applyApiError`.
+- `POST /pharmacies` renvoie le meme 409 quand le CIP existe deja DANS L'ENTREPRISE. Il n'y a plus
+  de rattachement d'une fiche existante d'un autre compte : un doublon est une erreur bloquante.
+- `GET /pharmacies/exist/{cip}` est limite au compte courant : `true` ne veut pas dire "ce CIP
+  existe dans Movix" mais "vous avez deja cette pharmacie", donc une erreur, pas une information.
+- Ne jamais envoyer `accountId` dans le corps d'un POST / PUT pharmacie (retire du contrat).
+- Une pharmacie n'existe que pour un compte : tout cache indexe par CIP doit tomber au changement
+  d'entreprise. C'est le cas par construction, `dropDataCache()` (`auth-context.tsx`) supprime
+  toutes les queries dont la racine n'est pas `auth` a chaque `applySelection`.
 
 ## Page pharmacie (fiche, edition, creation)
 - Une seule ossature dans les trois modes (`view` / `edit` / `create`) : cinq cartes de section dans le
@@ -33,7 +45,9 @@ compte prime TOUJOURS** : nom, adresse, ville, telephone et surtout latitude / l
   (remplit adresse 1 / code postal / ville ET la position), `validate()` (scroll + focus sur le premier
   champ en erreur, ids via `pharmacyFieldId`), `applyApiError` (`fromApiFieldErrors` mappe `postal_code`
   / `first_name` / `last_name`, cles inconnues -> `formError` affiche en `Alert`). Le mode edition est un
-  composant a cle (`<PharmacyEditView key={cip}>`) : quitter l'edition demonte tout, rien a purger.
+  composant a cle (`<PharmacyEditView key={id}>`) : quitter l'edition demonte tout, rien a purger.
+  Le CIP est un champ editable dans les DEUX modes (`create` et `edit`), premiere carte, toujours
+  requis (`validatePharmacyForm`) ; `buildUpdatePayload` ne met `cip` dans le corps que s'il a change.
 - Position : `api.position` derive de `latitude` / `longitude` (`0/0` ou vide = aucune position). Ligne
   de statut dans la carte Position : "Aucune position" (warning, un tap sur la carte pose le marqueur),
   "L'adresse a change depuis le placement du marqueur" (`positionStale`, comparaison normalisee
@@ -61,16 +75,15 @@ compte prime TOUJOURS** : nom, adresse, ville, telephone et surtout latitude / l
   `beforeunload` sont gardes.
 - Creation : page `/app/pharmacies/new` (`pharmacy-create-page.tsx`, route declaree AVANT
   `/app/pharmacies/:cip`), memes sections en mode `create`, `idPrefix="create"`. Le CIP est verifie a la
-  sortie du champ ET avant l'envoi (`pharmaciesApi.exists`) ; s'il existe, "Charger cette pharmacie"
-  prefille depuis le referentiel (`api.reset(loaded)`) et l'envoi passe par POST avec le diff
-  (`buildUpdatePayload` contre la reference) : c'est le POST qui rattache au compte. Plus de dialog.
+  sortie du champ ET avant l'envoi (`pharmaciesApi.exists`, limite au compte courant) : s'il existe,
+  message d'erreur sous le champ (`pharmacies.form.cipExists`) et envoi bloque. Aucun rattachement,
+  aucun dialog. Le 409 du serveur est le filet de securite, pas le parcours nominal.
 - Lignes a bascule : `FieldRow` / `SwitchRow` (`src/components/field-row.tsx`) reproduisent le pattern
   du creneau (cercle d'icone + libelle + resume + controle a droite, `min-h-14`, `tone="warning"`).
   `DeliveryWindowFields` reste intouche et est compose tel quel.
-- Piege backend : une chaine vide envoyee sur un champ "resolu" (nom, adresse, ville, telephone...) est
-  stockee comme surcharge vide definitive du referentiel (le mapper ignore `null`, seuls `zoneId` et
-  `deliveryWindow*` acceptent un `null` explicite). Le nom est obligatoire cote front ; ne jamais
-  envoyer de vide involontaire.
+- Piege backend : le mapper ignore `null` (seuls `zoneId` et `deliveryWindow*` acceptent un `null`
+  explicite), donc effacer un champ passe par une chaine vide, qui ECRASE la valeur. Le nom est
+  obligatoire cote front ; ne jamais envoyer de vide involontaire.
 - Photos, commandes et etiquette ne sont pas rendues en edition (un seul perimetre d'enregistrement a
   l'ecran). Les champs editables dans l'espace Rapports (`report-pharmacy-info-section.tsx`) restent une
   copie reduite, hors perimetre.

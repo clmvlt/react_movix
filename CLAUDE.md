@@ -64,16 +64,19 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
   persistant, tout evenement passe par ce flux. Detail : [docs/claude/notifications-sse.md](docs/claude/notifications-sse.md).
 
 ## Regles metier a ne jamais enfreindre
-- Pharmacies : la fiche du COMPTE prime toujours sur la fiche globale. Afficher `latitude` / `longitude`
-  renvoyees par l'API, n'ecrire que via `PUT /pharmacies/{cip}`, jamais d'endpoint "base".
-  `command.latitude/longitude` = position de livraison, pas celle de la pharmacie.
+- Pharmacies : une pharmacie APPARTIENT a une entreprise (une ligne = une pharmacie pour un compte,
+  plus de referentiel global). Identite stable = `id` (UUID) ; le `cip` est une donnee metier
+  modifiable, unique par entreprise seulement. Afficher `latitude` / `longitude` renvoyees par l'API,
+  n'ecrire que via `PUT /pharmacies/{cip}`. `command.latitude/longitude` = position de livraison,
+  pas celle de la pharmacie.
 - Mot de passe unique par personne : le champ mot de passe d'un profil ne s'affiche que si
   `userId === null && !isWeb` ; sinon ne JAMAIS envoyer `password` (403).
 - Itineraires, ETA, optimisation, repartition : tout est calcule cote serveur. Le front n'appelle JAMAIS
   `/ors/*` pour un trajet et ne duplique aucune regle metier (`src/features/ors/` = geocodage seulement).
 - Les endpoints de modification de tournee renvoient le trajet recalcule : appliquer la reponse au cache,
   ne pas refetch. L'ordre de passage n'est jamais enregistre automatiquement.
-- Ne jamais envoyer de chaine vide involontaire sur un champ pharmacie "resolu" (surcharge vide definitive).
+- Ne jamais envoyer de chaine vide involontaire sur un champ pharmacie (le mapper ignore `null`, une
+  chaine vide ecrase la valeur).
 
 ## Docs detaillees (a lire AVANT de modifier le domaine concerne)
 | Domaine | Fichier |

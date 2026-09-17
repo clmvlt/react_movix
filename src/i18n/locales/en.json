@@ -1214,7 +1214,6 @@
     "searchTooManyWords": "Only the first {{count}} words are used by the search.",
     "empty": "No pharmacy to display.",
     "noSearchResults": "No pharmacy matches this search.",
-    "referenceBanner": "National reference data. This pharmacy has not been customised for your account yet.",
     "openDetail": "Open the record",
     "picker": {
       "placeholder": "Search a pharmacy",
@@ -1289,7 +1288,7 @@
       "findAddressHint": "Fills in the address and places the marker on the map.",
       "address2": "Address line 2",
       "address3": "Address line 3",
-      "cipReadonlyHint": "The CIP cannot be changed.",
+      "cipEditableHint": "Changing the CIP changes the address of this record.",
       "coordinates": "Coordinates",
       "latitude": "Latitude",
       "longitude": "Longitude",
@@ -1331,14 +1330,13 @@
     },
     "form": {
       "createTitle": "New pharmacy",
-      "attachTitle": "Attach an existing pharmacy",
-      "attachAction": "Load this pharmacy",
       "cip": "CIP",
-      "cipHint": "Business identifier, checked when you leave the field.",
+      "cipHint": "Business identifier, unique within your company.",
       "charCount": "{{count}} / {{max}} characters",
       "failed": "The pharmacy could not be saved.",
       "errors": {
         "cipRequired": "Enter a CIP.",
+        "cipAlreadyUsed": "This CIP is already used by another pharmacy in your company.",
         "email": "Enter a valid email address.",
         "tooLong": "Maximum {{max}} characters.",
         "latitude": "Latitude must be between -90 and 90.",
@@ -1350,15 +1348,11 @@
       "createDescription": "Enter the CIP, then the address and delivery details.",
       "cipChecking": "Checking the CIP",
       "cipAvailable": "New CIP, the sheet will be created.",
-      "cipExists": "This CIP already exists in the national reference. Load it to attach it to your account.",
-      "attachSubmit": "Attach to my account",
-      "attachLoaded": "Reference data loaded. Complete the sheet for your account.",
+      "cipExists": "You already have a pharmacy with this CIP.",
       "saved": "Pharmacy saved.",
       "created": "Pharmacy created.",
       "formInvalid": "Check the highlighted fields.",
-      "dirtyStatus": "Unsaved changes",
-      "referenceEditBanner": "Saving creates the sheet for your account. The national reference is never modified.",
-      "cipAlreadyAttached": "This pharmacy is already in your account."
+      "dirtyStatus": "Unsaved changes"
     },
     "photos": {
       "title": "Photos",

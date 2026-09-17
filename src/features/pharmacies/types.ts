@@ -7,6 +7,7 @@ export const PICTURE_MAX_BYTES = 10 * 1024 * 1024;
 export const PICTURE_MAX_EDGE = 1600;
 export const PICTURE_QUALITY = 0.8;
 export const PICTURE_PASSTHROUGH_BYTES = 1024 * 1024;
+export const PHARMACY_EXISTS_STALE_TIME = 30_000;
 
 export interface PharmacyZoneRef {
   id: string;
@@ -41,7 +42,6 @@ export interface Pharmacy {
   deliveryWindowStart?: string | null;
   deliveryWindowEnd?: string | null;
   zone?: PharmacyZoneRef | null;
-  accountId?: string | null;
 }
 
 export interface PharmacyPicture {
@@ -104,7 +104,9 @@ export interface PharmacyCreateInput extends PharmacyFormInput {
   cip: string;
 }
 
-export type PharmacyUpdateInput = PharmacyFormInput;
+export interface PharmacyUpdateInput extends PharmacyFormInput {
+  cip?: string;
+}
 
 export interface PictureUploadInput {
   base64?: string;

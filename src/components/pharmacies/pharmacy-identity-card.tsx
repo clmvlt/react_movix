@@ -1,9 +1,6 @@
 import { useTranslation } from "react-i18next";
-import { Building2, Loader2 } from "lucide-react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Building2 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { DetailField } from "@/components/detail-field";
 import { FormField } from "@/components/form-field";
 import { ZoneSelect } from "@/components/pharmacies/zone-select";
@@ -21,10 +18,7 @@ export type CipStatus = "idle" | "checking" | "available" | "exists";
 
 export interface CipControl {
   status: CipStatus;
-  locked: boolean;
-  loading: boolean;
   onBlur: () => void;
-  onLoadReference: () => void;
 }
 
 interface PharmacyIdentityCardProps {
@@ -87,14 +81,13 @@ export function PharmacyIdentityCard({
     );
   }
 
-  const cipId = pharmacyFieldId(api.idPrefix, "cip");
   const cipHint =
     cip?.status === "checking"
       ? t("pharmacies.form.cipChecking")
       : cip?.status === "available"
         ? t("pharmacies.form.cipAvailable")
-        : cip?.locked
-          ? undefined
+        : mode === "edit"
+          ? t("pharmacies.info.cipEditableHint")
           : t("pharmacies.form.cipHint");
 
   return (
@@ -105,20 +98,23 @@ export function PharmacyIdentityCard({
       className={className}
     >
       <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
-        {mode === "create" && (
-          <PharmacyTextField
-            api={api}
-            field="cip"
-            label={t("pharmacies.form.cip")}
-            hint={cipHint}
-            required
-            inputMode="numeric"
-            disabled={disabled || cip?.locked || cip?.loading}
-            onBlur={cip?.onBlur}
-            className="tabular-nums"
-            fieldClassName="sm:col-span-2"
-          />
-        )}
+        <PharmacyTextField
+          api={api}
+          field="cip"
+          label={t("pharmacies.form.cip")}
+          hint={cipHint}
+          error={
+            cip?.status === "exists"
+              ? t("pharmacies.form.cipExists")
+              : undefined
+          }
+          required
+          inputMode="numeric"
+          disabled={disabled}
+          onBlur={cip?.onBlur}
+          className="tabular-nums"
+          fieldClassName="sm:col-span-2"
+        />
 
         <PharmacyTextField
           api={api}
@@ -145,46 +141,7 @@ export function PharmacyIdentityCard({
           />
         </FormField>
 
-        {mode === "edit" && (
-          <FormField
-            label={t("pharmacies.form.cip")}
-            htmlFor={cipId}
-            hint={t("pharmacies.info.cipReadonlyHint")}
-          >
-            <Input
-              id={cipId}
-              value={api.form.cip}
-              readOnly
-              disabled
-              className="min-h-11 tabular-nums lg:min-h-10"
-            />
-          </FormField>
-        )}
       </div>
-
-      {mode === "create" && cip?.status === "exists" && !cip.locked && (
-        <Alert className="mt-2">
-          <AlertDescription className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <span>{t("pharmacies.form.cipExists")}</span>
-            <Button
-              type="button"
-              variant="outline"
-              className="min-h-11 shrink-0 lg:min-h-9"
-              onClick={cip.onLoadReference}
-              disabled={cip.loading || disabled}
-            >
-              {cip.loading && <Loader2 className="animate-spin" />}
-              {t("pharmacies.form.attachAction")}
-            </Button>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {mode === "create" && cip?.locked && (
-        <Alert variant="success" className="mt-2">
-          <AlertDescription>{t("pharmacies.form.attachLoaded")}</AlertDescription>
-        </Alert>
-      )}
     </SectionCard>
   );
 }

@@ -55,12 +55,12 @@ function pathUuid(id: string): string {
 }
 
 export function toApiPayload(
-  input: Partial<PharmacyFormInput>
+  input: Partial<PharmacyUpdateInput>
 ): Record<string, unknown> {
   const payload: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(input)) {
     if (value === undefined) continue;
-    if (key === "accountId" || key === "neverOrdered") continue;
+    if (key === "neverOrdered") continue;
     const field = SNAKE_CASE_FIELDS[key as keyof PharmacyFormInput] ?? key;
     payload[field] = value;
   }

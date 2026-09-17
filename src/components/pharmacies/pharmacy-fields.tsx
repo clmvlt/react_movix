@@ -25,6 +25,7 @@ interface PharmacyTextFieldProps
   field: TextKey;
   label: string;
   hint?: string;
+  error?: string;
   required?: boolean;
   fieldClassName?: string;
 }
@@ -34,13 +35,14 @@ export function PharmacyTextField({
   field,
   label,
   hint,
+  error: errorOverride,
   required,
   fieldClassName,
   className,
   ...inputProps
 }: PharmacyTextFieldProps) {
   const id = pharmacyFieldId(api.idPrefix, field);
-  const error = api.errors[field];
+  const error = errorOverride ?? api.errors[field];
   return (
     <FormField
       label={label}

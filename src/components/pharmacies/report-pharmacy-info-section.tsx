@@ -93,7 +93,7 @@ export function ReportPharmacyInfoSection({
   const handleSave = () => {
     if (!form) return;
 
-    const errors = validatePharmacyForm(form, false, t, [
+    const errors = validatePharmacyForm(form, t, [
       ...FIELDS,
       "informations",
       "commentaire",

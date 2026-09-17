@@ -1214,7 +1214,6 @@
     "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés par la recherche.",
     "empty": "Aucune pharmacie à afficher.",
     "noSearchResults": "Aucune pharmacie ne correspond à cette recherche.",
-    "referenceBanner": "Données du référentiel national. Cette pharmacie n'a pas encore été personnalisée pour votre compte.",
     "openDetail": "Ouvrir la fiche",
     "picker": {
       "placeholder": "Rechercher une pharmacie",
@@ -1289,7 +1288,7 @@
       "findAddressHint": "Remplit l'adresse et place le marqueur sur la carte.",
       "address2": "Complément d'adresse",
       "address3": "Complément d'adresse 2",
-      "cipReadonlyHint": "Le CIP ne peut pas être modifié.",
+      "cipEditableHint": "Modifier le CIP change l'adresse de cette fiche.",
       "coordinates": "Coordonnées",
       "latitude": "Latitude",
       "longitude": "Longitude",
@@ -1331,14 +1330,13 @@
     },
     "form": {
       "createTitle": "Nouvelle pharmacie",
-      "attachTitle": "Rattacher une pharmacie existante",
-      "attachAction": "Charger cette pharmacie",
       "cip": "CIP",
-      "cipHint": "Identifiant métier, vérifié à la sortie du champ.",
+      "cipHint": "Identifiant métier, unique dans votre entreprise.",
       "charCount": "{{count}} / {{max}} caractères",
       "failed": "La pharmacie n'a pas pu être enregistrée.",
       "errors": {
         "cipRequired": "Saisissez un CIP.",
+        "cipAlreadyUsed": "Ce CIP est déjà utilisé par une autre pharmacie de votre entreprise.",
         "email": "Saisissez une adresse email valide.",
         "tooLong": "Maximum {{max}} caractères.",
         "latitude": "La latitude doit être comprise entre -90 et 90.",
@@ -1350,15 +1348,11 @@
       "createDescription": "Saisissez le CIP, puis l'adresse et les informations de livraison.",
       "cipChecking": "Vérification du CIP",
       "cipAvailable": "Nouveau CIP, la fiche sera créée.",
-      "cipExists": "Ce CIP existe déjà dans le référentiel national. Chargez-le pour le rattacher à votre compte.",
-      "attachSubmit": "Rattacher à mon compte",
-      "attachLoaded": "Données du référentiel chargées. Complétez la fiche pour votre compte.",
+      "cipExists": "Vous avez déjà une pharmacie avec ce CIP.",
       "saved": "Pharmacie enregistrée.",
       "created": "Pharmacie créée.",
       "formInvalid": "Vérifiez les champs en surbrillance.",
-      "dirtyStatus": "Modifications non enregistrées",
-      "referenceEditBanner": "L'enregistrement crée la fiche de votre compte. Le référentiel national n'est jamais modifié.",
-      "cipAlreadyAttached": "Cette pharmacie est déjà dans votre compte."
+      "dirtyStatus": "Modifications non enregistrées"
     },
     "photos": {
       "title": "Photos",

@@ -200,7 +200,7 @@ export function usePharmacyForm({
   }, [pendingFocus, focusField]);
 
   const validate: PharmacyFormApi["validate"] = () => {
-    const found = validatePharmacyForm(form, mode === "create", t);
+    const found = validatePharmacyForm(form, t);
     setErrors(found);
     setFormError(null);
     const first = firstErrorKey(found);
@@ -212,6 +212,13 @@ export function usePharmacyForm({
 
   const applyApiError: PharmacyFormApi["applyApiError"] = (error) => {
     if (error instanceof ApiError) {
+      if (error.isPharmacyCipAlreadyUsed) {
+        setErrors({ cip: t("pharmacies.form.errors.cipAlreadyUsed") });
+        setFormError(null);
+        toast.error(t("pharmacies.form.errors.cipAlreadyUsed"));
+        setPendingFocus("cip");
+        return;
+      }
       const mapped = fromApiFieldErrors(error.fieldErrors);
       const known: Record<string, string> = {};
       const unknown: string[] = [];

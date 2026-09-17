@@ -1,5 +1,9 @@
 import { PHARMACY_TEXT_MAX } from "@/features/pharmacies";
-import type { Pharmacy, PharmacyFormInput } from "@/features/pharmacies";
+import type {
+  Pharmacy,
+  PharmacyFormInput,
+  PharmacyUpdateInput,
+} from "@/features/pharmacies";
 import type { AddressResult } from "@/features/ors";
 import type { LngLat } from "@/components/map";
 import { isValidTimeInput } from "@/lib/date";
@@ -275,8 +279,11 @@ export function buildCreatePayload(form: PharmacyFormState): PharmacyFormInput {
 export function buildUpdatePayload(
   form: PharmacyFormState,
   baseline: Pharmacy
-): PharmacyFormInput {
-  const payload: PharmacyFormInput = {};
+): PharmacyUpdateInput {
+  const payload: PharmacyUpdateInput = {};
+
+  const cip = form.cip.trim();
+  if (cip && cip !== baseline.cip) payload.cip = cip;
 
   for (const key of TEXT_KEYS) {
     const next = form[key].trim();
@@ -322,13 +329,12 @@ type Translate = (key: string, options?: Record<string, unknown>) => string;
 
 export function validatePharmacyForm(
   form: PharmacyFormState,
-  requireCip: boolean,
   t: Translate,
   only?: readonly string[]
 ): Record<string, string> {
   const errors: Record<string, string> = {};
 
-  if (requireCip && !form.cip.trim()) {
+  if (!form.cip.trim()) {
     errors.cip = t("pharmacies.form.errors.cipRequired");
   }
 

@@ -35,6 +35,14 @@ export class ApiError extends Error {
     return this.status === 409 || this.errorCode === "GOOGLE_EMAIL_ALREADY_USED";
   }
 
+  get isPharmacyCipAlreadyUsed(): boolean {
+    if (this.errorCode === "PHARMACY_CIP_ALREADY_USED") return true;
+    if (this.status !== 409) return false;
+    const raw =
+      typeof this.body === "string" ? this.body.trim() : this.message.trim();
+    return raw === "PHARMACY_CIP_ALREADY_USED";
+  }
+
   get isTermsNotAccepted(): boolean {
     if (this.errorCode === "TERMS_NOT_ACCEPTED") return true;
     const raw =

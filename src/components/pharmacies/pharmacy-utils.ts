@@ -50,16 +50,6 @@ export function addressLines(
     .filter((line) => line !== "");
 }
 
-export function isReferenceOnly(pharmacy: Pharmacy): boolean {
-  if (pharmacy.accountId) return false;
-  return (
-    pharmacy.informations == null &&
-    pharmacy.commentaire == null &&
-    pharmacy.zone == null &&
-    pharmacy.neverOrdered == null
-  );
-}
-
 export function hasValidLocation(
   pharmacy: Pick<Pharmacy, "latitude" | "longitude"> | null | undefined
 ): boolean {

@@ -27,7 +27,6 @@ import { buildUpdatePayload } from "@/components/pharmacies/pharmacy-form";
 import {
   commandMapPoints,
   hasValidLocation,
-  isReferenceOnly,
   labelErrorKey,
   type CommandMapPoint,
 } from "@/components/pharmacies/pharmacy-utils";
@@ -147,12 +146,6 @@ function PharmacyReadView({
       />
 
       <div className="flex flex-1 flex-col gap-4">
-        {isReferenceOnly(pharmacy) && (
-          <Alert>
-            <AlertDescription>{t("pharmacies.referenceBanner")}</AlertDescription>
-          </Alert>
-        )}
-
         <PharmacySections
           mode="view"
           pharmacy={pharmacy}
@@ -297,6 +290,7 @@ function PharmacyEditView({
   onExit,
 }: EditViewProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const toast = useToast();
   const updatePharmacy = useUpdatePharmacy();
   const api = usePharmacyForm({
@@ -332,8 +326,14 @@ function PharmacyEditView({
     updatePharmacy.mutate(
       { cip: pharmacy.cip, input: payload },
       {
-        onSuccess: () => {
+        onSuccess: (saved) => {
           toast.success(t("pharmacies.form.saved"));
+          if (saved.cip && saved.cip !== pharmacy.cip) {
+            navigate(`/app/pharmacies/${encodeURIComponent(saved.cip)}`, {
+              replace: true,
+            });
+            return;
+          }
           onExit();
         },
         onError: api.applyApiError,
@@ -367,13 +367,6 @@ function PharmacyEditView({
         noValidate
         className="flex flex-1 flex-col gap-4"
       >
-        {isReferenceOnly(pharmacy) && (
-          <Alert>
-            <AlertDescription>
-              {t("pharmacies.form.referenceEditBanner")}
-            </AlertDescription>
-          </Alert>
-        )}
         {api.formError && (
           <Alert variant="destructive">
             <AlertDescription className="whitespace-pre-line">

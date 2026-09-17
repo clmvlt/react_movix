@@ -19,8 +19,6 @@ import type {
   PictureUploadInput,
 } from "./types";
 
-const EXISTS_STALE_TIME = 30_000;
-
 function invalidatePicture(queryClient: QueryClient, cip: string) {
   void queryClient.invalidateQueries({ queryKey: pharmacyKeys.detail(cip) });
   void queryClient.invalidateQueries({ queryKey: pharmacyKeys.searches() });
@@ -43,16 +41,6 @@ export function usePharmacy(cip: string | undefined) {
   });
 }
 
-export function usePharmacyExists(cip: string | null) {
-  return useQuery({
-    queryKey: pharmacyKeys.exists(cip ?? ""),
-    queryFn: () => pharmaciesApi.exists(cip as string),
-    enabled: Boolean(cip),
-    staleTime: EXISTS_STALE_TIME,
-    retry: false,
-  });
-}
-
 export function useCreatePharmacy() {
   const queryClient = useQueryClient();
   return useMutation({
@@ -70,9 +58,24 @@ export function useUpdatePharmacy() {
     mutationFn: ({ cip, input }: { cip: string; input: PharmacyUpdateInput }) =>
       pharmaciesApi.update(cip, input),
     onSuccess: (saved, { cip }) => {
-      queryClient.setQueryData<PharmacyDetail>(pharmacyKeys.detail(cip), (prev) =>
-        prev ? { ...prev, ...saved } : prev
+      const renamed = Boolean(saved.cip) && saved.cip !== cip;
+      if (!renamed) {
+        queryClient.setQueryData<PharmacyDetail>(
+          pharmacyKeys.detail(cip),
+          (prev) => (prev ? { ...prev, ...saved } : prev)
+        );
+        return;
+      }
+      const previous = queryClient.getQueryData<PharmacyDetail>(
+        pharmacyKeys.detail(cip)
       );
+      queryClient.removeQueries({ queryKey: pharmacyKeys.detail(cip) });
+      if (previous) {
+        queryClient.setQueryData<PharmacyDetail>(
+          pharmacyKeys.detail(saved.cip),
+          { ...previous, ...saved }
+        );
+      }
     },
     onSettled: () => {
       void queryClient.invalidateQueries({ queryKey: pharmacyKeys.all });

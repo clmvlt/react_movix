@@ -70,9 +70,12 @@ Detail extrait de CLAUDE.md. A lire avant de modifier ce domaine.
   `/register`, 409 = email pris entre-temps, lien vers `/login`. Retour apres auth :
   `src/lib/auth-redirect.ts` (`movix.authRedirect` en localStorage, `{path, savedAt}`, 7 jours
   max) ; `resolveAuthRedirect(location.state)` = `state.from` (pathname+search+hash) sinon
-  le chemin stocke sinon `/app`. Login, register (Google compris) et `/confirm-registration`
-  naviguent dessus puis l'effacent ; `PublicOnlyRoute` renvoie aussi un utilisateur deja
-  connecte vers ce chemin ; `/verify-email` connecte propose "Continuer" vers ce chemin. Le
+  le chemin stocke sinon `/app`. Apres login / register (Google compris), les pages ne
+  naviguent PAS elles-memes : c'est `PublicOnlyRoute` (`AuthenticatedRedirect`) qui redirige
+  une seule fois vers `resolveAuthRedirect(location.state)` puis efface le chemin stocke (les
+  navigations React Router sont des transitions, la mise a jour de session passe avant : une
+  navigation manuelle + effacement renvoyait sur `/app`). `/confirm-registration` navigue
+  dessus puis l'efface ; `/verify-email` connecte propose "Continuer" vers ce chemin. Le
   register 202 l'enregistre pour la confirmation (autre onglet). `/verify-email` reste reserve aux comptes crees par un admin
   ou apres changement d'email. Login Google CREE le compte si
   l'email est inconnu (bouton "Continuer avec Google" sur login ET register ;

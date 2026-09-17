@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Trans, useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -23,7 +23,6 @@ import { RegistrationPendingCard } from "@/components/auth/registration-pending"
 import { ApiError, apiErrorText } from "@/lib/api-error";
 import { clearSession } from "@/lib/auth";
 import {
-  clearAuthRedirect,
   resolveAuthRedirect,
   saveAuthRedirect,
 } from "@/lib/auth-redirect";
@@ -51,7 +50,6 @@ interface GoogleError {
 
 export function RegisterPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
   const register = useRegister();
@@ -78,14 +76,10 @@ export function RegisterPage() {
   const redirectTo = resolveAuthRedirect(location.state);
 
   const completeAuth = (profil: ProfilAuth) => {
-    if (!canAccessWeb(profil)) {
-      clearSession();
-      queryClient.removeQueries({ queryKey: authKeys.all });
-      toast.error(t("auth.login.webOnly"));
-      return;
-    }
-    clearAuthRedirect();
-    navigate(redirectTo, { replace: true });
+    if (canAccessWeb(profil)) return;
+    clearSession();
+    queryClient.removeQueries({ queryKey: authKeys.all });
+    toast.error(t("auth.login.webOnly"));
   };
 
   const handleSubmit = (event: FormEvent) => {

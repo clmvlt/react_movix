@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
@@ -18,7 +18,6 @@ import { FormField } from "@/components/form-field";
 import { GoogleAuthButton } from "@/components/google-auth-button";
 import { ApiError, apiErrorText } from "@/lib/api-error";
 import { clearSession } from "@/lib/auth";
-import { clearAuthRedirect, resolveAuthRedirect } from "@/lib/auth-redirect";
 import { usePageSeo } from "@/lib/seo";
 import {
   authKeys,
@@ -30,7 +29,6 @@ import {
 
 export function LoginPage() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const location = useLocation();
   const queryClient = useQueryClient();
   const login = useLogin();
@@ -47,17 +45,11 @@ export function LoginPage() {
   const [password, setPassword] = useState("");
   const [googleError, setGoogleError] = useState<string | null>(null);
 
-  const redirectTo = resolveAuthRedirect(location.state);
-
   const completeLogin = (profil: ProfilAuth) => {
-    if (!canAccessWeb(profil)) {
-      clearSession();
-      queryClient.removeQueries({ queryKey: authKeys.all });
-      toast.error(t("auth.login.webOnly"));
-      return;
-    }
-    clearAuthRedirect();
-    navigate(redirectTo, { replace: true });
+    if (canAccessWeb(profil)) return;
+    clearSession();
+    queryClient.removeQueries({ queryKey: authKeys.all });
+    toast.error(t("auth.login.webOnly"));
   };
 
   const handleSubmit = (event: FormEvent) => {

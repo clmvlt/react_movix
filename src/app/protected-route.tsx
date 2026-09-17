@@ -1,7 +1,7 @@
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { hasSession } from "@/lib/auth";
-import { clearAuthRedirect, peekAuthRedirect } from "@/lib/auth-redirect";
+import { clearAuthRedirect, resolveAuthRedirect } from "@/lib/auth-redirect";
 import { useAuth } from "./auth-context";
 import { FullPageSpinner } from "@/components/full-page-spinner";
 import { TermsGate } from "@/components/auth/terms-gate";
@@ -52,7 +52,8 @@ export function PublicOnlyRoute() {
 }
 
 function AuthenticatedRedirect() {
-  const target = peekAuthRedirect() ?? "/app";
+  const location = useLocation();
+  const [target] = useState(() => resolveAuthRedirect(location.state));
 
   useEffect(() => {
     clearAuthRedirect();

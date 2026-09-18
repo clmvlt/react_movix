@@ -38,6 +38,7 @@ export interface SearchFiltersState {
   city: string;
   postalCode: string;
   cip: string;
+  clientId: string;
   address: string;
   commandId: string;
   from: string;
@@ -169,7 +170,7 @@ export function SearchFilters({
     name: t("commands.filters.pharmacyName"),
     city: t("common.city"),
     postalCode: t("common.postalCode"),
-    cip: t("pharmacies.columns.cip"),
+    cip: t("clients.fields.cip"),
     address: t("common.address"),
     commandId: t("commands.filters.commandId"),
   };

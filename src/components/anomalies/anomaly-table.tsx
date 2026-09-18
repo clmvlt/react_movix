@@ -15,6 +15,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  clientLabel,
+  isPharmacyClient,
+} from "@/features/clients";
 import { AnomalyTypeBadge } from "@/components/anomalies/anomaly-type";
 import { formatDate, formatTime } from "@/lib/date";
 import { profilFullName } from "@/features/auth";
@@ -43,13 +47,13 @@ export function AnomalyTable({
           <TableRow>
             <TableHead>{t("anomalies.columns.pharmacy")}</TableHead>
             <TableHead className="hidden w-[112px] md:table-cell">
-              {t("pharmacies.columns.cip")}
+              {t("clients.fields.cip")}
             </TableHead>
             <TableHead className="hidden w-[160px] sm:table-cell">
               {t("anomalies.columns.type")}
             </TableHead>
             <TableHead className="hidden w-[150px] md:table-cell">
-              {t("pharmacies.columns.location")}
+              {t("clients.columns.place")}
             </TableHead>
             <TableHead className="w-[112px]">
               {t("anomalies.columns.createdAt")}
@@ -67,9 +71,13 @@ export function AnomalyTable({
         </TableHeader>
         <TableBody>
           {rows.map((row) => {
-            const label =
-              row.pharmacy?.name?.trim() || t("pharmacies.untitled");
-            const location = [row.pharmacy?.postalCode, row.pharmacy?.city]
+            const client = row.client ?? null;
+            const cip =
+              client && isPharmacyClient(client) ? client.cip : null;
+            const label = client
+              ? clientLabel(client) || t("clients.untitled")
+              : t("clients.untitled");
+            const location = [client?.postalCode, client?.city]
               .filter(Boolean)
               .join(" ");
             return (
@@ -84,11 +92,11 @@ export function AnomalyTable({
                     <AnomalyTypeBadge type={row.typeAnomalie} />
                   </span>
                   <span className="mt-0.5 block truncate text-xs font-normal text-muted-foreground md:hidden">
-                    {[row.pharmacy?.cip, location].filter(Boolean).join(" - ")}
+                    {[cip, location].filter(Boolean).join(" - ")}
                   </span>
                 </TableCell>
                 <TableCell className="hidden tabular-nums text-muted-foreground md:table-cell">
-                  <span className="block truncate">{row.pharmacy?.cip}</span>
+                  <span className="block truncate">{cip ?? "-"}</span>
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
                   <AnomalyTypeBadge type={row.typeAnomalie} />

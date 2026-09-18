@@ -1,3 +1,5 @@
+import type { ClientRef } from "@/features/clients/types";
+
 export const TOUR_CONFIG_NAME_MAX = 100;
 export const DEFAULT_TOUR_HOUR = "08:00";
 
@@ -68,6 +70,7 @@ export interface TourConfig {
   profil?: TourConfigProfilRef | null;
   recurrence?: Partial<TourRecurrence> | null;
   tourHour?: string | null;
+  client?: ClientRef | null;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -79,9 +82,13 @@ export interface TourConfigCreateInput {
   profil?: { id: string };
   recurrence: TourRecurrence;
   tourHour?: string;
+  clientId?: string;
 }
 
-export type TourConfigUpdateInput = Partial<TourConfigCreateInput>;
+export interface TourConfigUpdateInput
+  extends Partial<TourConfigCreateInput> {
+  clearClient?: boolean;
+}
 
 export function toRecurrence(
   value: Partial<TourRecurrence> | null | undefined

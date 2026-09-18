@@ -1,16 +1,17 @@
 export const UNASSIGNED = "none";
 export const ZONE_NAME_MAX = 100;
 export const ZONE_PAGE_SIZE = 50;
-export const ZONE_ASSIGN_CHUNK = 100;
 
 export interface Zone {
   id: string;
   name: string;
-  pharmacyCount: number | null;
+  clientCount: number | null;
 }
 
-export interface ZoneMapPharmacy {
-  cip: string;
+export interface ZoneMapClient {
+  id: string;
+  type: "GENERIC" | "PHARMACY";
+  cip: string | null;
   name: string;
   latitude: number | null;
   longitude: number | null;
@@ -24,14 +25,9 @@ export interface ZoneInput {
   name: string;
 }
 
-export interface ZonePharmaciesParams {
+export interface ZoneClientsParams {
   page: number;
   size: number;
   search?: string;
 }
 
-export interface ZoneAssignResult {
-  requested: number;
-  applied: number;
-  unknown: number;
-}

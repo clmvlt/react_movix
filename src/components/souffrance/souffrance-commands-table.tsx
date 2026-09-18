@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { CopyId } from "@/components/souffrance/copy-id";
+import { CopyId } from "@/components/copy-id";
 import { formatDate, formatDateTime } from "@/lib/date";
 import type { CommandSearchResult } from "@/features/commands";
 
@@ -54,7 +54,7 @@ export function SouffranceCommandsTable({
             </TableHead>
             <TableHead>{t("commands.pharmacy")}</TableHead>
             <TableHead className="hidden w-[160px] sm:table-cell">
-              {t("pharmacies.columns.location")}
+              {t("clients.columns.place")}
             </TableHead>
             <TableHead className="w-[130px]">{t("commands.expDate")}</TableHead>
             <TableHead className="hidden w-[200px] md:table-cell">
@@ -70,7 +70,7 @@ export function SouffranceCommandsTable({
         </TableHeader>
         <TableBody>
           {rows.map((row) => {
-            const label = row.pharmacyName?.trim() || t("pharmacies.untitled");
+            const label = row.pharmacyName?.trim() || t("clients.untitled");
             const location = [row.pharmacyCodePostal, row.pharmacyCity]
               .filter(Boolean)
               .join(" ");

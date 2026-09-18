@@ -7,7 +7,7 @@ import {
   PICTURE_MAX_BYTES,
   dataUrlBytes,
   toUploadDataUrl,
-} from "@/features/pharmacies";
+} from "@/features/clients";
 import { ANOMALY_PICTURE_MAX } from "@/features/anomalies";
 
 export interface PendingPicture {
@@ -49,16 +49,16 @@ export function AnomalyPicturePicker({
           break;
         }
         if (!file.type.startsWith("image/")) {
-          skipped.push(t("pharmacies.photos.notAnImage", { name: file.name }));
+          skipped.push(t("clients.photos.notAnImage", { name: file.name }));
           continue;
         }
         if (file.size > PICTURE_MAX_BYTES) {
-          skipped.push(t("pharmacies.photos.tooLarge", { name: file.name }));
+          skipped.push(t("clients.photos.tooLarge", { name: file.name }));
           continue;
         }
         const dataUrl = await toUploadDataUrl(file);
         if (dataUrlBytes(dataUrl) > PICTURE_MAX_BYTES) {
-          skipped.push(t("pharmacies.photos.tooLarge", { name: file.name }));
+          skipped.push(t("clients.photos.tooLarge", { name: file.name }));
           continue;
         }
         added.push({

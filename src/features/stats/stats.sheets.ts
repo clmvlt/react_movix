@@ -6,10 +6,10 @@ import {
   type WorkbookSpec,
 } from "@/lib/xlsx";
 import type {
-  PharmacyStatsParams,
-  PharmacyTotals,
+  ClientStatsParams,
+  ClientTotals,
   StatsOverview,
-  StatsPharmacyItem,
+  StatsClientItem,
 } from "./types";
 
 export type Translate = (
@@ -19,13 +19,13 @@ export type Translate = (
 
 export const LOW_DELIVERY_RATE_THRESHOLD = 90;
 
-export function computePharmacyTotals(
-  pharmacies: StatsPharmacyItem[],
+export function computeClientTotals(
+  pharmacies: StatsClientItem[],
   overview: StatsOverview | null,
   isFullSelection: boolean
-): PharmacyTotals {
-  const totals: PharmacyTotals = {
-    pharmacyCount: pharmacies.length,
+): ClientTotals {
+  const totals: ClientTotals = {
+    clientCount: pharmacies.length,
     totalCommands: 0,
     deliveredCommands: 0,
     notDeliveredCommands: 0,
@@ -49,10 +49,10 @@ export function computePharmacyTotals(
 }
 
 export interface PharmacySheetsInput {
-  pharmacies: StatsPharmacyItem[];
+  pharmacies: StatsClientItem[];
   overview: StatsOverview | null;
-  totals: PharmacyTotals;
-  params: PharmacyStatsParams;
+  totals: ClientTotals;
+  params: ClientStatsParams;
   loadedPharmacyCount: number;
   t: Translate;
 }
@@ -208,8 +208,8 @@ export function buildPharmacySheets(input: PharmacySheetsInput): WorkbookSpec {
     );
   }
 
-  const pharmaciesSheet: SheetSpec<StatsPharmacyItem> = {
-    name: t("exports.sheets.pharmacies"),
+  const pharmaciesSheet: SheetSpec<StatsClientItem> = {
+    name: t("exports.sheets.clients"),
     rows: pharmacies,
     columns: [
       { header: column("cip"), value: (row) => row.cip, format: "text" },
@@ -276,6 +276,6 @@ export function buildPharmacySheets(input: PharmacySheetsInput): WorkbookSpec {
   ];
 }
 
-export function pharmacyStatsFileName(params: PharmacyStatsParams): string {
+export function pharmacyStatsFileName(params: ClientStatsParams): string {
   return `movix_pharmacy-stats_${params.startDate}_${params.endDate}.xlsx`;
 }

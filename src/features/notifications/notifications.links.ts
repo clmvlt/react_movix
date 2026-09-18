@@ -5,7 +5,7 @@ const UUID_PATTERN =
 
 const ENTITY_ROUTES: Record<string, (id: string) => string> = {
   ANOMALIE: (id) => `/app/anomalies/${id}`,
-  PHARMACY_INFO: (id) => `/app/pharmacy-reports?report=${id}`,
+  PHARMACY_INFO: (id) => `/app/client-reports?report=${id}`,
 };
 
 const LIST_ROUTES: Record<string, string> = {

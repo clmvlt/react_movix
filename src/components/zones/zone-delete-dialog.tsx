@@ -31,7 +31,7 @@ export function ZoneDeleteDialog({
   const deleteZone = useDeleteZone();
   const toast = useToast();
 
-  const pharmacyCount = zone?.pharmacyCount ?? 0;
+  const clientCount = zone?.clientCount ?? 0;
 
   const confirmDelete = () => {
     if (!zone) return;
@@ -62,9 +62,9 @@ export function ZoneDeleteDialog({
         </DialogHeader>
 
         <div className="flex flex-col gap-3">
-          {pharmacyCount > 0 && (
+          {clientCount > 0 && (
             <p className="text-sm text-muted-foreground">
-              {t("zones.delete.detach", { count: pharmacyCount })}
+              {t("zones.delete.detach", { count: clientCount })}
             </p>
           )}
 

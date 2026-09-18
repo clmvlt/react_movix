@@ -1,4 +1,8 @@
 import { useMemo, useState } from "react";
+import {
+  clientLabel,
+  isPharmacyClient,
+} from "@/features/clients";
 import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -53,11 +57,11 @@ export function AnomalyDetailPage() {
 
   const notFound = isError && error instanceof ApiError && error.status === 404;
 
-  const address = [
-    data?.pharmacy?.address1,
-    data?.pharmacy?.postalCode,
-    data?.pharmacy?.city,
-  ]
+  const client = data?.client ?? null;
+  const clientName = client ? clientLabel(client) : null;
+  const clientCip =
+    client && isPharmacyClient(client) ? client.cip : null;
+  const address = [client?.address1, client?.postalCode, client?.city]
     .filter(Boolean)
     .join(", ");
 
@@ -66,7 +70,7 @@ export function AnomalyDetailPage() {
     openPdfPreview({
       key: [...anomalyKeys.all, "pdf", id],
       title: t("anomalies.pdf.title"),
-      subtitle: data?.pharmacy?.name?.trim() || undefined,
+      subtitle: clientName ?? undefined,
       filename: `anomalie_${id}.pdf`,
       load: () => anomaliesApi.pdf(id),
       describeError,
@@ -76,8 +80,8 @@ export function AnomalyDetailPage() {
   return (
     <div className="flex flex-1 flex-col">
       <PageHeader
-        title={data?.pharmacy?.name ?? t("nav.anomalies")}
-        subtitle={data?.pharmacy?.city ?? undefined}
+        title={clientName ?? t("nav.anomalies")}
+        subtitle={client?.city ?? undefined}
         backFallback="/app/anomalies"
         actions={
           data && (
@@ -153,12 +157,12 @@ export function AnomalyDetailPage() {
                     t("anomalies.detail.noCommand")
                   )}
                 </DetailField>
-                <DetailField label={t("pharmacies.columns.cip")}>
-                  {data.pharmacy?.cip}
+                <DetailField label={t("clients.fields.cip")}>
+                  {clientCip}
                 </DetailField>
                 <DetailField label={t("common.address")}>{address}</DetailField>
                 <DetailField label={t("common.phone")}>
-                  {data.pharmacy?.phone}
+                  {client?.phone}
                 </DetailField>
                 <DetailField label={t("commands.expDate")}>
                   {formatDate(data.command?.expDate, lang)}
@@ -182,15 +186,13 @@ export function AnomalyDetailPage() {
               </dl>
 
               <div className="mt-4 flex flex-wrap items-center gap-2 border-t pt-4">
-                {data.pharmacy?.cip && (
+                {client && (
                   <Button
                     variant="outline"
                     className="min-h-11 lg:min-h-10"
                     onClick={() =>
                       navigate(
-                        `/app/pharmacies/${encodeURIComponent(
-                          data.pharmacy?.cip ?? ""
-                        )}`
+                        `/app/clients/${encodeURIComponent(client.id)}`
                       )
                     }
                   >

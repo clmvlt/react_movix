@@ -8,7 +8,7 @@ import { useMap } from "./use-map";
 import { brand, contrastTextOn, neutral } from "@/lib/colors";
 
 export interface MapPoint {
-  cip: string;
+  id: string;
   name: string;
   longitude: number;
   latitude: number;
@@ -17,8 +17,8 @@ export interface MapPoint {
 
 export interface MapPointsProps {
   points: MapPoint[];
-  selectedCips?: string[];
-  onTogglePoint?: (cip: string) => void;
+  selectedIds?: string[];
+  onTogglePoint?: (id: string) => void;
   clusterRadius?: number;
   clusterMaxZoom?: number;
 }
@@ -34,26 +34,26 @@ const CLUSTER_COUNT_LAYER = "zone-points-cluster-count";
 const POINT_LAYER = "zone-points-single";
 const HIT_LAYER = "zone-points-hit";
 
-function isSelected(cips: string[]): ExpressionSpecification {
-  return ["in", ["get", "cip"], ["literal", cips]] as ExpressionSpecification;
+function isSelected(ids: string[]): ExpressionSpecification {
+  return ["in", ["get", "id"], ["literal", ids]] as ExpressionSpecification;
 }
 
-function strokeColor(cips: string[]): ExpressionSpecification {
+function strokeColor(ids: string[]): ExpressionSpecification {
   return [
     "case",
-    isSelected(cips),
+    isSelected(ids),
     brand[800],
     neutral.white,
   ] as ExpressionSpecification;
 }
 
-function strokeWidth(cips: string[]): ExpressionSpecification {
-  return ["case", isSelected(cips), 4, 1.5] as ExpressionSpecification;
+function strokeWidth(ids: string[]): ExpressionSpecification {
+  return ["case", isSelected(ids), 4, 1.5] as ExpressionSpecification;
 }
 
 export function MapPoints({
   points,
-  selectedCips = [],
+  selectedIds = [],
   onTogglePoint,
   clusterRadius = 48,
   clusterMaxZoom = 13,
@@ -70,7 +70,7 @@ export function MapPoints({
           coordinates: [point.longitude, point.latitude],
         },
         properties: {
-          cip: point.cip,
+          id: point.id,
           name: point.name,
           color: point.color,
         },
@@ -81,8 +81,8 @@ export function MapPoints({
 
   const dataRef = useRef(data);
   dataRef.current = data;
-  const selectionRef = useRef(selectedCips);
-  selectionRef.current = selectedCips;
+  const selectionRef = useRef(selectedIds);
+  selectionRef.current = selectedIds;
   const toggleRef = useRef(onTogglePoint);
   toggleRef.current = onTogglePoint;
 
@@ -214,22 +214,22 @@ export function MapPoints({
     map.setPaintProperty(
       POINT_LAYER,
       "circle-stroke-color",
-      strokeColor(selectedCips)
+      strokeColor(selectedIds)
     );
     map.setPaintProperty(
       POINT_LAYER,
       "circle-stroke-width",
-      strokeWidth(selectedCips)
+      strokeWidth(selectedIds)
     );
-  }, [map, loaded, selectedCips]);
+  }, [map, loaded, selectedIds]);
 
   useEffect(() => {
     if (!map || !loaded) return;
 
     const handlePointClick = (event: MapMouseEvent) => {
       const feature = event.features?.[0] as ClickedFeature | undefined;
-      const cip = feature?.properties?.cip;
-      if (typeof cip === "string" && cip) toggleRef.current?.(cip);
+      const id = feature?.properties?.id;
+      if (typeof id === "string" && id) toggleRef.current?.(id);
     };
 
     const handleClusterClick = (event: MapMouseEvent) => {

@@ -9,7 +9,7 @@ import { ViewSwitch } from "@/components/view-switch";
 import { SelectionBar } from "@/components/selection-bar";
 import { ErrorState, LoadingState } from "@/components/states";
 import { ZoneListPanel } from "@/components/zones/zone-list-panel";
-import { ZonePharmaciesPanel } from "@/components/zones/zone-pharmacies-panel";
+import { ZoneClientsPanel } from "@/components/zones/zone-clients-panel";
 import { ZoneFormDialog } from "@/components/zones/zone-form-dialog";
 import { ZoneDeleteDialog } from "@/components/zones/zone-delete-dialog";
 import {
@@ -28,15 +28,19 @@ import {
   type MapArea,
   type MapPoint,
 } from "@/components/map";
-import { hasValidLocation } from "@/components/pharmacies/pharmacy-utils";
+import { hasValidLocation } from "@/lib/address-form";
 import { cn } from "@/lib/utils";
 import { unassignedColor, zoneColor, zoneColorMap } from "@/lib/colors";
 import { useAuth } from "@/app/auth-context";
-import { usePharmacySearch, type Pharmacy } from "@/features/pharmacies";
+import {
+  NO_ZONE,
+  useClientSearch,
+  type Client,
+} from "@/features/clients";
 import {
   UNASSIGNED,
   ZONE_PAGE_SIZE,
-  useZonePharmacies,
+  useZoneClients,
   useZones,
   useZonesMap,
   type Zone,
@@ -92,16 +96,16 @@ export function ZonesPage() {
     !zonesQuery.isFetching &&
     !selectedZone;
 
-  const zonePharmaciesQuery = useZonePharmacies(
+  const zoneClientsQuery = useZoneClients(
     zoneId,
     { page: page - 1, size: ZONE_PAGE_SIZE, search },
     !zoneGone
   );
 
-  const unassignedQuery = usePharmacySearch(
+  const unassignedQuery = useClientSearch(
     isUnassigned
       ? {
-          zoneId: UNASSIGNED,
+          zoneId: NO_ZONE,
           query: search.trim() || undefined,
           page: page - 1,
           size: ZONE_PAGE_SIZE,
@@ -109,7 +113,7 @@ export function ZonesPage() {
       : null
   );
 
-  const listQuery = isUnassigned ? unassignedQuery : zonePharmaciesQuery;
+  const listQuery = isUnassigned ? unassignedQuery : zoneClientsQuery;
 
   const colors = useMemo(
     () => zoneColorMap(zones.map((zone) => zone.id)),
@@ -139,7 +143,7 @@ export function ZonesPage() {
             (entry.zoneId ?? UNASSIGNED).toLowerCase() === isolate
         )
         .map((entry) => ({
-          cip: entry.cip,
+          id: entry.id,
           name: entry.name,
           longitude: entry.longitude as number,
           latitude: entry.latitude as number,
@@ -189,11 +193,11 @@ export function ZonesPage() {
     ];
   }, [mapPoints]);
 
-  const cipsInBucket = useMemo(() => {
+  const idsInBucket = useMemo(() => {
     if (!bucket) return [];
     return (mapQuery.data ?? [])
       .filter((entry) => (entry.zoneId ?? UNASSIGNED).toLowerCase() === bucket)
-      .map((entry) => entry.cip);
+      .map((entry) => entry.id);
   }, [mapQuery.data, bucket]);
 
   const unassignedCount = useMemo(
@@ -202,25 +206,25 @@ export function ZonesPage() {
     [mapQuery.data]
   );
 
-  const selectedCips = useMemo(() => Array.from(selected), [selected]);
+  const selectedIds = useMemo(() => Array.from(selected), [selected]);
   const hasSelection = selected.size > 0;
 
   const clearSelection = () => setSelected(new Set());
 
-  const toggle = (cip: string) =>
+  const toggle = (clientId: string) =>
     setSelected((prev) => {
       const next = new Set(prev);
-      if (next.has(cip)) next.delete(cip);
-      else next.add(cip);
+      if (next.has(clientId)) next.delete(clientId);
+      else next.add(clientId);
       return next;
     });
 
-  const togglePage = (cips: string[], checked: boolean) =>
+  const togglePage = (clientIds: string[], checked: boolean) =>
     setSelected((prev) => {
       const next = new Set(prev);
-      for (const cip of cips) {
-        if (checked) next.add(cip);
-        else next.delete(cip);
+      for (const clientId of clientIds) {
+        if (checked) next.add(clientId);
+        else next.delete(clientId);
       }
       return next;
     });
@@ -239,10 +243,10 @@ export function ZonesPage() {
   const showOnMap = (value: string | null) =>
     setParams(value ? { isolate: value, view: "map" } : { isolate: null });
 
-  const locatePharmacy = (pharmacy: Pharmacy) => {
-    if (!hasValidLocation(pharmacy)) return;
+  const locateClient = (client: Client) => {
+    if (!hasValidLocation(client)) return;
     setFocus((prev) => ({
-      center: [pharmacy.longitude as number, pharmacy.latitude as number],
+      center: [client.longitude as number, client.latitude as number],
       token: (prev?.token ?? 0) + 1,
     }));
     const patch: Record<string, string | null> = { view: "map" };
@@ -268,7 +272,7 @@ export function ZonesPage() {
   const assignMenu = (layout: "inline" | "bar") => (
     <ZoneAssignMenu
       layout={layout}
-      cips={selectedCips}
+      clientIds={selectedIds}
       zones={zones}
       colors={colors}
       onResult={handleAssignResult}
@@ -354,7 +358,7 @@ export function ZonesPage() {
                   </span>
                   <span
                     className="flex shrink-0 items-center gap-1.5 text-sm text-foreground"
-                    title={t("nav.pharmacies")}
+                    title={t("nav.clients")}
                   >
                     <Building2 className="size-4 text-muted-foreground" />
                     <span className="font-medium">
@@ -392,7 +396,7 @@ export function ZonesPage() {
               onRetry={() => void zonesQuery.refetch()}
             />
           ) : bucket && !zoneGone ? (
-            <ZonePharmaciesPanel
+            <ZoneClientsPanel
               key={bucket}
               className="min-h-0 flex-1"
               title={panelTitle}
@@ -409,10 +413,10 @@ export function ZonesPage() {
               selected={selected}
               onToggle={toggle}
               onTogglePage={togglePage}
-              onSelectAllInZone={() => setSelected(new Set(cipsInBucket))}
-              allInZoneCount={cipsInBucket.length}
+              onSelectAllInZone={() => setSelected(new Set(idsInBucket))}
+              allInZoneCount={idsInBucket.length}
               onBack={() => selectBucket(null)}
-              onLocate={locatePharmacy}
+              onLocate={locateClient}
               isolated={isolate === bucket}
               onIsolate={(next) => showOnMap(next ? bucket : null)}
               onRename={
@@ -464,7 +468,7 @@ export function ZonesPage() {
             )}
             <MapPoints
               points={mapPoints}
-              selectedCips={selectedCips}
+              selectedIds={selectedIds}
               onTogglePoint={toggle}
             />
           </MapView>

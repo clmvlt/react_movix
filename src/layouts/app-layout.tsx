@@ -12,7 +12,7 @@ export function AppLayout() {
     pathname.startsWith("/app/tours") ||
     pathname.startsWith("/app/zones") ||
     pathname.startsWith("/app/todos") ||
-    pathname.startsWith("/app/pharmacy-reports");
+    pathname.startsWith("/app/client-reports");
 
   return (
     <div className="flex h-dvh w-full bg-background">

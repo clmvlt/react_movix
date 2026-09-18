@@ -1,6 +1,6 @@
 import { http } from "@/lib/http";
 import type {
-  StatsByPharmacy,
+  StatsByClient,
   StatsDaily,
   StatsFilters,
   StatsOverview,
@@ -12,8 +12,8 @@ export const statsApi = {
   overview: (filters: StatsFilters, signal?: AbortSignal) =>
     http.post<StatsOverview>(`${RESOURCE}/overview`, filters, { signal }),
 
-  byPharmacy: (filters: StatsFilters, signal?: AbortSignal) =>
-    http.post<StatsByPharmacy>(`${RESOURCE}/by-pharmacy`, filters, { signal }),
+  byClient: (filters: StatsFilters, signal?: AbortSignal) =>
+    http.post<StatsByClient>(`${RESOURCE}/by-pharmacy`, filters, { signal }),
 
   byDay: (filters: StatsFilters, signal?: AbortSignal) =>
     http.post<StatsDaily>(`${RESOURCE}/by-day`, filters, { signal }),

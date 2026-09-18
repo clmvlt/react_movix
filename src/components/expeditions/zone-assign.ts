@@ -2,7 +2,7 @@ import { normalizeZoneId } from "./expedition-filters";
 
 export interface ZoneAssignCommand {
   id: string;
-  pharmacy?: { zone?: { id: string; name: string } | null } | null;
+  client?: { zone?: { id: string; name: string } | null } | null;
   tour?: { id: string } | null;
 }
 
@@ -46,7 +46,7 @@ export function planZoneAssignment(
   const groups = new Map<string, ZoneAssignGroup>();
   const withoutZone: ZoneAssignCommand[] = [];
   for (const command of commands) {
-    const zone = command.pharmacy?.zone;
+    const zone = command.client?.zone;
     if (!zone?.id) {
       withoutZone.push(command);
       continue;

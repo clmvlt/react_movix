@@ -42,7 +42,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ErrorState, LoadingState } from "@/components/states";
 import { ViewSwitch } from "@/components/view-switch";
-import { PharmacyTag } from "@/components/pharmacies/pharmacy-tag";
+import { KeyTag } from "@/components/key-tag";
 import {
   DepotMarker,
   MapAutoFit,
@@ -52,6 +52,11 @@ import {
   geometryToCoordinates,
   type LngLat,
 } from "@/components/map";
+import {
+  clientLabel,
+  isPharmacyClient,
+  type Client,
+} from "@/features/clients";
 import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
 import { ApiError, apiErrorText } from "@/lib/api-error";
@@ -102,6 +107,7 @@ type OrderView = "list" | "map";
 
 interface OrderStop {
   id: string;
+  clientId: string | null;
   name: string;
   city: string;
   cip: string;
@@ -474,27 +480,32 @@ export function TourOrderPage() {
     const toStop = (
       command: TourCommand | CommandExpedition,
       previous: OrderStop | undefined
-    ): OrderStop => ({
+    ): OrderStop => {
+      const client: Client | null = command.client ?? null;
+      const pharmacy = client && isPharmacyClient(client) ? client : null;
+      return {
       id: command.id,
-      name: command.pharmacy?.name ?? "",
-      city: command.pharmacy?.city ?? "",
-      cip: command.pharmacy?.cip ?? "",
-      color: command.pharmacy?.color ?? null,
-      numero: command.pharmacy?.numero ?? null,
+      clientId: client?.id ?? null,
+      name: client ? clientLabel(client) : "",
+      city: client?.city ?? "",
+      cip: pharmacy?.cip ?? "",
+      color: pharmacy?.color ?? null,
+      numero: pharmacy?.numero ?? null,
       tourOrder: command.tourOrder ?? null,
-      lat: command.pharmacy?.latitude ?? null,
-      lon: command.pharmacy?.longitude ?? null,
+      lat: client?.latitude ?? null,
+      lon: client?.longitude ?? null,
       windowStart:
         command.pharmacyDeliveryWindowStart ??
-        command.pharmacy?.deliveryWindowStart ??
+        client?.deliveryWindowStart ??
         previous?.windowStart ??
         null,
       windowEnd:
         command.pharmacyDeliveryWindowEnd ??
-        command.pharmacy?.deliveryWindowEnd ??
+        client?.deliveryWindowEnd ??
         previous?.windowEnd ??
         null,
-    });
+      };
+    };
     for (const command of tour?.commands ?? []) {
       const known = membership.get(command.id);
       if (known !== undefined && known !== id) continue;
@@ -1314,10 +1325,12 @@ export function TourOrderPage() {
                   time: departureTime,
                 })}
               </span>
-              {lateStops.map((stop) => (
+              {lateStops
+                .filter((stop) => stop.clientId)
+                .map((stop) => (
                 <a
                   key={stop.id}
-                  href={`/app/pharmacies/${encodeURIComponent(stop.cip)}`}
+                  href={`/app/clients/${encodeURIComponent(stop.clientId ?? "")}`}
                   target="_blank"
                   rel="noreferrer"
                   className="underline underline-offset-2"
@@ -1567,7 +1580,7 @@ export function TourOrderPage() {
                       )}
                     </span>
 
-                    <PharmacyTag color={stop.color} numero={stop.numero} />
+                    <KeyTag color={stop.color} numero={stop.numero} />
 
                     {noCoords && (
                       <TriangleAlert

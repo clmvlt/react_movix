@@ -50,7 +50,8 @@ export function generatePayload(
   const payload: Record<string, unknown> = { code: input.code };
 
   if (input.commandId) payload.commandId = input.commandId;
-  if (input.cip?.trim()) payload.cip = input.cip.trim();
+  if (input.clientId?.trim()) payload.clientId = input.clientId.trim();
+  else if (input.cip?.trim()) payload.cip = input.cip.trim();
   if (input.barcodes?.length) payload.barcodes = input.barcodes;
   if (input.other?.trim()) payload.other = input.other.trim();
   if (input.actions?.trim()) payload.actions = input.actions.trim();

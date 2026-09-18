@@ -1,6 +1,6 @@
 import type { ProfilRef } from "@/features/auth/types";
 import type { CommandPackage, StatusRef } from "@/features/commands/types";
-import type { Pharmacy } from "@/features/pharmacies/types";
+import type { Client } from "@/features/clients/types";
 
 export const ANOMALY_PAGE_SIZE = 50;
 export const ANOMALY_PAGE_SIZES = [25, 50, 100, 200] as const;
@@ -52,7 +52,7 @@ export interface Anomaly {
   other?: string | null;
   actions?: string | null;
   createdAt: string;
-  pharmacy?: Pharmacy | null;
+  client?: Client | null;
   typeAnomalie?: AnomalyType | null;
   profil?: ProfilRef | null;
   commandId?: string | null;
@@ -73,6 +73,7 @@ export interface AnomalySearchInput {
   query?: string;
   userId?: string;
   cip?: string;
+  clientId?: string;
   typeCode?: string;
   dateDebut?: string;
   dateFin?: string;
@@ -88,6 +89,7 @@ export interface AnomalyGenerateInput {
   code: string;
   commandId?: string;
   cip?: string;
+  clientId?: string;
   barcodes?: string[];
   other?: string;
   actions?: string;

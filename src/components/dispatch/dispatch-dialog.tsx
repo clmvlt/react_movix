@@ -52,6 +52,7 @@ import {
   isValidTimeInput,
 } from "@/lib/date";
 import { cn } from "@/lib/utils";
+import { clientLabel, type Client } from "@/features/clients";
 import type { CommandExpedition } from "@/features/commands";
 import {
   dispatchStaleOf,
@@ -132,6 +133,10 @@ interface DispatchDialogProps {
   existingTours: Tour[];
   depot: LngLat | null;
   depotLabel: string;
+}
+
+function clientNameOf(client: Client | null | undefined): string {
+  return client ? clientLabel(client) : "";
 }
 
 export function DispatchDialog({
@@ -297,11 +302,11 @@ export function DispatchDialog({
 
   const skippedByPharmacy = new Map<string, { key: string; label: string }>();
   for (const skipped of preview?.skipped ?? []) {
-    const key = skipped.pharmacyCip ?? skipped.commandId;
+    const key = skipped.clientId ?? skipped.commandId;
     if (skippedByPharmacy.has(key)) continue;
     const name =
-      skipped.pharmacyName ||
-      commandsById.get(skipped.commandId)?.pharmacy?.name ||
+      skipped.clientName || skipped.pharmacyName ||
+      clientNameOf(commandsById.get(skipped.commandId)?.client) ||
       t("commands.noPharmacy");
     skippedByPharmacy.set(key, { key, label: `${name} (${reasonLabel(skipped)})` });
   }

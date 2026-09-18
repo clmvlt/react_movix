@@ -23,11 +23,12 @@ import {
   AnomalyPicturePicker,
   type PendingPicture,
 } from "@/components/anomalies/anomaly-picture-picker";
-import { PharmacyPicker } from "@/components/pharmacies/pharmacy-picker";
+import { ClientPicker } from "@/components/clients/client-picker";
+import { clientOption } from "@/components/clients/client-option";
 import { invalidEmails, parseEmails } from "@/components/anomalies/anomaly-emails";
 import { useAnomalyError } from "@/components/anomalies/use-anomaly-error";
 import type { CommandPackage } from "@/features/commands";
-import type { Pharmacy } from "@/features/pharmacies";
+import { clientLabel, type Client } from "@/features/clients";
 import {
   ANOMALY_ACTIONS_MAX,
   ANOMALY_DESCRIPTION_MAX,
@@ -41,8 +42,7 @@ interface AnomalyCreateDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   commandId?: string;
-  commandPharmacyName?: string | null;
-  commandPharmacyCip?: string | null;
+  commandClient?: Client | null;
   packages?: CommandPackage[];
   onCreated?: (anomaly: AnomalyDetail) => void;
 }
@@ -51,8 +51,7 @@ export function AnomalyCreateDialog({
   open,
   onOpenChange,
   commandId,
-  commandPharmacyName,
-  commandPharmacyCip,
+  commandClient,
   packages,
   onCreated,
 }: AnomalyCreateDialogProps) {
@@ -62,7 +61,7 @@ export function AnomalyCreateDialog({
   const toast = useToast();
 
   const [code, setCode] = useState("");
-  const [pharmacy, setPharmacy] = useState<Pharmacy | null>(null);
+  const [client, setClient] = useState<Client | null>(null);
   const [barcodes, setBarcodes] = useState<string[]>([]);
   const [description, setDescription] = useState("");
   const [actions, setActions] = useState("");
@@ -74,7 +73,7 @@ export function AnomalyCreateDialog({
   useEffect(() => {
     if (!open) return;
     setCode("");
-    setPharmacy(null);
+    setClient(null);
     setBarcodes([]);
     setDescription("");
     setActions("");
@@ -86,14 +85,14 @@ export function AnomalyCreateDialog({
 
   const fromCommand = Boolean(commandId);
   const commandPackages = (packages ?? []).filter((item) => item.barcode);
-  const needsPharmacy = !fromCommand || !commandPharmacyCip;
+  const needsPharmacy = !fromCommand || !commandClient;
 
   const parsedRecipients = parseEmails(recipients);
   const badRecipients = invalidEmails(parsedRecipients);
 
   const codeError = submitted && !code ? t("common.required") : undefined;
   const pharmacyError =
-    submitted && needsPharmacy && !pharmacy ? t("common.required") : undefined;
+    submitted && needsPharmacy && !client ? t("common.required") : undefined;
   const descriptionError =
     description.length > ANOMALY_DESCRIPTION_MAX
       ? t("anomalies.form.tooLong", { count: ANOMALY_DESCRIPTION_MAX })
@@ -120,7 +119,7 @@ export function AnomalyCreateDialog({
 
     if (
       !code ||
-      (needsPharmacy && !pharmacy) ||
+      (needsPharmacy && !client) ||
       descriptionError ||
       actionsError ||
       recipientsError
@@ -132,7 +131,7 @@ export function AnomalyCreateDialog({
       {
         code,
         ...(commandId ? { commandId } : {}),
-        ...(pharmacy ? { cip: pharmacy.cip } : {}),
+        ...(client ? { clientId: client.id } : {}),
         ...(barcodes.length > 0 ? { barcodes } : {}),
         other: description,
         actions,
@@ -162,7 +161,7 @@ export function AnomalyCreateDialog({
           <DialogDescription>
             {fromCommand
               ? t("anomalies.form.subtitleCommand", {
-                  name: commandPharmacyName ?? commandPharmacyCip ?? "",
+                  name: commandClient ? clientLabel(commandClient) : "",
                 })
               : t("anomalies.form.subtitle")}
           </DialogDescription>
@@ -191,11 +190,11 @@ export function AnomalyCreateDialog({
               hint={t("anomalies.form.pharmacyHint")}
               required
             >
-              <PharmacyPicker
+              <ClientPicker
                 id="anomaly-pharmacy"
-                value={pharmacy?.cip ?? ""}
-                selected={pharmacy}
-                onSelect={setPharmacy}
+                value={client ? clientOption(client) : null}
+                onChange={setClient}
+                allowCreate={false}
                 invalid={Boolean(pharmacyError)}
               />
             </FormField>
@@ -207,7 +206,7 @@ export function AnomalyCreateDialog({
             >
               <Input
                 id="anomaly-pharmacy-fixed"
-                value={`${commandPharmacyName ?? ""} ${commandPharmacyCip ?? ""}`.trim()}
+                value={commandClient ? clientLabel(commandClient) : ""}
                 readOnly
                 className="min-h-11 lg:min-h-10"
               />

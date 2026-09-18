@@ -48,10 +48,15 @@ import { useWorkingDate } from "@/app/working-date-context";
 import { useExpeditions, type CommandExpedition } from "@/features/commands";
 import { CLOSED_TOUR_STATUS_ID, useToursByDate } from "@/features/tours";
 import { useZones } from "@/features/zones";
+import {
+  isPharmacyClient,
+  type Client,
+  type PharmacyClient,
+} from "@/features/clients";
 
 function coordsOf(command: CommandExpedition): LngLat | null {
-  const lng = command.pharmacy?.longitude;
-  const lat = command.pharmacy?.latitude;
+  const lng = command.client?.longitude;
+  const lat = command.client?.latitude;
   if (lng == null || lat == null) return null;
   return [lng, lat];
 }
@@ -59,6 +64,12 @@ function coordsOf(command: CommandExpedition): LngLat | null {
 function markerColor(command: CommandExpedition): string {
   if (command.tour?.color) return command.tour.color;
   return getStatusPalette(commandStatusCategory(command.status?.id)).strong;
+}
+
+function pharmacyClientOf(
+  client: Client | null | undefined
+): PharmacyClient | null {
+  return client && isPharmacyClient(client) ? client : null;
 }
 
 export function ExpeditionsPage() {
@@ -436,8 +447,8 @@ export function ExpeditionsPage() {
                 selectedIds={selected}
                 onToggle={toggle}
                 onOpen={(id) => navigate(`/app/commands/${id}`)}
-                onOpenPharmacy={(cip) =>
-                  navigate(`/app/pharmacies/${encodeURIComponent(cip)}`)
+                onOpenPharmacy={(clientId) =>
+                  navigate(`/app/clients/${encodeURIComponent(clientId)}`)
                 }
                 onLocate={locate}
                 ref={listRef}
@@ -446,7 +457,7 @@ export function ExpeditionsPage() {
                     commandIds={
                       selected.has(command.id) ? selectedIds : [command.id]
                     }
-                    pharmacy={command.pharmacy}
+                    pharmacy={pharmacyClientOf(command.client)}
                     tours={tours}
                     onDone={
                       selected.has(command.id) ? clearSelection : undefined

@@ -5,22 +5,17 @@ import {
   useQueryClient,
   type QueryClient,
 } from "@tanstack/react-query";
-import { pharmacyKeys } from "@/features/pharmacies/pharmacies.keys";
+import { clientKeys } from "@/features/clients/clients.keys";
 import { tourKeys } from "@/features/tours/tours.keys";
 import { zonesApi } from "./zones.api";
 import { zoneKeys } from "./zones.keys";
-import type {
-  ZoneAssignResult,
-  ZoneInput,
-  ZoneMapPharmacy,
-  ZonePharmaciesParams,
-} from "./types";
+import type { ZoneClientsParams, ZoneInput } from "./types";
 
 const LIST_STALE_TIME = 60_000;
 const MAP_STALE_TIME = 5 * 60_000;
 const MAP_GC_TIME = 15 * 60_000;
 
-function invalidateZonePharmacies(queryClient: QueryClient) {
+export function invalidateZoneClients(queryClient: QueryClient) {
   return queryClient.invalidateQueries({
     predicate: (query) =>
       query.queryKey[0] === "zones" && query.queryKey[2] === "pharmacies",
@@ -44,14 +39,14 @@ export function useZonesMap() {
   });
 }
 
-export function useZonePharmacies(
+export function useZoneClients(
   id: string | null,
-  params: ZonePharmaciesParams,
+  params: ZoneClientsParams,
   enabled = true
 ) {
   return useQuery({
     queryKey: zoneKeys.pharmaciesPage(id ?? "", params),
-    queryFn: () => zonesApi.pharmacies(id as string, params),
+    queryFn: () => zonesApi.clients(id as string, params),
     enabled: enabled && Boolean(id),
     placeholderData: keepPreviousData,
   });
@@ -84,56 +79,8 @@ export function useDeleteZone() {
     mutationFn: (id: string) => zonesApi.remove(id),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: zoneKeys.all });
-      void queryClient.invalidateQueries({ queryKey: pharmacyKeys.all });
+      void queryClient.invalidateQueries({ queryKey: clientKeys.all });
       void queryClient.invalidateQueries({ queryKey: tourKeys.all });
-    },
-  });
-}
-
-interface AssignVariables {
-  zoneId: string;
-  cips: string[];
-}
-
-interface AssignOutcome extends ZoneAssignResult {
-  map: ZoneMapPharmacy[];
-}
-
-export function useAssignPharmaciesToZone() {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: async ({
-      zoneId,
-      cips,
-    }: AssignVariables): Promise<AssignOutcome> => {
-      await zonesApi.assign(zoneId, cips);
-
-      const map = await zonesApi.map();
-      const target = zoneId.trim().toLowerCase();
-      const wanted = new Set(cips);
-      const known = new Set(
-        map.filter((entry) => wanted.has(entry.cip)).map((entry) => entry.cip)
-      );
-      const applied = map.filter(
-        (entry) =>
-          wanted.has(entry.cip) &&
-          (entry.zoneId ?? "").trim().toLowerCase() === target
-      ).length;
-
-      return {
-        requested: cips.length,
-        applied,
-        unknown: cips.length - known.size,
-        map,
-      };
-    },
-    onSuccess: (result) => {
-      queryClient.setQueryData<ZoneMapPharmacy[]>(zoneKeys.map(), result.map);
-    },
-    onSettled: () => {
-      void queryClient.invalidateQueries({ queryKey: zoneKeys.lists() });
-      void invalidateZonePharmacies(queryClient);
-      void queryClient.invalidateQueries({ queryKey: pharmacyKeys.all });
     },
   });
 }

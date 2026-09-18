@@ -12,26 +12,26 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { FormField } from "@/components/form-field";
-import { PharmacyColorInput } from "@/components/pharmacies/pharmacy-color-input";
-import { PharmacyTag } from "@/components/pharmacies/pharmacy-tag";
+import { KeyColorInput } from "@/components/key-color-input";
+import { KeyTag } from "@/components/key-tag";
 import { useToast } from "@/app/toast-context";
 import { ApiError, apiErrorText } from "@/lib/api-error";
 import {
-  useUpdatePharmacy,
-  type PharmacyUpdateInput,
-} from "@/features/pharmacies";
+  buildClientInput,
+  initialClientForm,
+} from "@/components/clients/client-form";
+import {
+  clientLabel,
+  useUpdateClient,
+  type PharmacyClient,
+} from "@/features/clients";
 
-export interface CommandKeyPharmacy {
-  cip: string;
-  name: string;
-  numero?: string | null;
-  color?: string | null;
-}
+export type CommandKeyClient = PharmacyClient;
 
 interface CommandKeyDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  pharmacy: CommandKeyPharmacy;
+  pharmacy: CommandKeyClient;
   onDone?: () => void;
 }
 
@@ -44,7 +44,7 @@ export function CommandKeyDialog({
   onDone,
 }: CommandKeyDialogProps) {
   const { t } = useTranslation();
-  const update = useUpdatePharmacy();
+    const update = useUpdateClient();
   const toast = useToast();
 
   const baseNumero = (pharmacy.numero ?? "").trim();
@@ -65,33 +65,38 @@ export function CommandKeyDialog({
   const unchanged = nextNumero === baseNumero && nextColor === baseColor;
   const hasKey = Boolean(nextNumero || nextColor);
 
+  const client = pharmacy;
+  const pending = update.isPending;
+
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    if (unchanged || update.isPending) return;
-    const input: PharmacyUpdateInput = {};
-    if (nextNumero !== baseNumero) input.numero = nextNumero;
-    if (nextColor !== baseColor) input.color = nextColor;
+    if (unchanged || pending || !client) return;
+    const form = {
+      ...initialClientForm(client),
+      numero: nextNumero,
+      color: nextColor,
+    };
     update.mutate(
-      { cip: pharmacy.cip, input },
+      { id: client.id, input: buildClientInput(form) },
       {
         onSuccess: () => {
           toast.success(t("commands.keyDialog.saved"));
           onOpenChange(false);
           onDone?.();
         },
-        onError: (cause) => {
+        onError: (cause: unknown) => {
           if (cause instanceof ApiError) {
-            const fields = cause.fieldErrors;
+            const fields = cause.structuredFieldErrors;
             const known: KeyErrors = {};
             if (fields.numero) known.numero = fields.numero;
             if (fields.color) known.color = fields.color;
             if (Object.keys(known).length > 0) {
               setErrors(known);
-              toast.error(t("pharmacies.form.formInvalid"));
+              toast.error(t("clients.form.invalid"));
               return;
             }
           }
-          toast.error(apiErrorText(cause) ?? t("pharmacies.form.failed"));
+          toast.error(apiErrorText(cause) ?? t("clients.errors.saveFailed"));
         },
       }
     );
@@ -103,7 +108,7 @@ export function CommandKeyDialog({
         <DialogHeader>
           <DialogTitle>{t("commands.keyDialog.title")}</DialogTitle>
           <DialogDescription>
-            {t("commands.keyDialog.subtitle", { name: pharmacy.name })}
+            {t("commands.keyDialog.subtitle", { name: clientLabel(pharmacy) })}
           </DialogDescription>
         </DialogHeader>
 
@@ -114,16 +119,16 @@ export function CommandKeyDialog({
               className="size-4 shrink-0 text-muted-foreground"
             />
             {hasKey ? (
-              <PharmacyTag color={nextColor} numero={nextNumero} size="md" />
+              <KeyTag color={nextColor} numero={nextNumero} size="md" />
             ) : (
               <span className="text-muted-foreground">
-                {t("pharmacies.info.keyNone")}
+                {t("clientReports.info.keyNone")}
               </span>
             )}
           </div>
 
           <FormField
-            label={t("pharmacies.info.numero")}
+            label={t("clientReports.info.numero")}
             htmlFor="command-key-numero"
             error={errors.numero}
           >
@@ -137,11 +142,11 @@ export function CommandKeyDialog({
           </FormField>
 
           <FormField
-            label={t("pharmacies.info.color")}
+            label={t("clientReports.info.color")}
             htmlFor="command-key-color"
             error={errors.color}
           >
-            <PharmacyColorInput
+            <KeyColorInput
               id="command-key-color"
               value={color}
               onChange={setColor}
@@ -149,7 +154,7 @@ export function CommandKeyDialog({
           </FormField>
 
           <p className="text-xs text-muted-foreground">
-            {t("pharmacies.info.accountScope")}
+            {t("clientReports.info.accountScope")}
           </p>
 
           <DialogFooter className="mt-2">
@@ -164,9 +169,9 @@ export function CommandKeyDialog({
             <Button
               type="submit"
               className="min-h-11 lg:min-h-10"
-              disabled={update.isPending || unchanged}
+              disabled={pending || unchanged}
             >
-              {update.isPending && <Loader2 className="size-4 animate-spin" />}
+              {pending && <Loader2 className="size-4 animate-spin" />}
               {t("common.save")}
             </Button>
           </DialogFooter>

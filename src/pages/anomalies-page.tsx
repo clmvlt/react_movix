@@ -15,6 +15,7 @@ import { AnomalyCreateDialog } from "@/components/anomalies/anomaly-create-dialo
 import { AnomalyEmailDialog } from "@/components/anomalies/anomaly-email-dialog";
 import { useAnomalyError } from "@/components/anomalies/use-anomaly-error";
 import { usePdfPreview } from "@/app/pdf-preview-context";
+import { clientLabel } from "@/features/clients";
 import {
   ANOMALY_PAGE_SIZE,
   ANOMALY_PAGE_SIZES,
@@ -146,7 +147,7 @@ export function AnomaliesPage() {
     openPdfPreview({
       key: [...anomalyKeys.all, "pdf", id],
       title: t("anomalies.pdf.title"),
-      subtitle: row?.pharmacy?.name?.trim() || undefined,
+      subtitle: row?.client ? clientLabel(row.client) : undefined,
       filename: `anomalie_${id}.pdf`,
       load: () => anomaliesApi.pdf(id),
       describeError,

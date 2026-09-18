@@ -14,7 +14,7 @@ export const statsKeys = {
   all: ["stats"] as const,
   overview: (filters: StatsFilters) =>
     [...statsKeys.all, "overview", ...filterKey(filters)] as const,
-  byPharmacy: (filters: StatsFilters) =>
+  byClient: (filters: StatsFilters) =>
     [...statsKeys.all, "by-pharmacy", ...filterKey(filters)] as const,
   byDay: (filters: StatsFilters) =>
     [...statsKeys.all, "by-day", ...filterKey(filters)] as const,

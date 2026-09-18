@@ -58,6 +58,7 @@ export function SouffrancePage() {
     city: searchParams.get("city") ?? "",
     postalCode: searchParams.get("cp") ?? "",
     cip: searchParams.get("cip") ?? "",
+    clientId: searchParams.get("client") ?? "",
     address: searchParams.get("adr") ?? "",
     commandId: searchParams.get("cmd") ?? "",
     from: searchParams.get("from") ?? "",
@@ -95,6 +96,7 @@ export function SouffrancePage() {
     if ("city" in patch) mapped.city = text(patch.city);
     if ("postalCode" in patch) mapped.cp = text(patch.postalCode);
     if ("cip" in patch) mapped.cip = text(patch.cip);
+    if ("clientId" in patch) mapped.client = text(patch.clientId);
     if ("address" in patch) mapped.adr = text(patch.address);
     if ("commandId" in patch) mapped.cmd = text(patch.commandId);
     if ("from" in patch) {
@@ -119,6 +121,7 @@ export function SouffrancePage() {
       city: null,
       cp: null,
       cip: null,
+      client: null,
       adr: null,
       cmd: null,
       from: null,
@@ -144,6 +147,7 @@ export function SouffrancePage() {
         input.pharmacyPostalCode = filters.postalCode.trim();
       }
       if (filters.cip.trim()) input.pharmacyCip = filters.cip.trim();
+      if (filters.clientId.trim()) input.clientId = filters.clientId.trim();
       if (filters.address.trim()) input.pharmacyAddress = filters.address.trim();
       if (filters.commandId.trim()) input.commandId = filters.commandId.trim();
     } else if (filters.query.trim()) {
@@ -167,6 +171,7 @@ export function SouffrancePage() {
     filters.city,
     filters.postalCode,
     filters.cip,
+    filters.clientId,
     filters.address,
     filters.commandId,
     filters.size,
@@ -188,6 +193,7 @@ export function SouffrancePage() {
         input.pharmacyPostalCode = filters.postalCode.trim();
       }
       if (filters.cip.trim()) input.pharmacyCip = filters.cip.trim();
+      if (filters.clientId.trim()) input.clientId = filters.clientId.trim();
       if (filters.commandId.trim()) input.commandId = filters.commandId.trim();
     } else if (filters.query.trim()) {
       input.query = filters.query
@@ -211,6 +217,7 @@ export function SouffrancePage() {
     filters.city,
     filters.postalCode,
     filters.cip,
+    filters.clientId,
     filters.commandId,
     filters.size,
     period,

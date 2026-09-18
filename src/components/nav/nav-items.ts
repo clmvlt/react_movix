@@ -18,7 +18,6 @@ import {
   TriangleAlert,
   Truck,
   Users,
-  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 import { config } from "@/lib/config";
@@ -85,10 +84,10 @@ const GROUPS: NavGroup[] = [
     id: "directory",
     labelKey: "nav.groups.directory",
     items: [
-      { to: "/app/pharmacies", labelKey: "nav.pharmacies", icon: Building2 },
+      { to: "/app/clients", labelKey: "nav.clients", icon: Building2 },
       {
-        to: "/app/pharmacy-reports",
-        labelKey: "nav.pharmacyReports",
+        to: "/app/client-reports",
+        labelKey: "nav.clientReports",
         icon: ClipboardList,
       },
       { to: "/app/zones", labelKey: "nav.zones", icon: MapPinned },
@@ -102,12 +101,6 @@ const GROUPS: NavGroup[] = [
         to: "/app/invoices",
         labelKey: "nav.invoices",
         icon: ReceiptText,
-        adminOnly: true,
-      },
-      {
-        to: "/app/billing-customers",
-        labelKey: "nav.billingCustomers",
-        icon: UsersRound,
         adminOnly: true,
       },
     ],

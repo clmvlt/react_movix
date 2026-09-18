@@ -1,4 +1,9 @@
 import { useImperativeHandle, useRef, type ReactNode, type Ref } from "react";
+import {
+  clientLabel,
+  isPharmacyClient,
+  type Client,
+} from "@/features/clients";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import {
   Building2,
@@ -21,18 +26,7 @@ import { contrastTextOn, normalizeHexColor } from "@/lib/colors";
 
 export interface CommandListEntry {
   id: string;
-  pharmacy?: {
-    cip: string;
-    name: string;
-    city?: string;
-    postalCode?: string;
-    latitude?: number | null;
-    longitude?: number | null;
-    color?: string | null;
-    numero?: string | null;
-    deliveryWindowStart?: string | null;
-    deliveryWindowEnd?: string | null;
-  } | null;
+  client?: Client | null;
   status?: { id: number; name: string; createdAt?: string | null } | null;
   tour?: { name: string; color?: string } | null;
   newPharmacy?: boolean;
@@ -130,19 +124,19 @@ export function CommandList({
         {virtualizer.getVirtualItems().map((row) => {
           const index = row.index;
           const command = items[index];
-          const pharmacy = command.pharmacy;
+          const client = command.client ?? null;
           const ctx: CommandListItemContext = {
             selected: selectedIds.has(command.id),
             onToggle: () => onToggle(command.id),
             onOpen: onOpen ? () => onOpen(command.id) : undefined,
             onOpenPharmacy:
-              onOpenPharmacy && pharmacy
-                ? () => onOpenPharmacy(pharmacy.cip)
+              onOpenPharmacy && client
+                ? () => onOpenPharmacy(client.id)
                 : undefined,
             onLocate:
               onLocate &&
-              pharmacy?.latitude != null &&
-              pharmacy?.longitude != null
+              client?.latitude != null &&
+              client?.longitude != null
                 ? () => onLocate(command.id)
                 : undefined,
           };
@@ -225,13 +219,17 @@ export function CommandListItem({
 }: CommandListItemProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.resolvedLanguage ?? "en";
-  const pharmacyName = command.pharmacy?.name ?? t("commands.noPharmacy");
-  const location = [command.pharmacy?.postalCode, command.pharmacy?.city]
+  const client = command.client ?? null;
+  const keyClient = client && isPharmacyClient(client) ? client : null;
+  const pharmacyName = client
+    ? clientLabel(client)
+    : t("commands.noPharmacy");
+  const location = [client?.postalCode, client?.city]
     .filter(Boolean)
     .join(" ");
   const packageCount = command.packagesNumber ?? command.packages?.length ?? 0;
-  const keyNumber = command.pharmacy?.numero?.trim() || null;
-  const keyColor = normalizeHexColor(command.pharmacy?.color);
+  const keyNumber = keyClient?.numero?.trim() || null;
+  const keyColor = normalizeHexColor(keyClient?.color);
   const order = command.tourOrder ?? index + 1;
   const passedAt =
     showDate && commandStatusHasTime(command.status?.id)
@@ -316,11 +314,11 @@ export function CommandListItem({
         <DeliveryWindowBadge
           start={
             command.pharmacyDeliveryWindowStart ??
-            command.pharmacy?.deliveryWindowStart
+            client?.deliveryWindowStart
           }
           end={
             command.pharmacyDeliveryWindowEnd ??
-            command.pharmacy?.deliveryWindowEnd
+            client?.deliveryWindowEnd
           }
         />
         {keyNumber && (
@@ -336,8 +334,8 @@ export function CommandListItem({
                 ? { backgroundColor: keyColor, color: contrastTextOn(keyColor) }
                 : undefined
             }
-            title={t("pharmacies.info.numero")}
-            aria-label={`${t("pharmacies.info.numero")} ${keyNumber}`}
+            title={t("clientReports.info.numero")}
+            aria-label={`${t("clientReports.info.numero")} ${keyNumber}`}
           >
             <KeyRound aria-hidden className="size-3.5" />
             {keyNumber}

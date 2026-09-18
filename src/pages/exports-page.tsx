@@ -5,7 +5,7 @@ import { ChartColumn, Route } from "lucide-react";
 import { PageHeader } from "@/components/page-header";
 import { SettingsTabs, type SettingsTabItem } from "@/components/settings-tabs";
 import { ExportFilterBar } from "@/components/exports/export-filter-bar";
-import { PharmacyStatsTab } from "@/components/exports/pharmacy-stats-tab";
+import { ClientStatsTab } from "@/components/exports/client-stats-tab";
 import { TourExportTab } from "@/components/exports/tour-export-tab";
 import { useExportFilters } from "@/components/exports/use-export-filters";
 import { AdminGate } from "@/components/admin-gate";
@@ -62,7 +62,7 @@ function ExportsContent() {
       : []),
     {
       value: "pharmacies" as const,
-      label: t("exports.tabs.pharmacies"),
+      label: t("exports.tabs.clients"),
       icon: ChartColumn,
     },
   ];
@@ -101,7 +101,7 @@ function ExportsContent() {
             aria-labelledby="exports-tab-pharmacies"
             className={tab === "pharmacies" ? "flex flex-1 flex-col" : "hidden"}
           >
-            <PharmacyStatsTab api={api} />
+            <ClientStatsTab api={api} />
           </div>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import type { ProfilRef } from "@/features/auth/types";
+import type { Client, ClientRef, ClientType } from "@/features/clients/types";
 
 export interface StatusRef {
   id: number;
@@ -10,20 +11,6 @@ export interface StatusRef {
 export interface ZoneRef {
   id: string;
   name: string;
-}
-
-export interface TourCommandPharmacy {
-  cip: string;
-  name: string;
-  address1?: string;
-  city?: string;
-  postalCode?: string;
-  latitude?: number | null;
-  longitude?: number | null;
-  color?: string | null;
-  numero?: string | null;
-  deliveryWindowStart?: string | null;
-  deliveryWindowEnd?: string | null;
 }
 
 export interface RouteLeg {
@@ -40,7 +27,7 @@ export interface TourCommand {
   newPharmacy?: boolean;
   latitude?: number | null;
   longitude?: number | null;
-  pharmacy?: TourCommandPharmacy | null;
+  client?: Client | null;
   pharmacyDeliveryWindowStart?: string | null;
   pharmacyDeliveryWindowEnd?: string | null;
   status?: StatusRef | null;
@@ -56,7 +43,7 @@ export interface CommandTourHistory {
   action: string;
   createdAt?: string;
   profil?: ProfilRef | null;
-  commandPharmacy?: TourCommandPharmacy | null;
+  commandClient?: Client | null;
 }
 
 export interface Tour {
@@ -81,6 +68,7 @@ export interface Tour {
   profil?: ProfilRef | null;
   status?: StatusRef | null;
   zone?: ZoneRef | null;
+  client?: ClientRef | null;
   commands?: TourCommand[];
   commandTourHistories?: CommandTourHistory[];
 }
@@ -90,6 +78,7 @@ export interface TourCreateInput {
   initialDate: string;
   color?: string;
   zoneId?: string;
+  clientId?: string;
 }
 
 export interface TourUpdateInput {
@@ -105,11 +94,16 @@ export interface TourUpdateInput {
   estimateKm?: number;
   geometry?: string;
   zoneId?: string;
+  clientId?: string;
+  clearClient?: boolean;
 }
 
 export interface TourStop {
   commandId: string;
   tourOrder: number;
+  clientId?: string | null;
+  clientType?: ClientType | null;
+  clientName?: string | null;
   pharmacyCip?: string | null;
   pharmacyName?: string | null;
   latitude?: number | null;
@@ -259,6 +253,9 @@ export type TourDispatchSkipReason =
 
 export interface TourDispatchSkipped {
   commandId: string;
+  clientId: string | null;
+  clientType: ClientType | null;
+  clientName: string | null;
   pharmacyCip: string | null;
   pharmacyName: string | null;
   reason: TourDispatchSkipReason;

@@ -65,7 +65,9 @@
       "message": "Quitter sans enregistrer ? Vos modifications seront perdues.",
       "stay": "Continuer la modification",
       "leave": "Quitter sans enregistrer"
-    }
+    },
+    "copyId": "Copier l'identifiant de commande",
+    "idCopied": "Identifiant copié"
   },
   "deliveryWindow": {
     "label": "Créneau de livraison",
@@ -217,8 +219,6 @@
     "tours": "Tournées",
     "tourConfigs": "Tournées auto",
     "zones": "Zones",
-    "pharmacies": "Pharmacies",
-    "pharmacyReports": "Rapports pharmacies",
     "commands": "Commandes",
     "anomalies": "Anomalies",
     "todos": "À faire",
@@ -233,7 +233,7 @@
     "apiTokens": "Tokens API",
     "subscriptionInvoices": "Factures d'abonnement",
     "invoices": "Factures",
-    "billingCustomers": "Clients facturés",
+    "clients": "Clients",
     "mobileApp": "Application mobile",
     "hyperadmin": "Hyperadmin",
     "admin": "Admin",
@@ -244,7 +244,8 @@
     "menuWithBadge": "Menu, {{count}} élément(s) à traiter",
     "badges": {
       "unassignedCommands": "{{count}} commande(s) non attribuée(s) le {{date}}"
-    }
+    },
+    "clientReports": "Rapports clients"
   },
   "noCompany": {
     "title": "Vous n'appartenez à aucune entreprise",
@@ -316,14 +317,14 @@
       "anomalies_other": "{{count}} anomalies aujourd'hui",
       "souffrance_one": "{{count}} colis en souffrance",
       "souffrance_other": "{{count}} colis en souffrance",
-      "invalidGeocoding_one": "{{count}} adresse de pharmacie à corriger",
-      "invalidGeocoding_other": "{{count}} adresses de pharmacie à corriger",
-      "pharmacyReports_one": "{{count}} signalement pharmacie",
-      "pharmacyReports_other": "{{count}} signalements pharmacie",
-      "newPharmacies_one": "{{count}} nouvelle pharmacie à vérifier",
-      "newPharmacies_other": "{{count}} nouvelles pharmacies à vérifier",
+      "invalidGeocoding_one": "{{count}} adresse de client à corriger",
+      "invalidGeocoding_other": "{{count}} adresses de client à corriger",
       "unpaidSubscriptionInvoices_one": "{{count}} facture d'abonnement impayée",
-      "unpaidSubscriptionInvoices_other": "{{count}} factures d'abonnement impayées"
+      "unpaidSubscriptionInvoices_other": "{{count}} factures d'abonnement impayées",
+      "clientReports_one": "{{count}} signalement client",
+      "clientReports_other": "{{count}} signalements client",
+      "newClients_one": "{{count}} nouveau client à vérifier",
+      "newClients_other": "{{count}} nouveaux clients à vérifier"
     },
     "tours": {
       "title": "Tournées du jour",
@@ -511,7 +512,7 @@
     },
     "zoneAssignDialog": {
       "title": "Attribuer aux tournées selon la zone",
-      "subtitle": "{{count}} commande(s) sélectionnée(s). Chaque commande rejoint la tournée du jour rattachée à la zone de sa pharmacie.",
+      "subtitle": "{{count}} commande(s) sélectionnée(s). Chaque commande rejoint la tournée du jour rattachée à la zone de son client.",
       "commands": "{{count}} commande(s)",
       "already": "{{count}} déjà dans cette tournée",
       "moved": "{{count}} déplacée(s) depuis une autre tournée",
@@ -519,7 +520,7 @@
       "chooseTour": "{{count}} tournées partagent cette zone, choisissez-en une",
       "skip": "Ne pas attribuer",
       "tourFor": "Tournée pour la zone {{zone}}",
-      "withoutZone": "{{count}} commande(s) dont la pharmacie n'a pas de zone restent inchangées.",
+      "withoutZone": "{{count}} commande(s) dont le client n'a pas de zone restent inchangées.",
       "noZonedTour": "Aucune tournée de ce jour n'est rattachée à une zone. Choisissez d'abord la zone d'une tournée sur la page Tournées.",
       "submit": "Attribuer {{count}} commande(s)",
       "done": "{{count}} commande(s) attribuée(s) à {{tours}} tournée(s).",
@@ -538,7 +539,7 @@
       "scope": {
         "title": "Commandes à répartir",
         "commands": "{{count}} commande(s)",
-        "pharmacies": "{{count}} pharmacie(s)",
+        "pharmacies": "{{count}} client(s)",
         "packages": "{{count}} colis",
         "empty": "Aucune commande à répartir pour ce jour.",
         "filtered": "Les filtres de la liste (statut, zone) s'appliquent.",
@@ -548,7 +549,7 @@
         "noAssigned": "Aucune commande de ce jour n'est encore dans une tournée.",
         "alreadyAssigned": "Dont {{count}} commande(s) déjà dans {{tours}} tournée(s).",
         "lockedNote": "Les commandes des tournées déjà chargées, parties ou clôturées sont signalées et laissées en place.",
-        "tooMany": "Au-delà de 300 pharmacies, le calcul est plus long et moins précis."
+        "tooMany": "Au-delà de 300 clients, le calcul est plus long et moins précis."
       },
       "settings": {
         "vehicleCount": "Nombre de tournées",
@@ -564,7 +565,7 @@
         "serviceDecrease": "Une minute de moins",
         "serviceIncrease": "Une minute de plus",
         "minutesUnit": "min",
-        "serviceHint": "Temps passé dans chaque pharmacie, utilisé pour équilibrer les tournées.",
+        "serviceHint": "Temps passé chez chaque client, utilisé pour équilibrer les tournées.",
         "quality": "Calcul",
         "qualityHint": "Un calcul plus long donne des tournées mieux équilibrées.",
         "seconds": "{{count}} s",
@@ -577,14 +578,14 @@
       "run": "Calculer la répartition",
       "running": {
         "title": "Calcul en cours, environ {{total}} s",
-        "detail": "{{pharmacies}} pharmacie(s) à répartir entre {{tours}} tournée(s)",
+        "detail": "{{pharmacies}} client(s) à répartir entre {{tours}} tournée(s)",
         "elapsed": "{{elapsed}} s écoulée(s)",
         "progress": "Avancement du calcul"
       },
       "errors": {
         "failed": "Le calcul a échoué.",
         "unavailable": "Le moteur d'itinéraire est indisponible. Réessayez dans un instant.",
-        "unroutable": "Aucune pharmacie de cette sélection n'est desservie par la route.",
+        "unroutable": "Aucun client de cette sélection n'est desservi par la route.",
         "timeout": "Le calcul a pris trop de temps. Réessayez en mode Rapide.",
         "network": "Le serveur est injoignable.",
         "reference": "Référence : {{id}}",
@@ -598,7 +599,7 @@
         "spread": "Écart entre tournées",
         "spreadHint": "Tournée la plus longue moins la plus courte",
         "settingsLine": "Départ à {{time}}, {{minutes}} min par arrêt.",
-        "infeasible": "{{count}} pharmacie(s) ne peuvent pas être livrées dans leur créneau. La répartition est tout de même proposée : changez l'heure de départ et relancez le calcul, ou ajustez plus tard sur la page d'ordre de passage.",
+        "infeasible": "{{count}} client(s) ne peuvent pas être livrés dans leur créneau. La répartition est tout de même proposée : changez l'heure de départ et relancez le calcul, ou ajustez plus tard sur la page d'ordre de passage.",
         "skipped": "{{count}} commande(s) ne peuvent pas être réparties et restent où elles sont :",
         "reasons": {
           "UNROUTABLE": "aucun accès routier",
@@ -687,37 +688,36 @@
   "commands": {
     "title": "Commandes",
     "subtitle": "Rechercher, consulter et modifier les commandes de votre compte",
-    "searchPlaceholder": "Rechercher par pharmacie, ville, code postal, CIP ou identifiant",
+    "searchPlaceholder": "Rechercher par client, ville, code postal, CIP ou identifiant",
     "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés par la recherche.",
     "empty": "Aucune commande à afficher.",
     "noSearchResults": "Aucune commande ne correspond à cette recherche.",
     "selectAllOnPage": "Sélectionner les commandes de cette page",
-    "pharmacy": "Pharmacie",
+    "pharmacy": "Client",
     "closeDate": "Date de clôture",
     "expDate": "Date d'expédition",
     "packages": "Colis",
     "tarif": "Tarif",
     "forced": "Forcer le SCAN CIP",
     "newPharmacy": "Nouvelle",
-    "newPharmacyTitle": "Nouvelle pharmacie",
-    "noPharmacy": "Pharmacie inconnue",
-    "openPharmacy": "Voir la pharmacie",
+    "newPharmacyTitle": "Nouveau client",
+    "noPharmacy": "Client inconnu",
+    "openPharmacy": "Voir le client",
     "locate": "Localiser sur la carte",
     "editKey": "Modifier la clé",
     "keyDialog": {
       "title": "Modifier la clé",
-      "subtitle": "Numéro et couleur de clé de {{name}}, enregistrés sur la fiche pharmacie.",
+      "subtitle": "Numéro et couleur de clé de {{name}}, enregistrés sur la fiche client.",
       "saved": "Clé enregistrée"
     },
-    "pharmacyOrders": "Commandes de la pharmacie",
+    "pharmacyOrders": "Commandes du client",
     "create": {
       "action": "Nouvelle commande",
       "forPharmacy": "Nouvelle commande",
       "title": "Nouvelle commande",
-      "subtitle": "Créer une commande et ses colis pour une pharmacie de votre compte",
+      "subtitle": "Créer une commande et ses colis pour un client de votre compte",
       "sectionOrder": "Commande",
       "sectionPackages": "Colis",
-      "pharmacyHint": "Choisissez la pharmacie dans la liste. Un CIP inconnu est refusé par le serveur.",
       "expTime": "Heure d'expédition",
       "expTimeHint": "Envoyée avec votre fuseau horaire. Seul le jour regroupe les commandes.",
       "numTransport": "Numéro de transport",
@@ -756,7 +756,6 @@
         "noParcelsHint": "Le numéro de transport n'a pas été enregistré et aucune étiquette ne peut être imprimée."
       },
       "errors": {
-        "pharmacyRequired": "Sélectionnez une pharmacie.",
         "required": "Ce champ est obligatoire.",
         "invalidDate": "Saisissez une date valide.",
         "invalidTime": "Saisissez une heure valide.",
@@ -767,17 +766,25 @@
         "formInvalid": "Vérifiez les champs signalés.",
         "validation": "Certains champs ont été refusés par le serveur. Vérifiez les champs signalés.",
         "invalid": "La commande a été refusée. Vérifiez les champs et réessayez.",
-        "unknownCip": "Aucune pharmacie ne correspond à ce CIP sur votre compte.",
         "emailNotVerified": "Vérifiez votre adresse email avant de créer une commande.",
         "timeout": "Le serveur n'a pas répondu à temps. Vérifiez la liste des commandes avant de réessayer.",
-        "server": "Le serveur n'a pas pu créer la commande. Veuillez réessayer."
+        "server": "Le serveur n'a pas pu créer la commande. Veuillez réessayer.",
+        "ordererRequired": "Sélectionnez le donneur d'ordre.",
+        "clientRequired": "Sélectionnez un client.",
+        "partyRequired": "Renseignez cette partie.",
+        "partyName": "Le nom est obligatoire.",
+        "unknownClient": "Ce client n'existe pas sur votre compte.",
+        "ORDERER_REQUIRED": "Le donneur d'ordre est obligatoire.",
+        "PARTY_AMBIGUOUS": "Choisissez soit un client existant, soit une saisie libre, pas les deux.",
+        "PARTY_INCOMPLETE": "Le nom est obligatoire pour une saisie libre.",
+        "PARTY_CLIENT_NOT_FOUND": "Ce client n'existe pas sur votre compte."
       }
     },
     "filters": {
       "modeSimple": "Simple",
       "modeDetailed": "Détaillée",
       "detailedHint": "La recherche détaillée combine tous les champs. Le nom, la ville et l'adresse acceptent aussi les variantes st et saint, contrairement à la recherche simple.",
-      "pharmacyName": "Nom de la pharmacie",
+      "pharmacyName": "Nom du client",
       "commandId": "Identifiant de commande",
       "from": "Du",
       "to": "Au",
@@ -828,8 +835,8 @@
       "pictures": "Photos",
       "noPictures": "Aucune photo sur cette commande.",
       "openPicture": "Ouvrir la photo",
-      "recent": "Dernières commandes de la pharmacie",
-      "noRecent": "Aucune autre commande géolocalisée pour cette pharmacie.",
+      "recent": "Dernières commandes du client",
+      "noRecent": "Aucune autre commande géolocalisée pour ce client.",
       "subtitle": "Commande du {{date}}",
       "tourStop": "{{name}} - arrêt {{order}}",
       "noTour": "Non affectée à une tournée",
@@ -849,6 +856,49 @@
       "notFoundDetail": "Cette commande n'existe pas ou appartient à un autre compte.",
       "tourClosed": "Une des commandes appartient à une tournée clôturée. Rien n'a été modifié.",
       "actionFailed": "L'action a échoué. Veuillez réessayer."
+    },
+    "parties": {
+      "orderer": "Donneur d'ordre",
+      "ordererHint": "Commande la course et sera facturé",
+      "ordererOrders": "Commandes de ce donneur d'ordre",
+      "noOrderer": "Cette commande a été créée avant les donneurs d'ordre, elle n'en a pas.",
+      "sender": "Expéditeur",
+      "senderHint": "Lieu de chargement",
+      "senderOptional": "facultatif",
+      "noSender": "Pas d'expéditeur, la commande part de votre dépôt.",
+      "recipient": "Destinataire",
+      "recipientHint": "Lieu de livraison",
+      "noRecipient": "Pas de destinataire sur cette commande.",
+      "linked": "Du référentiel",
+      "free": "Propre à la commande",
+      "freeNotice": "Saisi sur cette commande : non modifiable depuis une fiche client, et sans zone ni créneau de livraison.",
+      "modeLinked": "Client existant",
+      "modeFree": "Saisie libre",
+      "client": "Client",
+      "clientHint": "Choisissez un client du référentiel.",
+      "freeHint": "Nom, adresse, contact et GPS uniquement.",
+      "openClient": "Ouvrir la fiche client",
+      "pick": {
+        "orderer": "Choisir le donneur d'ordre",
+        "sender": "Choisir l'expéditeur",
+        "recipient": "Choisir le destinataire"
+      }
+    },
+    "proofs": {
+      "title": "Carte",
+      "loading": "Chargement",
+      "delivery": "Livraison",
+      "pending": "Pas encore",
+      "gap": "à {{distance}} de l'adresse",
+      "noPosition": "Aucune position transmise",
+      "noSignature": "Pas de signature",
+      "signatureUnknown": "Signature sans nom",
+      "signatureAlt": "Signature",
+      "legendSender": "Adresse de l'expéditeur",
+      "legendRecipient": "Adresse de livraison",
+      "legendLoading": "Chargement relevé",
+      "legendDelivery": "Livraison relevée",
+      "noPoints": "Aucune position à placer sur une carte pour le moment."
     }
   },
   "packages": {
@@ -879,13 +929,13 @@
     "columns": {
       "createdAt": "Déclarée le",
       "type": "Type",
-      "pharmacy": "Pharmacie",
+      "pharmacy": "Client",
       "declaredBy": "Déclarée par",
       "description": "Description"
     },
     "filters": {
-      "searchPlaceholder": "Rechercher une pharmacie (nom, CIP, ville, code postal, adresse)",
-      "searchScope": "La recherche ne porte que sur les champs pharmacie, ni sur la description, ni sur les actions, ni sur le déclarant.",
+      "searchPlaceholder": "Rechercher un client (nom, CIP, ville, code postal, adresse)",
+      "searchScope": "La recherche ne porte que sur les champs client, ni sur la description, ni sur les actions, ni sur le déclarant.",
       "tooManyWords": "Seuls les {{count}} premiers mots sont utilisés par le serveur.",
       "allTypes": "Tous les types",
       "allProfiles": "Tout le monde",
@@ -894,11 +944,11 @@
     },
     "form": {
       "title": "Déclarer une anomalie",
-      "subtitle": "L'anomalie est rattachée à une pharmacie et, si besoin, à une commande.",
+      "subtitle": "L'anomalie est rattachée à un client et, si besoin, à une commande.",
       "subtitleCommand": "Anomalie sur la commande de {{name}}.",
       "type": "Type d'anomalie",
       "typePlaceholder": "Choisir un type",
-      "pharmacy": "Pharmacie",
+      "pharmacy": "Client",
       "pharmacyHint": "Saisissez au moins 2 caractères pour lancer la recherche.",
       "pharmacyFromCommand": "Reprise de la commande.",
       "packages": "Colis concernés",
@@ -959,7 +1009,7 @@
       "forbidden": "Vous n'avez pas les droits pour cette action.",
       "notFound": "Cette anomalie n'existe plus ou appartient à un autre compte.",
       "notFoundDetail": "Cette anomalie n'existe pas ou appartient à un autre compte.",
-      "createNotFound": "Commande ou pharmacie inconnue pour ce compte.",
+      "createNotFound": "Commande ou client inconnu pour ce compte.",
       "sendNotFound": "Envoi impossible : anomalie introuvable ou aucun destinataire configuré sur le compte.",
       "timeout": "Le serveur a mis trop de temps à répondre. L'action a peut-être abouti.",
       "actionFailed": "L'action a échoué. Veuillez réessayer."
@@ -1085,7 +1135,7 @@
       "reset": "Réinitialiser",
       "moveUp": "Monter",
       "moveDown": "Descendre",
-      "stopWithoutCoords": "Pharmacie sans coordonnées",
+      "stopWithoutCoords": "Client sans coordonnées",
       "missingCoords": "{{count}} arrêt(s) sans coordonnées, laissés en fin d'ordre et exclus du trajet.",
       "skippedTitle": "{{count}} arrêt(s) écarté(s) par l'optimisation, placés en fin d'ordre.",
       "ignoredTitle": "{{count}} commande(s) de la tournée absente(s) de la réponse du serveur, laissée(s) en fin d'ordre. Signalez ce cas, le serveur devrait les trier ou expliquer leur exclusion.",
@@ -1098,14 +1148,14 @@
         "closed": "Cette tournée est clôturée, son ordre ne peut plus être modifié.",
         "forbidden": "Vous n'avez pas le droit de réordonner cette tournée.",
         "depotMissing": "Les coordonnées du dépôt ne sont pas renseignées dans les paramètres du compte, le tri automatique et les heures d'arrivée sont indisponibles.",
-        "noRoutableStop": "Aucun arrêt n'a pu être rattaché à une route. Vérifiez les coordonnées des pharmacies.",
+        "noRoutableStop": "Aucun arrêt n'a pu être rattaché à une route. Vérifiez les coordonnées des clients.",
         "optimizeFailed": "Le tri automatique a échoué. Le moteur de routage est peut-être indisponible, réessayez dans 30 secondes.",
         "saveFailed": "L'ordre n'a pas pu être enregistré.",
         "refreshFailed": "Le trajet n'a pas pu être recalculé.",
         "notInTour": "Un des arrêts n'appartient plus à cette tournée, rechargez la page.",
         "ORS_UNREACHABLE": "Moteur de routage injoignable, le trajet précédent est conservé.",
         "ORS_CIRCUIT_OPEN": "Moteur de routage en pause après plusieurs échecs, réessayez dans 30 secondes.",
-        "ENGINE_REJECTED": "Le calculateur d'itinéraire a refusé cette séquence d'arrêts. Vérifiez les coordonnées des pharmacies.",
+        "ENGINE_REJECTED": "Le calculateur d'itinéraire a refusé cette séquence d'arrêts. Vérifiez les coordonnées des clients.",
         "NO_ROUTE_RETURNED": "Aucun itinéraire n'a pu être calculé pour cette séquence d'arrêts.",
         "NO_ROUTABLE_STOP": "Aucun arrêt n'a pu être rattaché à une route.",
         "UNEXPECTED_ERROR": "Le trajet n'a pas pu être calculé."
@@ -1145,27 +1195,28 @@
         }
       },
       "previewFailed": "Le trajet de l'ordre en cours n'a pas pu être calculé, la carte affiche le dernier trajet valide."
-    }
+    },
+    "orderer": "Donneur d'ordre",
+    "ordererHint": "Facturé pour les commandes de cette tournée qui n'ont pas de donneur d'ordre à elles."
   },
   "zones": {
     "title": "Zones",
-    "subtitle": "Regroupez les pharmacies en zones de livraison",
+    "subtitle": "Regroupez les clients en zones de livraison",
     "untitled": "Zone sans nom",
-    "empty": "Aucune zone pour l'instant. Créez-en une pour commencer à regrouper vos pharmacies.",
+    "empty": "Aucune zone pour l'instant. Créez-en une pour commencer à regrouper vos clients.",
     "create": "Nouvelle zone",
     "backToZones": "Retour aux zones",
     "showOnMap": "Afficher seulement celle-ci sur la carte",
     "locate": "Localiser sur la carte",
     "unassigned": "Sans zone",
-    "unassignedDesc": "Pharmacies non affectées",
-    "pharmacyCount": "{{count}} pharmacies",
+    "unassignedDesc": "Clients non affectés",
     "selected": "{{count}} sélectionnées",
     "clearSelection": "Effacer la sélection",
-    "selectAllOnPage": "Sélectionner les pharmacies de cette page",
+    "selectAllOnPage": "Sélectionner les clients de cette page",
     "selectAllInZone": "Tout sélectionner ({{count}})",
     "searchPlaceholder": "Rechercher par nom ou CIP",
-    "noPharmacies": "Aucune pharmacie dans cette zone.",
-    "noSearchResults": "Aucune pharmacie ne correspond à cette recherche.",
+    "noPharmacies": "Aucun client dans cette zone.",
+    "noSearchResults": "Aucun client ne correspond à cette recherche.",
     "columns": {
       "cip": "CIP"
     },
@@ -1175,12 +1226,12 @@
     "legend": {
       "showAll": "Afficher toutes les zones",
       "isolate": "Afficher uniquement cette zone",
-      "withoutCoordinates": "{{count}} pharmacies sans coordonnées"
+      "withoutCoordinates": "{{count}} clients sans coordonnées"
     },
     "form": {
       "createTitle": "Nouvelle zone",
       "renameTitle": "Renommer la zone",
-      "subtitle": "Les zones regroupent les pharmacies pour que les commandes rejoignent la bonne tournée.",
+      "subtitle": "Les zones regroupent les clients pour que les commandes rejoignent la bonne tournée.",
       "name": "Nom de la zone",
       "namePlaceholder": "Secteur Nord",
       "nameRequired": "Saisissez un nom de zone.",
@@ -1191,287 +1242,23 @@
     "assign": {
       "action": "Affecter à une zone",
       "actionShort": "Affecter",
-      "menuLabel": "Affecter {{count}} pharmacies à",
+      "menuLabel": "Affecter {{count}} clients à",
       "detach": "Retirer de la zone",
-      "success": "{{count}} pharmacies affectées à {{zone}}.",
-      "partial": "{{applied}} pharmacies affectées sur {{requested}}. Le serveur a rejeté les autres.",
-      "detachSuccess": "{{count}} pharmacies retirées de leur zone.",
-      "detachPartial": "{{detached}} pharmacies retirées sur {{requested}}. Réessayez pour les autres.",
+      "success": "{{count}} clients affectés à {{zone}}.",
+      "detachSuccess": "{{count}} clients retirés de leur zone.",
       "failed": "L'opération a échoué."
     },
     "delete": {
       "title": "Supprimer la zone",
       "confirm": "Supprimer la zone \"{{name}}\" ?",
-      "detach": "{{count}} pharmacies seront retirées de cette zone.",
+      "detach": "{{count}} clients seront retirés de cette zone.",
       "cascade": "Les tournées et les configurations de tournée liées à cette zone la perdront, y compris les tournées passées et clôturées. L'affectation automatique cessera pour elles. Cette action est irréversible.",
       "failed": "La zone n'a pas pu être supprimée."
     },
     "errors": {
       "zoneGone": "Cette zone n'existe plus. Elle a peut-être été supprimée ailleurs."
-    }
-  },
-  "pharmacies": {
-    "title": "Pharmacies",
-    "subtitle": "Recherchez, qualifiez et documentez les pharmacies de votre compte",
-    "untitled": "Pharmacie sans nom",
-    "create": "Nouvelle pharmacie",
-    "searchPlaceholder": "Rechercher par nom, ville, code postal, CIP ou adresse",
-    "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés par la recherche.",
-    "empty": "Aucune pharmacie à afficher.",
-    "noSearchResults": "Aucune pharmacie ne correspond à cette recherche.",
-    "openDetail": "Ouvrir la fiche",
-    "picker": {
-      "placeholder": "Rechercher une pharmacie",
-      "none": "Aucune pharmacie trouvée.",
-      "clear": "Changer de pharmacie"
     },
-    "orders": {
-      "section": "Commandes",
-      "all": "Commandes",
-      "create": "Nouvelle commande",
-      "showOnMap": "Afficher {{count}} commande(s) sur la carte",
-      "hideOnMap": "Masquer les commandes sur la carte",
-      "empty": "Aucune commande géolocalisée pour cette pharmacie."
-    },
-    "columns": {
-      "cip": "CIP",
-      "zone": "Zone",
-      "location": "Code postal / ville"
-    },
-    "badges": {
-      "noLocation": "Sans coordonnées",
-      "neverOrdered": "Jamais commandé"
-    },
-    "filters": {
-      "modeSimple": "Simple",
-      "modeDetailed": "Détaillée",
-      "detailedHint": "La recherche détaillée combine tous les champs. Le nom et l'adresse sont comparés de façon approximative par le serveur, préférez la recherche simple pour du texte libre.",
-      "zone": "Zone",
-      "anyZone": "Toutes les zones",
-      "noZone": "Sans zone",
-      "hasPhotos": "Avec photos",
-      "hasOrderedShort": "Hors jamais commandé",
-      "hasOrderedHint": "Inclut aussi les pharmacies que votre compte n'a jamais qualifiées.",
-      "locationInvalid": "Géolocalisation invalide",
-      "pageSize": "Résultats par page",
-      "pageSizeValue": "{{count}} par page"
-    },
-    "sections": {
-      "photos": "Photos",
-      "identity": "Pharmacie",
-      "address": "Adresse",
-      "position": "Position",
-      "positionDesc": "Utilisée pour les trajets et le tri des tournées.",
-      "delivery": "Livraison",
-      "deliveryDesc": "Ce dont le livreur a besoin sur place.",
-      "contact": "Contact",
-      "notes": "Note interne",
-      "notesDesc": "Jamais visible par les livreurs."
-    },
-    "info": {
-      "address": "Adresse",
-      "contact": "Contact",
-      "informations": "Instructions à la livraison",
-      "commentaire": "Commentaire",
-      "numero": "Numéro de clé",
-      "color": "Couleur de clé",
-      "noColor": "Aucune couleur",
-      "clearColor": "Effacer la couleur",
-      "doubleKeyCarrier": "Double clé transporteur",
-      "doubleKeySender": "Double clé expéditeur",
-      "noCoordinates": "Cette pharmacie n'a pas encore de position.",
-      "dragHint": "Déplacez le point pour corriger les coordonnées.",
-      "dragHintEmpty": "Déplacez le point pour définir les coordonnées.",
-      "quality": "Civilité",
-      "country": "Pays",
-      "fax": "Fax",
-      "zone": "Zone",
-      "noZone": "Sans zone",
-      "searchAddress": "Rechercher une adresse",
-      "searchHint": "Vous pouvez aussi rechercher une adresse pour la positionner.",
-      "findAddress": "Rechercher l'adresse",
-      "findAddressHint": "Remplit l'adresse et place le marqueur sur la carte.",
-      "address2": "Complément d'adresse",
-      "address3": "Complément d'adresse 2",
-      "cipEditableHint": "Modifier le CIP change l'adresse de cette fiche.",
-      "coordinates": "Coordonnées",
-      "latitude": "Latitude",
-      "longitude": "Longitude",
-      "editCoordinates": "Saisir les coordonnées",
-      "coordinatesHint": "Degrés décimaux, par exemple 48.8566 et 2.3522.",
-      "positionSet": "Position définie",
-      "positionFromAddress": "Placée depuis l'adresse",
-      "positionManual": "Placée à la main",
-      "positionFromDeliveries": "Placée depuis les dernières livraisons",
-      "positionStale": "L'adresse a changé depuis le placement du marqueur",
-      "positionStaleHint": "Relancez la localisation depuis l'adresse, ou gardez le marqueur tel quel.",
-      "positionNone": "Aucune position",
-      "positionNoneHint": "Recherchez l'adresse ou touchez la carte pour placer le marqueur.",
-      "positionNoneHintView": "Sans position, les trajets et le tri des tournées ignorent cette pharmacie.",
-      "positionHint": "Déplacez le marqueur pour ajuster la position.",
-      "setPosition": "Définir la position",
-      "locateFromAddress": "Localiser depuis l'adresse",
-      "locateFromAddressDone": "Marqueur placé à {{label}}.",
-      "locateFromAddressNone": "Aucun résultat pour cette adresse.",
-      "centerOnMarker": "Centrer sur le marqueur",
-      "resetPosition": "Rétablir la position enregistrée",
-      "clearPosition": "Effacer la position",
-      "positionActions": "Autres actions de position",
-      "accountScope": "Les informations et la position sont enregistrées pour votre compte uniquement.",
-      "key": "Clé",
-      "keySummary": "Clé {{numero}}",
-      "keyColorOnly": "Couleur seule, sans numéro",
-      "keyNone": "Pas de clé",
-      "doubleKeyCarrierHint": "Le transporteur possède un double de la clé.",
-      "doubleKeyCarrierOff": "Pas de double chez le transporteur.",
-      "doubleKeySenderHint": "L'expéditeur possède un double de la clé.",
-      "doubleKeySenderOff": "Pas de double chez l'expéditeur.",
-      "informationsHint": "Affiché au livreur dans l'application mobile.",
-      "informationsPlaceholder": "Code d'entrée, point de dépôt, horaires...",
-      "commentaireHint": "Interne, jamais visible par les livreurs.",
-      "commentairePlaceholder": "Tout ce qui est utile au bureau.",
-      "noContact": "Aucune coordonnée de contact.",
-      "noNote": "Aucune note interne."
-    },
-    "form": {
-      "createTitle": "Nouvelle pharmacie",
-      "cip": "CIP",
-      "cipHint": "Identifiant métier, unique dans votre entreprise.",
-      "charCount": "{{count}} / {{max}} caractères",
-      "failed": "La pharmacie n'a pas pu être enregistrée.",
-      "errors": {
-        "cipRequired": "Saisissez un CIP.",
-        "cipAlreadyUsed": "Ce CIP est déjà utilisé par une autre pharmacie de votre entreprise.",
-        "email": "Saisissez une adresse email valide.",
-        "tooLong": "Maximum {{max}} caractères.",
-        "latitude": "La latitude doit être comprise entre -90 et 90.",
-        "longitude": "La longitude doit être comprise entre -180 et 180.",
-        "number": "Saisissez un nombre valide.",
-        "time": "Saisissez une heure au format HH:mm.",
-        "nameRequired": "Saisissez un nom."
-      },
-      "createDescription": "Saisissez le CIP, puis l'adresse et les informations de livraison.",
-      "cipChecking": "Vérification du CIP",
-      "cipAvailable": "Nouveau CIP, la fiche sera créée.",
-      "cipExists": "Vous avez déjà une pharmacie avec ce CIP.",
-      "saved": "Pharmacie enregistrée.",
-      "created": "Pharmacie créée.",
-      "formInvalid": "Vérifiez les champs en surbrillance.",
-      "dirtyStatus": "Modifications non enregistrées"
-    },
-    "photos": {
-      "title": "Photos",
-      "count": "{{count}} photos",
-      "empty": "Aucune photo pour l'instant. Ajoutez-en une pour documenter cette pharmacie.",
-      "add": "Ajouter des photos",
-      "dropHint": "Déposez vos images ici ou parcourez. 10 Mo maximum par fichier.",
-      "uploading": "Envoi {{current}} sur {{total}}",
-      "tooLarge": "{{name}} dépasse 10 Mo et n'a pas été envoyée.",
-      "notAnImage": "{{name}} n'est pas une image et n'a pas été envoyée.",
-      "replace": "Remplacer l'image",
-      "fullscreen": "Plein écran",
-      "annotate": "Annoter",
-      "delete": "Supprimer la photo",
-      "deleteTitle": "Supprimer la photo",
-      "deleteConfirm": "Supprimer cette photo ? Cette action est irréversible.",
-      "moveUp": "Déplacer avant",
-      "moveDown": "Déplacer après",
-      "saveOrder": "Enregistrer l'ordre",
-      "cancelOrder": "Rétablir l'ordre",
-      "orderChanged": "L'ordre a changé. Enregistrez-le pour l'appliquer.",
-      "savingOrder": "Enregistrement de l'ordre",
-      "broken": "Image indisponible",
-      "brokenHint": "Le fichier est absent du serveur. Contactez le support pour le nettoyer.",
-      "openLightbox": "Ouvrir la photo",
-      "previous": "Photo précédente",
-      "next": "Photo suivante",
-      "errors": {
-        "upload": "{{count}} photos n'ont pas pu être envoyées.",
-        "delete": "Cette photo n'a pas pu être supprimée. Elle est peut-être déjà corrompue sur le serveur, contactez le support.",
-        "order": "Le nouvel ordre n'a pas pu être enregistré.",
-        "replace": "L'image n'a pas pu être remplacée."
-      },
-      "editor": {
-        "title": "Annoter la photo",
-        "subtitle": "Dessinez ou écrivez sur la photo, puis enregistrez pour la remplacer.",
-        "pen": "Stylo",
-        "text": "Texte",
-        "color": "Couleur",
-        "width": "Épaisseur",
-        "widthSmall": "Fin",
-        "widthMedium": "Moyen",
-        "widthLarge": "Épais",
-        "textPlaceholder": "Texte à placer",
-        "textHint": "Saisissez votre texte puis touchez la photo pour le placer.",
-        "undo": "Annuler",
-        "clear": "Effacer les annotations",
-        "save": "Enregistrer la photo",
-        "loading": "Chargement de la photo",
-        "errors": {
-          "load": "La photo n'a pas pu être chargée pour l'édition.",
-          "save": "La photo annotée n'a pas pu être enregistrée.",
-          "tooLarge": "La photo annotée dépasse 10 Mo."
-        }
-      }
-    },
-    "reports": {
-      "title": "Rapports pharmacies",
-      "subtitle": "Rapports envoyés par les livreurs depuis l'application mobile",
-      "empty": "Aucun rapport à traiter.",
-      "count": "{{count}} rapports",
-      "invalidGeocodage": "Coordonnées erronées",
-      "author": "Signalé par",
-      "unknownAuthor": "Livreur inconnu",
-      "noPharmacy": "Pharmacie inconnue",
-      "transfer": "Ajouter à la pharmacie",
-      "transferFailed": "La photo n'a pas pu être ajoutée.",
-      "markHandled": "Supprimer",
-      "markHandledTitle": "Supprimer",
-      "markHandledConfirm": "Supprimer ce rapport ? Ses photos sont supprimées aussi, mais celles déjà transférées dans une galerie sont conservées.",
-      "deleteFailed": "Le rapport n'a pas pu être supprimé.",
-      "openPharmacy": "Voir la pharmacie",
-      "filterPlaceholder": "Rechercher par pharmacie, auteur ou commentaire",
-      "views": {
-        "list": "Rapports",
-        "detail": "Traitement"
-      },
-      "selectPrompt": "Sélectionnez un rapport pour le traiter ici.",
-      "photoCount_one": "{{count}} photo",
-      "photoCount_other": "{{count}} photos",
-      "photosSection": "Photos du rapport",
-      "noReportPhotos": "Aucune photo dans ce rapport.",
-      "gallerySection": "Galerie de la pharmacie ({{count}})",
-      "photoAdded": "Photo ajoutée",
-      "infoSection": "Fiche de la pharmacie",
-      "infoSaved": "Fiche enregistrée.",
-      "positionSection": "Position",
-      "positionSaved": "Position enregistrée.",
-      "savePosition": "Enregistrer la position",
-      "useDeliveryAverage_one": "Utiliser le point de la dernière livraison",
-      "useDeliveryAverage_other": "Utiliser la moyenne des {{count}} dernières livraisons",
-      "noDeliveryPoints": "Aucun point de livraison disponible.",
-      "loadingDeliveries": "Chargement des dernières livraisons",
-      "discardTitle": "Modifications non enregistrées",
-      "discardConfirm": "Changer de rapport et abandonner les modifications ?",
-      "pharmacyGone": "Cette pharmacie n'existe plus. Vous pouvez tout de même supprimer le rapport.",
-      "reportGone": "Ce rapport n'existe plus."
-    },
-    "label": {
-      "download": "Étiquette",
-      "downloadLong": "Voir l'étiquette",
-      "title": "Étiquette de la pharmacie",
-      "pending": "Génération",
-      "errors": {
-        "notFound": "Cette pharmacie n'existe plus.",
-        "forbidden": "Vous n'êtes pas autorisé à générer cette étiquette.",
-        "emailNotVerified": "Vérifiez votre adresse email pour générer l'étiquette.",
-        "failed": "L'étiquette n'a pas pu être générée."
-      }
-    },
-    "errors": {
-      "notFound": "Cette pharmacie n'existe pas.",
-      "notFoundDesc": "Elle a peut-être été supprimée, ou le CIP est erroné."
-    }
+    "clientCount": "{{count}} clients"
   },
   "todos": {
     "title": "À faire",
@@ -1548,7 +1335,7 @@
     "bellUnread": "Notifications, {{count}} non lues",
     "types": {
       "ANOMALIE": "Anomalie",
-      "INFORMATION": "Information pharmacie",
+      "INFORMATION": "Information client",
       "SUBSCRIPTION_INVOICE": "Facture d'abonnement",
       "OTHER": "Notification"
     },
@@ -2122,7 +1909,9 @@
         "duplicate": "Une configuration utilise déjà ce nom.",
         "color": "Utilisez une couleur au format #RRGGBB.",
         "hour": "Choisissez une heure pleine."
-      }
+      },
+      "client": "Donneur d'ordre",
+      "clientHint": "Appliqué à chaque tournée créée par cette configuration. Les tournées déjà générées gardent le leur."
     },
     "delete": {
       "title": "Supprimer cette configuration",
@@ -2140,7 +1929,7 @@
     "subtitle": "Export Excel des tournées et des statistiques par officine",
     "tabs": {
       "tours": "Tournées",
-      "pharmacies": "Pharmacies"
+      "clients": "Pharmacies"
     },
     "filters": {
       "title": "Période extraite",
@@ -2150,7 +1939,6 @@
       "reset": "Réinitialiser",
       "clear": "Effacer les filtres",
       "closedOnly": "Tournées clôturées uniquement",
-      "pharmacyCip": "Pharmacie (CIP)",
       "driverId": "Chauffeur (identifiant)",
       "allPharmacies": "Toutes les officines",
       "allDrivers": "Tous les chauffeurs",
@@ -2168,7 +1956,8 @@
       "warnings": {
         "warning": "Plage de {{count}} jours, le chargement peut prendre du temps.",
         "danger": "Plage de {{count}} jours, le chargement peut prendre plusieurs minutes."
-      }
+      },
+      "clientCip": "Pharmacie (CIP)"
     },
     "actions": {
       "load": "Charger les données",
@@ -2194,9 +1983,9 @@
     },
     "preview": {
       "toursTitle": "Aperçu du classeur - Tournées",
-      "pharmaciesTitle": "Aperçu du classeur - Statistiques pharmacies",
       "emptySheet": "Aucune donnée pour cette feuille",
-      "truncated": "Aperçu limité aux {{shown}} premières lignes. Le fichier en contiendra {{total}}."
+      "truncated": "Aperçu limité aux {{shown}} premières lignes. Le fichier en contiendra {{total}}.",
+      "clientsTitle": "Aperçu du classeur - Statistiques pharmacies"
     },
     "kpi": {
       "tours": "Tournées",
@@ -2238,28 +2027,13 @@
       "newPharmacy": "Nouvelle",
       "removed": "Retirée"
     },
-    "pharmacies": {
-      "loadingTitle": "Chargement des statistiques pharmacies...",
-      "scopeHint": "Filtrage sur la date d'expédition de la commande (expDate), bornes en UTC. Les filtres laissés vides sont envoyés à null.",
-      "idle": "Choisissez une période puis lancez le chargement.",
-      "empty": "Aucune donnée sur cette période",
-      "found": "{{count}} officine(s) trouvée(s)",
-      "tableTitle": "Pharmacies ({{shown}} sur {{total}})",
-      "selectedCount": "{{count}} sélectionnée(s)",
-      "searchPlaceholder": "Rechercher par nom, CIP ou ville",
-      "noMatch": "Aucune officine ne correspond à la recherche.",
-      "localTotals": "Sélection partielle : les totaux sont recalculés localement et le taux de livraison du serveur ne s'applique plus.",
-      "lowRate": "{{count}} officine(s) sous {{threshold}} % de taux de livraison, mises en évidence dans le tableau.",
-      "tableNote": "Taux global issu de la synthèse serveur, jamais moyenné depuis les lignes. Les officines sans commande sur la période n'apparaissent pas.",
-      "coherence": "Ecart de cohérence : la synthèse annonce {{overview}} commande(s) alors que le détail par officine en totalise {{rows}}. A remonter à l'équipe backend."
-    },
     "sheets": {
       "summary": "Synthèse",
       "tours": "Tournées",
       "commands": "Commandes",
       "tarifs": "Tarifs",
       "drivers": "Par chauffeur",
-      "pharmacies": "Pharmacies"
+      "clients": "Pharmacies"
     },
     "summary": {
       "metric": "Métrique",
@@ -2330,13 +2104,11 @@
       "tour": "Tournée",
       "tourDate": "Date tournée",
       "commandId": "ID commande",
-      "pharmacy": "Pharmacie",
       "cip": "CIP",
       "city": "Ville",
       "order": "Ordre",
       "tarif": "Tarif",
       "distance": "Distance",
-      "newPharmacy": "Nouvelle pharmacie",
       "expDate": "Date d'expédition",
       "closeDate": "Date de fermeture",
       "tarifId": "ID tarif",
@@ -2353,7 +2125,9 @@
       "pendingCommands": "Commandes en attente",
       "missingCommands": "Commandes manquantes",
       "avgPackages": "Colis par commande",
-      "avgCommands": "Commandes par tournée"
+      "avgCommands": "Commandes par tournée",
+      "client": "Pharmacie",
+      "newClient": "Nouvelle pharmacie"
     },
     "values": {
       "unassigned": "Non assignée",
@@ -2369,6 +2143,21 @@
     "errors": {
       "adminOnly": "Réservé aux administrateurs.",
       "timeout": "Le délai de la requête est dépassé. Réduisez la plage de dates puis relancez."
+    },
+    "clients": {
+      "loadingTitle": "Chargement des statistiques pharmacies...",
+      "scopeHint": "Filtrage sur la date d'expédition de la commande (expDate), bornes en UTC. Les filtres laissés vides sont envoyés à null.",
+      "idle": "Choisissez une période puis lancez le chargement.",
+      "empty": "Aucune donnée sur cette période",
+      "found": "{{count}} officine(s) trouvée(s)",
+      "tableTitle": "Pharmacies ({{shown}} sur {{total}})",
+      "selectedCount": "{{count}} sélectionnée(s)",
+      "searchPlaceholder": "Rechercher par nom, CIP ou ville",
+      "noMatch": "Aucune officine ne correspond à la recherche.",
+      "localTotals": "Sélection partielle : les totaux sont recalculés localement et le taux de livraison du serveur ne s'applique plus.",
+      "lowRate": "{{count}} officine(s) sous {{threshold}} % de taux de livraison, mises en évidence dans le tableau.",
+      "tableNote": "Taux global issu de la synthèse serveur, jamais moyenné depuis les lignes. Les officines sans commande sur la période n'apparaissent pas.",
+      "coherence": "Ecart de cohérence : la synthèse annonce {{overview}} commande(s) alors que le détail par officine en totalise {{rows}}. A remonter à l'équipe backend."
     }
   },
   "errors": {
@@ -2401,8 +2190,8 @@
       "commands": "Commandes",
       "packages": "Colis"
     },
-    "searchPlaceholderCommands": "Rechercher par pharmacie, ville, code postal, CIP ou identifiant",
-    "searchPlaceholderPackages": "Rechercher par code-barres, pharmacie, ville, code postal, CIP ou identifiant",
+    "searchPlaceholderCommands": "Rechercher par client, ville, code postal, CIP ou identifiant",
+    "searchPlaceholderPackages": "Rechercher par code-barres, client, ville, code postal, CIP ou identifiant",
     "detailedHintPackages": "La recherche détaillée combine tous les champs. Le nom et la ville acceptent aussi les variantes st et saint, contrairement à la recherche simple.",
     "expDateHint": "La période filtre la date d'expédition de la commande, pas la date de mise en souffrance.",
     "emptyCommands": "Aucune commande en souffrance.",
@@ -2410,8 +2199,6 @@
     "noResults": "Aucun élément en souffrance ne correspond à cette recherche.",
     "selectAll": "Sélectionner toutes les lignes de cette page",
     "openCommand": "Ouvrir la commande",
-    "copyId": "Copier l'identifiant de commande",
-    "idCopied": "Identifiant copié",
     "columns": {
       "flagged": "Mise en souffrance",
       "order": "Commande",
@@ -2762,7 +2549,10 @@
       "account": "Compte",
       "accountHint": "Laissez vide pour creer le token sur votre compte courant.",
       "betaProxy": "Beta proxy",
-      "betaProxyHint": "Les imports recus par ce token sont rediriges vers l'environnement beta."
+      "betaProxyHint": "Les imports recus par ce token sont rediriges vers l'environnement beta.",
+      "client": "Donneur d'ordre des commandes importées",
+      "clientHint": "Appliqué à toutes les commandes importées avec ce token, quoi que dise le flux.",
+      "clientNotice": "Ce donneur d'ordre l'emporte sur l'expéditeur annoncé par le flux, qui est alors ignoré. Les commandes importées restent sans expéditeur : un token dit qui commande la course, pas d'où part le colis."
     },
     "delete": {
       "title": "Supprimer ce token",
@@ -2875,7 +2665,10 @@
       "customerLoading": "Chargement du client",
       "from": "Émise à partir du",
       "to": "Émise jusqu'au",
-      "clear": "Effacer"
+      "clear": "Effacer",
+      "active_one": "{{count}} filtre actif",
+      "active_other": "{{count}} filtres actifs",
+      "none": "Filtrer les factures"
     },
     "lines": {
       "description": "Désignation",
@@ -2949,8 +2742,8 @@
           "hint": "Une ligne par tranche tarifaire."
         }
       },
-      "customerOptional": "Facultatif si toutes les commandes vont à la même pharmacie : son client est alors utilisé.",
-      "customerRequired": "Ces commandes vont à plusieurs pharmacies : choisissez le client à facturer.",
+      "customerOptional": "Laissez vide pour facturer le donneur d'ordre de la commande, sinon celui de sa tournée, sinon le destinataire.",
+      "customerRequired": "Le client ne peut pas être déduit des commandes : choisissez le client à facturer.",
       "customerRequiredHint": "Obligatoire pour ces commandes.",
       "alreadyOn": "Déjà facturée sur {{number}}",
       "pending": "Calcul de la facture en cours",
@@ -2962,7 +2755,7 @@
       "unpriced_other": "{{count}} commandes facturées à 0 €, à corriger dans le brouillon",
       "excluded_one": "{{count}} commande déjà facturée a été écartée",
       "excluded_other": "{{count}} commandes déjà facturées ont été écartées",
-      "excludedItem": "{{pharmacy}} : déjà facturée sur {{number}}"
+      "excludedItem": "{{pharmacy}} : déjà facturé sur {{number}}"
     },
     "editor": {
       "title": "Modifier le brouillon",
@@ -3038,8 +2831,12 @@
       "saveFailed": "L'enregistrement du brouillon a échoué.",
       "pdfFailed": "Le chargement du PDF a échoué.",
       "codes": {
-        "BILLING_CUSTOMER_INVALID": "Informations du client invalides.",
-        "BILLING_CUSTOMER_HAS_INVOICES": "Ce client a des factures : il ne peut pas être supprimé.",
+        "CLIENT_INVALID": "Informations du client invalides.",
+        "CLIENT_HAS_INVOICES": "Ce client a des factures : il ne peut pas être supprimé.",
+        "CLIENT_NOT_FOUND": "Client introuvable.",
+        "CLIENT_TYPE_MISMATCH": "Le type d'un client ne peut pas être modifié.",
+        "CLIENT_TYPE_UNKNOWN": "Type de client inconnu.",
+        "PHARMACY_CIP_ALREADY_USED": "Ce CIP est déjà utilisé par une autre pharmacie.",
         "CUSTOMER_REQUIRED": "Choisissez le client à facturer.",
         "COMMAND_ALREADY_INVOICED": "Certaines commandes sont déjà facturées.",
         "NOTHING_TO_INVOICE": "Rien à facturer : toutes les commandes sont déjà facturées.",
@@ -3058,40 +2855,86 @@
       }
     }
   },
-  "billingCustomers": {
-    "title": "Clients facturés",
-    "subtitle": "Grossistes, laboratoires et pharmacies à qui vous émettez des factures.",
+  "clients": {
+    "title": "Clients",
+    "subtitle": "Pharmacies et autres clients de votre entreprise, dans un seul répertoire.",
     "create": "Nouveau client",
-    "empty": "Aucun client facturé pour le moment.",
-    "noMatch": "Aucun client ne correspond à cette recherche.",
-    "searchPlaceholder": "Rechercher un client",
+    "empty": "Aucun client pour le moment.",
+    "noMatch": "Aucun client ne correspond à ces filtres.",
+    "searchPlaceholder": "Rechercher par nom, ville, code postal, email ou CIP",
     "saved": "Client enregistré.",
     "deleted": "Client supprimé.",
     "incomplete": "Incomplet",
-    "linkedPharmacy": "Pharmacie",
     "missingTitle": "Mentions manquantes pour émettre une facture",
     "missingHint": "Requis pour émettre une facture.",
     "emittingHint": "Requis pour émettre une facture.",
     "countryPlaceholder": "France",
+    "noZone": "Aucune zone",
+    "types": {
+      "GENERIC": "Client",
+      "PHARMACY": "Pharmacie"
+    },
+    "filters": {
+      "modeSimple": "Recherche",
+      "modeDetailed": "Filtres détaillés",
+      "detailedHint": "Chaque champ restreint encore le résultat.",
+      "anyZone": "Toutes les zones",
+      "noZone": "Sans zone",
+      "hasPhotos": "Avec photos",
+      "hasOrderedShort": "Déjà commandé",
+      "hasOrderedHint": "Seulement les clients ayant au moins une commande.",
+      "locationInvalid": "Sans position",
+      "pageSize": "Résultats par page",
+      "pageSizeValue": "{{count}} par page"
+    },
     "columns": {
       "place": "Ville"
     },
     "fields": {
       "name": "Nom ou raison sociale",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "quality": "Qualité",
       "siret": "SIRET",
       "vatNumber": "N° de TVA",
+      "cip": "CIP",
+      "numero": "Numéro de clé",
+      "color": "Couleur de clé",
+      "doubleCleTransporteur": "Double clé transporteur",
+      "doubleCleExpediteur": "Double clé expéditeur",
       "address1": "Adresse",
       "address2": "Complément d'adresse",
+      "address3": "Complément d'adresse 2",
       "postalCode": "Code postal",
       "city": "Ville",
       "country": "Pays",
       "email": "Email",
-      "phone": "Téléphone"
+      "phone": "Téléphone",
+      "fax": "Fax",
+      "informations": "Informations",
+      "commentaire": "Commentaire",
+      "zone": "Zone",
+      "code": "Code externe"
     },
     "form": {
-      "createTitle": "Nouveau client facturé",
+      "createTitle": "Nouveau client",
       "editTitle": "Modifier le client",
-      "subtitle": "Ces informations sont figées sur chaque facture au moment de son émission."
+      "subtitle": "Ces informations sont figées sur chaque facture au moment de son émission.",
+      "type": "Type de client",
+      "typeLocked": "Le type ne peut plus être modifié.",
+      "identity": "Identité",
+      "pharmacy": "Pharmacie",
+      "address": "Adresse",
+      "contact": "Contact",
+      "delivery": "Livraison",
+      "notes": "Notes",
+      "billingAddress": "Adresse de facturation (si différente)",
+      "billingAddressFilled": "Renseignée",
+      "billingAddressHint": "Laissez vide pour facturer l'adresse principale. Une fois remplie, son nom, son email et son adresse remplacent ceux du client sur la facture.",
+      "createSubtitle": "Un client peut être une pharmacie que vous livrez, ou tout autre client que vous facturez.",
+      "invalid": "Vérifiez les champs signalés.",
+      "dirtyStatus": "Modifications non enregistrées",
+      "charCount": "{{count}} / {{max}} caractères"
     },
     "picker": {
       "placeholder": "Rechercher un client",
@@ -3110,7 +2953,170 @@
     "errors": {
       "loadFailed": "Le chargement des clients a échoué.",
       "saveFailed": "L'enregistrement du client a échoué.",
-      "deleteFailed": "La suppression du client a échoué."
+      "deleteFailed": "La suppression du client a échoué.",
+      "email": "Adresse email invalide.",
+      "tooLong": "{{max}} caractères maximum.",
+      "cipAlreadyUsed": "Ce CIP est déjà utilisé par une autre pharmacie de votre entreprise.",
+      "notFound": "Client introuvable",
+      "notFoundDesc": "Ce client n'existe pas, ou n'appartient pas à cette entreprise."
+    },
+    "untitled": "Client sans nom",
+    "actions": {
+      "invoices": "Factures"
+    },
+    "sections": {
+      "identity": "Identité",
+      "address": "Adresse",
+      "position": "Position",
+      "positionDesc": "Sert aux itinéraires et à l'ordre de passage.",
+      "delivery": "Livraison",
+      "deliveryDesc": "Ce dont le livreur a besoin sur place.",
+      "contact": "Contact",
+      "billing": "Facturation",
+      "billingDesc": "Informations figées sur chaque facture au moment de son émission.",
+      "notes": "Note interne",
+      "notesDesc": "Visible par votre équipe uniquement.",
+      "photos": "Photos ({{count}})"
+    },
+    "badges": {
+      "neverOrdered": "Jamais commandé",
+      "noLocation": "Sans position"
+    },
+    "info": {
+      "cipHint": "7 chiffres, unique dans votre entreprise.",
+      "cipEditableHint": "Modifier le CIP renomme la pharmacie.",
+      "findAddress": "Rechercher une adresse",
+      "findAddressHint": "Choisissez un résultat pour remplir l'adresse et la position.",
+      "coordinates": "Coordonnées",
+      "noCoordinates": "Aucune position",
+      "positionNoneHintView": "Sans position, ce client ne peut pas entrer dans une tournée.",
+      "setPosition": "Définir la position",
+      "centerOnMarker": "Centrer sur le marqueur",
+      "positionNone": "Aucune position",
+      "positionNoneHint": "Touchez la carte pour poser le marqueur.",
+      "positionStale": "L'adresse a changé depuis le placement du marqueur",
+      "positionStaleHint": "Relancez la localisation depuis l'adresse pour déplacer le marqueur.",
+      "positionSet": "Position définie",
+      "positionFromAddress": "depuis l'adresse",
+      "positionManual": "placée à la main",
+      "positionHint": "Déplacez le marqueur pour ajuster la position.",
+      "positionActions": "Actions sur la position",
+      "locateFromAddress": "Localiser depuis l'adresse",
+      "locateFromAddressNone": "Aucun résultat pour cette adresse.",
+      "locateFromAddressDone": "Position définie depuis {{label}}.",
+      "resetPosition": "Rétablir la position enregistrée",
+      "clearPosition": "Effacer la position",
+      "editCoordinates": "Saisir les coordonnées",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "coordinatesHint": "Degrés décimaux, virgule acceptée.",
+      "key": "Clé",
+      "keySummary": "Clé {{numero}}",
+      "keyColorOnly": "Couleur seule",
+      "keyNone": "Aucune clé",
+      "doubleKeyCarrier": "Double clé transporteur",
+      "doubleKeyCarrierHint": "Le transporteur détient un double de la clé.",
+      "doubleKeyCarrierOff": "Le transporteur ne détient pas de double.",
+      "doubleKeySender": "Double clé expéditeur",
+      "doubleKeySenderHint": "L'expéditeur détient un double de la clé.",
+      "doubleKeySenderOff": "L'expéditeur ne détient pas de double.",
+      "informationsHint": "Accès, étage, code de porte, tout ce qui sert sur place.",
+      "informationsPlaceholder": "Sonner à la porte arrière, deuxième étage...",
+      "contact": "Contact",
+      "noContact": "Aucun contact renseigné.",
+      "commentaireHint": "Note interne, jamais montrée au client.",
+      "commentairePlaceholder": "Ce que votre équipe doit savoir.",
+      "noNote": "Aucune note.",
+      "noPhotos": "Aucune photo.",
+      "billingSameAddress": "Identique à l'adresse de livraison.",
+      "billingHint": "Laissez l'adresse de facturation vide pour facturer l'adresse principale.",
+      "noColor": "Aucune couleur",
+      "clearColor": "Effacer la couleur",
+      "codeHint": "Votre identifiant pour ce client, unique dans l'entreprise."
+    },
+    "photos": {
+      "title": "Photos",
+      "count": "{{count}} photos",
+      "empty": "Aucune photo pour l'instant. Ajoutez-en une pour documenter ce client.",
+      "add": "Ajouter des photos",
+      "dropHint": "Déposez vos images ici ou parcourez. 10 Mo maximum par fichier.",
+      "uploading": "Envoi {{current}} sur {{total}}",
+      "tooLarge": "{{name}} dépasse 10 Mo et n'a pas été envoyée.",
+      "notAnImage": "{{name}} n'est pas une image et n'a pas été envoyée.",
+      "replace": "Remplacer l'image",
+      "fullscreen": "Plein écran",
+      "annotate": "Annoter",
+      "delete": "Supprimer la photo",
+      "deleteTitle": "Supprimer la photo",
+      "deleteConfirm": "Supprimer cette photo ? Cette action est irréversible.",
+      "moveUp": "Déplacer avant",
+      "moveDown": "Déplacer après",
+      "saveOrder": "Enregistrer l'ordre",
+      "cancelOrder": "Rétablir l'ordre",
+      "orderChanged": "L'ordre a changé. Enregistrez-le pour l'appliquer.",
+      "savingOrder": "Enregistrement de l'ordre",
+      "broken": "Image indisponible",
+      "brokenHint": "Le fichier est absent du serveur. Contactez le support pour le nettoyer.",
+      "openLightbox": "Ouvrir la photo",
+      "previous": "Photo précédente",
+      "next": "Photo suivante",
+      "errors": {
+        "upload": "{{count}} photos n'ont pas pu être envoyées.",
+        "delete": "Cette photo n'a pas pu être supprimée. Elle est peut-être déjà corrompue sur le serveur, contactez le support.",
+        "order": "Le nouvel ordre n'a pas pu être enregistré.",
+        "replace": "L'image n'a pas pu être remplacée."
+      },
+      "editor": {
+        "title": "Annoter la photo",
+        "subtitle": "Dessinez ou écrivez sur la photo, puis enregistrez pour la remplacer.",
+        "pen": "Stylo",
+        "text": "Texte",
+        "color": "Couleur",
+        "width": "Épaisseur",
+        "widthSmall": "Fin",
+        "widthMedium": "Moyen",
+        "widthLarge": "Épais",
+        "textPlaceholder": "Texte à placer",
+        "textHint": "Saisissez votre texte puis touchez la photo pour le placer.",
+        "undo": "Annuler",
+        "clear": "Effacer les annotations",
+        "save": "Enregistrer la photo",
+        "loading": "Chargement de la photo",
+        "errors": {
+          "load": "La photo n'a pas pu être chargée pour l'édition.",
+          "save": "La photo annotée n'a pas pu être enregistrée.",
+          "tooLarge": "La photo annotée dépasse 10 Mo."
+        }
+      }
+    },
+    "openDetail": "Ouvrir le client",
+    "searchTooManyWords": "Seuls les {{count}} premiers mots sont utilisés.",
+    "label": {
+      "title": "Étiquette",
+      "download": "Étiquette",
+      "downloadLong": "Télécharger l'étiquette",
+      "errors": {
+        "emailNotVerified": "Vérifiez votre adresse email pour télécharger l'étiquette.",
+        "notAPharmacy": "Seule une pharmacie a une étiquette.",
+        "notFound": "Client introuvable.",
+        "forbidden": "Vous n'avez pas le droit de télécharger cette étiquette.",
+        "failed": "L'étiquette n'a pas pu être générée."
+      }
+    },
+    "orders": {
+      "section": "Commandes récentes",
+      "create": "Nouvelle commande",
+      "all": "Toutes les commandes",
+      "empty": "Aucune commande pour le moment.",
+      "showOnMap": "Afficher les {{count}} dernières livraisons",
+      "hideOnMap": "Masquer les livraisons",
+      "useDeliveryAverage": "Utiliser la moyenne des {{count}} dernières livraisons"
+    },
+    "search": {
+      "title": "Trouver un client",
+      "description": "Cherchez par nom, CIP, ville ou adresse.",
+      "placeholder": "Nom, CIP, ville, code postal",
+      "choose": "Choisir un client"
     }
   },
   "mobileApp": {
@@ -3312,8 +3318,8 @@
           "commands": "Commandes",
           "packages": "Colis",
           "anomalies": "Anomalies",
-          "pharmacies": "Pharmacies",
-          "pharmacyReports": "Rapports pharmacie",
+          "pharmacies": "Clients",
+          "pharmacyReports": "Rapports clients",
           "zones": "Zones",
           "tourConfigs": "Modeles de tournee",
           "subscriptionInvoices": "Factures d'abonnement",
@@ -3523,6 +3529,57 @@
     "cookies": {
       "documentTitle": "Politique cookies - Movix",
       "metaDescription": "Liste des cookies et données stockées dans le navigateur par Movix, avec leur finalité, leur durée et leur catégorie."
+    }
+  },
+  "clientReports": {
+    "title": "Rapports clients",
+    "subtitle": "Rapports envoyés par les livreurs depuis l'application mobile",
+    "empty": "Aucun rapport à traiter.",
+    "count": "{{count}} rapports",
+    "invalidGeocodage": "Coordonnées erronées",
+    "author": "Signalé par",
+    "unknownAuthor": "Livreur inconnu",
+    "noPharmacy": "Client inconnu",
+    "transfer": "Ajouter au client",
+    "transferFailed": "La photo n'a pas pu être ajoutée.",
+    "markHandled": "Supprimer",
+    "markHandledTitle": "Supprimer",
+    "markHandledConfirm": "Supprimer ce rapport ? Ses photos sont supprimées aussi, mais celles déjà transférées dans une galerie sont conservées.",
+    "deleteFailed": "Le rapport n'a pas pu être supprimé.",
+    "openPharmacy": "Voir le client",
+    "filterPlaceholder": "Rechercher par client, auteur ou commentaire",
+    "views": {
+      "list": "Rapports",
+      "detail": "Traitement"
+    },
+    "selectPrompt": "Sélectionnez un rapport pour le traiter ici.",
+    "photoCount_one": "{{count}} photo",
+    "photoCount_other": "{{count}} photos",
+    "photosSection": "Photos du rapport",
+    "noReportPhotos": "Aucune photo dans ce rapport.",
+    "gallerySection": "Galerie du client ({{count}})",
+    "photoAdded": "Photo ajoutée",
+    "infoSection": "Fiche du client",
+    "infoSaved": "Fiche enregistrée.",
+    "positionSection": "Position",
+    "positionSaved": "Position enregistrée.",
+    "savePosition": "Enregistrer la position",
+    "useDeliveryAverage_one": "Utiliser le point de la dernière livraison",
+    "useDeliveryAverage_other": "Utiliser la moyenne des {{count}} dernières livraisons",
+    "noDeliveryPoints": "Aucun point de livraison disponible.",
+    "loadingDeliveries": "Chargement des dernières livraisons",
+    "discardTitle": "Modifications non enregistrées",
+    "discardConfirm": "Changer de rapport et abandonner les modifications ?",
+    "pharmacyGone": "Ce client n'existe plus. Vous pouvez tout de même supprimer le rapport.",
+    "reportGone": "Ce rapport n'existe plus.",
+    "info": {
+      "numero": "Numéro de clé",
+      "color": "Couleur de clé",
+      "dragHint": "Déplacez le point pour corriger les coordonnées.",
+      "dragHintEmpty": "Déplacez le point pour définir les coordonnées.",
+      "searchHint": "Vous pouvez aussi rechercher une adresse pour la positionner.",
+      "accountScope": "Les informations et la position sont enregistrées pour votre compte uniquement.",
+      "keyNone": "Pas de clé"
     }
   }
 }

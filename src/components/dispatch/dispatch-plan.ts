@@ -2,6 +2,7 @@ import { categoryPalette, isHexColor } from "@/lib/colors";
 import { formatDuration, isValidTimeInput } from "@/lib/date";
 import { formatStopTime } from "@/lib/delivery-window";
 import type { LngLat } from "@/lib/polyline";
+import { clientLabel } from "@/features/clients";
 import type { CommandExpedition } from "@/features/commands";
 import type {
   TourDispatchWorkload,
@@ -63,7 +64,7 @@ export function summarizeScope(
   let packages = 0;
   let assigned = 0;
   for (const command of commands) {
-    pharmacies.add(command.pharmacy?.cip?.trim() || command.id);
+    pharmacies.add(command.client?.id ?? command.id);
     packages += command.packagesNumber ?? 0;
     if (command.tour) {
       assigned += 1;
@@ -117,8 +118,10 @@ export function proposalStops(
   const result: ProposalStop[] = [];
   for (const stop of ordered) {
     const command = commands.get(stop.commandId);
-    const cip = stop.pharmacyCip?.trim() || command?.pharmacy?.cip?.trim();
-    const key = cip ? `cip:${cip}` : `command:${stop.commandId}`;
+    const clientId = stop.clientId ?? command?.client?.id ?? null;
+    const key = clientId
+      ? `client:${clientId}`
+      : `command:${stop.commandId}`;
     const rawLate = Math.round(stop.lateMins ?? 0);
     const lateMins = stop.late === true || rawLate > 0 ? Math.max(1, rawLate) : 0;
     const waitingMins = Math.max(0, Math.round(stop.waitingMins ?? 0));
@@ -132,8 +135,12 @@ export function proposalStops(
     }
     result.push({
       key,
-      name: stop.pharmacyName?.trim() || command?.pharmacy?.name?.trim() || "",
-      city: command?.pharmacy?.city?.trim() ?? "",
+      name:
+        stop.clientName?.trim() ||
+        stop.pharmacyName?.trim() ||
+        (command?.client ? clientLabel(command.client) : "") ||
+        "",
+      city: command?.client?.city?.trim() ?? "",
       commandIds: [stop.commandId],
       packages: command?.packagesNumber ?? 0,
       position: positionOf(stop),

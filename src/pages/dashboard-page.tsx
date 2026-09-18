@@ -93,19 +93,19 @@ function attentionSources(summary: DashboardSummary): AttentionSource[] {
     {
       id: "invalidGeocoding",
       count: attention.pharmacyReportsInvalidGeocoding,
-      to: "/app/pharmacy-reports",
+      to: "/app/client-reports",
       category: "warning",
     },
     {
-      id: "pharmacyReports",
+      id: "clientReports",
       count: otherReports,
-      to: "/app/pharmacy-reports",
+      to: "/app/client-reports",
       category: "info",
     },
     {
-      id: "newPharmacies",
+      id: "newClients",
       count: commands.newPharmacies,
-      to: "/app/pharmacies",
+      to: "/app/clients?type=PHARMACY",
       category: "info",
     },
     {

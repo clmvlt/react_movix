@@ -1,3 +1,5 @@
+import type { ClientType } from "@/features/clients/types";
+
 export interface StatsFilters {
   startDate: string;
   endDate: string;
@@ -44,8 +46,10 @@ export interface StatsDaily {
 
 export const STATS_DAILY_MAX_DAYS = 92;
 
-export interface StatsPharmacyItem {
-  cip: string;
+export interface StatsClientItem {
+  clientId: string;
+  type: ClientType;
+  cip: string | null;
   name: string | null;
   city: string | null;
   totalCommands: number;
@@ -57,19 +61,19 @@ export interface StatsPharmacyItem {
   totalWeight: number;
 }
 
-export interface StatsByPharmacy {
-  pharmacies: StatsPharmacyItem[];
+export interface StatsByClient {
+  pharmacies: StatsClientItem[];
 }
 
-export interface PharmacyStatsParams {
+export interface ClientStatsParams {
   startDate: string;
   endDate: string;
   pharmacyCip: string;
   profilId: string;
 }
 
-export interface PharmacyTotals {
-  pharmacyCount: number;
+export interface ClientTotals {
+  clientCount: number;
   totalCommands: number;
   deliveredCommands: number;
   notDeliveredCommands: number;

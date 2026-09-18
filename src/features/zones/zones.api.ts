@@ -1,13 +1,11 @@
 import { http, type Paged } from "@/lib/http";
-import { chunk } from "@/lib/async";
-import type { Pharmacy } from "@/features/pharmacies/types";
+import type { Client } from "@/features/clients/types";
 import type {
   Zone,
+  ZoneClientsParams,
   ZoneInput,
-  ZoneMapPharmacy,
-  ZonePharmaciesParams,
+  ZoneMapClient,
 } from "./types";
-import { ZONE_ASSIGN_CHUNK } from "./types";
 
 const RESOURCE = "/zones";
 const MAP_TIMEOUT = 45_000;
@@ -20,10 +18,10 @@ export const zonesApi = {
   list: () => http.get<Zone[]>(RESOURCE),
 
   map: () =>
-    http.get<ZoneMapPharmacy[]>(`${RESOURCE}/map`, { timeoutMs: MAP_TIMEOUT }),
+    http.get<ZoneMapClient[]>(`${RESOURCE}/map`, { timeoutMs: MAP_TIMEOUT }),
 
-  pharmacies: (id: string, params: ZonePharmaciesParams) =>
-    http.get<Paged<Pharmacy>>(`${RESOURCE}/${pathId(id)}/pharmacies`, {
+  clients: (id: string, params: ZoneClientsParams) =>
+    http.get<Paged<Client>>(`${RESOURCE}/${pathId(id)}/clients`, {
       query: {
         page: params.page,
         size: params.size,
@@ -39,9 +37,4 @@ export const zonesApi = {
 
   remove: (id: string) => http.delete<void>(`${RESOURCE}/${pathId(id)}`),
 
-  assign: async (id: string, cips: string[]): Promise<void> => {
-    for (const part of chunk(cips, ZONE_ASSIGN_CHUNK)) {
-      await http.put<void>(`${RESOURCE}/assign/${pathId(id)}`, { CIPs: part });
-    }
-  },
 };

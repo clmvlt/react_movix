@@ -1,11 +1,11 @@
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { statsApi } from "./stats.api";
 import { statsKeys } from "./stats.keys";
-import type { PharmacyStatsParams, StatsFilters } from "./types";
+import type { ClientStatsParams, StatsFilters } from "./types";
 
 const IDLE_FILTERS: StatsFilters = { startDate: "", endDate: "" };
 
-export function buildStatsFilters(params: PharmacyStatsParams): StatsFilters {
+export function buildStatsFilters(params: ClientStatsParams): StatsFilters {
   return {
     startDate: params.startDate,
     endDate: params.endDate,
@@ -23,11 +23,11 @@ export function useStatsOverview(filters: StatsFilters | null) {
   });
 }
 
-export function useStatsByPharmacy(filters: StatsFilters | null) {
+export function useStatsByClient(filters: StatsFilters | null) {
   return useQuery({
-    queryKey: statsKeys.byPharmacy(filters ?? IDLE_FILTERS),
+    queryKey: statsKeys.byClient(filters ?? IDLE_FILTERS),
     queryFn: ({ signal }) =>
-      statsApi.byPharmacy(filters as StatsFilters, signal),
+      statsApi.byClient(filters as StatsFilters, signal),
     enabled: filters !== null,
     staleTime: 5 * 60_000,
   });

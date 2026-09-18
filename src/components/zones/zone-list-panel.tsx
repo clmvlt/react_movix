@@ -137,8 +137,8 @@ export function ZoneListPanel({
                       {zone.name?.trim() || t("zones.untitled")}
                     </span>
                     <span className="block truncate text-xs text-muted-foreground">
-                      {t("zones.pharmacyCount", {
-                        count: zone.pharmacyCount ?? 0,
+                      {t("zones.clientCount", {
+                        count: zone.clientCount ?? 0,
                       })}
                     </span>
                   </span>

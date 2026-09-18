@@ -12,8 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { unassignedColor } from "@/lib/colors";
-import { useDetachPharmacies } from "@/features/pharmacies";
-import { useAssignPharmaciesToZone, type Zone } from "@/features/zones";
+import { useAssignClientsToZone } from "@/features/clients";
+import type { Zone } from "@/features/zones";
 
 export interface ZoneNotice {
   variant: "success" | "warning" | "destructive";
@@ -21,7 +21,7 @@ export interface ZoneNotice {
 }
 
 interface ZoneAssignMenuProps {
-  cips: string[];
+  clientIds: string[];
   zones: Zone[];
   colors: Record<string, string>;
   layout?: "inline" | "bar";
@@ -30,7 +30,7 @@ interface ZoneAssignMenuProps {
 }
 
 export function ZoneAssignMenu({
-  cips,
+  clientIds,
   zones,
   colors,
   layout = "inline",
@@ -38,11 +38,10 @@ export function ZoneAssignMenu({
   onDone,
 }: ZoneAssignMenuProps) {
   const { t } = useTranslation();
-  const assign = useAssignPharmaciesToZone();
-  const detach = useDetachPharmacies();
+  const assign = useAssignClientsToZone();
   const [open, setOpen] = useState(false);
 
-  const pending = assign.isPending || detach.isPending;
+  const pending = assign.isPending;
   const isBar = layout === "bar";
 
   const close = () => {
@@ -52,27 +51,16 @@ export function ZoneAssignMenu({
 
   const handleAssign = (zone: Zone) => {
     assign.mutate(
-      { zoneId: zone.id, cips },
+      { clientIds, zoneId: zone.id },
       {
         onSuccess: (result) => {
-          const expected = result.requested - result.unknown;
-          onResult(
-            result.applied >= expected
-              ? {
-                  variant: "success",
-                  message: t("zones.assign.success", {
-                    count: result.applied,
-                    zone: zone.name,
-                  }),
-                }
-              : {
-                  variant: "warning",
-                  message: t("zones.assign.partial", {
-                    applied: result.applied,
-                    requested: result.requested,
-                  }),
-                }
-          );
+          onResult({
+            variant: "success",
+            message: t("zones.assign.success", {
+              count: result.updated,
+              zone: zone.name,
+            }),
+          });
           close();
         },
         onError: () =>
@@ -85,29 +73,23 @@ export function ZoneAssignMenu({
   };
 
   const handleDetach = () => {
-    detach.mutate(cips, {
-      onSuccess: (result) => {
-        onResult(
-          result.detached >= result.requested
-            ? {
-                variant: "success",
-                message: t("zones.assign.detachSuccess", {
-                  count: result.detached,
-                }),
-              }
-            : {
-                variant: "warning",
-                message: t("zones.assign.detachPartial", {
-                  detached: result.detached,
-                  requested: result.requested,
-                }),
-              }
-        );
-        close();
-      },
-      onError: () =>
-        onResult({ variant: "destructive", message: t("zones.assign.failed") }),
-    });
+    assign.mutate(
+      { clientIds, zoneId: null },
+      {
+        onSuccess: (result) => {
+          onResult({
+            variant: "success",
+            message: t("zones.assign.detachSuccess", { count: result.updated }),
+          });
+          close();
+        },
+        onError: () =>
+          onResult({
+            variant: "destructive",
+            message: t("zones.assign.failed"),
+          }),
+      }
+    );
   };
 
   return (
@@ -115,7 +97,7 @@ export function ZoneAssignMenu({
       <Button
         variant={isBar ? "default" : "outline"}
         size={isBar ? "default" : "sm"}
-        disabled={cips.length === 0}
+        disabled={clientIds.length === 0}
         className={cn(isBar && "min-h-11 shrink-0")}
         onClick={() => setOpen(true)}
       >
@@ -128,7 +110,7 @@ export function ZoneAssignMenu({
           <DialogHeader>
             <DialogTitle>{t("zones.assign.action")}</DialogTitle>
             <DialogDescription>
-              {t("zones.assign.menuLabel", { count: cips.length })}
+              {t("zones.assign.menuLabel", { count: clientIds.length })}
             </DialogDescription>
           </DialogHeader>
 

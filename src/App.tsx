@@ -1,5 +1,11 @@
 import { Suspense, lazy, useEffect } from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import { ProtectedRoute, PublicOnlyRoute } from "@/app/protected-route";
 import { AuthLayout } from "@/layouts/auth-layout";
 import { AppLayout } from "@/layouts/app-layout";
@@ -29,10 +35,7 @@ const importZones = () => import("@/pages/zones-page");
 const importAccount = () => import("@/pages/account-page");
 const importSettings = () => import("@/pages/settings-page");
 const importExports = () => import("@/pages/exports-page");
-const importPharmacies = () => import("@/pages/pharmacies-page");
-const importPharmacyDetail = () => import("@/pages/pharmacy-detail-page");
-const importPharmacyCreate = () => import("@/pages/pharmacy-create-page");
-const importPharmacyReports = () => import("@/pages/pharmacy-reports-page");
+const importClientReports = () => import("@/pages/client-reports-page");
 const importCommands = () => import("@/pages/commands-page");
 const importCommandCreate = () => import("@/pages/command-create-page");
 const importCommandDetail = () => import("@/pages/command-detail-page");
@@ -44,7 +47,10 @@ const importSubscriptionInvoices = () => import("@/pages/subscription-invoices-p
 const importInvoices = () => import("@/pages/invoices-page");
 const importInvoiceDetail = () => import("@/pages/invoice-detail-page");
 const importInvoiceEdit = () => import("@/pages/invoice-edit-page");
-const importBillingCustomers = () => import("@/pages/billing-customers-page");
+const importClients = () => import("@/pages/clients-page");
+const importClientByCip = () => import("@/pages/client-by-cip-page");
+const importClientDetail = () => import("@/pages/client-detail-page");
+const importClientCreate = () => import("@/pages/client-create-page");
 const importMobileApp = () => import("@/pages/mobile-app-page");
 const importDownload = () => import("@/pages/download-page");
 const importHyperadmin = () => import("@/pages/hyperadmin-page");
@@ -105,19 +111,8 @@ const ExportsPage = lazy(() =>
   importExports().then((m) => ({ default: m.ExportsPage }))
 );
 
-const PharmaciesPage = lazy(() =>
-  importPharmacies().then((m) => ({ default: m.PharmaciesPage }))
-);
-
-const PharmacyDetailPage = lazy(() =>
-  importPharmacyDetail().then((m) => ({ default: m.PharmacyDetailPage }))
-);
-const PharmacyCreatePage = lazy(() =>
-  importPharmacyCreate().then((m) => ({ default: m.PharmacyCreatePage }))
-);
-
-const PharmacyReportsPage = lazy(() =>
-  importPharmacyReports().then((m) => ({ default: m.PharmacyReportsPage }))
+const ClientReportsPage = lazy(() =>
+  importClientReports().then((m) => ({ default: m.ClientReportsPage }))
 );
 
 const CommandsPage = lazy(() =>
@@ -164,8 +159,20 @@ const InvoiceEditPage = lazy(() =>
   importInvoiceEdit().then((m) => ({ default: m.InvoiceEditPage }))
 );
 
-const BillingCustomersPage = lazy(() =>
-  importBillingCustomers().then((m) => ({ default: m.BillingCustomersPage }))
+const ClientsPage = lazy(() =>
+  importClients().then((m) => ({ default: m.ClientsPage }))
+);
+
+const ClientDetailPage = lazy(() =>
+  importClientDetail().then((m) => ({ default: m.ClientDetailPage }))
+);
+
+const ClientCreatePage = lazy(() =>
+  importClientCreate().then((m) => ({ default: m.ClientCreatePage }))
+);
+
+const ClientByCipPage = lazy(() =>
+  importClientByCip().then((m) => ({ default: m.ClientByCipPage }))
 );
 
 const MobileAppPage = lazy(() =>
@@ -207,6 +214,32 @@ const LegalPrivacyPage = lazy(() =>
 const LegalCookiesPage = lazy(() =>
   importLegalCookies().then((m) => ({ default: m.LegalCookiesPage }))
 );
+
+function LegacyClientReportsRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={`/app/client-reports${search}${hash}`} replace />;
+}
+
+function LegacyPharmaciesRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={`/app/clients${search}${hash}`} replace />;
+}
+
+function LegacyPharmacyDetailRedirect() {
+  const { cip } = useParams<{ cip: string }>();
+  const { search, hash } = useLocation();
+  return (
+    <Navigate
+      to={`/app/clients/by-cip/${encodeURIComponent(cip ?? "")}${search}${hash}`}
+      replace
+    />
+  );
+}
+
+function LegacyBillingCustomersRedirect() {
+  const { search, hash } = useLocation();
+  return <Navigate to={`/app/clients${search}${hash}`} replace />;
+}
 
 function LegacySubscriptionInvoicesRedirect() {
   const { search, hash } = useLocation();
@@ -297,35 +330,27 @@ export default function App() {
             />
             <Route
               path="/app/pharmacies"
-              element={
-                <Suspense fallback={<InlineSpinner />}>
-                  <PharmaciesPage />
-                </Suspense>
-              }
+              element={<LegacyPharmaciesRedirect />}
             />
             <Route
               path="/app/pharmacy-reports"
+              element={<LegacyClientReportsRedirect />}
+            />
+            <Route
+              path="/app/client-reports"
               element={
                 <Suspense fallback={<InlineSpinner />}>
-                  <PharmacyReportsPage />
+                  <ClientReportsPage />
                 </Suspense>
               }
             />
             <Route
               path="/app/pharmacies/new"
-              element={
-                <Suspense fallback={<InlineSpinner />}>
-                  <PharmacyCreatePage />
-                </Suspense>
-              }
+              element={<Navigate to="/app/clients/new?type=PHARMACY" replace />}
             />
             <Route
               path="/app/pharmacies/:cip"
-              element={
-                <Suspense fallback={<InlineSpinner />}>
-                  <PharmacyDetailPage />
-                </Suspense>
-              }
+              element={<LegacyPharmacyDetailRedirect />}
             />
             {config.betaFeatures && (
               <Route
@@ -438,12 +463,40 @@ export default function App() {
               }
             />
             <Route
-              path="/app/billing-customers"
+              path="/app/clients"
               element={
                 <Suspense fallback={<InlineSpinner />}>
-                  <BillingCustomersPage />
+                  <ClientsPage />
                 </Suspense>
               }
+            />
+            <Route
+              path="/app/clients/new"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <ClientCreatePage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/clients/by-cip/:cip"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <ClientByCipPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/clients/:id"
+              element={
+                <Suspense fallback={<InlineSpinner />}>
+                  <ClientDetailPage />
+                </Suspense>
+              }
+            />
+            <Route
+              path="/app/billing-customers"
+              element={<LegacyBillingCustomersRedirect />}
             />
             <Route
               path="/app/mobile-app"

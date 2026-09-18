@@ -40,6 +40,7 @@ export function CommandsPage() {
     city: searchParams.get("city") ?? "",
     postalCode: searchParams.get("cp") ?? "",
     cip: searchParams.get("cip") ?? "",
+    clientId: searchParams.get("client") ?? "",
     address: searchParams.get("adr") ?? "",
     commandId: searchParams.get("cmd") ?? "",
     from: searchParams.get("from") ?? "",
@@ -47,6 +48,7 @@ export function CommandsPage() {
     size,
   };
 
+  const ordererId = (searchParams.get("orderer") ?? "").trim();
   const page = Math.max(1, Number(searchParams.get("page") ?? "1") || 1);
 
   const setParams = (patch: Record<string, string | null>) => {
@@ -75,6 +77,7 @@ export function CommandsPage() {
     if ("city" in patch) mapped.city = text(patch.city);
     if ("postalCode" in patch) mapped.cp = text(patch.postalCode);
     if ("cip" in patch) mapped.cip = text(patch.cip);
+    if ("clientId" in patch) mapped.client = text(patch.clientId);
     if ("address" in patch) mapped.adr = text(patch.address);
     if ("commandId" in patch) mapped.cmd = text(patch.commandId);
     if ("from" in patch) {
@@ -98,6 +101,8 @@ export function CommandsPage() {
       city: null,
       cp: null,
       cip: null,
+      client: null,
+      orderer: null,
       adr: null,
       cmd: null,
       from: null,
@@ -107,6 +112,9 @@ export function CommandsPage() {
 
   const searchInput = useMemo<CommandSearchInput>(() => {
     const input: CommandSearchInput = { page: page - 1, size: filters.size };
+
+    if (filters.clientId.trim()) input.clientId = filters.clientId.trim();
+    if (ordererId) input.ordererId = ordererId;
 
     if (filters.mode === "detailed") {
       if (filters.name.trim()) input.pharmacyName = filters.name.trim();
@@ -138,6 +146,8 @@ export function CommandsPage() {
     filters.city,
     filters.postalCode,
     filters.cip,
+    filters.clientId,
+    ordererId,
     filters.address,
     filters.commandId,
     filters.from,
@@ -155,6 +165,8 @@ export function CommandsPage() {
     filters.city.trim() !== "" ||
     filters.postalCode.trim() !== "" ||
     filters.cip.trim() !== "" ||
+    filters.clientId.trim() !== "" ||
+    ordererId !== "" ||
     filters.address.trim() !== "" ||
     filters.commandId.trim() !== "" ||
     filters.from !== "";

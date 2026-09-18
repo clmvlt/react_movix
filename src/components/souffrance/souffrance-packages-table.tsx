@@ -80,7 +80,7 @@ export function SouffrancePackagesTable({
         <TableBody>
           {rows.map((row) => {
             const commandId = row.commandId?.trim() ?? "";
-            const pharmacy = row.pharmacyName?.trim() || t("pharmacies.untitled");
+            const pharmacy = row.pharmacyName?.trim() || t("clients.untitled");
             const location = [row.pharmacyCodePostal, row.pharmacyCity]
               .filter(Boolean)
               .join(" ");

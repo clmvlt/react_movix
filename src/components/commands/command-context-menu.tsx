@@ -26,7 +26,7 @@ import {
 } from "@/components/command-actions";
 import {
   CommandKeyDialog,
-  type CommandKeyPharmacy,
+  type CommandKeyClient,
 } from "@/components/commands/command-key-dialog";
 import { CommandSouffranceDialog } from "@/components/commands/command-souffrance-dialog";
 import { CommandStatusDialog } from "@/components/commands/command-status-dialog";
@@ -39,7 +39,7 @@ import { tourKeys } from "@/features/tours";
 interface CommandContextMenuProps {
   commandIds: string[];
   tours?: CommandActionTour[];
-  pharmacy?: CommandKeyPharmacy | null;
+  pharmacy?: CommandKeyClient | null;
   onDone?: () => void;
   disabled?: boolean;
   children: ReactNode;

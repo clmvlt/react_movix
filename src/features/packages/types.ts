@@ -1,3 +1,4 @@
+import type { ClientType } from "@/features/clients/types";
 export interface PackageStatusHistoryEntry {
   id: number;
   name: string;
@@ -24,6 +25,9 @@ export interface PackageSouffranceResult {
   commandId?: string | null;
   closeDate?: string | null;
   expDate?: string | null;
+  clientId?: string | null;
+  clientType?: ClientType | null;
+  clientCip?: string | null;
   pharmacyName?: string | null;
   pharmacyCity?: string | null;
   pharmacyCodePostal?: string | null;
@@ -35,6 +39,7 @@ export interface PackageSouffranceSearchInput {
   pharmacyName?: string;
   pharmacyCity?: string;
   pharmacyCip?: string;
+  clientId?: string;
   pharmacyPostalCode?: string;
   commandId?: string;
   startDate?: string;

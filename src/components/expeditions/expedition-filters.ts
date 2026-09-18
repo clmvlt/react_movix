@@ -59,7 +59,7 @@ export function hasExpeditionFilters(filters: ExpeditionFilters): boolean {
 }
 
 export function commandZoneId(command: CommandExpedition): string {
-  const id = command.pharmacy?.zone?.id;
+  const id = command.client?.zone?.id;
   return id ? normalizeZoneId(id) : UNASSIGNED;
 }
 

@@ -13,10 +13,11 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { ClientPicker } from "@/components/clients/client-picker";
 import {
-  BillingCustomerPicker,
-  type BillingCustomerOption,
-} from "@/components/billing-customers/billing-customer-picker";
+  clientOption,
+  type ClientOption,
+} from "@/components/clients/client-option";
 import { cn } from "@/lib/utils";
 import {
   invoiceErrorCode,
@@ -53,7 +54,7 @@ export function InvoiceGenerateDialog({
   const generate = useGenerateInvoice();
 
   const [lineMode, setLineMode] = useState<InvoiceLineMode>("DETAILED");
-  const [customer, setCustomer] = useState<BillingCustomerOption | null>(null);
+  const [customer, setCustomer] = useState<ClientOption | null>(null);
   const [customerRequired, setCustomerRequired] = useState(false);
   const [conflicts, setConflicts] = useState<InvoiceAlreadyInvoicedCommand[]>(
     []
@@ -187,11 +188,11 @@ export function InvoiceGenerateDialog({
                   <span className="ml-0.5 text-destructive">*</span>
                 )}
               </Label>
-              <BillingCustomerPicker
+              <ClientPicker
                 id="invoice-generate-customer"
                 value={customer}
                 onChange={(next) => {
-                  setCustomer(next);
+                  setCustomer(next ? clientOption(next) : null);
                   setError(null);
                 }}
                 invalid={customerRequired && !customer}

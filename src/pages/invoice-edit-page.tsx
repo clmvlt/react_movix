@@ -24,7 +24,8 @@ import { FormSaveBar } from "@/components/form-save-bar";
 import { useDiscardGuard } from "@/components/discard-guard";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { BillingChoice } from "@/components/billing/billing-choice";
-import { BillingCustomerPicker } from "@/components/billing-customers/billing-customer-picker";
+import { ClientPicker } from "@/components/clients/client-picker";
+import { clientOption } from "@/components/clients/client-option";
 import { InvoiceTotals } from "@/components/invoices/invoice-document";
 import { useInvoiceError } from "@/components/invoices/use-invoice-error";
 import {
@@ -210,7 +211,7 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
           </Alert>
         )}
 
-        <div className="grid grid-cols-1 items-start gap-4 xl:grid-cols-[360px_minmax(0,1fr)]">
+        <div className="grid grid-cols-1 items-start gap-4 2xl:grid-cols-[360px_minmax(0,1fr)]">
           <SectionCard
             title={t("invoices.editor.general")}
             icon={UserRound}
@@ -221,13 +222,13 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
                 {t("invoices.fields.customer")}
                 <span className="ml-0.5 text-destructive">*</span>
               </Label>
-              <BillingCustomerPicker
+              <ClientPicker
                 id="invoice-draft-customer"
                 value={form.customer}
                 onChange={(customer) =>
                   setField(
                     "customer",
-                    customer ? { id: customer.id, name: customer.name } : null
+                    customer ? clientOption(customer) : null
                   )
                 }
                 disabled={pending}
@@ -241,7 +242,7 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
                 {errors.customerId ?? ""}
               </p>
             </div>
-            <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 xl:grid-cols-1">
+            <div className="grid grid-cols-1 gap-x-3 sm:grid-cols-2 2xl:grid-cols-1">
               <FormField
                 label={t("invoices.fields.serviceStartDate")}
                 htmlFor="invoice-draft-start"
@@ -304,10 +305,7 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
                 onClick={addLine}
               >
                 <Plus className="size-4" />
-                <span className="hidden sm:inline">
-                  {t("invoices.editor.addLine")}
-                </span>
-                <span className="sr-only sm:hidden">
+                <span className="sr-only sm:not-sr-only">
                   {t("invoices.editor.addLine")}
                 </span>
               </Button>
@@ -327,7 +325,7 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
               />
             ) : (
               <>
-                <div className="hidden grid-cols-[minmax(0,1fr)_88px_120px_128px_104px_120px] gap-2 px-1 text-xs font-medium text-muted-foreground lg:grid">
+                <div className="hidden grid-cols-[minmax(0,1fr)_88px_120px_128px_104px_120px] gap-2 text-xs font-medium text-muted-foreground lg:grid">
                   <span>{t("invoices.lines.description")}</span>
                   <span className="text-right">{t("invoices.lines.quantity")}</span>
                   <span className="text-right">
@@ -363,7 +361,7 @@ function DraftEditor({ invoice }: { invoice: Invoice }) {
                             </Label>
                             <Textarea
                               id={`${prefix}-description`}
-                              rows={1}
+                              rows={2}
                               value={line.description}
                               maxLength={INVOICE_LINE_DESCRIPTION_MAX}
                               onChange={(event) =>

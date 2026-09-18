@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { Loader2, Settings, TriangleAlert, UserRoundPen, X } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { BillingCustomerFormDialog } from "@/components/billing-customers/billing-customer-form-dialog";
-import { useBillingCustomer } from "@/features/billing-customers";
+import { ClientFormDialog } from "@/components/clients/client-form-dialog";
+import { useClient } from "@/features/clients";
 import {
   invoiceErrorCode,
   invoiceErrorCustomerId,
@@ -28,7 +28,7 @@ export function InvoiceProblemAlert({
   const missing = invoiceErrorMissingFields(error);
   const customerId =
     code === "CUSTOMER_INFO_INCOMPLETE" ? invoiceErrorCustomerId(error) : null;
-  const customerQuery = useBillingCustomer(customerId);
+  const customerQuery = useClient(customerId);
   const [customerOpen, setCustomerOpen] = useState(false);
   const autoOpened = useRef(false);
 
@@ -50,7 +50,7 @@ export function InvoiceProblemAlert({
       .join(", ");
   } else if (code === "CUSTOMER_INFO_INCOMPLETE" && missing.length > 0) {
     detail = missing
-      .map((field) => fieldLabel(field, "billingCustomers.fields"))
+      .map((field) => fieldLabel(field, "clients.fields"))
       .join(", ");
   } else if (code === "VAT_NOT_APPLICABLE") {
     detail = t("invoices.problems.vatNotApplicableHint");
@@ -107,10 +107,10 @@ export function InvoiceProblemAlert({
       </div>
 
       {customerQuery.data && (
-        <BillingCustomerFormDialog
+        <ClientFormDialog
           open={customerOpen}
           onOpenChange={setCustomerOpen}
-          customer={customerQuery.data}
+          client={customerQuery.data}
           notice={t("invoices.problems.customerNotice")}
           onSaved={(saved) => {
             if (saved.missingFields.length === 0) onDismiss();

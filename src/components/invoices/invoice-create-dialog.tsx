@@ -12,10 +12,11 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { ClientPicker } from "@/components/clients/client-picker";
 import {
-  BillingCustomerPicker,
-  type BillingCustomerOption,
-} from "@/components/billing-customers/billing-customer-picker";
+  clientOption,
+  type ClientOption,
+} from "@/components/clients/client-option";
 import { useToast } from "@/app/toast-context";
 import { useCreateInvoice } from "@/features/invoices";
 import { useInvoiceError } from "./use-invoice-error";
@@ -32,7 +33,7 @@ export function InvoiceCreateDialog({
   const toast = useToast();
   const describeError = useInvoiceError();
   const createInvoice = useCreateInvoice();
-  const [customer, setCustomer] = useState<BillingCustomerOption | null>(null);
+  const [customer, setCustomer] = useState<ClientOption | null>(null);
 
   useEffect(() => {
     if (open) setCustomer(null);
@@ -64,10 +65,10 @@ export function InvoiceCreateDialog({
             {t("invoices.fields.customer")}
             <span className="ml-0.5 text-destructive">*</span>
           </Label>
-          <BillingCustomerPicker
+          <ClientPicker
             id="invoice-create-customer"
             value={customer}
-            onChange={setCustomer}
+            onChange={(next) => setCustomer(next ? clientOption(next) : null)}
             disabled={pending}
             inlineResults
           />

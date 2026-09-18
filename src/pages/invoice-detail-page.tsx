@@ -35,6 +35,7 @@ import { useInvoiceError } from "@/components/invoices/use-invoice-error";
 import { usePdfPreview } from "@/app/pdf-preview-context";
 import { useToast } from "@/app/toast-context";
 import { ApiError } from "@/lib/api-error";
+import { cn } from "@/lib/utils";
 import {
   invoiceKeys,
   invoicePdfFilename,
@@ -180,7 +181,10 @@ function InvoiceDetailContent() {
       <Button
         key={key}
         variant={variant}
-        className="min-h-11 shrink-0 gap-1.5 px-3 lg:min-h-10"
+        className={cn(
+          "min-h-11 shrink-0 gap-1.5 px-3 lg:min-h-10",
+          variant === "default" && "order-first sm:order-none"
+        )}
         disabled={extra?.pending}
         onClick={onClick}
       >
@@ -269,7 +273,7 @@ function InvoiceDetailContent() {
     ? invoice.number ??
       (invoice.type === "CREDIT_NOTE"
         ? t("invoices.types.CREDIT_NOTE")
-        : t("invoices.draftLabel"))
+        : t("invoices.pdf.draftTitle"))
     : t("invoices.detail.title");
 
   return (

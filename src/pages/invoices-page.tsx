@@ -16,13 +16,15 @@ import { PageHeader } from "@/components/page-header";
 import { AdminGate } from "@/components/admin-gate";
 import { DateField } from "@/components/date-field";
 import { Pagination } from "@/components/pagination";
+import { FilterSummaryButton } from "@/components/filter-toggle";
 import { EmptyState, ErrorState, LoadingState } from "@/components/states";
 import { BillingChoice } from "@/components/billing/billing-choice";
-import { BillingCustomerPicker } from "@/components/billing-customers/billing-customer-picker";
+import { ClientPicker } from "@/components/clients/client-picker";
 import { InvoiceStatusBadge } from "@/components/invoices/invoice-status-badge";
 import { InvoiceCreateDialog } from "@/components/invoices/invoice-create-dialog";
 import { formatDate, isValidApiDate } from "@/lib/date";
-import { useBillingCustomer } from "@/features/billing-customers";
+import { cn } from "@/lib/utils";
+import { clientLabel, useClient } from "@/features/clients";
 import {
   INVOICE_PAGE_SIZE,
   INVOICE_STATUSES,
@@ -46,6 +48,7 @@ function InvoicesContent() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const [createOpen, setCreateOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const status = parseEnum(searchParams.get("status"), INVOICE_STATUSES);
   const type = parseEnum(searchParams.get("type"), INVOICE_TYPES);
@@ -67,7 +70,7 @@ function InvoicesContent() {
   };
 
   const invoicesQuery = useInvoices(filters);
-  const customerQuery = useBillingCustomer(customerId);
+  const customerQuery = useClient(customerId);
 
   const setParams = (patch: Record<string, string | null>) => {
     setSearchParams(
@@ -84,7 +87,9 @@ function InvoicesContent() {
     );
   };
 
-  const hasFilters = Boolean(status || type || customerId || from || to);
+  const activeFilters = [status, type, customerId, from, to].filter(Boolean)
+    .length;
+  const hasFilters = activeFilters > 0;
   const data = invoicesQuery.data;
   const items = data?.items ?? [];
   const totalPages = data ? Math.max(1, Math.ceil(data.total / data.size)) : 1;
@@ -92,7 +97,9 @@ function InvoicesContent() {
   const customerValue = customerId
     ? {
         id: customerId,
-        name: customerQuery.data?.name ?? t("invoices.filters.customerLoading"),
+        name: customerQuery.data
+          ? clientLabel(customerQuery.data)
+          : t("invoices.filters.customerLoading"),
       }
     : null;
 
@@ -244,10 +251,10 @@ function InvoicesContent() {
             <Button
               variant="outline"
               className="min-h-11 shrink-0 sm:min-h-10"
-              onClick={() => navigate("/app/billing-customers")}
+              onClick={() => navigate("/app/clients")}
             >
               <UsersRound className="size-4" />
-              {t("nav.billingCustomers")}
+              {t("nav.clients")}
             </Button>
             <Button
               className="min-h-11 shrink-0 sm:min-h-10"
@@ -260,7 +267,25 @@ function InvoicesContent() {
         }
       />
 
-      <div className="mb-4 grid grid-cols-1 gap-3 rounded-xl border border-border bg-card p-3 sm:grid-cols-2 xl:grid-cols-[repeat(2,minmax(0,1fr))_minmax(0,1.5fr)_repeat(2,minmax(0,1fr))_auto] xl:items-end">
+      <div className="mb-3 flex lg:hidden">
+        <FilterSummaryButton
+          open={filtersOpen}
+          onToggle={() => setFiltersOpen((open) => !open)}
+          count={activeFilters}
+          label={
+            hasFilters
+              ? t("invoices.filters.active", { count: activeFilters })
+              : t("invoices.filters.none")
+          }
+        />
+      </div>
+
+      <div
+        className={cn(
+          "mb-4 grid-cols-1 gap-3 rounded-xl border border-border bg-card p-3 sm:grid-cols-2 lg:grid xl:grid-cols-[repeat(2,minmax(0,1fr))_minmax(0,1.5fr)_repeat(2,minmax(0,1fr))_auto] xl:items-end",
+          filtersOpen ? "grid" : "hidden"
+        )}
+      >
         <div className="flex min-w-0 flex-col gap-1.5">
           <Label htmlFor="invoices-filter-status">{t("common.status")}</Label>
           <BillingChoice
@@ -295,7 +320,7 @@ function InvoicesContent() {
           <Label htmlFor="invoices-filter-customer">
             {t("invoices.fields.customer")}
           </Label>
-          <BillingCustomerPicker
+          <ClientPicker
             id="invoices-filter-customer"
             value={customerValue}
             onChange={(customer) =>

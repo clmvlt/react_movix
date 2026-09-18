@@ -28,8 +28,10 @@ import { dateToApiDate, formatDate, formatDateTime, parseDate } from "@/lib/date
 import { ApiError } from "@/lib/api-error";
 import type { LngLat } from "@/components/map";
 import {
+  commandRecipient,
+  partyLabel,
+  useClientLastCommands,
   useCommand,
-  usePharmacyLastCommands,
   useUpdateCommands,
 } from "@/features/commands";
 import { useSouffrancePackagesOfCommand } from "@/features/packages";
@@ -69,7 +71,10 @@ export function CommandDetailPage() {
   );
   const hiddenParcelCount = hiddenParcels.data?.length ?? 0;
 
-  const lastCommands = usePharmacyLastCommands(data?.pharmacy?.cip);
+  const recipient = useMemo(() => commandRecipient(data), [data]);
+  const recipientClientId = recipient?.linked ? recipient.clientId : null;
+
+  const lastCommands = useClientLastCommands(recipientClientId ?? undefined);
   const otherCommands = useMemo(
     () => (lastCommands.data ?? []).filter((command) => command.id !== id),
     [lastCommands.data, id]
@@ -106,9 +111,10 @@ export function CommandDetailPage() {
   };
 
   const openPharmacyOrders = () => {
-    const cip = data?.pharmacy?.cip;
-    if (!cip) return;
-    navigate(`/app/commands?mode=detailed&cip=${encodeURIComponent(cip)}`);
+    if (!recipientClientId) return;
+    navigate(
+      `/app/commands?mode=detailed&client=${encodeURIComponent(recipientClientId)}`
+    );
   };
 
   const account = user?.account;
@@ -118,7 +124,7 @@ export function CommandDetailPage() {
       : null;
 
   const title = data
-    ? data.pharmacy?.name?.trim() || t("commands.noPharmacy")
+    ? (partyLabel(recipient) || t("commands.noPharmacy"))
     : t("nav.commands");
   const subtitle = data?.expDate
     ? t("commands.detail.subtitle", { date: formatDate(data.expDate, lang) })
@@ -322,8 +328,7 @@ export function CommandDetailPage() {
             open={anomalyOpen}
             onOpenChange={setAnomalyOpen}
             commandId={id}
-            commandPharmacyName={data?.pharmacy?.name}
-            commandPharmacyCip={data?.pharmacy?.cip}
+            commandClient={data?.client ?? null}
             packages={parcels}
             onCreated={(created) => navigate(`/app/anomalies/${created.id}`)}
           />

@@ -1,7 +1,15 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Info, Loader2, Package, Plus, TriangleAlert } from "lucide-react";
+import {
+  Info,
+  Loader2,
+  Package,
+  PackageCheck,
+  Plus,
+  Truck,
+  TriangleAlert,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,8 +19,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { PageHeader } from "@/components/page-header";
 import { FormField } from "@/components/form-field";
 import { DateField } from "@/components/date-field";
-import { PharmacyPicker } from "@/components/pharmacies/pharmacy-picker";
+import { ClientSelectField } from "@/components/clients/client-select-field";
 import { CommandPackageFields } from "@/components/commands/command-package-fields";
+import { CommandPartyField } from "@/components/commands/command-party-field";
 import { CommandCreatedPanel } from "@/components/commands/command-created-panel";
 import {
   buildCreateInput,
@@ -21,16 +30,25 @@ import {
   initialCreateForm,
   mapServerErrors,
   packageTotals,
+  partyErrorField,
   validateCreateForm,
   type CommandCreateFormErrors,
   type CommandCreateFormState,
   type PackageFormState,
+  type PartyFormState,
 } from "@/components/commands/command-create-form";
+import { useAuth } from "@/app/auth-context";
 import { useWorkingDate } from "@/app/working-date-context";
 import { useToast } from "@/app/toast-context";
 import { ApiError, apiErrorText } from "@/lib/api-error";
+import type { LngLat } from "@/components/map";
 import { useCreateCommand, type CommandCreateResult } from "@/features/commands";
-import { usePharmacy, type Pharmacy } from "@/features/pharmacies";
+import {
+  clientLabel,
+  useClient,
+  useClientByCip,
+  type Client,
+} from "@/features/clients";
 
 const FORM_ID = "command-create-form";
 
@@ -43,12 +61,15 @@ export function CommandCreatePage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { date: workingDate } = useWorkingDate();
+  const { user } = useAuth();
   const create = useCreateCommand();
 
   const initialCip = (searchParams.get("cip") ?? "").trim();
+  const initialClientId = (searchParams.get("client") ?? "").trim();
 
-  const [pharmacy, setPharmacy] = useState<Pharmacy | null>(null);
-  const [prefilled, setPrefilled] = useState(initialCip === "");
+  const [prefilled, setPrefilled] = useState(
+    initialCip === "" && initialClientId === ""
+  );
   const [form, setForm] = useState<CommandCreateFormState>(() =>
     initialCreateForm(workingDate)
   );
@@ -59,7 +80,13 @@ export function CommandCreatePage() {
   const rootRef = useRef<HTMLDivElement>(null);
   const toast = useToast();
 
-  const prefill = usePharmacy(prefilled ? undefined : initialCip);
+  const prefillByCip = useClientByCip(
+    prefilled || !initialCip ? undefined : initialCip
+  );
+  const prefillById = useClient(
+    prefilled || !initialClientId ? undefined : initialClientId
+  );
+  const prefill = initialClientId ? prefillById : prefillByCip;
 
   useEffect(() => {
     if (result) rootRef.current?.scrollIntoView({ block: "start" });
@@ -68,7 +95,11 @@ export function CommandCreatePage() {
   useEffect(() => {
     if (prefilled) return;
     if (prefill.data) {
-      setPharmacy(prefill.data);
+      const client = prefill.data;
+      setForm((prev) => ({
+        ...prev,
+        recipient: { ...prev.recipient, mode: "linked", client },
+      }));
       setPrefilled(true);
       return;
     }
@@ -77,10 +108,26 @@ export function CommandCreatePage() {
 
   const totals = useMemo(() => packageTotals(form.packages), [form.packages]);
 
+  const account = user?.account;
+  const depot: LngLat | null =
+    account?.longitude != null && account?.latitude != null
+      ? [account.longitude, account.latitude]
+      : null;
+
   const set = <K extends keyof CommandCreateFormState>(
     key: K,
     value: CommandCreateFormState[K]
   ) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  const setParty = (role: "sender" | "recipient", value: PartyFormState) => {
+    setForm((prev) => ({ ...prev, [role]: value }));
+    setErrors((prev) => ({ ...prev, [role]: undefined }));
+  };
+
+  const setOrderer = (client: Client | null) => {
+    set("orderer", client);
+    setErrors((prev) => ({ ...prev, orderer: undefined }));
+  };
 
   const updatePackage = (key: string, patch: Partial<PackageFormState>) =>
     setForm((prev) => ({
@@ -99,6 +146,23 @@ export function CommandCreatePage() {
   const addPackage = () =>
     setForm((prev) => ({ ...prev, packages: [...prev.packages, emptyPackage()] }));
 
+  const handlePartyError = (cause: ApiError): boolean => {
+    const code = cause.errorCode;
+    if (
+      code !== "ORDERER_REQUIRED" &&
+      code !== "PARTY_AMBIGUOUS" &&
+      code !== "PARTY_INCOMPLETE" &&
+      code !== "PARTY_CLIENT_NOT_FOUND"
+    ) {
+      return false;
+    }
+    const field = partyErrorField(cause.errorRole) ?? "orderer";
+    const message = t(`commands.create.errors.${code}`);
+    setErrors((prev) => ({ ...prev, [field]: message }));
+    toast.error(message);
+    return true;
+  };
+
   const handleError = (cause: unknown) => {
     if (!(cause instanceof ApiError)) {
       toast.error(t("commands.errors.actionFailed"));
@@ -110,8 +174,10 @@ export function CommandCreatePage() {
       return;
     }
 
+    if (handlePartyError(cause)) return;
+
     if (cause.status === 404) {
-      toast.error(t("commands.create.errors.unknownCip"));
+      toast.error(t("commands.create.errors.unknownClient"));
       return;
     }
 
@@ -157,40 +223,51 @@ export function CommandCreatePage() {
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
-    const cip = pharmacy?.cip ?? "";
-    const nextErrors = validateCreateForm(form, cip, t);
+    const nextErrors = validateCreateForm(form, t);
     setErrors(nextErrors);
     if (hasErrors(nextErrors)) {
       toast.error(t("commands.create.errors.formInvalid"));
       return;
     }
 
-    create.mutate(buildCreateInput(form, cip), {
+    create.mutate(buildCreateInput(form), {
       onSuccess: setResult,
       onError: handleError,
     });
   };
 
   const resetForm = () => {
-    setForm(initialCreateForm(form.expDate));
+    setForm((prev) => ({
+      ...initialCreateForm(prev.expDate),
+      orderer: prev.orderer,
+      sender: prev.sender,
+      recipient: prev.recipient,
+    }));
     setErrors({ packages: {} });
     setResult(null);
   };
 
-  const pharmacyLabel =
-    pharmacy?.name?.trim() || pharmacy?.cip || t("pharmacies.untitled");
+  const recipientLabel =
+    form.recipient.mode === "linked"
+      ? (form.recipient.client
+          ? clientLabel(form.recipient.client)
+          : t("clients.untitled"))
+      : (form.recipient.free.name.trim() || t("clients.untitled"));
+
+  const prefillPending = !prefilled && prefill.isLoading;
+  const busy = create.isPending;
 
   if (result) {
     return (
       <div ref={rootRef} className="flex w-full flex-1 flex-col">
         <PageHeader
           title={t("commands.create.success.title")}
-          subtitle={pharmacyLabel}
+          subtitle={recipientLabel}
           backFallback="/app/commands"
         />
         <CommandCreatedPanel
           result={result}
-          pharmacyName={pharmacyLabel}
+          pharmacyName={recipientLabel}
           onOpenCommand={() => navigate(`/app/commands/${result.id_command}`)}
           onCreateAnother={resetForm}
         />
@@ -221,21 +298,21 @@ export function CommandCreatePage() {
             <CardContent>
               <div className="grid grid-cols-1 gap-x-4 sm:grid-cols-2">
                 <FormField
-                  label={t("commands.pharmacy")}
-                  htmlFor="create-command-pharmacy"
-                  error={errors.cip}
-                  hint={t("commands.create.pharmacyHint")}
+                  label={t("commands.parties.orderer")}
+                  htmlFor="create-command-orderer"
+                  error={errors.orderer}
+                  hint={t("commands.parties.ordererHint")}
                   className="sm:col-span-2"
                   required
                 >
-                  <PharmacyPicker
-                    id="create-command-pharmacy"
-                    value={pharmacy?.cip ?? ""}
-                    selected={pharmacy}
-                    onSelect={setPharmacy}
-                    disabled={create.isPending}
-                    loading={!prefilled && prefill.isLoading}
-                    invalid={Boolean(errors.cip)}
+                  <ClientSelectField
+                    id="create-command-orderer"
+                    value={form.orderer}
+                    onChange={setOrderer}
+                    disabled={busy}
+                    invalid={Boolean(errors.orderer)}
+                    dialogTitle={t("commands.parties.pick.orderer")}
+                    dialogDescription={t("clients.search.description")}
                   />
                 </FormField>
 
@@ -249,7 +326,7 @@ export function CommandCreatePage() {
                     id="create-command-exp-date"
                     value={form.expDate}
                     onChange={(value) => set("expDate", value)}
-                    disabled={create.isPending}
+                    disabled={busy}
                     className="min-h-11 lg:min-h-10"
                   />
                 </FormField>
@@ -264,7 +341,7 @@ export function CommandCreatePage() {
                     id="create-command-exp-time"
                     type="time"
                     value={form.expTime}
-                    disabled={create.isPending}
+                    disabled={busy}
                     onChange={(event) => set("expTime", event.target.value)}
                     className="min-h-11 lg:min-h-10"
                   />
@@ -281,7 +358,7 @@ export function CommandCreatePage() {
                   <Input
                     id="create-command-num-transport"
                     value={form.numTransport}
-                    disabled={create.isPending}
+                    disabled={busy}
                     autoComplete="off"
                     onChange={(event) =>
                       set("numTransport", event.target.value)
@@ -344,6 +421,56 @@ export function CommandCreatePage() {
           </Card>
         </div>
 
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <Truck
+                  aria-hidden
+                  className="size-4 shrink-0 text-muted-foreground"
+                />
+                {t("commands.parties.sender")}
+                <span className="text-sm font-normal text-muted-foreground">
+                  {t("commands.parties.senderOptional")}
+                </span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CommandPartyField
+                role="sender"
+                value={form.sender}
+                onChange={(value) => setParty("sender", value)}
+                error={errors.sender}
+                disabled={busy}
+                depot={depot}
+              />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2 text-base">
+                <PackageCheck
+                  aria-hidden
+                  className="size-4 shrink-0 text-muted-foreground"
+                />
+                {t("commands.parties.recipient")}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <CommandPartyField
+                role="recipient"
+                value={form.recipient}
+                onChange={(value) => setParty("recipient", value)}
+                error={errors.recipient}
+                disabled={busy || prefillPending}
+                required
+                depot={depot}
+              />
+            </CardContent>
+          </Card>
+        </div>
+
         <section className="flex flex-1 flex-col gap-3">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="flex items-center gap-2 text-lg font-semibold text-foreground">
@@ -357,7 +484,7 @@ export function CommandCreatePage() {
               type="button"
               variant="outline"
               className="min-h-11 lg:min-h-10"
-              disabled={create.isPending}
+              disabled={busy}
               onClick={addPackage}
             >
               <Plus />
@@ -382,7 +509,7 @@ export function CommandCreatePage() {
                 <Checkbox
                   id="create-command-allow-empty"
                   checked={form.allowNoPackages}
-                  disabled={create.isPending}
+                  disabled={busy}
                   onCheckedChange={(checked) => {
                     set("allowNoPackages", checked === true);
                     setErrors((prev) => ({ ...prev, global: undefined }));
@@ -410,7 +537,7 @@ export function CommandCreatePage() {
                   index={index}
                   value={item}
                   errors={errors.packages[item.key] ?? {}}
-                  disabled={create.isPending}
+                  disabled={busy}
                   onChange={(patch) => updatePackage(item.key, patch)}
                   onRemove={() => removePackage(item.key)}
                 />
@@ -424,13 +551,13 @@ export function CommandCreatePage() {
             type="button"
             variant="outline"
             className="min-h-10"
-            disabled={create.isPending}
+            disabled={busy}
             onClick={() => navigate("/app/commands")}
           >
             {t("common.cancel")}
           </Button>
-          <Button type="submit" className="min-h-10" disabled={create.isPending}>
-            {create.isPending && <Loader2 className="animate-spin" />}
+          <Button type="submit" className="min-h-10" disabled={busy}>
+            {busy && <Loader2 className="animate-spin" />}
             {t("commands.create.submit")}
           </Button>
         </div>
@@ -441,9 +568,9 @@ export function CommandCreatePage() {
           type="submit"
           form={FORM_ID}
           className="min-h-11 flex-1"
-          disabled={create.isPending}
+          disabled={busy}
         >
-          {create.isPending && <Loader2 className="animate-spin" />}
+          {busy && <Loader2 className="animate-spin" />}
           {t("commands.create.submit")}
         </Button>
       </div>

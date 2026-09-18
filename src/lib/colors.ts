@@ -45,6 +45,11 @@ export const categoryPalette = [
 
 export const defaultCategoryColor = categoryPalette[0];
 
+export const commandMapColors = {
+  sender: categoryPalette[1],
+  recipient: categoryPalette[4],
+} as const;
+
 export const mockMap = {
   land: "#F2EFE9",
   water: "#9FC7E8",

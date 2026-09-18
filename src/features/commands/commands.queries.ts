@@ -94,11 +94,11 @@ export function useCommandSearch(
   });
 }
 
-export function usePharmacyLastCommands(cip: string | undefined) {
+export function useClientLastCommands(clientId: string | undefined) {
   return useQuery({
-    queryKey: commandKeys.lastByPharmacy(cip ?? ""),
-    queryFn: () => commandsApi.lastByPharmacy(cip as string),
-    enabled: Boolean(cip),
+    queryKey: commandKeys.lastByClient(clientId ?? ""),
+    queryFn: () => commandsApi.lastByClient(clientId as string),
+    enabled: Boolean(clientId),
     retry: false,
   });
 }

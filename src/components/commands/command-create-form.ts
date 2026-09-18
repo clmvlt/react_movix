@@ -1,7 +1,10 @@
 import { isValidApiDate, isValidTimeInput, localOffsetIso } from "@/lib/date";
+import { parseCoordinateInput } from "@/lib/address-form";
+import type { Client } from "@/features/clients";
 import type {
   CommandCreateInput,
   CommandCreatePackageInput,
+  CommandPartyInput,
 } from "@/features/commands";
 
 export const PACKAGE_NUMBER_FIELDS = [
@@ -32,16 +35,52 @@ export interface PackageFormState {
 
 export type PackageErrors = Partial<Record<PackageNumberField | "id", string>>;
 
+export const PARTY_TEXT_FIELDS = [
+  "name",
+  "firstName",
+  "lastName",
+  "address1",
+  "address2",
+  "address3",
+  "postalCode",
+  "city",
+  "country",
+  "phone",
+  "email",
+] as const;
+
+export type PartyTextField = (typeof PARTY_TEXT_FIELDS)[number];
+
+export type PartyFreeState = Record<
+  PartyTextField | "latitude" | "longitude",
+  string
+>;
+
+export type PartyMode = "linked" | "free";
+
+export type PartyRole = "sender" | "recipient";
+
+export interface PartyFormState {
+  mode: PartyMode;
+  client: Client | null;
+  free: PartyFreeState;
+}
+
 export interface CommandCreateFormState {
   expDate: string;
   expTime: string;
   numTransport: string;
+  orderer: Client | null;
+  sender: PartyFormState;
+  recipient: PartyFormState;
   packages: PackageFormState[];
   allowNoPackages: boolean;
 }
 
 export interface CommandCreateFormErrors {
-  cip?: string;
+  orderer?: string;
+  sender?: string;
+  recipient?: string;
   expDate?: string;
   expTime?: string;
   numTransport?: string;
@@ -71,11 +110,41 @@ export function emptyPackage(): PackageFormState {
   };
 }
 
+export function emptyPartyFree(): PartyFreeState {
+  return {
+    name: "",
+    firstName: "",
+    lastName: "",
+    address1: "",
+    address2: "",
+    address3: "",
+    postalCode: "",
+    city: "",
+    country: "",
+    phone: "",
+    email: "",
+    latitude: "",
+    longitude: "",
+  };
+}
+
+export function emptyParty(): PartyFormState {
+  return { mode: "linked", client: null, free: emptyPartyFree() };
+}
+
+export function isPartyFilled(party: PartyFormState): boolean {
+  if (party.mode === "linked") return party.client !== null;
+  return Object.values(party.free).some((value) => value.trim() !== "");
+}
+
 export function initialCreateForm(expDate: string): CommandCreateFormState {
   return {
     expDate,
     expTime: "08:00",
     numTransport: "",
+    orderer: null,
+    sender: emptyParty(),
+    recipient: emptyParty(),
     packages: [emptyPackage()],
     allowNoPackages: false,
   };
@@ -115,7 +184,9 @@ export function packageTotals(packages: PackageFormState[]): PackageTotals {
 
 export function hasErrors(errors: CommandCreateFormErrors): boolean {
   if (
-    errors.cip ||
+    errors.orderer ||
+    errors.sender ||
+    errors.recipient ||
     errors.expDate ||
     errors.expTime ||
     errors.numTransport ||
@@ -128,14 +199,41 @@ export function hasErrors(errors: CommandCreateFormErrors): boolean {
   );
 }
 
+function validateParty(
+  party: PartyFormState,
+  required: boolean,
+  t: Translate
+): string | undefined {
+  if (party.mode === "linked") {
+    if (!party.client && required) {
+      return t("commands.create.errors.clientRequired");
+    }
+    return undefined;
+  }
+  if (!isPartyFilled(party)) {
+    return required ? t("commands.create.errors.partyRequired") : undefined;
+  }
+  if (!party.free.name.trim()) {
+    return t("commands.create.errors.partyName");
+  }
+  return undefined;
+}
+
 export function validateCreateForm(
   form: CommandCreateFormState,
-  cip: string,
   t: Translate
 ): CommandCreateFormErrors {
   const errors: CommandCreateFormErrors = { packages: {} };
 
-  if (!cip.trim()) errors.cip = t("commands.create.errors.pharmacyRequired");
+  if (!form.orderer) {
+    errors.orderer = t("commands.create.errors.ordererRequired");
+  }
+
+  const sender = validateParty(form.sender, false, t);
+  if (sender) errors.sender = sender;
+
+  const recipient = validateParty(form.recipient, true, t);
+  if (recipient) errors.recipient = recipient;
 
   if (!form.expDate.trim()) {
     errors.expDate = t("commands.create.errors.required");
@@ -196,18 +294,49 @@ function buildPackage(item: PackageFormState): CommandCreatePackageInput {
   return payload;
 }
 
+export function buildPartyInput(
+  party: PartyFormState
+): CommandPartyInput | null {
+  if (party.mode === "linked") {
+    return party.client ? { clientId: party.client.id } : null;
+  }
+  if (!isPartyFilled(party)) return null;
+
+  const payload: CommandPartyInput = {};
+  for (const field of PARTY_TEXT_FIELDS) {
+    const value = party.free[field].trim();
+    if (value) payload[field] = value;
+  }
+
+  const latitude = parseCoordinateInput(party.free.latitude);
+  const longitude = parseCoordinateInput(party.free.longitude);
+  if (latitude != null && longitude != null) {
+    payload.latitude = latitude;
+    payload.longitude = longitude;
+  }
+
+  return payload;
+}
+
 export function buildCreateInput(
-  form: CommandCreateFormState,
-  cip: string
+  form: CommandCreateFormState
 ): CommandCreateInput {
-  return {
+  const input: CommandCreateInput = {
     expedition_date: localOffsetIso(form.expDate, form.expTime),
-    cip: cip.trim(),
+    ordererId: form.orderer?.id ?? "",
     command: {
       num_transport: form.numTransport.trim(),
       packages: form.packages.map(buildPackage),
     },
   };
+
+  const sender = buildPartyInput(form.sender);
+  if (sender) input.sender = sender;
+
+  const recipient = buildPartyInput(form.recipient);
+  if (recipient) input.recipient = recipient;
+
+  return input;
 }
 
 const SERVER_MESSAGES: Record<string, string> = {
@@ -255,8 +384,18 @@ export function mapServerErrors(
       }
     }
 
-    if (field === "cip") {
-      errors.cip = message;
+    if (field === "ordererId") {
+      errors.orderer = message;
+      matched += 1;
+    } else if (field.startsWith("sender")) {
+      errors.sender = message;
+      matched += 1;
+    } else if (
+      field.startsWith("recipient") ||
+      field === "cip" ||
+      field === "clientId"
+    ) {
+      errors.recipient = message;
       matched += 1;
     } else if (field === "expedition_date") {
       errors.expDate = message;
@@ -270,4 +409,13 @@ export function mapServerErrors(
   }
 
   return { errors, unmatched, matched };
+}
+
+export type PartyErrorField = "orderer" | PartyRole;
+
+export function partyErrorField(role: string | null): PartyErrorField | null {
+  if (role === "orderer" || role === "sender" || role === "recipient") {
+    return role;
+  }
+  return null;
 }

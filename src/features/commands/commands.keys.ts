@@ -15,6 +15,6 @@ export const commandKeys = {
   searches: () => [...commandKeys.all, "search"] as const,
   search: (scope: CommandScope, input: CommandSearchInput) =>
     [...commandKeys.searches(), scope, input] as const,
-  lastByPharmacy: (cip: string) =>
-    [...commandKeys.all, "last-by-pharmacy", cip] as const,
+  lastByClient: (clientId: string) =>
+    [...commandKeys.all, "last-by-client", clientId] as const,
 };

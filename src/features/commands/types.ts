@@ -1,5 +1,38 @@
 import type { RouteLeg } from "@/features/tours/types";
-import type { PharmacyZoneRef } from "@/features/pharmacies/types";
+import type { Client, ClientType } from "@/features/clients/types";
+
+export const COMMAND_PARTY_ROLES = ["orderer", "sender", "recipient"] as const;
+
+export type CommandPartyRole = (typeof COMMAND_PARTY_ROLES)[number];
+
+export interface CommandParty {
+  linked: boolean;
+  clientId: string | null;
+  clientType: ClientType | null;
+  cip: string | null;
+  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  address1: string | null;
+  address2: string | null;
+  address3: string | null;
+  postalCode: string | null;
+  city: string | null;
+  country: string | null;
+  phone: string | null;
+  email: string | null;
+  latitude: number | null;
+  longitude: number | null;
+}
+
+export interface CommandProof {
+  at: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  signatureName: string | null;
+  signatureAt: string | null;
+  signatureImageUrl: string | null;
+}
 
 export interface StatusRef {
   id: number;
@@ -34,21 +67,6 @@ export interface CommandTour {
   routeStale?: boolean | null;
 }
 
-export interface ExpeditionPharmacy {
-  cip: string;
-  name: string;
-  address1?: string;
-  city?: string;
-  postalCode?: string;
-  latitude?: number;
-  longitude?: number;
-  color?: string | null;
-  numero?: string | null;
-  deliveryWindowStart?: string | null;
-  deliveryWindowEnd?: string | null;
-  zone?: PharmacyZoneRef | null;
-}
-
 export interface CommandExpedition {
   id: string;
   closeDate?: string | null;
@@ -61,7 +79,7 @@ export interface CommandExpedition {
   tour?: CommandTour | null;
   packagesNumber: number;
   totalWeight: number;
-  pharmacy?: ExpeditionPharmacy | null;
+  client?: Client | null;
   pharmacyCommentaire?: string | null;
   pharmacyDeliveryWindowStart?: string | null;
   pharmacyDeliveryWindowEnd?: string | null;
@@ -115,7 +133,12 @@ export interface CommandDetail {
   pharmacyCommentaire?: string | null;
   pharmacyDeliveryWindowStart?: string | null;
   pharmacyDeliveryWindowEnd?: string | null;
-  pharmacy?: ExpeditionPharmacy & { phone?: string; email?: string };
+  orderer?: Client | null;
+  sender?: CommandParty | null;
+  recipient?: CommandParty | null;
+  loading?: CommandProof | null;
+  delivery?: CommandProof | null;
+  client?: Client | null;
   tour?: CommandTour | null;
   status?: StatusRef | null;
   packages?: CommandPackage[];
@@ -131,7 +154,10 @@ export interface CommandBasic {
   newPharmacy?: boolean;
   latitude?: number | null;
   longitude?: number | null;
-  pharmacy?: ExpeditionPharmacy;
+  orderer?: Client | null;
+  sender?: CommandParty | null;
+  recipient?: CommandParty | null;
+  client?: Client | null;
 }
 
 export interface CommandStatusHistoryEntry {
@@ -153,6 +179,9 @@ export interface CommandSearchResult {
   newPharmacy?: boolean;
   latitude?: number | null;
   longitude?: number | null;
+  clientId?: string | null;
+  clientType?: ClientType | null;
+  clientCip?: string | null;
   pharmacyName?: string | null;
   pharmacyCity?: string | null;
   pharmacyCodePostal?: string | null;
@@ -168,6 +197,8 @@ export interface CommandSearchInput {
   pharmacyName?: string;
   pharmacyCity?: string;
   pharmacyCip?: string;
+  clientId?: string;
+  ordererId?: string;
   pharmacyPostalCode?: string;
   pharmacyAddress?: string;
   commandId?: string;
@@ -224,9 +255,29 @@ export interface CommandCreateBodyInput {
   close_date?: string;
 }
 
+export interface CommandPartyInput {
+  clientId?: string;
+  cip?: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
+  address1?: string;
+  address2?: string;
+  address3?: string;
+  postalCode?: string;
+  city?: string;
+  country?: string;
+  phone?: string;
+  email?: string;
+  latitude?: number;
+  longitude?: number;
+}
+
 export interface CommandCreateInput {
   expedition_date: string;
-  cip: string;
+  ordererId: string;
+  sender?: CommandPartyInput | null;
+  recipient?: CommandPartyInput | null;
   command: CommandCreateBodyInput;
 }
 

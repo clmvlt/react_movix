@@ -15,6 +15,28 @@ export class ApiError extends Error {
     return typeof code === "string" ? code : null;
   }
 
+  get errorRole(): string | null {
+    if (typeof this.body !== "object" || this.body === null) return null;
+    const role = (this.body as { role?: unknown }).role;
+    return typeof role === "string" ? role : null;
+  }
+
+  get isOrdererRequired(): boolean {
+    return this.errorCode === "ORDERER_REQUIRED";
+  }
+
+  get isPartyAmbiguous(): boolean {
+    return this.errorCode === "PARTY_AMBIGUOUS";
+  }
+
+  get isPartyIncomplete(): boolean {
+    return this.errorCode === "PARTY_INCOMPLETE";
+  }
+
+  get isPartyClientNotFound(): boolean {
+    return this.errorCode === "PARTY_CLIENT_NOT_FOUND";
+  }
+
   get isEmailNotVerified(): boolean {
     return this.errorCode === "EMAIL_NOT_VERIFIED";
   }

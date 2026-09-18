@@ -6,6 +6,7 @@ import type {
   CommandBasic,
   CommandCreateInput,
   CommandCreatePackageInput,
+  CommandPartyInput,
   CommandCreateResult,
   CommandDetail,
   CommandExpedition,
@@ -62,16 +63,83 @@ function cleanPackage(input: CommandCreatePackageInput): Record<string, unknown>
   return result;
 }
 
+const PARTY_LINK_FIELDS = ["clientId", "cip"] as const;
+
+const PARTY_FREE_FIELDS = [
+  "name",
+  "firstName",
+  "lastName",
+  "address1",
+  "address2",
+  "address3",
+  "postalCode",
+  "city",
+  "country",
+  "phone",
+  "email",
+  "latitude",
+  "longitude",
+] as const;
+
+function cleanParty(
+  role: "sender" | "recipient",
+  input: CommandPartyInput | null | undefined
+): Record<string, unknown> | null {
+  if (!input) return null;
+
+  const linked: Record<string, unknown> = {};
+  for (const field of PARTY_LINK_FIELDS) {
+    const value = input[field]?.trim();
+    if (value) linked[field] = value;
+  }
+
+  const free: Record<string, unknown> = {};
+  for (const field of PARTY_FREE_FIELDS) {
+    const value = input[field];
+    if (value === undefined || value === null) continue;
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (trimmed) free[field] = trimmed;
+      continue;
+    }
+    if (!Number.isFinite(value)) continue;
+    free[field] = value;
+  }
+
+  const hasLink = Object.keys(linked).length > 0;
+  const hasFree = Object.keys(free).length > 0;
+
+  if (hasLink && hasFree) {
+    throw new ApiError(
+      400,
+      `${role} can't be linked and free at the same time`,
+      { error: "PARTY_AMBIGUOUS", role }
+    );
+  }
+  if (hasLink) return linked;
+  if (!hasFree) return null;
+  if (!free.name) {
+    throw new ApiError(400, `${role}.name is required`, {
+      error: "PARTY_INCOMPLETE",
+      role,
+    });
+  }
+  return free;
+}
+
 function buildCreateBody(input: CommandCreateInput): Record<string, unknown> {
   const expeditionDate = input.expedition_date?.trim() ?? "";
-  const cip = input.cip?.trim() ?? "";
+  const ordererId = input.ordererId?.trim() ?? "";
   const numTransport = input.command?.num_transport?.trim() ?? "";
 
   if (!expeditionDate) {
     throw new ApiError(400, "expedition_date is required", null);
   }
-  if (!cip) {
-    throw new ApiError(400, "cip is required", null);
+  if (!ordererId) {
+    throw new ApiError(400, "ordererId is required", {
+      error: "ORDERER_REQUIRED",
+      role: "orderer",
+    });
   }
   if (!numTransport) {
     throw new ApiError(400, "command.num_transport is required", null);
@@ -90,7 +158,19 @@ function buildCreateBody(input: CommandCreateInput): Record<string, unknown> {
     command.close_date = closeDate;
   }
 
-  return { expedition_date: expeditionDate, cip, command };
+  const body: Record<string, unknown> = {
+    expedition_date: expeditionDate,
+    ordererId,
+    command,
+  };
+
+  const sender = cleanParty("sender", input.sender);
+  if (sender) body.sender = sender;
+
+  const recipient = cleanParty("recipient", input.recipient);
+  if (recipient) body.recipient = recipient;
+
+  return body;
 }
 
 function requireIds(ids: string[]): string[] {
@@ -142,9 +222,9 @@ export const commandsApi = {
   history: (id: string) =>
     http.get<CommandStatusHistoryEntry[]>(`${RESOURCE}/history/${pathId(id)}`),
 
-  lastByPharmacy: (cip: string) =>
+  lastByClient: (clientId: string) =>
     http.get<CommandBasic[]>(
-      `${RESOURCE}/pharmacy/${encodeURIComponent(cip)}/last-commands`
+      `${RESOURCE}/client/${encodeURIComponent(clientId)}/last-commands`
     ),
 
   search: (input: CommandSearchInput) =>

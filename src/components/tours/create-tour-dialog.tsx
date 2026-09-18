@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/dialog";
 import { ColorPicker } from "@/components/color-picker";
 import { FormField } from "@/components/form-field";
+import { ClientSelectField } from "@/components/clients/client-select-field";
+import type { Client } from "@/features/clients";
 import { useWorkingDate } from "@/app/working-date-context";
 import { useCreateTour } from "@/features/tours";
 
@@ -30,12 +32,14 @@ export function CreateTourDialog({
   const [name, setName] = useState("");
   const [initialDate, setInitialDate] = useState(date);
   const [color, setColor] = useState("#2563eb");
+  const [client, setClient] = useState<Client | null>(null);
 
   useEffect(() => {
     if (open) {
       setName("");
       setInitialDate(date);
       setColor("#2563eb");
+      setClient(null);
     }
   }, [open, date]);
 
@@ -43,7 +47,12 @@ export function CreateTourDialog({
     event.preventDefault();
     if (!name.trim()) return;
     create.mutate(
-      { name: name.trim(), initialDate, color },
+      {
+        name: name.trim(),
+        initialDate,
+        color,
+        ...(client ? { clientId: client.id } : {}),
+      },
       { onSuccess: () => onOpenChange(false) }
     );
   };
@@ -90,6 +99,20 @@ export function CreateTourDialog({
               label={t("tours.createDialog.color")}
             />
           </FormField>
+          <FormField
+            label={t("tours.orderer")}
+            htmlFor="tour-orderer-create"
+            hint={t("tours.ordererHint")}
+          >
+            <ClientSelectField
+              id="tour-orderer-create"
+              value={client}
+              onChange={setClient}
+              disabled={create.isPending}
+              dialogTitle={t("commands.parties.pick.orderer")}
+            />
+          </FormField>
+
           <DialogFooter className="mt-2">
             <Button
               type="button"

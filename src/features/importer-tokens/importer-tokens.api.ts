@@ -22,6 +22,7 @@ function createBody(input: ImporterTokenCreateInput) {
   if (description !== undefined) body.description = description;
   if (input.accountId) body.accountId = input.accountId;
   if (input.isBetaProxy !== undefined) body.isBetaProxy = input.isBetaProxy;
+  if (input.clientId) body.clientId = input.clientId;
   return body;
 }
 
@@ -31,6 +32,8 @@ function updateBody(input: ImporterTokenUpdateInput) {
   if (input.description !== undefined) body.description = input.description.trim();
   if (input.isActive !== undefined) body.isActive = input.isActive;
   if (input.isBetaProxy !== undefined) body.isBetaProxy = input.isBetaProxy;
+  if (input.clientId) body.clientId = input.clientId;
+  if (input.clearClient) body.clearClient = true;
   return body;
 }
 

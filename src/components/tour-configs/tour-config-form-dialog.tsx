@@ -14,7 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { FormField } from "@/components/form-field";
 import { ColorPicker } from "@/components/color-picker";
-import { ZoneSelect } from "@/components/pharmacies/zone-select";
+import { ZoneSelect } from "@/components/zone-select";
+import { ClientSelectField } from "@/components/clients/client-select-field";
 import { useApiErrorMessage } from "@/components/account/use-account-error";
 import { useToast } from "@/app/toast-context";
 import { normalizeHexColor } from "@/lib/colors";
@@ -115,7 +116,7 @@ export function TourConfigFormDialog({
 
     if (isEdit && config) {
       updateConfig.mutate(
-        { id: config.id, input: buildTourConfigUpdate(form) },
+        { id: config.id, input: buildTourConfigUpdate(form, config) },
         { onSuccess, onError }
       );
     } else {
@@ -204,6 +205,20 @@ export function TourConfigFormDialog({
               allowNeutral={!profilLocked}
               ariaLabel={t("tourConfigs.form.driver")}
               disabled={pending}
+            />
+          </FormField>
+
+          <FormField
+            label={t("tourConfigs.form.client")}
+            htmlFor="tour-config-client"
+            hint={t("tourConfigs.form.clientHint")}
+          >
+            <ClientSelectField
+              id="tour-config-client"
+              value={form.client}
+              onChange={(next) => set("client", next)}
+              disabled={pending}
+              dialogTitle={t("commands.parties.pick.orderer")}
             />
           </FormField>
 

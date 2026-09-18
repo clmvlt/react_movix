@@ -8,6 +8,8 @@ import {
   parseDate,
   toTimeInput,
 } from "@/lib/date";
+import { clientLinkPatch } from "@/lib/client-link";
+import type { ClientRef } from "@/features/clients";
 import type { Tour, TourUpdateInput } from "@/features/tours";
 
 export interface TourForm {
@@ -21,6 +23,7 @@ export interface TourForm {
   endDay: string;
   endTime: string;
   initialDate: string;
+  client: ClientRef | null;
 }
 
 export function initialTourForm(tour: Tour): TourForm {
@@ -37,6 +40,7 @@ export function initialTourForm(tour: Tour): TourForm {
     endDay: end ? dateToApiDate(end) : "",
     endTime: end ? toTimeInput(end) : "",
     initialDate: tour.initialDate ?? "",
+    client: tour.client ?? null,
   };
 }
 
@@ -45,7 +49,10 @@ function toApiDateTime(day: string, time: string): string {
   return localOffsetIso(day, isValidTimeInput(time) ? time : "00:00");
 }
 
-export function tourFormToUpdateInput(form: TourForm): TourUpdateInput {
+export function tourFormToUpdateInput(
+  form: TourForm,
+  baseline: Tour
+): TourUpdateInput {
   return {
     name: form.name.trim() || undefined,
     immat: form.immat.trim(),
@@ -55,6 +62,7 @@ export function tourFormToUpdateInput(form: TourForm): TourUpdateInput {
     startDate: toApiDateTime(form.startDay, form.startTime),
     endDate: toApiDateTime(form.endDay, form.endTime),
     initialDate: form.initialDate || undefined,
+    ...clientLinkPatch(baseline.client, form.client),
   };
 }
 

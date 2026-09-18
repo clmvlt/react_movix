@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { Building2, Lock } from "lucide-react";
+import { Building2, Lock, ReceiptText } from "lucide-react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,7 @@ import { useIsBeta } from "@/components/beta-only";
 import { useIsHyperadmin } from "@/components/admin-gate";
 import { formatDateTime } from "@/lib/date";
 import { cn } from "@/lib/utils";
+import { clientRefLabel } from "@/features/clients";
 import type { ImporterToken } from "@/features/importer-tokens";
 import { TokenValue } from "./token-value";
 import { TokenActions } from "./token-actions";
@@ -74,6 +75,14 @@ export function TokenTable({
                   <Badge variant="outline" className="mt-1 gap-1">
                     <Lock className="size-3" />
                     {t("apiTokens.managed")}
+                  </Badge>
+                )}
+                {token.client && (
+                  <Badge variant="outline" className="mt-1 gap-1">
+                    <ReceiptText className="size-3" />
+                    <span className="truncate">
+                      {clientRefLabel(token.client)}
+                    </span>
                   </Badge>
                 )}
                 {isHyperadmin && token.accountName && (

@@ -1,4 +1,6 @@
 import { normalizeHexColor } from "@/lib/colors";
+import { clientLinkPatch } from "@/lib/client-link";
+import type { ClientRef } from "@/features/clients";
 import {
   DEFAULT_TOUR_HOUR,
   TOUR_CONFIG_NAME_MAX,
@@ -18,6 +20,7 @@ export interface TourConfigFormState {
   profilId: string | null;
   recurrence: TourRecurrence;
   tourHour: string;
+  client: ClientRef | null;
 }
 
 export function fromTourHour(value: string | null | undefined): string {
@@ -44,6 +47,7 @@ export function initialTourConfigForm(
     profilId: duplicate ? null : (config?.profil?.id ?? null),
     recurrence: toRecurrence(config?.recurrence),
     tourHour: fromTourHour(config?.tourHour),
+    client: duplicate ? null : (config?.client ?? null),
   };
 }
 
@@ -59,13 +63,19 @@ export function buildTourConfigPayload(
   if (color) payload.tourColor = color;
   if (form.zoneId) payload.zone = { id: form.zoneId };
   if (form.profilId) payload.profil = { id: form.profilId };
+  if (form.client) payload.clientId = form.client.id;
   return payload;
 }
 
 export function buildTourConfigUpdate(
-  form: TourConfigFormState
+  form: TourConfigFormState,
+  baseline: TourConfig | null
 ): TourConfigUpdateInput {
-  return buildTourConfigPayload(form);
+  const { clientId: _ignored, ...payload } = buildTourConfigPayload(form);
+  return {
+    ...payload,
+    ...clientLinkPatch(baseline?.client, form.client),
+  };
 }
 
 type Translate = (key: string, options?: Record<string, unknown>) => string;

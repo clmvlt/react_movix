@@ -6,6 +6,7 @@ import {
   MoreVertical,
   Pencil,
   Plus,
+  ReceiptText,
   Trash2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -27,6 +28,7 @@ import {
 } from "@/components/tour-configs/tour-config-form-dialog";
 import { TourConfigDeleteDialog } from "@/components/tour-configs/tour-config-delete-dialog";
 import { profilFullName } from "@/features/auth";
+import { clientRefLabel } from "@/features/clients";
 import {
   activeWeekdays,
   isEveryDay,
@@ -118,6 +120,14 @@ export function TourConfigsPage() {
                     ? profilFullName(config.profil)
                     : t("tourConfigs.noDriver")}
                 </Badge>
+                {config.client && (
+                  <Badge variant="outline" className="max-w-full gap-1">
+                    <ReceiptText className="size-3 shrink-0" aria-hidden />
+                    <span className="truncate">
+                      {clientRefLabel(config.client)}
+                    </span>
+                  </Badge>
+                )}
               </span>
             </button>
 

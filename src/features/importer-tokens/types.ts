@@ -1,3 +1,5 @@
+import type { ClientRef } from "@/features/clients/types";
+
 export interface ImporterToken {
   id: string;
   name: string;
@@ -8,6 +10,7 @@ export interface ImporterToken {
   accountId?: string | null;
   accountName?: string | null;
   nonDeletable: boolean;
+  client?: ClientRef | null;
   createdAt?: string | null;
   lastUsedAt?: string | null;
 }
@@ -17,6 +20,7 @@ export interface ImporterTokenCreateInput {
   description?: string;
   accountId?: string;
   isBetaProxy?: boolean;
+  clientId?: string;
 }
 
 export interface ImporterTokenUpdateInput {
@@ -24,6 +28,8 @@ export interface ImporterTokenUpdateInput {
   description?: string;
   isActive?: boolean;
   isBetaProxy?: boolean;
+  clientId?: string;
+  clearClient?: boolean;
 }
 
 export const TOKEN_NAME_MAX = 120;

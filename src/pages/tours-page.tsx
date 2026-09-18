@@ -108,6 +108,15 @@ import {
   withTime,
 } from "@/lib/date";
 import { cn } from "@/lib/utils";
+import {
+  clientLabel,
+  clientPlace,
+  clientRefLabel,
+  isPharmacyClient,
+  type Client,
+  type PharmacyClient,
+} from "@/features/clients";
+import { ClientSelectField } from "@/components/clients/client-select-field";
 import { useAuth } from "@/app/auth-context";
 import { usePdfPreview } from "@/app/pdf-preview-context";
 import { useWorkingDate } from "@/app/working-date-context";
@@ -133,8 +142,8 @@ import {
 } from "@/features/tours";
 
 function commandCoords(command: TourCommand): LngLat | null {
-  const lng = command.pharmacy?.longitude;
-  const lat = command.pharmacy?.latitude;
+  const lng = command.client?.longitude;
+  const lat = command.client?.latitude;
   if (lng == null || lat == null) return null;
   return [lng, lat];
 }
@@ -143,6 +152,12 @@ type TourView = "orders" | "map" | "info";
 
 function packagesOf(command: TourCommand): number {
   return command.packagesNumber ?? command.packages?.length ?? 0;
+}
+
+function pharmacyClientOf(
+  client: Client | null | undefined
+): PharmacyClient | null {
+  return client && isPharmacyClient(client) ? client : null;
 }
 
 export function ToursPage() {
@@ -581,8 +596,8 @@ export function ToursPage() {
                     selectedIds={highlighted}
                     onToggle={toggleHighlight}
                     onOpen={(id) => navigate(`/app/commands/${id}`)}
-                    onOpenPharmacy={(cip) =>
-                      navigate(`/app/pharmacies/${encodeURIComponent(cip)}`)
+                    onOpenPharmacy={(clientId) =>
+                      navigate(`/app/clients/${encodeURIComponent(clientId)}`)
                     }
                     onLocate={locate}
                     ref={listRef}
@@ -593,7 +608,7 @@ export function ToursPage() {
                             ? selectedCommandIds
                             : [command.id]
                         }
-                        pharmacy={command.pharmacy}
+                        pharmacy={pharmacyClientOf(command.client)}
                         tours={otherTours}
                         onDone={
                           highlighted.has(command.id)
@@ -695,7 +710,7 @@ export function ToursPage() {
                         latitude={coords[1]}
                         color={selectedTour?.color || "#2563eb"}
                         selected={highlighted.has(command.id)}
-                        title={command.pharmacy?.name}
+                        title={command.client ? clientLabel(command.client) : undefined}
                         label={command.tourOrder ?? index + 1}
                         onClick={() => selectFromMap(command.id)}
                       />
@@ -1354,7 +1369,7 @@ function TourInfo({
     updateTour.mutate(
       {
         id: tour.id,
-        input: tourFormToUpdateInput(form),
+        input: tourFormToUpdateInput(form, tour),
       },
       {
         onSuccess: () => {
@@ -1780,6 +1795,44 @@ function TourInfo({
           <InfoRow className="col-span-2" icon={MapPin} label={t("tours.zone")}>
             {tour.zone?.name}
           </InfoRow>
+          {editing ? (
+            <div className="col-span-2 flex min-w-0 flex-col gap-0.5">
+              <dt className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <ReceiptText className="size-3.5 shrink-0" aria-hidden />
+                <label htmlFor="tour-orderer" className="truncate">
+                  {t("tours.orderer")}
+                </label>
+              </dt>
+              <dd className="min-w-0">
+                <ClientSelectField
+                  id="tour-orderer"
+                  value={form.client}
+                  onChange={(next) =>
+                    setForm((previous) => ({ ...previous, client: next }))
+                  }
+                  disabled={updateTour.isPending}
+                  dialogTitle={t("commands.parties.pick.orderer")}
+                />
+                <p className="mt-1 text-xs leading-4 text-muted-foreground">
+                  {t("tours.ordererHint")}
+                </p>
+              </dd>
+            </div>
+          ) : (
+            <InfoRow
+              className="col-span-2"
+              icon={ReceiptText}
+              label={t("tours.orderer")}
+            >
+              {tour.client ? (
+                <span className="truncate">
+                  {[clientRefLabel(tour.client), clientPlace(tour.client)]
+                    .filter(Boolean)
+                    .join(" - ")}
+                </span>
+              ) : null}
+            </InfoRow>
+          )}
         </InfoPanel>
       </div>
     </div>

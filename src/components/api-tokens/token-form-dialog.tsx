@@ -15,12 +15,16 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useAuth } from "@/app/auth-context";
 import { useToast } from "@/app/toast-context";
 import { FormField } from "@/components/form-field";
 import { useIsHyperadmin } from "@/components/admin-gate";
 import { AccountPicker } from "@/components/hyperadmin/account-picker";
+import { ClientSelectField } from "@/components/clients/client-select-field";
 import { useTokenError } from "@/components/api-tokens/use-token-error";
+import { clientLinkPatch } from "@/lib/client-link";
 import type { Account } from "@/features/auth";
+import type { ClientRef } from "@/features/clients";
 import {
   TOKEN_DESCRIPTION_MAX,
   TOKEN_NAME_MAX,
@@ -43,6 +47,7 @@ interface FormState {
   isActive: boolean;
   isBetaProxy: boolean;
   account: Account | null;
+  client: ClientRef | null;
 }
 
 function initialForm(token: ImporterToken | null): FormState {
@@ -52,6 +57,7 @@ function initialForm(token: ImporterToken | null): FormState {
     isActive: token?.isActive ?? true,
     isBetaProxy: token?.isBetaProxy ?? false,
     account: null,
+    client: token?.client ?? null,
   };
 }
 
@@ -66,6 +72,7 @@ export function TokenFormDialog({
   const updateToken = useUpdateImporterToken();
   const errorMessage = useTokenError();
   const isHyperadmin = useIsHyperadmin();
+  const { selectedAccountId } = useAuth();
   const toast = useToast();
 
   const [form, setForm] = useState<FormState>(() => initialForm(null));
@@ -79,6 +86,12 @@ export function TokenFormDialog({
 
   const isEdit = Boolean(token);
   const pending = createToken.isPending || updateToken.isPending;
+
+  const tokenAccountId = isEdit
+    ? (token?.accountId ?? null)
+    : (form.account?.id ?? null);
+  const ownAccount =
+    tokenAccountId === null || tokenAccountId === selectedAccountId;
 
   const set = <K extends keyof FormState>(key: K, value: FormState[K]) => {
     setForm((previous) => ({ ...previous, [key]: value }));
@@ -126,6 +139,9 @@ export function TokenFormDialog({
       if (isHyperadmin && form.isBetaProxy !== token.isBetaProxy) {
         patch.isBetaProxy = form.isBetaProxy;
       }
+      if (ownAccount) {
+        Object.assign(patch, clientLinkPatch(token.client, form.client));
+      }
 
       if (Object.keys(patch).length === 0) {
         onOpenChange(false);
@@ -143,6 +159,7 @@ export function TokenFormDialog({
       {
         name: form.name,
         description: form.description,
+        ...(ownAccount && form.client ? { clientId: form.client.id } : {}),
         ...(isHyperadmin
           ? {
               isBetaProxy: form.isBetaProxy,
@@ -221,6 +238,32 @@ export function TokenFormDialog({
                 onChange={(account) => set("account", account)}
               />
             </FormField>
+          )}
+
+          {ownAccount && (
+            <>
+              <FormField
+                label={t("apiTokens.form.client")}
+                htmlFor="token-client"
+                hint={t("apiTokens.form.clientHint")}
+              >
+                <ClientSelectField
+                  id="token-client"
+                  value={form.client}
+                  onChange={(next) => set("client", next)}
+                  disabled={pending}
+                  dialogTitle={t("commands.parties.pick.orderer")}
+                />
+              </FormField>
+
+              {form.client && (
+                <Alert className="mb-2">
+                  <AlertDescription>
+                    {t("apiTokens.form.clientNotice")}
+                  </AlertDescription>
+                </Alert>
+              )}
+            </>
           )}
 
           {isHyperadmin && (

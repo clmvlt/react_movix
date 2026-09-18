@@ -1,10 +1,11 @@
 import { useTranslation } from "react-i18next";
-import { Building2, Lock } from "lucide-react";
+import { Building2, Lock, ReceiptText } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useIsBeta } from "@/components/beta-only";
 import { useIsHyperadmin } from "@/components/admin-gate";
 import { formatDateTime } from "@/lib/date";
 import { cn } from "@/lib/utils";
+import { clientRefLabel } from "@/features/clients";
 import type { ImporterToken } from "@/features/importer-tokens";
 import { TokenValue } from "./token-value";
 import { TokenActions } from "./token-actions";
@@ -50,6 +51,14 @@ export function TokenCardList({
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {token.description}
                 </p>
+              )}
+              {token.client && (
+                <Badge variant="outline" className="mt-1 max-w-full gap-1">
+                  <ReceiptText className="size-3 shrink-0" />
+                  <span className="truncate">
+                    {clientRefLabel(token.client)}
+                  </span>
+                </Badge>
               )}
             </div>
             <Badge

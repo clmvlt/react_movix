@@ -44,7 +44,7 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
 - Couche API feature-sliced `src/features/<domaine>/` : `types.ts`, `<domaine>.keys.ts`, `<domaine>.api.ts`
   (`RESOURCE = "/xxx"`), `<domaine>.queries.ts`, `index.ts`. Un domaine n'importe pas l'api / les hooks
   d'un autre (import de type seul tolere). Tous les domaines metier existent deja (auth, profiles,
-  commands, tours, pharmacies, anomalies, packages, subscription-invoices, zones, dashboard, stats, exports...) :
+  commands, tours, clients, anomalies, packages, subscription-invoices, invoices, zones, dashboard, stats, exports...) :
   reutiliser le domaine existant avant d'en creer un.
 - UI : pages dans `src/pages/`, composants par domaine dans `src/components/<domaine>/`, primitives
   shadcn dans `src/components/ui/`, hooks transverses dans `src/hooks/`, utilitaires dans `src/lib/`.
@@ -58,17 +58,42 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
   jointes par `\n` (`ApiError.fieldErrors`). Codes JSON routes par helpers `ApiError.isXxx`
   (`EMAIL_NOT_VERIFIED`, `NO_ACCOUNT_ACCESS`, `TourRouteFailure`, `DISPATCH_STALE`...).
 - Listes : tableaux bruts le plus souvent ; quelques ressources paginees `{content,totalElements,totalPages,number,size}`.
-- PUT partiel historique (cle absente = inchange) ; PATCH seulement sur `/updates/{version}`.
+- PUT partiel historique (cle absente = inchange) ; PATCH seulement sur `/updates/{version}`. Exception
+  `/clients` et `/account/billing` : PUT = REMPLACEMENT COMPLET (champ absent = efface).
+- Ressources recentes (`/clients`, `/invoices`) : erreurs `{ error, message }` plus `errors: [{ field,
+  code, message }]` en 400 (`ApiError.errorCode`, `ApiError.structuredFieldErrors`), `field` pouvant
+  etre imbrique (`billingAddress.postalCode`). Corps strictement types : un champ inconnu renvoie
+  400 `UNKNOWN_FIELD`, c'est un BUG DU FRONT, jamais une erreur a afficher telle quelle.
+- Recherches : `POST /clients/search` et `POST /commands/search` prennent des criteres cumulatifs et
+  renvoient une page `{content,...}`. La recherche de clients melange GENERIC et PHARMACY.
 - Temps reel : UNE seule connexion SSE pour toute l'app (`GET /notifications/stream`, client
   `src/lib/sse.ts`, `NotificationsProvider`). L'API est en HTTP/1.1 : ne jamais ouvrir un second flux
   persistant, tout evenement passe par ce flux. Detail : [docs/claude/notifications-sse.md](docs/claude/notifications-sse.md).
 
 ## Regles metier a ne jamais enfreindre
-- Pharmacies : une pharmacie APPARTIENT a une entreprise (une ligne = une pharmacie pour un compte,
-  plus de referentiel global). Identite stable = `id` (UUID) ; le `cip` est une donnee metier
-  modifiable, unique par entreprise seulement. Afficher `latitude` / `longitude` renvoyees par l'API,
-  n'ecrire que via `PUT /pharmacies/{cip}`. `command.latitude/longitude` = position de livraison,
-  pas celle de la pharmacie.
+- Clients : UN seul referentiel par entreprise (`/clients`, `src/features/clients/`), type `GENERIC`
+  ou `PHARMACY` ; une pharmacie EST un client et n'a plus ni domaine ni ecran a part. Le type ne
+  change jamais apres creation et les champs pharmacie (`cip`, `numero`, `color`, doubles cles)
+  n'existent que sur un client `PHARMACY` : ne jamais les envoyer sur un `GENERIC`. Identite stable
+  = `id` (UUID) ; le `cip` est une donnee metier modifiable, unique par entreprise seulement (les
+  liens qui n'ont qu'un CIP passent par `/app/clients/by-cip/:cip`). Les anciennes routes
+  `/pharmacies/*` (hors `GET /pharmacies/{cip}` et `POST /pharmacies/search`, reserves au mobile),
+  `/zones/{id}/pharmacies`, `PUT /zones/assign/{id}` et `/commands/pharmacy/{cip}/last-commands`
+  sont SUPPRIMEES : les appeler renvoie 404. Afficher `latitude` / `longitude` renvoyees par
+  l'API ; `command.latitude/longitude` = position de livraison, pas celle du client. Detail :
+  [docs/claude/clients.md](docs/claude/clients.md).
+- Une commande porte TROIS roles (API V25) : `orderer` (donneur d'ordre, celui qu'on facture,
+  `ClientDTO`, `null` sur les commandes anterieures), `sender` (chargement) et `recipient`
+  (livraison), tous deux des `CommandPartyDTO` soit relies au referentiel soit propres a la commande.
+  L'API a deja resolu ce qu'il faut afficher : lire `recipient.name` / `recipient.address1`... sans
+  aucun repli sur un client, et n'utiliser `linked` que pour proposer le lien de fiche, le CIP et le
+  type. `command.client` est DEPRECIE. `POST /commands` EXIGE `ordererId` (400 `ORDERER_REQUIRED`).
+  Detail : [docs/claude/commandes-et-positions.md](docs/claude/commandes-et-positions.md).
+- Une anomalie, un arret de tournee ou un rapport terrain vise un `client` de N'IMPORTE QUEL type :
+  lire `anomalie.client` / `report.client` (`ClientDTO` polymorphe), jamais `pharmacy`, qui est un
+  reliquat du contrat mobile et vaut `null` pour un client GENERIC. N'afficher CIP, cle et etiquette
+  que si `client.type === "PHARMACY"`. Creation par `clientId` (`POST /anomalies[/generate]`), liens
+  de fiche par `clientId`.
 - Mot de passe unique par personne : le champ mot de passe d'un profil ne s'affiche que si
   `userId === null && !isWeb` ; sinon ne JAMAIS envoyer `password` (403).
 - Itineraires, ETA, optimisation, repartition : tout est calcule cote serveur. Le front n'appelle JAMAIS
@@ -78,6 +103,16 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
   et ne reutilisera JAMAIS `subscription-invoices` ; "invoice" / "facture" seul lui est reserve, tout ce
   qui touche l'abonnement porte `subscription` / "d'abonnement". Detail :
   [docs/claude/factures-abonnement.md](docs/claude/factures-abonnement.md).
+- Facturation des clients (`features/invoices`, `features/clients`) : une facture EMISE ne se
+  modifie ni ne se supprime, on l'annule par un avoir. Seul un brouillon se modifie ou se supprime. Ne
+  jamais recalculer les totaux d'une facture cote front, ni rejouer cote front la cascade qui choisit
+  le client facture (`customerId` -> `command.orderer` -> `tour.client` -> destinataire). Detail :
+  [docs/claude/facturation-clients.md](docs/claude/facturation-clients.md).
+- Une tournee, une config de tournee automatique et un token d'import portent chacun un `client`
+  facultatif (donneur d'ordre par defaut, `null` sur tout l'existant), sans aucun effet sur
+  l'itineraire. A la mise a jour : `clientId` pose, `clearClient: true` retire, rien = INCHANGE
+  (`clientLinkPatch`, `src/lib/client-link.ts`). Detail :
+  [docs/claude/tournees.md](docs/claude/tournees.md).
 - Les endpoints de modification de tournee renvoient le trajet recalcule : appliquer la reponse au cache,
   ne pas refetch. L'ordre de passage n'est jamais enregistre automatiquement.
 - Ne jamais envoyer de chaine vide involontaire sur un champ pharmacie (le mapper ignore `null`, une
@@ -94,8 +129,10 @@ config via `src/lib/config.ts`, jamais `import.meta.env` ailleurs.
 | Cartes Mapbox (`src/components/map/`), API spring-org, geocodage | [docs/claude/cartes-et-geocodage.md](docs/claude/cartes-et-geocodage.md) |
 | Page Expeditions, attribution par zone, repartition auto (Beta) | [docs/claude/expeditions.md](docs/claude/expeditions.md) |
 | Ordre de passage des tournees, ETA, creneaux de livraison | [docs/claude/tournees.md](docs/claude/tournees.md) |
-| Pharmacies (coordonnees, page fiche / edition / creation), page commande | [docs/claude/pharmacies-et-commandes.md](docs/claude/pharmacies-et-commandes.md) |
+| Page commande, position de livraison, identite CIP / id | [docs/claude/commandes-et-positions.md](docs/claude/commandes-et-positions.md) |
 | Factures d'abonnement (Movix -> entreprise), notification `SUBSCRIPTION_INVOICE` | [docs/claude/factures-abonnement.md](docs/claude/factures-abonnement.md) |
+| Facturation des clients : factures, avoirs, "Facturer" | [docs/claude/facturation-clients.md](docs/claude/facturation-clients.md) |
+| Clients (referentiel unique : pharmacies et clients factures, `/clients`) | [docs/claude/clients.md](docs/claude/clients.md) |
 | Fiche de facturation de l'entreprise (`/account/billing`, PUT = remplacement complet) | [docs/claude/facturation-entreprise.md](docs/claude/facturation-entreprise.md) |
 
 Toute nouvelle regle d'un domaine va dans son fichier `docs/claude/`, pas ici. Ici : seulement ce qui

@@ -2,6 +2,38 @@
 
 Detail extrait de CLAUDE.md. A lire avant de modifier ce domaine.
 
+## Donneur d'ordre d'une tournee
+Une tournee, une configuration de tournee automatique et un token d'import portent chacun un
+`client` facultatif (`ClientRef` : `id`, `type`, `code`, `name`, `city`, `postalCode`), `null` sur
+tout l'existant. C'est le donneur d'ordre applique par defaut ; il ne change RIEN a l'itineraire,
+a l'optimisation, a la repartition ni aux ETA.
+- Tournee (`Tour.client`) : facture les commandes de la tournee qui n'ont pas de donneur d'ordre a
+  elles. Affiche et modifiable dans le panneau "Informations" de `TourInfo`
+  (`src/pages/tours-page.tsx`), sous le meme bouton Modifier que le reste (donc bloque quand la
+  tournee est cloturee). Selectionnable aussi a la creation (`CreateTourDialog`).
+- Configuration de tournee automatique (`TourConfig.client`) : recopie sur CHAQUE tournee que le
+  planificateur cree ensuite, jamais retroactivement sur celles deja generees - le libelle du champ
+  le dit explicitement (`tourConfigs.form.clientHint`). Une duplication de config ne reprend pas le
+  donneur d'ordre, comme la zone et le chauffeur.
+- Token d'import (`ImporterToken.client`) : applique a toutes les commandes importees avec ce token,
+  **meme si le flux annonce un expediteur different** dans son bloc `sender` ; le flux est alors
+  ignore. Quand le donneur d'ordre vient du token, l'**expediteur de la commande reste vide** (un
+  token dit qui commande la course, pas d'ou part le colis) ; quand il vient du flux, l'expediteur
+  suit le donneur d'ordre. Ces deux phrases sont dans `apiTokens.form.clientNotice`, a ne pas
+  supprimer : sans elles personne ne devine pourquoi le `sender` du flux disparait. Le champ n'est
+  propose que si le token appartient a l'entreprise selectionnee (un hyperadmin qui cree un token
+  pour une autre entreprise ne le voit pas, le client doit appartenir a l'entreprise du token).
+
+### Convention d'ecriture (identique sur les trois routes)
+A la creation : `clientId` seul. A la mise a jour (`PUT /tours/{id}`, `PUT /tour-config/{id}`,
+`PUT /admin/importer-tokens/{id}`) : `clientId` pose ou remplace, `clearClient: true` retire, et
+**ni l'un ni l'autre = inchange** - un `clientId` absent ne doit JAMAIS effacer la configuration en
+place. Le calcul du patch est centralise dans `clientLinkPatch` (`src/lib/client-link.ts`) : ne pas
+le reecrire par ecran. Client hors de l'entreprise courante -> 404 `CLIENT_NOT_FOUND`.
+
+Le selecteur est le MEME que celui de la creation de commande : `<ClientSelectField>` +
+`<ClientSearchDialog>` (`src/components/clients/`). Ne pas en creer un autre.
+
 ## Triage des tournees (ordre de passage)
 Page dediee `src/pages/tour-order-page.tsx` (`/app/tours/:id/order`), atteinte depuis le
 panneau d'infos de la page Tournees.
@@ -75,7 +107,7 @@ panneau d'infos de la page Tournees.
   (24 h, sans date ni fuseau, afficher tel quel). Bornes independantes, un creneau peut passer minuit :
   ne JAMAIS valider `start < end`. Sur le PUT, `null` explicite efface la borne, cle absente = inchange
   (`buildUpdatePayload` envoie `null` quand le toggle est decoche ou le champ vide).
-- UI : `<DeliveryWindowFields>` (`src/components/pharmacies/delivery-window-fields.tsx`, toggle
+- UI : `<DeliveryWindowFields>` (`src/components/delivery-window-fields.tsx`, toggle
   "Pas d'importance" par defaut + deux champs heure effacables) dans le dialog ET la page pharmacie ;
   badge `<DeliveryWindowBadge>` (`src/components/delivery-window-badge.tsx`) partout ou une pharmacie
   ou une commande est listee (`CommandDTO.pharmacyDeliveryWindowStart/End`).
